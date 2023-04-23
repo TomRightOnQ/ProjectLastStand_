@@ -1,0 +1,6 @@
+DefaultGameObjects ->Entities -> Players, Monsters
+		-> Items -> Projectiles, MapObjects
+		-> Skills, Weapons
+
+DataManager -> Instance created in Gamemanager
+Prefabmanager -> Reference for prefabs

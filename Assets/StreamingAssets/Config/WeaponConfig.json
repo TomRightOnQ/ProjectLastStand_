@@ -1,0 +1,34 @@
+[
+    {
+        "name": "DefaultPistol",
+        "id": 0,
+        "isBullet": true,
+        "attack": 5,
+        "pen": 0.1,
+        "life": 2.0,
+        "cd": 0.2,
+        "selfDet": false,
+        "projectileSpeed": 10,
+        "aoe": false,
+        "damageRange": 0.1,
+        "xOffset": 0,
+        "yOffset": 0,
+        "zOffset": 0
+    },
+    {
+        "name": "RPG",
+        "id": 1,
+        "isBullet": true,
+        "attack": 20,
+        "pen": 0.5,
+        "life": 4.0,
+        "cd": 2,
+        "selfDet": true,
+        "projectileSpeed": 5,
+        "aoe": true,
+        "damageRange": 0.5,
+        "xOffset": 0,
+        "yOffset": 0,
+        "zOffset": 0
+    }
+]

@@ -43,6 +43,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         print("Connected");
         print(PhotonNetwork.LocalPlayer.NickName);
+
+        PhotonNetwork.JoinLobby();
     }
 
     public override void OnDisconnected(DisconnectCause cause)

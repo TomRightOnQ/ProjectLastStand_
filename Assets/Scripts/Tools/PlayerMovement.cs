@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 
 // Player camera and movements
 public class PlayerMovement : MonoBehaviour

@@ -72,5 +72,10 @@ public class Players : Entities
         {
             fire();
         }
+        if (!armed) {
+            addWeapon(0, 0);
+            addWeapon(1, 1);
+            armed = true;
+        }
     }
 }

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 using static ConfigManager;
 // Main Game Manager
 
@@ -87,11 +86,6 @@ public class GameManager : MonoBehaviour
         // Test Attack
         Players[] players = dataManager.GetPlayers();
 
-        if (!players[0].Armed) {
-            players[0].GetComponent<Players>().addWeapon(0, 0);
-            players[0].GetComponent<Players>().addWeapon(1, 1);
-        }
-
         // Damage Calculation
         foreach (Projectiles proj in projPoolA)
         {
@@ -159,7 +153,7 @@ public class GameManager : MonoBehaviour
 }
 
 // Processing AOE damage
-public class DamageExplosion : MonoBehaviour
+public class DamageExplosion
 {
     public Vector3 position;
     public float damageRange;

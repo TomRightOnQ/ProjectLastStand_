@@ -7,7 +7,7 @@ using static ConfigManager;
 public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
-    private int difficulty = 1;
+    //private int difficulty = 1;
     private float spawning = 1f;
     private bool cycleBegin = false;
 

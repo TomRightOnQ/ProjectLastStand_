@@ -53,19 +53,20 @@ public class Weapons : DefaultObjects
         Projectiles proj = GameManager.Instance.dataManager.TakeProjPool();
         if (proj != null)
         {
+            Vector3 firePos = new Vector3(transform.position.x, Pos.y, transform.position.z);
             // Get a plane for bullets to move along
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Plane plane = new Plane(Vector3.up, Pos);
+            Plane plane = new Plane(Vector3.up, firePos);
             float distanceToPlane;
 
             if (plane.Raycast(ray, out distanceToPlane))
             {
                 // Get the position of mouse
                 Vector3 mousePosition = ray.GetPoint(distanceToPlane);
-                Vector3 direction = (mousePosition - Pos).normalized;
+                Vector3 direction = (mousePosition - firePos).normalized;
 
                 // Config the Projectile
-                proj.transform.position = Pos;
+                proj.transform.position = transform.position;
                 proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
                 proj.Damage = attack;
                 proj.Owner = playerIdx;

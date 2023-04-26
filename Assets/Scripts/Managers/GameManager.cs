@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     private MonsterConfig[] monsterData;
     private WeaponConfig[] WeaponData;
     private List<DamageExplosion> damageExplosions = new List<DamageExplosion>();
-
+    public List<DamageExplosion> DamageExplosions { get {return damageExplosions; } }
     public static GameManager Instance
     {
         get
@@ -86,41 +86,7 @@ public class GameManager : MonoBehaviour
         // Test Attack
         Players[] players = dataManager.GetPlayers();
 
-        // Damage Calculation
-        foreach (Projectiles proj in projPoolA)
-        {
-            if (proj != null && proj.gameObject.activeSelf && proj.Player)
-            {
-                foreach (Monsters monster in monsterPoolA)
-                {
-                    if (monster != null && monster.gameObject.activeSelf && monster.gameObject.CompareTag("Monster"))
-                    {
-                        if (proj.GetComponent<Collider>().bounds.Intersects(monster.GetComponent<Collider>().bounds))
-                        {
-                            if (!proj.AOE)
-                            {
-                                Debug.Log("Has taken damage");
-                                monster.TakeDamage(proj.Damage);
-                                proj.Deactivate();
-                                GameManager.Instance.monsterManager.despawnCheck(monster);
-                                break;
-                            }
-                            else {
-                                damageExplosions.Add(new DamageExplosion(proj.transform.position, proj.DamageRange, proj.Damage));
-                                proj.Deactivate();
-                            }
-
-                        }
-                    }
-                }
-            }
-            else if (!proj.gameObject.activeSelf)
-            {
-                GameManager.Instance.dataManager.RemoveDeactivatedProj(proj);
-            }
-        }
         // AOE
-
         foreach (DamageExplosion explosion in damageExplosions)
         {
             // Early termination

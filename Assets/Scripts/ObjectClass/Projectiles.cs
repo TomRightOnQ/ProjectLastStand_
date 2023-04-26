@@ -13,7 +13,7 @@ public class Projectiles : Items
     // Projectile stats
     [SerializeField] private float damage = 1;
     [SerializeField] private int owner = 0;
-    [SerializeField] private float life = 6.0f;
+    [SerializeField] private float life = 1.0f;
     [SerializeField] private bool selfDet = false;
     [SerializeField] private bool player = false;
     [SerializeField] private bool pen = false;
@@ -86,5 +86,31 @@ public class Projectiles : Items
     {
         gameObject.SetActive(false);
         transform.position = new Vector3(-10f, -10f, -10f);
+        GameManager.Instance.dataManager.RemoveDeactivatedProj(this);
+    }
+
+    // Damage Detection
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Monster"))
+        {
+            Monsters monster = other.gameObject.GetComponent<Monsters>();
+            if (monster != null && monster.gameObject.activeSelf)
+            {
+                if (!AOE)
+                {
+                    Debug.Log("Has taken damage");
+                    monster.TakeDamage(Damage);
+                    Deactivate();
+                    GameManager.Instance.monsterManager.despawnCheck(monster);
+                }
+                else
+                {
+                    // Push to AOE list
+                    GameManager.Instance.DamageExplosions.Add(new DamageExplosion(transform.position, DamageRange, Damage));
+                    Deactivate();
+                }
+            }
+        }
     }
 }

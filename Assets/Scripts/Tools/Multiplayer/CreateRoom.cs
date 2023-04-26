@@ -10,6 +10,8 @@ using TMPro;
 public class CreateRoom : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TMP_InputField roomName;
+    [SerializeField] private CreateOrJoinCanvas createOrJoinCanvas;
+    [SerializeField] private CurrentRoomCanvas currentRoomCanvas;
 
     public void OnClickRoom() {
         if (!PhotonNetwork.IsConnected) {
@@ -22,6 +24,8 @@ public class CreateRoom : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom() {
         Debug.Log("Created room successfully");
+        createOrJoinCanvas.Hide();
+        currentRoomCanvas.Show();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message) {

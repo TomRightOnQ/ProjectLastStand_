@@ -70,7 +70,7 @@ public class Weapons : DefaultObjects
                 proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
                 proj.Damage = attack;
                 proj.Owner = playerIdx;
-                proj.Life = 10.0f;
+                proj.Life = life;
                 proj.SelfDet = true;
                 proj.Player = true;
                 proj.AOE = aoe;

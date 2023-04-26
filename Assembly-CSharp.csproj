@@ -64,18 +64,22 @@
     <Compile Include="Assets\Scripts\Managers\NetworkManager.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatAppIdCheckerUI.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\AppSettingsExtensions.cs" />
+    <Compile Include="Assets\Scripts\Tools\Multiplayer\RoomListing.cs" />
     <Compile Include="Assets\Scripts\Managers\ScriptableSingleton.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChannelSelector.cs" />
     <Compile Include="Assets\Scripts\Managers\MonsterManager.cs" />
+    <Compile Include="Assets\Scripts\Tools\SingletonReferences.cs" />
     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\EventSystemSpawner.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Players.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Monsters.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items.cs" />
+    <Compile Include="Assets\Scripts\Tools\Multiplayer\CreateRoom.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextButtonTransition.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\DefaultObjects.cs" />
+    <Compile Include="Assets\Scripts\Tools\Multiplayer\RoomListingsMenu.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Weapons.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
     <Compile Include="Assets\Scripts\Managers\ConfigManager.cs" />
@@ -88,10 +92,12 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextToggleIsOnTransition.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Projectiles.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
-    <Compile Include="Assets\Scripts\Tools\Multiplayer\CreateRoom.cs" />
-    <Compile Include="Assets\Scripts\Tools\Multiplayer\RoomListingsMenu.cs" />
-    <Compile Include="Assets\Scripts\Tools\Multiplayer\RoomListing.cs" />
-    <Compile Include="Assets\Scripts\Tools\SingletonReferences.cs" />
+    <Compile Include="Assets\Scripts\Tools\Multiplayer\CreateOrJoinCanvas.cs" />
+    <Compile Include="Assets\Scripts\Tools\Multiplayer\CurrentRoomCanvas.cs" />
+    <Compile Include="Assets\Scripts\Tools\Multiplayer\RoomsCanvases.cs" />
+    <Compile Include="Assets\Scripts\Tools\Multiplayer\PlayerListing.cs" />
+    <Compile Include="Assets\Scripts\Tools\Multiplayer\PlayerListingsMenu.cs" />
+    <Compile Include="Assets\Scripts\Tools\ExtTransforms.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

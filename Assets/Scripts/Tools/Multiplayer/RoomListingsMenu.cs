@@ -9,8 +9,16 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Transform content;
     [SerializeField] private RoomListing roomListing;
+    [SerializeField] private CreateOrJoinCanvas createOrJoinCanvas;
+    [SerializeField] private CurrentRoomCanvas currentRoomCanvas;
 
     private List<RoomListing> _listings = new List<RoomListing>();
+
+    public override void OnJoinedRoom()
+    {
+        createOrJoinCanvas.Hide();
+        currentRoomCanvas.Show();
+    }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList) 
     {

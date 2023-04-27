@@ -13,11 +13,18 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
     [SerializeField] private CurrentRoomCanvas currentRoomCanvas;
 
     private List<RoomListing> _listings = new List<RoomListing>();
+    private RoomsCanvases roomsCanvases;
 
     public override void OnJoinedRoom()
     {
         createOrJoinCanvas.Hide();
         currentRoomCanvas.Show();
+        content.DestryChildren();
+        _listings.Clear();
+    }
+    public void FirstInitialize(RoomsCanvases canvases)
+    {
+        roomsCanvases = canvases;
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList) 
@@ -33,11 +40,15 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
                 }
             }
             else {
-                RoomListing listing = (RoomListing)Instantiate(roomListing, content);
-                if (listing != null)
+                int index = _listings.FindIndex(x => x.RoomInfo.Name == info.Name);
+                if (index == -1)
                 {
-                    listing.SetRoomInfo(info);
-                    _listings.Add(listing);
+                    RoomListing listing = (RoomListing)Instantiate(roomListing, content);
+                    if (listing != null)
+                    {
+                        listing.SetRoomInfo(info);
+                        _listings.Add(listing);
+                    }
                 }
             }
         }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class CreateOrJoinCanvas : MonoBehaviour
 {
     [SerializeField] private CreateRoom createRoom;
+    [SerializeField] private RoomListingsMenu roomListingsMenu;
     private RoomsCanvases roomsCanvases;
 
     public void FirstInitialized(RoomsCanvases canvases)

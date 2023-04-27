@@ -9,12 +9,22 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Transform content;
     [SerializeField] private PlayerListing playerListing;
-
+    [SerializeField] private RoomsCanvases roomsCanvases;
     private List<PlayerListing> _listings = new List<PlayerListing>();
 
     private void Awake()
     {
         GerCurrentRoomPlayers();
+    }
+
+    public void FirstInitialize(RoomsCanvases canvases)
+    {
+        roomsCanvases = canvases;
+    }
+
+    public override void OnLeftRoom()
+    {
+        content.DestryChildren();
     }
 
     private void GerCurrentRoomPlayers() 

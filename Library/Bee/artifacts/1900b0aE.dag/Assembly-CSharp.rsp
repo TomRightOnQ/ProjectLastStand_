@@ -400,6 +400,7 @@
 "Assets/Scripts/Tools/Multiplayer/CreateOrJoinCanvas.cs"
 "Assets/Scripts/Tools/Multiplayer/CreateRoom.cs"
 "Assets/Scripts/Tools/Multiplayer/CurrentRoomCanvas.cs"
+"Assets/Scripts/Tools/Multiplayer/LeaveRoomMenu.cs"
 "Assets/Scripts/Tools/Multiplayer/PlayerListing.cs"
 "Assets/Scripts/Tools/Multiplayer/PlayerListingsMenu.cs"
 "Assets/Scripts/Tools/Multiplayer/RoomListing.cs"

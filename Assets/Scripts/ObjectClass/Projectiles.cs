@@ -79,12 +79,10 @@ public class Projectiles : Items
     private void OnDisable()
     {
         CancelInvoke("Deactivate");
-
     }
 
     public void Deactivate()
     {
-        gameObject.SetActive(false);
         transform.position = new Vector3(-10f, -10f, -10f);
         GameManager.Instance.dataManager.RemoveDeactivatedProj(this);
     }
@@ -99,13 +97,15 @@ public class Projectiles : Items
             {
                 if (!AOE)
                 {
+                    gameObject.SetActive(false);
                     Debug.Log("Has taken damage");
-                    monster.TakeDamage(Damage);
                     Deactivate();
+                    monster.TakeDamage(Damage);
                     GameManager.Instance.monsterManager.despawnCheck(monster);
                 }
                 else
                 {
+                    gameObject.SetActive(false);
                     // Push to AOE list
                     GameManager.Instance.DamageExplosions.Add(new DamageExplosion(transform.position, DamageRange, Damage));
                     Deactivate();

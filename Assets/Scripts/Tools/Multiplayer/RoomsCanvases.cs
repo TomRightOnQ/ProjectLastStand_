@@ -21,4 +21,13 @@ public class RoomsCanvases : MonoBehaviour
         CreateOrJoinCanvas.FirstInitialized(this);
         CurrentRoomCanvas.FirstInitialized(this);
     }
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 }

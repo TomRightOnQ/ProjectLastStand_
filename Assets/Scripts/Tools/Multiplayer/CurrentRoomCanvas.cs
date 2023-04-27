@@ -5,11 +5,15 @@ using UnityEngine;
 // Controls the entered multiplayer room
 public class CurrentRoomCanvas : MonoBehaviour
 {
+    [SerializeField] private PlayerListingsMenu playerListingsMenu;
+    [SerializeField] private LeaveRoomMenu leaveRoomMenu;
     private RoomsCanvases roomsCanvases;
 
     public void FirstInitialized(RoomsCanvases canvases)
     {
         roomsCanvases = canvases;
+        playerListingsMenu.FirstInitialize(canvases);
+        leaveRoomMenu.FirstInitialize(canvases);
     }
 
     public void Show() 

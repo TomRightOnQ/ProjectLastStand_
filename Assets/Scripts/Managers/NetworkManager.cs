@@ -34,6 +34,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         print("Connecting...");
         Debug.Log(MasterManager.GameSettings);
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.NickName = MasterManager.GameSettings.NickName; 
         PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings();

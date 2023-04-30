@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\ObjectClass\DefaultObjects.cs" />
     <Compile Include="Assets\Scripts\Tools\Multiplayer\RoomListingsMenu.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Weapons.cs" />
+    <Compile Include="Assets\Scripts\Tools\Multiplayer\LeaveRoomMenu.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
     <Compile Include="Assets\Scripts\Tools\Multiplayer\RoomsCanvases.cs" />
     <Compile Include="Assets\Scripts\Managers\ConfigManager.cs" />
@@ -98,7 +99,7 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextToggleIsOnTransition.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Projectiles.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
-    <Compile Include="Assets\Scripts\Tools\Multiplayer\LeaveRoomMenu.cs" />
+    <Compile Include="Assets\Scripts\Tools\Multiplayer\RandomProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

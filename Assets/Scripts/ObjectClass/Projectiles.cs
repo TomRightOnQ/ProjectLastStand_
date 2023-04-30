@@ -84,6 +84,7 @@ public class Projectiles : Items
     public void Deactivate()
     {
         transform.position = new Vector3(-10f, -10f, -10f);
+        gameObject.SetActive(false);
         GameManager.Instance.dataManager.RemoveDeactivatedProj(this);
     }
 

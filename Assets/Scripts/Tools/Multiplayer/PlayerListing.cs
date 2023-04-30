@@ -8,6 +8,9 @@ public class PlayerListing : MonoBehaviour
 {
     [SerializeField] private TMP_InputField text;
     public Player Player { get; private set; }
+    private bool ready = false;
+
+    public bool Ready { get { return ready; } set { ready = value; } }
 
     public void SetPlayerInfo(Player p) 
     {

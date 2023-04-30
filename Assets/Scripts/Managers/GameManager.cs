@@ -108,8 +108,10 @@ public class GameManager : MonoBehaviour
                 if (monster != null && monster.gameObject.activeSelf && monster.gameObject.CompareTag("Monster"))
                 {
                     Debug.Log("Explosion damage taken");
+                    float distance = Vector3.Distance(explosion.position, monster.transform.position);
+                    float damage = explosion.damageValue / (1 + distance/explosion.damageRange * 0.5f);
                     monster.TakeDamage(explosion.damageValue);
-                    GameManager.Instance.monsterManager.despawnCheck(monster);
+                    GameManager.Instance.monsterManager.despawnCheck(monster); 
                 }
             }   
         }

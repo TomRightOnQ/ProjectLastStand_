@@ -403,6 +403,7 @@
 "Assets/Scripts/Tools/Multiplayer/LeaveRoomMenu.cs"
 "Assets/Scripts/Tools/Multiplayer/PlayerListing.cs"
 "Assets/Scripts/Tools/Multiplayer/PlayerListingsMenu.cs"
+"Assets/Scripts/Tools/Multiplayer/RandomProperty.cs"
 "Assets/Scripts/Tools/Multiplayer/RoomListing.cs"
 "Assets/Scripts/Tools/Multiplayer/RoomListingsMenu.cs"
 "Assets/Scripts/Tools/Multiplayer/RoomsCanvases.cs"

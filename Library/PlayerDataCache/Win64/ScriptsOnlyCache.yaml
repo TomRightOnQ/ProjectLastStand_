@@ -4,16 +4,23 @@ ScriptsOnlyBuild:
     - CreateOrJoinCanvas
     - CreateRoom
     - CurrentRoomCanvas
+    - GameManager
     - GameSettings
     - LeaveRoomMenu
     - MasterManager
+    - Monsters
     - NetworkManager
     - PlayerListing
     - PlayerListingsMenu
+    - PlayerMovement
+    - Players
+    - PrefabManager
+    - Projectiles
     - RoomListing
     - RoomListingsMenu
     - RoomsCanvases
     - SingletonReferences
+    - Weapons
     PhotonUnityNetworking.Demos.dll:
     - Photon.Pun.Demo.Asteroids.Asteroid
     - Photon.Pun.Demo.Asteroids.Bullet
@@ -123,7 +130,93 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: CreateRoom
     methodName: OnClickRoom
+  - assembly: Assembly-CSharp
+    fullTypeName: PlayerListingsMenu
+    methodName: OnClick_StartGame
   sceneClasses:
+    Assets/Scenes/GameMain.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 1558}
+    - Class: 114
+      Script: {instanceID: 1936}
+    - Class: 114
+      Script: {instanceID: 2748}
+    - Class: 114
+      Script: {instanceID: 2986}
+    - Class: 114
+      Script: {instanceID: 4476}
+    - Class: 114
+      Script: {instanceID: 4514}
+    - Class: 114
+      Script: {instanceID: 5454}
+    - Class: 114
+      Script: {instanceID: 5544}
+    - Class: 114
+      Script: {instanceID: 6194}
+    - Class: 114
+      Script: {instanceID: 6350}
+    - Class: 114
+      Script: {instanceID: 6706}
+    - Class: 114
+      Script: {instanceID: 6886}
+    - Class: 114
+      Script: {instanceID: 7390}
+    - Class: 114
+      Script: {instanceID: 7856}
+    - Class: 114
+      Script: {instanceID: 8428}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 154
+      Script: {instanceID: 0}
+    - Class: 156
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 218
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
     Assets/Scenes/MultiplayerLobby.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -152,6 +245,8 @@ ScriptsOnlyBuild:
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 89
       Script: {instanceID: 0}
     - Class: 90
       Script: {instanceID: 0}
@@ -244,25 +339,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6720}
     - Class: 114
-      Script: {instanceID: 7176}
+      Script: {instanceID: 7044}
     - Class: 114
-      Script: {instanceID: 7182}
+      Script: {instanceID: 7178}
     - Class: 114
-      Script: {instanceID: 7368}
+      Script: {instanceID: 7184}
     - Class: 114
-      Script: {instanceID: 7622}
+      Script: {instanceID: 7370}
     - Class: 114
-      Script: {instanceID: 7918}
+      Script: {instanceID: 7624}
     - Class: 114
-      Script: {instanceID: 7922}
+      Script: {instanceID: 7920}
     - Class: 114
-      Script: {instanceID: 8300}
+      Script: {instanceID: 7924}
     - Class: 114
-      Script: {instanceID: 8434}
+      Script: {instanceID: 8302}
     - Class: 114
-      Script: {instanceID: 8770}
+      Script: {instanceID: 8436}
     - Class: 114
-      Script: {instanceID: 27494}
+      Script: {instanceID: 8772}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -644,7 +739,7 @@ ScriptsOnlyBuild:
     className: PhotonRigidbody2DView
   - hash:
       serializedVersion: 2
-      Hash: a144e77f42e5da9a84192560c9480234
+      Hash: 6f836d2edbae8cf387b8b831631b86c8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerListingsMenu
@@ -1598,6 +1693,12 @@ ScriptsOnlyBuild:
     className: ThirdPersonCharacter
   - hash:
       serializedVersion: 2
+      Hash: 479a99c3d45748a9a1eb2fa39dd21604
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LeaveRoomMenu
+  - hash:
+      serializedVersion: 2
       Hash: afb97f21bf5ca1f779240368ac4bb239
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit.Forms
@@ -2096,11 +2197,12 @@ ScriptsOnlyBuild:
     className: UnityOnSliderValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 479a99c3d45748a9a1eb2fa39dd21604
+      Hash: ee98729079998eb63435f99f41b30b9e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: LeaveRoomMenu
+    className: RandomProperty
   platform: 19
   scenePathNames:
   - Assets/Scenes/MultiplayerLobby.unity
+  - Assets/Scenes/GameMain.unity
   playerPath: D:/CS/ICS168/Repo/Build/ProjectLastStand.exe

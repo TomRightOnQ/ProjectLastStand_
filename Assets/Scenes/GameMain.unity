@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad4dc8a2661a4245af0458ce306d437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataManager: {fileID: 0}
+  dataManager: {fileID: 1818597075}
   prefabManager: {fileID: 196751019}
   monsterManager: {fileID: 0}
   configManager: {fileID: 0}
@@ -859,7 +859,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []

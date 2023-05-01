@@ -124,7 +124,6 @@ public class Weapons : DefaultObjects
     private void Update()
     {
         timer += Time.deltaTime;
-        transform.rotation = transform.parent.rotation;
     }
 
     // Class properties

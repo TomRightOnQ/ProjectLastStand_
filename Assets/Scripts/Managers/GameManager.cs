@@ -51,10 +51,6 @@ public class GameManager : MonoBehaviour
 
             GameObject monsterManagerObj = new GameObject("MonsterManager");
             monsterManager = monsterManagerObj.AddComponent<MonsterManager>();
-
-            
-            GameObject dataManagerObj = new GameObject("DataManager");
-            dataManager = dataManagerObj.AddComponent<DataManager>();
             
             dataManager.initData(prefabManager);
 

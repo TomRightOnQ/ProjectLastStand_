@@ -17,12 +17,13 @@ public class Players : Entities, IPunObservable
 
     // Weapons
     private int WEAPON_COUNT = 2;
-    private Weapons[] weapons;
-    public Weapons[] WeaponList { get { return weapons; } set { weapons = value; } }
+    private List<Weapons> weapons = new List<Weapons>();
+    public List<Weapons> WeaponList { get { return weapons; } set { weapons = value; } }
     void Start()
     {
         gameObject.tag = "Player";
         prefabReference = GameManager.Instance.prefabManager;
+        Debug.Log("Ready");
     }
 
     // Sync
@@ -74,16 +75,18 @@ public class Players : Entities, IPunObservable
 
     // Attack!
     public void fire() {
-        weapons[0].Fire(transform.position, index);
-        weapons[1].Fire(transform.position, index);
+        if (weapons[0] != null)
+            weapons[0].Fire(transform.position, index);
+        if (weapons[1] != null)
+            weapons[1].Fire(transform.position, index);
     }
 
     private void Update()
     {
-        Debug.Log(weapons[0]);
         if (!armed) {
             addWeapon(0, 0);
             addWeapon(1, 1);
+            print("Player " + photonView.ViewID + " is now with weapon " + weapons[0].photonView.ViewID + " and " + weapons[1].photonView.ViewID);
             armed = true;
         }
     }

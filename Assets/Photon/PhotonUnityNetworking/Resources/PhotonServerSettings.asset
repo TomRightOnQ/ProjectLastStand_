@@ -48,6 +48,8 @@ MonoBehaviour:
   - SimulateProjectile
   - p
   - SetWeaponParent
+  - InitWeapons
+  - AddWeaponToPlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

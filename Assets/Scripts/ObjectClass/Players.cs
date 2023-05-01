@@ -1,33 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 using static ConfigManager;
 
 // All players are a Players object
-public class Players : Entities
+public class Players : Entities, IPunObservable
 {
     private PrefabManager prefabReference;
     // Player 1 - 4
     [SerializeField] private int index = 0;
     [SerializeField] private float fortune = 1;
-    [SerializeField] private bool armed = false;
+    private bool armed = false;
+    private const string PREFAB_LOC = "Prefabs/";
 
     // Weapons
     private int WEAPON_COUNT = 2;
     private Weapons[] weapons;
+    public Weapons[] WeaponList { get { return weapons; } set { weapons = value; } }
     void Start()
     {
         gameObject.tag = "Player";
-        weapons = new Weapons[WEAPON_COUNT];
         prefabReference = GameManager.Instance.prefabManager;
+    }
 
-        for (int i = 0; i < WEAPON_COUNT; i++) {
-            GameObject weaponObj = Instantiate(prefabReference.weaponPrefab, new Vector3(0.15f, 0.1f, 0.1f), Quaternion.Euler(0f, 90f, 0f));
-            weaponObj.SetActive(true);
-            weapons[i] = weaponObj.GetComponent<Weapons>();
-            weapons[i].transform.parent = transform;
+    // Sync
+    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        base.OnPhotonSerializeView(stream, info);
+
+        if (stream.IsWriting)
+        {
+
+        }
+        else
+        {
+
         }
     }
+
     public int Index
     {
         get { return index; }
@@ -68,10 +80,7 @@ public class Players : Entities
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            fire();
-        }
+        Debug.Log(weapons[0]);
         if (!armed) {
             addWeapon(0, 0);
             addWeapon(1, 1);

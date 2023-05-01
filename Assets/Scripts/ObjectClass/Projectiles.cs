@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 // Bullets
-public class Projectiles : Items
+[RequireComponent(typeof(PhotonView))]
+public class Projectiles : Items, IPunObservable
 {
     void Start()
     {
@@ -19,49 +22,66 @@ public class Projectiles : Items
     [SerializeField] private bool pen = false;
     [SerializeField] private bool aoe = false;
     [SerializeField] private float damageRange = 0.1f;
+    [SerializeField] private bool _active = false;
+
+    private bool currentState;
     private float creationTime;
 
-    public float Damage
+    public const string UPDATE_PROJ = "UpdatePosition";
+
+    // Sync
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        get { return damage; }
-        set { damage = value; }
+        // The order of writing and reading is really important
+        // Not need to send or read position data, Other component is doing this.
+        // ORDER:
+        //      0. _active
+        //      1. damage
+        //      2. owner
+        //      3. selfDet
+        //      4. player
+        //      5. pen
+        //      6. aoe
+        //      7. damageRange
+
+        if (stream.IsWriting)
+        {
+            stream.SendNext(_active);
+            stream.SendNext(damage);
+            stream.SendNext(owner);
+            stream.SendNext(life);
+            stream.SendNext(selfDet);
+            stream.SendNext(player);
+            stream.SendNext(pen);
+            stream.SendNext(aoe);
+            stream.SendNext(damageRange);
+        }
+        else
+        {
+            _active = (bool)stream.ReceiveNext();
+            damage = (float)stream.ReceiveNext();
+            owner = (int)stream.ReceiveNext();
+            life = (float)stream.ReceiveNext();
+            selfDet = (bool)stream.ReceiveNext();
+            player = (bool)stream.ReceiveNext();
+            pen = (bool)stream.ReceiveNext();
+            aoe = (bool)stream.ReceiveNext();
+            damageRange = (float)stream.ReceiveNext();
+            if (!_active && currentState) {
+                Deactivate();
+            } else if (_active && !currentState) {
+                Activate();
+            }
+        }
     }
 
-    public int Owner
-    {
-        get { return owner; }
-        set { owner = value; }
-    }
-
-    public float Life
-    {
-        get { return life; }
-        set { life = value; }
-    }
-
-    public bool SelfDet
-    {
-        get { return selfDet; }
-        set { selfDet = value; }
-    }
-
-    public bool Player
-    {
-        get { return player; }
-        set { player = value; }
-    }
-
-    public bool Pen
-    {
-        get { return pen; }
-        set { pen = value; }
-    }
-
-    public bool AOE
-    {
-        get { return aoe; }
-        set { aoe = value; }
-    }
+    public float Damage { get { return damage; } set { damage = value; } }
+    public int Owner { get { return owner; } set { owner = value; } }
+    public float Life { get { return life; } set { life = value; } }
+    public bool SelfDet { get { return selfDet; } set { selfDet = value; } }
+    public bool Player { get { return player; } set { player = value; } }
+    public bool Pen { get { return pen; } set { pen = value; } }
+    public bool AOE { get { return aoe; } set { aoe = value; } }
 
     public float DamageRange
     {
@@ -70,20 +90,54 @@ public class Projectiles : Items
     }
 
     // Control the lifespan of a projectile
-    private void OnEnable()
+    public override void OnEnable()
     {
         creationTime = Time.time;
         Invoke("Deactivate", life);
     }
 
-    private void OnDisable()
+    public override void OnDisable()
     {
         CancelInvoke("Deactivate");
     }
 
+    public void Activate()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("_activate", RpcTarget.All);
+        }
+        else
+        {
+            _activate();
+        }
+    }
+
     public void Deactivate()
     {
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("_deactivate", RpcTarget.All);
+        }
+        else
+        {
+            _deactivate();
+        }
+    }
+
+    [PunRPC]
+    private void _activate()
+    {
+        gameObject.SetActive(true);
+    }
+
+    // Dying
+    [PunRPC]
+    private void _deactivate()
+    {
         transform.position = new Vector3(-10f, -10f, -10f);
+        _active = false;
+        currentState = false;
         gameObject.SetActive(false);
         GameManager.Instance.dataManager.RemoveDeactivatedProj(this);
     }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 // Player camera and movements
 public class PlayerMovement : MonoBehaviour
@@ -17,11 +19,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        /*
-        if (!IsOwner) {
+        if (!player.photonView.IsMine || !Application.isFocused)
+        {
             return;
         }
-        */
+        if (Input.GetMouseButton(0))
+        {
+            player.fire();
+        }
         float horizontalInput = 0.0f;
         float verticalInput = 0.0f;
 

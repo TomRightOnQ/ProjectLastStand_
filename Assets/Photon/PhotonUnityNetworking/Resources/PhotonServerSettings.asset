@@ -40,6 +40,14 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RPC_ChangeReadyState
+  - FireBullet
+  - UpdatePosition
+  - _activate
+  - _deactivate
+  - ActivateProjectile
+  - SimulateProjectile
+  - p
+  - SetWeaponParent
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

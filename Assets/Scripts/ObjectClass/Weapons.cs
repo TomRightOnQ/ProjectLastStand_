@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 using static ConfigManager;
 
 // Define Weapons
@@ -20,7 +22,9 @@ public class Weapons : DefaultObjects
     [SerializeField] private float damageRange = 0.1f;
     [SerializeField] private bool aoe = false;
 
+    public const string UPDATE_PROJ = "UpdatePosition";
     private float timer = 0;
+
     // Morph the weapon
     public void SetWeapons(WeaponConfig weaponConfigs)
     {
@@ -53,6 +57,7 @@ public class Weapons : DefaultObjects
         Projectiles proj = GameManager.Instance.dataManager.TakeProjPool();
         if (proj != null)
         {
+            int projectileID = proj.photonView.ViewID;
             Vector3 firePos = new Vector3(transform.position.x, Pos.y, transform.position.z);
             // Get a plane for bullets to move along
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -74,15 +79,52 @@ public class Weapons : DefaultObjects
                 proj.SelfDet = true;
                 proj.Player = true;
                 proj.AOE = aoe;
-                direction.y = 0f;
                 proj.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
+                proj.Activate();
+
+                if (PhotonNetwork.IsConnected)
+                {
+                    photonView.RPC("SimulateProjectile", RpcTarget.Others, projectileID, firePos, direction, projectileSpeed);
+                }
             }
         }
+    }
+
+    // Simulating a projectile
+    [PunRPC]
+    private void SimulateProjectile(int projectileID, Vector3 firePos, Vector3 direction, float speed)
+    {
+        Debug.Log("Simulating " + projectileID.ToString());
+        // Get projectile from pool
+        Projectiles proj = PhotonView.Find(projectileID).GetComponent<Projectiles>();
+        if (proj != null)
+        {
+            // Config the Projectile
+            proj.transform.position = firePos;
+            proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            proj.Damage = attack;
+            proj.Owner = photonView.ViewID;
+            proj.Life = life;
+            proj.SelfDet = true;
+            proj.Player = true;
+            proj.AOE = aoe;
+            proj.GetComponent<Rigidbody>().velocity = direction * speed;
+        }
+    }
+    public void SetRotation(Vector3 targetPosition)
+    {
+        transform.LookAt(targetPosition);
+    }
+
+    public void SetRotation(Quaternion rotation)
+    {
+        transform.localRotation = rotation;
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
+        transform.rotation = transform.parent.rotation;
     }
 
     // Class properties

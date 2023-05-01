@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 // All in-game DATA is stored here
 
@@ -19,14 +21,18 @@ public class DataManager : MonoBehaviour
     // Projectiles
     private List<Projectiles> projPool = new List<Projectiles>();
     private List<Projectiles> projPoolA = new List<Projectiles>();
-    public const int PROJ_COUNT = 100;
+    public const int PROJ_COUNT = 10;
 
+    private const string PREFAB_LOC = "Prefabs/";
+    private int WEAPON_COUNT = 2;
     private float exp = 0;
     // Set up a reference sheet of objects
     public void initData(PrefabManager prefabReference)
     {
         PrefabReference = prefabReference;
-        initPool();
+        if (PhotonNetwork.IsMasterClient) {
+            initPool();
+        }
     }
 
     // Init pools
@@ -41,17 +47,31 @@ public class DataManager : MonoBehaviour
         }
 
         // Place the players in the field
-        for (int i = 0; i < PLAYER_COUNT; i++)
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            GameObject playerObj = Instantiate(PrefabReference.playerPrefab, new Vector3(0f, 0.1f, 0f), Quaternion.identity);
-            playerObj.SetActive(true);
+            GameObject playerObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabReference.playerPrefab.name, new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            // GameObject playerObj = Instantiate(PrefabReference.playerPrefab, new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            playerObj.SetActive(true); 
             playerList.Add(playerObj.GetComponent<Players>());
+            playerList[i].WeaponList = new Weapons[WEAPON_COUNT];
+            for (int j = 0; j < WEAPON_COUNT; j++)
+            {
+                GameObject weaponObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabReference.weaponPrefab.name, new Vector3(0.15f, 0.1f, 0.1f), Quaternion.Euler(0f, 90f, 0f));
+                weaponObj.SetActive(true);
+                Weapons weapon = weaponObj.GetComponent<Weapons>();
+                weapon.transform.parent = playerObj.transform;
+                playerList[i].WeaponList[j] = weapon; // Add weapon to the player
+            }
+
+            // Assigning to players
+            PhotonView photonView = playerObj.GetComponent<PhotonView>();
+            photonView.TransferOwnership(PhotonNetwork.PlayerList[i]);
         }
 
         // Initialize monster pool
         for (int i = 0; i < MONSTER_COUNT; i++)
         {
-            GameObject monsterObj = Instantiate(PrefabReference.monsterPrefab, dMpos, Quaternion.identity);
+            GameObject monsterObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabReference.monsterPrefab.name, dPpos, Quaternion.identity);
             monsterObj.SetActive(false);
             monsterPool.Add(monsterObj.GetComponent<Monsters>());
         }
@@ -59,7 +79,7 @@ public class DataManager : MonoBehaviour
         // Initialize projectile pool
         for (int i = 0; i < PROJ_COUNT; i++)
         {
-            GameObject projObj = Instantiate(PrefabReference.projPrefab, dPpos, Quaternion.identity);
+            GameObject projObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabReference.projPrefab.name, dPpos, Quaternion.identity);
             projObj.SetActive(false);
             projPool.Add(projObj.GetComponent<Projectiles>());
         }
@@ -74,7 +94,6 @@ public class DataManager : MonoBehaviour
         {
             if (!projPool[i].gameObject.activeSelf)
             {
-                projPool[i].gameObject.SetActive(true);
                 projPoolA.Add(projPool[i]);
                 return projPool[i];
             }
@@ -88,7 +107,7 @@ public class DataManager : MonoBehaviour
         {
             if (!monsterPool[i].gameObject.activeSelf)
             {
-                monsterPool[i].gameObject.SetActive(true);
+                monsterPool[i].Activate();
                 monsterPoolA.Add(monsterPool[i]);
                 return monsterPool[i];
             }
@@ -111,6 +130,9 @@ public class DataManager : MonoBehaviour
             monsterPoolA.Remove(monster);
         }
     }
+
+    // Synced up the projectiles
+
 
     // Return the prefabs
     public PrefabManager GetPrefabReference()

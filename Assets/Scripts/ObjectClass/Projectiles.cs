@@ -167,5 +167,10 @@ public class Projectiles : Items, IPunObservable
                 }
             }
         }
+        else if (other.CompareTag("Base"))
+        {
+            gameObject.SetActive(false);
+            Deactivate();
+        }
     }
 }

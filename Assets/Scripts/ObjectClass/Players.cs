@@ -16,7 +16,6 @@ public class Players : Entities, IPunObservable
     private const string PREFAB_LOC = "Prefabs/";
 
     // Weapons
-    private int WEAPON_COUNT = 2;
     private List<Weapons> weapons = new List<Weapons>();
     public List<Weapons> WeaponList { get { return weapons; } set { weapons = value; } }
     void Start()
@@ -75,10 +74,79 @@ public class Players : Entities, IPunObservable
 
     // Attack!
     public void fire() {
-        if (weapons[0] != null)
-            weapons[0].Fire(transform.position, index);
-        if (weapons[1] != null)
-            weapons[1].Fire(transform.position, index);
+        if (PhotonNetwork.IsMasterClient || !PhotonNetwork.IsConnected)
+        {
+            if (weapons[0] != null)
+                weapons[0].Fire(transform.position, index, GetAimDirection(0));
+            if (weapons[1] != null)
+                weapons[1].Fire(transform.position, index, GetAimDirection(1));
+        }
+        else {
+            // Run RPC to let master using weapon 0 and 1's View ID to fire
+            int weapon1ViewID = -1;
+            int weapon2ViewID = -1;
+            if (weapons[0] != null)
+                weapon1ViewID = weapons[0].photonView.ViewID;
+            if (weapons[1] != null)
+                weapon2ViewID = weapons[1].photonView.ViewID;
+            photonView.RPC("FireForPlayer", RpcTarget.MasterClient, weapon1ViewID, weapon2ViewID, index, photonView.ViewID, GetAimDirection(0), GetAimDirection(1));
+        }
+    }
+
+    private Vector3 GetAimDirection(int weaponIndex)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector3 groundPosition = hit.point;
+            Vector3 weaponPosition = weapons[weaponIndex].transform.position;
+            Vector3 direction = (groundPosition - weaponPosition).normalized;
+            direction.y = 0;
+            direction.Normalize();
+            return direction;
+        }
+        return Vector3.zero;
+    }
+
+    // For client firing, let master do it
+    [PunRPC]
+    private void FireForPlayer(int weapon1ViewID, int weapon2ViewID, int index, int playerViewID, Vector3 direction0, Vector3 direction1, PhotonMessageInfo info)
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            Debug.LogWarning("FireForPlayer RPC called on non-master client");
+            return;
+        }
+        PhotonView playerView = PhotonView.Find(playerViewID);
+        Players player = playerView.GetComponent<Players>();
+
+        if (weapon1ViewID != -1)
+        {
+            PhotonView weapon1View = PhotonView.Find(weapon1ViewID);
+            if (weapon1View != null)
+            {
+                Weapons weapon = weapon1View.GetComponent<Weapons>();
+                if (weapon != null)
+                {
+                    weapon.Fire(player.transform.position, index, direction0);
+                }
+            }
+        }
+
+        if (weapon2ViewID != -1)
+        {
+            PhotonView weapon2View = PhotonView.Find(weapon2ViewID);
+            if (weapon2View != null)
+            {
+                Weapons weapon = weapon2View.GetComponent<Weapons>();
+                if (weapon != null)
+                {
+                    weapon.Fire(player.transform.position, index, direction1);
+                }
+            }
+        }
     }
 
     private void Update()

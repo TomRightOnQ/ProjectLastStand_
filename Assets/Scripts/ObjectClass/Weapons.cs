@@ -41,17 +41,20 @@ public class Weapons : DefaultObjects
     }
 
     // Fire based on type
-    public void Fire(Vector3 Pos, int playerIdx) {
-        if (timer < cd) {
+    public void Fire(Vector3 Pos, int playerIdx, Vector3 direction)
+    {
+        if (timer < cd)
+        {
             return;
         }
-        if (isBullet) {
-            FireBullet(Pos, playerIdx);
+        if (isBullet)
+        {
+            FireBullet(Pos, playerIdx, direction);
         }
         timer = 0;
     }
 
-    private void FireBullet(Vector3 Pos, int playerIdx)
+    private void FireBullet(Vector3 Pos, int playerIdx, Vector3 direction)
     {
         // Get projectile from pool
         Projectiles proj = GameManager.Instance.dataManager.TakeProjPool();
@@ -59,33 +62,21 @@ public class Weapons : DefaultObjects
         {
             int projectileID = proj.photonView.ViewID;
             Vector3 firePos = new Vector3(transform.position.x, Pos.y, transform.position.z);
-            // Get a plane for bullets to move along
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Plane plane = new Plane(Vector3.up, firePos);
-            float distanceToPlane;
+            // Config the Projectile
+            proj.transform.position = transform.position;
+            proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            proj.Damage = attack;
+            proj.Owner = playerIdx;
+            proj.Life = life;
+            proj.SelfDet = true;
+            proj.Player = true;
+            proj.AOE = aoe;
+            proj.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
+            proj.Activate();
 
-            if (plane.Raycast(ray, out distanceToPlane))
+            if (PhotonNetwork.IsConnected)
             {
-                // Get the position of mouse
-                Vector3 mousePosition = ray.GetPoint(distanceToPlane);
-                Vector3 direction = (mousePosition - firePos).normalized;
-
-                // Config the Projectile
-                proj.transform.position = transform.position;
-                proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-                proj.Damage = attack;
-                proj.Owner = playerIdx;
-                proj.Life = life;
-                proj.SelfDet = true;
-                proj.Player = true;
-                proj.AOE = aoe;
-                proj.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
-                proj.Activate();
-
-                if (PhotonNetwork.IsConnected)
-                {
-                    photonView.RPC("SimulateProjectile", RpcTarget.Others, projectileID, firePos, direction, projectileSpeed);
-                }
+                photonView.RPC("SimulateProjectile", RpcTarget.Others, projectileID, firePos, direction, projectileSpeed);
             }
         }
     }

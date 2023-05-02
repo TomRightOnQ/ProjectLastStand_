@@ -344,6 +344,7 @@
 "Assets/Scripts/Managers/Online/NetworkManager.cs"
 "Assets/Scripts/Managers/PrefabManager.cs"
 "Assets/Scripts/Managers/ScriptableSingleton.cs"
+"Assets/Scripts/ObjectClass/Base.cs"
 "Assets/Scripts/ObjectClass/DefaultObjects.cs"
 "Assets/Scripts/ObjectClass/Entities.cs"
 "Assets/Scripts/ObjectClass/Items.cs"

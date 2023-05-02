@@ -9,7 +9,7 @@ using static ConfigManager;
 public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
-    //private int difficulty = 1;
+    private int difficulty = 1;
     private float spawning = 1f;
     private bool cycleBegin = false;
 
@@ -25,14 +25,34 @@ public class MonsterManager : MonoBehaviour
 
     IEnumerator SpawnCoroutine()
     {
+        float elapsed = 0f;
         while (true && cycleBegin)
         {
-            yield return new WaitForSeconds(spawning);
+            elapsed += Time.deltaTime;
+            float timePerSpawn = spawning / Mathf.Min(4, difficulty);
+            if (elapsed >= timePerSpawn)
+            {
+                elapsed -= timePerSpawn;
 
-            Vector3 pos = new Vector3(Random.Range(-2, 2), 0.1f, (Random.Range(-2, 2)));
-            // AOE Test
-            //Vector3 pos = new Vector3(0, 0.1f, 0);
-            spawn(pos, 0);
+                Vector3 pos = Vector3.zero;
+                float distance = 5.0f;
+                float distanceSqr = distance * distance;
+                while (true)
+                {
+                    pos = new Vector3(Random.Range(-distance, distance), 0.1f, Random.Range(-distance, distance));
+                    if ((pos - Vector3.zero).sqrMagnitude > distanceSqr)
+                    {
+                        break;
+                    }
+                }
+                spawn(pos, 0);
+            }
+            // Increase difficulty up to 4 over time
+            if (difficulty < 4)
+            {
+                difficulty = Mathf.FloorToInt(elapsed / 120) + 1;
+            }
+            yield return null;
         }
     }
 

@@ -13,15 +13,15 @@ public class DataManager : MonoBehaviourPunCallbacks
     // Data sectors
     // Players
     private List<Players> playerList = new List<Players>();
-    public const int PLAYER_COUNT = 1;
+    public const int PLAYER_COUNT = 4;
     // Monsters
     private List<Monsters> monsterPool = new List<Monsters>();
     private List<Monsters> monsterPoolA = new List<Monsters>();
-    public const int MONSTER_COUNT = 3;
+    public const int MONSTER_COUNT = 15;
     // Projectiles
     private List<Projectiles> projPool = new List<Projectiles>();
     private List<Projectiles> projPoolA = new List<Projectiles>();
-    public const int PROJ_COUNT = 10;
+    public const int PROJ_COUNT = 100;
     // Weapons
     private List<Weapons> weaponsPool = new List<Weapons>();
 
@@ -52,10 +52,9 @@ public class DataManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             GameObject playerObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabReference.playerPrefab.name, new Vector3(0f, 0.1f, 0f), Quaternion.identity);
-            // GameObject playerObj = Instantiate(PrefabReference.playerPrefab, new Vector3(0f, 0.1f, 0f), Quaternion.identity);
             playerObj.SetActive(true); 
             playerList.Add(playerObj.GetComponent<Players>());
-
+            playerObj.GetComponent<Players>().Index = i;
             // Assigning to players
             PhotonView photonView = playerObj.GetComponent<PhotonView>();
             photonView.TransferOwnership(PhotonNetwork.PlayerList[i]);
@@ -96,8 +95,11 @@ public class DataManager : MonoBehaviourPunCallbacks
             {
                 int playerViewID = playerList[i].photonView.ViewID;
                 int weaponViewID = weaponsPool[i * WEAPON_COUNT + j].photonView.ViewID;
+                PhotonView weaponView = weaponsPool[i * WEAPON_COUNT + j].GetComponent<PhotonView>();
+                weaponView.TransferOwnership(PhotonNetwork.PlayerList[i]);
                 photonView.RPC("AddWeaponToPlayer", RpcTarget.AllBuffered, playerViewID, weaponViewID, j);
             }
+            playerList[i].transform.position = new Vector3(Random.Range(-1.5f, 1.5f), 0.1f, (Random.Range(-1.5f, 1.5f)));
         }
     }
 

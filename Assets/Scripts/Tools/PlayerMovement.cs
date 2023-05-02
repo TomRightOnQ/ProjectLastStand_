@@ -67,8 +67,31 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, 0.0f, verticalInput);
         direction = Vector3.ClampMagnitude(direction, 1.0f);
         Vector3 movement = direction * player.Speed * Time.deltaTime;
-        transform.position += movement;
 
+        // Check for collision with the Base collider
+        Vector3 newPosition = transform.position + direction * player.Speed * Time.deltaTime;
+        Vector3 displacement = newPosition - transform.position;
+        Vector3 directionNormalized = displacement.normalized;
+        float distance = displacement.magnitude;
+
+        int defaultLayer = LayerMask.NameToLayer("Default");
+        Debug.DrawRay(transform.position, directionNormalized * distance, Color.red);
+        float playerRadius = player.GetComponent<Collider>().bounds.extents.magnitude;
+        float totalDistance = distance + playerRadius;
+
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position, directionNormalized, out hitInfo, totalDistance, 1 << defaultLayer))
+        {
+            if (hitInfo.collider.CompareTag("Base"))
+            {
+                movement = Vector3.zero;
+                Debug.Log("Hit!");
+            }
+
+        }
+
+        // Move the objects
+        transform.position += movement;
         _camera.transform.position = new Vector3(transform.position.x, _camera.transform.position.y, transform.position.z - 51.9f);
     }
 }

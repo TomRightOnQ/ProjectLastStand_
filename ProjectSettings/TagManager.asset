@@ -6,14 +6,15 @@ TagManager:
   tags:
   - Proj
   - Monster
+  - Base
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Projectiles
   - Water
   - UI
-  - 
+  - Base
   - 
   - 
   - 
@@ -48,4 +49,7 @@ TagManager:
     locked: 0
   - name: Weapons
     uniqueID: 479742767
+    locked: 0
+  - name: Base
+    uniqueID: 450873349
     locked: 0

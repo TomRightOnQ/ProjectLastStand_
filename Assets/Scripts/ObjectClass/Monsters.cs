@@ -8,14 +8,16 @@ using static ConfigManager;
 // All Monsters are one class
 public class Monsters : Entities
 {
-    void Start()
-    {
-        gameObject.tag = "Monster";
-    }
     // Monster Stats
     [SerializeField] private float exp = 1;
     [SerializeField] private int id = 1;
     private bool currentState;
+    private Vector3 targetPosition;
+    void Start()
+    {
+        gameObject.tag = "Monster";
+        targetPosition = new Vector3(0, 0.1f, 0);
+    }
 
     public float EXP
     {
@@ -68,5 +70,23 @@ public class Monsters : Entities
     void Update()
     {
         UpdateHP();
+        Vector3 direction = targetPosition - transform.position;
+        direction.y = 0;
+        direction.Normalize();
+        transform.LookAt(targetPosition);
+        transform.position += direction * speed/2 * Time.deltaTime;
+        GameManager.Instance.monsterManager.despawnCheck(this);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Base"))
+        {
+            Base _base = other.gameObject.GetComponent<Base>();
+            if (_base != null) {
+                _base.TakeDamage(defaultAttack * defaultWeaponAttack * 10);
+            }
+            currentHitPoints = -1;
+        }
     }
 }

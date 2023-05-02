@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3203253316345011773}
   - component: {fileID: -5020718716551738481}
-  - component: {fileID: 1077923511953711537}
   - component: {fileID: 1077923511953711539}
   - component: {fileID: 1077923511953711538}
   - component: {fileID: -4305973001101129076}
   - component: {fileID: 6002510203150143981}
   - component: {fileID: 1474267740820866881}
+  - component: {fileID: 224926928878471590}
+  - component: {fileID: 8961126814631490606}
   m_Layer: 0
   m_Name: Players
   m_TagString: Untagged
@@ -60,20 +61,6 @@ MonoBehaviour:
   hpS: {fileID: 0}
   index: 0
   fortune: 1
---- !u!64 &1077923511953711537
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927813109376346250}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4711208715938537054, guid: e27dd85641cbf7c459f4341002055a11, type: 3}
 --- !u!33 &1077923511953711539
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -176,3 +163,32 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!54 &224926928878471590
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927813109376346250}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 2
+--- !u!135 &8961126814631490606
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927813109376346250}
+  m_Material: {fileID: 13400000, guid: 88fd0887e37f6f042beb06f9e9066ff7, type: 2}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.01
+  m_Center: {x: -4.656613e-10, y: 0, z: 0}

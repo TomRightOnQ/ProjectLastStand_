@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1650229928}
   - component: {fileID: 1870259070}
   - component: {fileID: 2668349679522890623}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Projectiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 1
+  OwnershipTransfer: 0
   observableSearch: 0
   ObservedComponents:
   - {fileID: 6142778575632556938}

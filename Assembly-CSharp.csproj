@@ -69,9 +69,11 @@
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CreateOrJoinCanvas.cs" />
     <Compile Include="Assets\Scripts\Managers\ScriptableSingleton.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\PlayerListingsMenu.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Base.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RandomProperty.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChannelSelector.cs" />
     <Compile Include="Assets\Scripts\Managers\MonsterManager.cs" />
+    <Compile Include="Assets\Scripts\Tools\Version.cs" />
     <Compile Include="Assets\Scripts\Tools\SingletonReferences.cs" />
     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\EventSystemSpawner.cs" />
@@ -100,8 +102,6 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextToggleIsOnTransition.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Projectiles.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
-    <Compile Include="Assets\Scripts\ObjectClass\Base.cs" />
-    <Compile Include="Assets\Scripts\Tools\Version.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

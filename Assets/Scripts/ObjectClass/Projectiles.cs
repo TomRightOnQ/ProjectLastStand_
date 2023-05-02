@@ -22,9 +22,7 @@ public class Projectiles : Items, IPunObservable
     [SerializeField] private bool pen = false;
     [SerializeField] private bool aoe = false;
     [SerializeField] private float damageRange = 0.1f;
-    [SerializeField] private bool _active = false;
 
-    private bool currentState;
     private float creationTime;
 
     public const string UPDATE_PROJ = "UpdatePosition";
@@ -35,7 +33,6 @@ public class Projectiles : Items, IPunObservable
         // The order of writing and reading is really important
         // Not need to send or read position data, Other component is doing this.
         // ORDER:
-        //      0. _active
         //      1. damage
         //      2. owner
         //      3. selfDet
@@ -46,7 +43,6 @@ public class Projectiles : Items, IPunObservable
 
         if (stream.IsWriting)
         {
-            stream.SendNext(_active);
             stream.SendNext(damage);
             stream.SendNext(owner);
             stream.SendNext(life);
@@ -58,7 +54,6 @@ public class Projectiles : Items, IPunObservable
         }
         else
         {
-            _active = (bool)stream.ReceiveNext();
             damage = (float)stream.ReceiveNext();
             owner = (int)stream.ReceiveNext();
             life = (float)stream.ReceiveNext();
@@ -67,11 +62,6 @@ public class Projectiles : Items, IPunObservable
             pen = (bool)stream.ReceiveNext();
             aoe = (bool)stream.ReceiveNext();
             damageRange = (float)stream.ReceiveNext();
-            if (!_active && currentState) {
-                Deactivate();
-            } else if (_active && !currentState) {
-                Activate();
-            }
         }
     }
 
@@ -136,8 +126,6 @@ public class Projectiles : Items, IPunObservable
     private void _deactivate()
     {
         transform.position = new Vector3(-10f, -10f, -10f);
-        _active = false;
-        currentState = false;
         gameObject.SetActive(false);
         GameManager.Instance.dataManager.RemoveDeactivatedProj(this);
     }

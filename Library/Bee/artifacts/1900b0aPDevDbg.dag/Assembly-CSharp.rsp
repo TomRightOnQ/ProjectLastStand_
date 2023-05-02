@@ -367,6 +367,7 @@
 "Assets/Scripts/Tools/LobbyMultiplayer/TestConnect.cs"
 "Assets/Scripts/Tools/PlayerMovement.cs"
 "Assets/Scripts/Tools/SingletonReferences.cs"
+"Assets/Scripts/Tools/Version.cs"
 -langversion:9.0
 
 /deterministic

@@ -10,15 +10,29 @@ public class PlayerMovement : MonoBehaviour
     private Camera _camera;
     private Players player;
 
+    private bool isGameStarted = false;
+    private float globalTime = 0.0f;
+
     void Start()
     {
         player = GetComponent<Players>();
         Plane plane = new Plane(Vector3.up, transform.position);
         _camera = Camera.main;
+        globalTime = 0.0f;
+    }
+    void FixedUpdate()
+    {
+        // increment the global time in each FixedUpdate()
+        globalTime += Time.fixedDeltaTime;
     }
 
     void Update()
     {
+        if (globalTime < 1.0f)
+        {
+            return;
+        }
+
         if (!player.photonView.IsMine || !Application.isFocused)
         {
             return;

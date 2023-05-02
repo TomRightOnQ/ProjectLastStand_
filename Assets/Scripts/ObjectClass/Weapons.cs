@@ -41,7 +41,7 @@ public class Weapons : DefaultObjects
     }
 
     // Fire based on type
-    public void Fire(Vector3 Pos, int playerIdx, Vector3 direction)
+    public void Fire(int playerIdx, Vector3 direction)
     {
         if (timer < cd)
         {
@@ -49,19 +49,19 @@ public class Weapons : DefaultObjects
         }
         if (isBullet)
         {
-            FireBullet(Pos, playerIdx, direction);
+            FireBullet(playerIdx, direction);
         }
         timer = 0;
     }
 
-    private void FireBullet(Vector3 Pos, int playerIdx, Vector3 direction)
+    private void FireBullet(int playerIdx, Vector3 direction)
     {
         // Get projectile from pool
         Projectiles proj = GameManager.Instance.dataManager.TakeProjPool();
         if (proj != null)
         {
             int projectileID = proj.photonView.ViewID;
-            Vector3 firePos = new Vector3(transform.position.x, Pos.y, transform.position.z);
+            Vector3 firePos = new Vector3(transform.position.x, 0.1f, transform.position.z);
             // Config the Projectile
             proj.transform.position = transform.position;
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
@@ -76,22 +76,24 @@ public class Weapons : DefaultObjects
 
             if (PhotonNetwork.IsConnected)
             {
-                photonView.RPC("SimulateProjectile", RpcTarget.Others, projectileID, firePos, direction, projectileSpeed);
+                photonView.RPC("SimulateProjectile", RpcTarget.Others, projectileID, photonView.ViewID, firePos, direction, projectileSpeed);
             }
         }
     }
 
     // Simulating a projectile
     [PunRPC]
-    private void SimulateProjectile(int projectileID, Vector3 firePos, Vector3 direction, float speed)
+    private void SimulateProjectile(int projectileID, int weaponViewID, Vector3 firePos, Vector3 direction, float speed)
     {
-        Debug.Log("Simulating " + projectileID.ToString());
         // Get projectile from pool
         Projectiles proj = PhotonView.Find(projectileID).GetComponent<Projectiles>();
+        Weapons weapon = PhotonView.Find(weaponViewID).GetComponent<Weapons>();
+
         if (proj != null)
         {
+            Vector3 localFirePos = weapon.transform.position;
             // Config the Projectile
-            proj.transform.position = firePos;
+            proj.transform.position = localFirePos;
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             proj.Damage = attack;
             proj.Owner = photonView.ViewID;
@@ -102,6 +104,7 @@ public class Weapons : DefaultObjects
             proj.GetComponent<Rigidbody>().velocity = direction * speed;
         }
     }
+
     public void SetRotation(Vector3 targetPosition)
     {
         transform.LookAt(targetPosition);

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1650229928}
   - component: {fileID: 1870259070}
   - component: {fileID: 2668349679522890623}
+  - component: {fileID: -345533308537591901}
   m_Layer: 3
   m_Name: Projectiles
   m_TagString: Untagged
@@ -57,7 +58,6 @@ MonoBehaviour:
   pen: 0
   aoe: 0
   damageRange: 0.1
-  _active: 0
 --- !u!33 &1650229930
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -161,3 +161,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-345533308537591901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7790031011691829733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
+  m_UseLocal: 0

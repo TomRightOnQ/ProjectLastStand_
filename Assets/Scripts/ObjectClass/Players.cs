@@ -77,9 +77,9 @@ public class Players : Entities, IPunObservable
         if (PhotonNetwork.IsMasterClient || !PhotonNetwork.IsConnected)
         {
             if (weapons[0] != null)
-                weapons[0].Fire(transform.position, index, GetAimDirection(0));
+                weapons[0].Fire(index, GetAimDirection(0));
             if (weapons[1] != null)
-                weapons[1].Fire(transform.position, index, GetAimDirection(1));
+                weapons[1].Fire(index, GetAimDirection(1));
         }
         else {
             // Run RPC to let master using weapon 0 and 1's View ID to fire
@@ -130,7 +130,7 @@ public class Players : Entities, IPunObservable
                 Weapons weapon = weapon1View.GetComponent<Weapons>();
                 if (weapon != null)
                 {
-                    weapon.Fire(player.transform.position, index, direction0);
+                    weapon.Fire(index, direction0);
                 }
             }
         }
@@ -143,7 +143,7 @@ public class Players : Entities, IPunObservable
                 Weapons weapon = weapon2View.GetComponent<Weapons>();
                 if (weapon != null)
                 {
-                    weapon.Fire(player.transform.position, index, direction1);
+                    weapon.Fire(index, direction1);
                 }
             }
         }
@@ -151,7 +151,7 @@ public class Players : Entities, IPunObservable
 
     private void Update()
     {
-        if (!armed) {
+        if (!armed && weapons.Count >= 2) {
             addWeapon(0, 0);
             addWeapon(1, 1);
             print("Player " + photonView.ViewID + " is now with weapon " + weapons[0].photonView.ViewID + " and " + weapons[1].photonView.ViewID);

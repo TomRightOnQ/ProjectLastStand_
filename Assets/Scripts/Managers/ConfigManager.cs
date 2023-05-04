@@ -31,7 +31,7 @@ public class ConfigManager : MonoBehaviour
     {
         public string name;
         public int id;
-        public bool isBullet;
+        public int type;
         public float attack;
         public float pen;
         public float life;

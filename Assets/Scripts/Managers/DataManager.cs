@@ -40,8 +40,8 @@ public class DataManager : MonoBehaviourPunCallbacks
     // Init pools
     private void initPool() 
     {
-        Vector3 dPpos = new Vector3(-10f, -10f, -10f);
-        Vector3 dMpos = new Vector3(10f, -10f, 10f);
+        Vector3 dPpos = new Vector3(-10f, -20f, -20f);
+        Vector3 dMpos = new Vector3(10f, -20f, 20f);
         if (PrefabReference == null)
         {
             Debug.LogError("Prefab reference is null in DataManager.Awake!");
@@ -82,7 +82,7 @@ public class DataManager : MonoBehaviourPunCallbacks
         int numWeapons = WEAPON_COUNT * PhotonNetwork.PlayerList.Length;
         for (int i = 0; i < numWeapons; i++)
         {
-            GameObject weaponObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabReference.weaponPrefab.name, new Vector3(0.15f, 0.1f, 0.1f), Quaternion.Euler(0f, 90f, 0f));
+            GameObject weaponObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabReference.weaponPrefab.name, new Vector3(-1.25f, 0.88f, 0.6f), Quaternion.Euler(0f, 0f, 0f));
             weaponObj.SetActive(true);
             Weapons weapon = weaponObj.GetComponent<Weapons>();
             weaponsPool.Add(weapon);
@@ -99,7 +99,7 @@ public class DataManager : MonoBehaviourPunCallbacks
                 weaponView.TransferOwnership(PhotonNetwork.PlayerList[i]);
                 photonView.RPC("AddWeaponToPlayer", RpcTarget.AllBuffered, playerViewID, weaponViewID, j);
             }
-            playerList[i].transform.position = new Vector3(Random.Range(-1.5f, 1.5f), 0.1f, (Random.Range(-1.5f, 1.5f)));
+            playerList[i].transform.position = new Vector3(Random.Range(-25f, 25f), 0.1f, (Random.Range(-25f, 25f)));
         }
     }
 

@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     private Camera _camera;
     private Players player;
 
-    private bool isGameStarted = false;
     private float globalTime = 0.0f;
 
     void Start()
@@ -80,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         // Move based on the direction of the WASD keys
         Vector3 direction = new Vector3(horizontalInput, 0.0f, verticalInput);
         direction = Vector3.ClampMagnitude(direction, 1.0f);
-        Vector3 movement = direction * player.Speed * Time.deltaTime;
+        Vector3 movement = direction * player.Speed * 18.0f * Time.deltaTime;
 
         // Check for collision with the Base collider
         Vector3 newPosition = transform.position + direction * player.Speed * Time.deltaTime;
@@ -89,19 +88,16 @@ public class PlayerMovement : MonoBehaviour
         float distance = displacement.magnitude;
 
         int defaultLayer = LayerMask.NameToLayer("Default");
-        Debug.DrawRay(transform.position, directionNormalized * distance, Color.red);
         float playerRadius = player.GetComponent<Collider>().bounds.extents.magnitude;
         float totalDistance = distance + playerRadius;
 
         RaycastHit hitInfo;
         if (Physics.Raycast(transform.position, directionNormalized, out hitInfo, totalDistance, 1 << defaultLayer))
         {
-            if (hitInfo.collider.CompareTag("Base"))
+            if (hitInfo.collider.CompareTag("Base") || hitInfo.collider.CompareTag("Wall"))
             {
                 movement = Vector3.zero;
-                Debug.Log("Hit!");
             }
-
         }
 
         // Move the objects

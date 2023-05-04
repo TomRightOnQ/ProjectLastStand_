@@ -74,26 +74,28 @@ public class Players : Entities, IPunObservable
 
     // Attack!
     public void fire() {
-        if (PhotonNetwork.IsMasterClient || !PhotonNetwork.IsConnected)
-        {
-            if (weapons[0] != null)
-                weapons[0].Fire(index, GetAimDirection(0));
-            if (weapons[1] != null)
-                weapons[1].Fire(index, GetAimDirection(1));
-        }
-        else {
-            // Run RPC to let master using weapon 0 and 1's View ID to fire
-            int weapon1ViewID = -1;
-            int weapon2ViewID = -1;
-            if (weapons[0] != null)
-                weapon1ViewID = weapons[0].photonView.ViewID;
-            if (weapons[1] != null)
-                weapon2ViewID = weapons[1].photonView.ViewID;
-            photonView.RPC("FireForPlayer", RpcTarget.MasterClient, weapon1ViewID, weapon2ViewID, index, photonView.ViewID, GetAimDirection(0), GetAimDirection(1));
+        foreach (Weapons weapon in weapons) {
+            if (weapon == null) {
+                return;
+            }
+            if (weapon.Type == 0) {
+                if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
+                {
+                    weapon.Fire(index, GetAimDirection());
+                }
+                else {
+                    int weaponViewID = -1;
+                    weaponViewID = weapon.photonView.ViewID;
+                    photonView.RPC("FireForPlayer", RpcTarget.MasterClient, weaponViewID, index, photonView.ViewID, GetAimDirection());
+                }
+            } else if (weapon.Type == 1 || weapon.Type == 2) {
+                weapon.Fire(index, GetAimDirection());
+            }
+            index += 1;
         }
     }
 
-    private Vector3 GetAimDirection(int weaponIndex)
+    private Vector3 GetAimDirection()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -101,10 +103,15 @@ public class Players : Entities, IPunObservable
         if (Physics.Raycast(ray, out hit))
         {
             Vector3 groundPosition = hit.point;
-            Vector3 weaponPosition = weapons[weaponIndex].transform.position;
-            Vector3 direction = (groundPosition - weaponPosition).normalized;
+
+            // Calculate the midpoint between the two weapons
+            Vector3 weaponMidpoint = Vector3.Lerp(weapons[0].transform.position, weapons[1].transform.position, 0.5f);
+
+            // Calculate the direction from the midpoint to the ground position
+            Vector3 direction = (groundPosition - weaponMidpoint).normalized;
             direction.y = 0;
             direction.Normalize();
+
             return direction;
         }
         return Vector3.zero;
@@ -112,7 +119,7 @@ public class Players : Entities, IPunObservable
 
     // For client firing, let master do it
     [PunRPC]
-    private void FireForPlayer(int weapon1ViewID, int weapon2ViewID, int index, int playerViewID, Vector3 direction0, Vector3 direction1, PhotonMessageInfo info)
+    private void FireForPlayer(int weaponViewID, int index, int playerViewID, Vector3 direction0, PhotonMessageInfo info)
     {
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -122,9 +129,9 @@ public class Players : Entities, IPunObservable
         PhotonView playerView = PhotonView.Find(playerViewID);
         Players player = playerView.GetComponent<Players>();
 
-        if (weapon1ViewID != -1)
+        if (weaponViewID != -1)
         {
-            PhotonView weapon1View = PhotonView.Find(weapon1ViewID);
+            PhotonView weapon1View = PhotonView.Find(weaponViewID);
             if (weapon1View != null)
             {
                 Weapons weapon = weapon1View.GetComponent<Weapons>();
@@ -134,26 +141,15 @@ public class Players : Entities, IPunObservable
                 }
             }
         }
-
-        if (weapon2ViewID != -1)
-        {
-            PhotonView weapon2View = PhotonView.Find(weapon2ViewID);
-            if (weapon2View != null)
-            {
-                Weapons weapon = weapon2View.GetComponent<Weapons>();
-                if (weapon != null)
-                {
-                    weapon.Fire(index, direction1);
-                }
-            }
-        }
     }
 
     private void Update()
     {
         if (!armed && weapons.Count >= 2) {
-            addWeapon(0, 0);
-            addWeapon(1, 1);
+            int randomInt1 = Random.Range(0, 3);
+            int randomInt2 = Random.Range(0, 3);
+            addWeapon(0, randomInt1);
+            addWeapon(1, randomInt2);
             print("Player " + photonView.ViewID + " is now with weapon " + weapons[0].photonView.ViewID + " and " + weapons[1].photonView.ViewID);
             armed = true;
         }

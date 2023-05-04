@@ -74,7 +74,7 @@ public class Monsters : Entities
         direction.y = 0;
         direction.Normalize();
         transform.LookAt(targetPosition);
-        transform.position += direction * speed/2 * Time.deltaTime;
+        transform.position += direction * speed * 4 * Time.deltaTime;
         GameManager.Instance.monsterManager.despawnCheck(this);
     }
 

@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\ObjectClass\Monsters.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CreateRoom.cs" />
+    <Compile Include="Assets\Scripts\Tools\BaseIndicator.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextButtonTransition.cs" />
     <Compile Include="Assets\Scripts\Tools\ExtTransforms.cs" />

@@ -35,11 +35,11 @@ public class MonsterManager : MonoBehaviour
                 elapsed -= timePerSpawn;
 
                 Vector3 pos = Vector3.zero;
-                float distance = 5.0f;
+                float distance = 140.0f;
                 float distanceSqr = distance * distance;
                 while (true)
                 {
-                    pos = new Vector3(Random.Range(-distance, distance), 0.1f, Random.Range(-distance, distance));
+                    pos = new Vector3(Random.Range(-distance, distance), 0f, Random.Range(-distance, distance));
                     if ((pos - Vector3.zero).sqrMagnitude > distanceSqr)
                     {
                         break;

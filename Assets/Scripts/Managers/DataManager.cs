@@ -17,7 +17,7 @@ public class DataManager : MonoBehaviourPunCallbacks
     // Monsters
     private List<Monsters> monsterPool = new List<Monsters>();
     private List<Monsters> monsterPoolA = new List<Monsters>();
-    public const int MONSTER_COUNT = 15;
+    public const int MONSTER_COUNT = 40;
     // Projectiles
     private List<Projectiles> projPool = new List<Projectiles>();
     private List<Projectiles> projPoolA = new List<Projectiles>();
@@ -32,8 +32,64 @@ public class DataManager : MonoBehaviourPunCallbacks
     public void initData(PrefabManager prefabReference)
     {
         PrefabReference = prefabReference;
+        if (!PhotonNetwork.IsConnected) {
+            initPoolLocal();
+            return;
+        }
         if (PhotonNetwork.IsMasterClient) {
             initPool();
+        }
+    }
+
+    private void initPoolLocal()
+    {
+        Vector3 dPpos = new Vector3(-10f, -20f, -20f);
+        Vector3 dMpos = new Vector3(10f, -20f, 20f);
+        if (PrefabReference == null)
+        {
+            Debug.LogError("Prefab reference is null in DataManager.Awake!");
+            return;
+        }
+
+        // Place the players in the field
+        for (int i = 0; i < 1; i++)
+        {
+            GameObject playerObj = Instantiate(PrefabReference.playerPrefab, new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            playerObj.SetActive(true);
+            playerList.Add(playerObj.GetComponent<Players>());
+            playerObj.GetComponent<Players>().Index = i;
+        }
+
+        // Initialize monster pool
+        for (int i = 0; i < MONSTER_COUNT; i++)
+        {
+            GameObject monsterObj = Instantiate(PrefabReference.monsterPrefab, dPpos, Quaternion.identity);
+            monsterObj.SetActive(false);
+            monsterPool.Add(monsterObj.GetComponent<Monsters>());
+        }
+
+        // Initialize projectile pool
+        for (int i = 0; i < PROJ_COUNT; i++)
+        {
+            GameObject projObj = Instantiate(PrefabReference.projPrefab, dPpos, Quaternion.identity);
+            projObj.SetActive(false);
+            projPool.Add(projObj.GetComponent<Projectiles>());
+        }
+
+        Debug.Log("DataManager is Ready");
+
+        // Prepare weapons
+        int numWeapons = WEAPON_COUNT;
+        int onLeft = 1;
+        for (int i = 0; i < numWeapons; i++)
+        {
+            GameObject weaponObj = Instantiate(PrefabReference.weaponPrefab, new Vector3(onLeft * -1.25f, 0.88f, 0.6f), Quaternion.Euler(0f, 0f, 0f));
+            weaponObj.SetActive(true);
+            Weapons weapon = weaponObj.GetComponent<Weapons>();
+            weaponsPool.Add(weapon);
+            playerList[0].WeaponList.Add(weapon);
+            weapon.transform.SetParent(playerList[0].transform);
+            onLeft *= -1;
         }
     }
 
@@ -80,12 +136,14 @@ public class DataManager : MonoBehaviourPunCallbacks
 
         // Prepare weapons
         int numWeapons = WEAPON_COUNT * PhotonNetwork.PlayerList.Length;
+        int onLeft = 1;
         for (int i = 0; i < numWeapons; i++)
         {
-            GameObject weaponObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabReference.weaponPrefab.name, new Vector3(-1.25f, 0.88f, 0.6f), Quaternion.Euler(0f, 0f, 0f));
+            GameObject weaponObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabReference.weaponPrefab.name, new Vector3(onLeft * -1.25f, 0.88f, 0.6f), Quaternion.Euler(0f, 0f, 0f));
             weaponObj.SetActive(true);
             Weapons weapon = weaponObj.GetComponent<Weapons>();
             weaponsPool.Add(weapon);
+            onLeft *= -1;
         }
 
         // Assigning

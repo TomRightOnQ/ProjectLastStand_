@@ -97,24 +97,7 @@ public class Players : Entities, IPunObservable
 
     private Vector3 GetAimDirection()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            Vector3 groundPosition = hit.point;
-
-            // Calculate the midpoint between the two weapons
-            Vector3 weaponMidpoint = Vector3.Lerp(weapons[0].transform.position, weapons[1].transform.position, 0.5f);
-
-            // Calculate the direction from the midpoint to the ground position
-            Vector3 direction = (groundPosition - weaponMidpoint).normalized;
-            direction.y = 0;
-            direction.Normalize();
-
-            return direction;
-        }
-        return Vector3.zero;
+        return transform.forward;
     }
 
     // For client firing, let master do it
@@ -146,11 +129,8 @@ public class Players : Entities, IPunObservable
     private void Update()
     {
         if (!armed && weapons.Count >= 2) {
-            int randomInt1 = Random.Range(0, 3);
-            int randomInt2 = Random.Range(0, 3);
-            addWeapon(0, randomInt1);
-            addWeapon(1, randomInt2);
-            print("Player " + photonView.ViewID + " is now with weapon " + weapons[0].photonView.ViewID + " and " + weapons[1].photonView.ViewID);
+            addWeapon(0, 0);
+            addWeapon(1, 0);
             armed = true;
         }
     }

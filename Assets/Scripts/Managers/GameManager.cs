@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static ConfigManager;
+using static MonsterConfigs;
 // Main Game Manager
 
 public class GameManager : MonoBehaviour

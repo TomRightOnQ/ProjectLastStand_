@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using static ConfigManager;
+using static MonsterConfigs;
 
 // All Monsters are one class
 public class Monsters : Entities
@@ -49,7 +49,7 @@ public class Monsters : Entities
     public void SetMonsters(MonsterConfig MonsterConfigs)
     {
         id = MonsterConfigs.id;
-        name = MonsterConfigs.name;
+        name = MonsterConfigs._name;
         hitPoints = MonsterConfigs.hitPoints;
         currentHitPoints = hitPoints;
         speed = MonsterConfigs.speed;
@@ -84,7 +84,7 @@ public class Monsters : Entities
         {
             Base _base = other.gameObject.GetComponent<Base>();
             if (_base != null) {
-                _base.TakeDamage(defaultAttack * defaultWeaponAttack * 10);
+                _base.TakeDamage(defaultAttack * defaultWeaponAttack * 4);
             }
             currentHitPoints = -1;
         }

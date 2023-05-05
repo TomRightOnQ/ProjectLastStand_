@@ -138,7 +138,10 @@ public class Weapons : DefaultObjects
             lineRenderer = weapon.gameObject.AddComponent<LineRenderer>();
             lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
             lineRenderer.startColor = Color.red;
-            lineRenderer.endColor = Color.red;
+            Color color = Color.red;
+            color.a = 0.5f;
+            lineRenderer.startColor = color;
+            lineRenderer.endColor = color;
             lineRenderer.startWidth = 0.5f;
             lineRenderer.endWidth = 0.5f;
             lineRenderer.positionCount = 2;

@@ -7,7 +7,9 @@ using Photon.Realtime;
 // Base to defend!
 public class Base : Entities, IPunObservable
 {
+    [SerializeField] GameObject gameOver;
     private static Base instance;
+
     public static Base Instance
     {
         get
@@ -37,6 +39,9 @@ public class Base : Entities, IPunObservable
     void Update()
     {
         UpdateHP();
+        if (CurrentHitPoints <= 0) {
+            gameOver.SetActive(true);
+        }
     }
 
     // HP Bar 

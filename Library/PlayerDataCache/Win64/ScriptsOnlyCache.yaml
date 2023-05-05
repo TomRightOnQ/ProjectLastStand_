@@ -11,6 +11,7 @@ ScriptsOnlyBuild:
     - GameSettings
     - LeaveRoomMenu
     - MasterManager
+    - MonsterConfigs
     - Monsters
     - NetworkManager
     - PlayerListing
@@ -184,21 +185,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1566}
     - Class: 114
-      Script: {instanceID: 1942}
+      Script: {instanceID: 1940}
     - Class: 114
-      Script: {instanceID: 2754}
+      Script: {instanceID: 2752}
     - Class: 114
-      Script: {instanceID: 3166}
+      Script: {instanceID: 3164}
     - Class: 114
-      Script: {instanceID: 3222}
+      Script: {instanceID: 3220}
     - Class: 114
-      Script: {instanceID: 3458}
+      Script: {instanceID: 3456}
     - Class: 114
-      Script: {instanceID: 3702}
+      Script: {instanceID: 3700}
     - Class: 114
-      Script: {instanceID: 4486}
+      Script: {instanceID: 4484}
     - Class: 114
-      Script: {instanceID: 4524}
+      Script: {instanceID: 4522}
+    - Class: 114
+      Script: {instanceID: 5160}
     - Class: 114
       Script: {instanceID: 5552}
     - Class: 114
@@ -219,8 +222,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 8310}
     - Class: 114
       Script: {instanceID: 8436}
-    - Class: 114
-      Script: {instanceID: 63440}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -238,6 +239,8 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 258
       Script: {instanceID: 0}
     Assets/Scenes/MultiplayerLobby.unity:
     - Class: 1
@@ -293,59 +296,61 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1568}
     - Class: 114
-      Script: {instanceID: 1668}
+      Script: {instanceID: 1666}
     - Class: 114
-      Script: {instanceID: 1700}
+      Script: {instanceID: 1698}
     - Class: 114
-      Script: {instanceID: 1760}
+      Script: {instanceID: 1758}
     - Class: 114
-      Script: {instanceID: 1796}
+      Script: {instanceID: 1794}
     - Class: 114
-      Script: {instanceID: 1836}
+      Script: {instanceID: 1834}
     - Class: 114
-      Script: {instanceID: 2260}
+      Script: {instanceID: 2258}
     - Class: 114
-      Script: {instanceID: 2280}
+      Script: {instanceID: 2278}
     - Class: 114
-      Script: {instanceID: 2556}
+      Script: {instanceID: 2554}
     - Class: 114
-      Script: {instanceID: 2614}
+      Script: {instanceID: 2612}
     - Class: 114
-      Script: {instanceID: 2754}
+      Script: {instanceID: 2752}
     - Class: 114
-      Script: {instanceID: 2864}
+      Script: {instanceID: 2862}
     - Class: 114
-      Script: {instanceID: 3166}
+      Script: {instanceID: 3164}
     - Class: 114
-      Script: {instanceID: 3222}
+      Script: {instanceID: 3220}
     - Class: 114
-      Script: {instanceID: 3316}
+      Script: {instanceID: 3314}
     - Class: 114
-      Script: {instanceID: 3510}
+      Script: {instanceID: 3508}
     - Class: 114
-      Script: {instanceID: 3536}
+      Script: {instanceID: 3534}
+    - Class: 114
+      Script: {instanceID: 4118}
     - Class: 114
       Script: {instanceID: 4120}
     - Class: 114
-      Script: {instanceID: 4122}
+      Script: {instanceID: 4176}
     - Class: 114
-      Script: {instanceID: 4178}
+      Script: {instanceID: 4298}
     - Class: 114
-      Script: {instanceID: 4300}
+      Script: {instanceID: 4360}
     - Class: 114
-      Script: {instanceID: 4362}
+      Script: {instanceID: 4434}
     - Class: 114
-      Script: {instanceID: 4436}
+      Script: {instanceID: 4450}
     - Class: 114
-      Script: {instanceID: 4452}
+      Script: {instanceID: 4484}
     - Class: 114
-      Script: {instanceID: 4486}
+      Script: {instanceID: 4522}
     - Class: 114
-      Script: {instanceID: 4524}
+      Script: {instanceID: 4742}
     - Class: 114
-      Script: {instanceID: 4744}
+      Script: {instanceID: 5074}
     - Class: 114
-      Script: {instanceID: 5076}
+      Script: {instanceID: 5160}
     - Class: 114
       Script: {instanceID: 5328}
     - Class: 114
@@ -394,6 +399,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 8444}
     - Class: 114
       Script: {instanceID: 8780}
+    - Class: 114
+      Script: {instanceID: 24496}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -865,7 +872,7 @@ ScriptsOnlyBuild:
     className: UnityOnDropdownValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 6e9fa3a6c066dd65b7429a54dd6bb4ab
+      Hash: cdf5b485d50705015bde44a5047815a0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Base
@@ -1385,6 +1392,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: GridLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 0efc0c804aadeebf76da0e305a6f2014
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BaseIndicator
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -2251,10 +2264,10 @@ ScriptsOnlyBuild:
     className: UnityOnSliderValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 0efc0c804aadeebf76da0e305a6f2014
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: BaseIndicator
+    className: MonsterConfigs
   platform: 19
   scenePathNames:
   - Assets/Scenes/MultiplayerLobby.unity

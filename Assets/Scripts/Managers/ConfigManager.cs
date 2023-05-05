@@ -7,26 +7,12 @@ using System.IO;
 // Load configuration files
 public class ConfigManager : MonoBehaviour
 {
-    private MonsterConfig[] MonsterTemplate;
     private WeaponConfig[] WeaponTemplate;
-    private string monsterConfigName = "MonsterConfig.json";
     private string weaponConfigName = "WeaponConfig.json";
 
     private bool loaded;
 
     // Data Struct Sector
-    public struct MonsterConfig
-    {
-        public string name;
-        public int id;
-        public int hitPoints;
-        public float speed;
-        public int defaultAttack;
-        public int defaultWeaponAttack;
-        public int defaultDefence;
-        public int defaultMagicDefence;
-        public int exp;
-    }
     public struct WeaponConfig
     {
         public string name;
@@ -63,7 +49,6 @@ public class ConfigManager : MonoBehaviour
     // Load Configurations at start
     public void Load()
     {
-        MonsterTemplate = LoadConfig<MonsterConfig[]>(monsterConfigName);
         WeaponTemplate = LoadConfig<WeaponConfig[]>(weaponConfigName);
         loaded = true;
         Debug.Log(WeaponTemplate);
@@ -74,11 +59,6 @@ public class ConfigManager : MonoBehaviour
         return WeaponTemplate;
     }
 
-    // Get Monsters
-    public MonsterConfig[] getMonsters()
-    {
-        return MonsterTemplate;
-    }
 
     public bool ConfigLoaded() {
         return loaded;

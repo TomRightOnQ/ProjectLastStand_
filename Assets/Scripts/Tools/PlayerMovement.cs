@@ -27,12 +27,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (globalTime < 1.0f)
+        if (globalTime < 1.0f || !Application.isFocused)
         {
             return;
         }
 
-        if (!player.photonView.IsMine || !Application.isFocused)
+        if (PhotonNetwork.IsConnected && !player.photonView.IsMine)
         {
             return;
         }

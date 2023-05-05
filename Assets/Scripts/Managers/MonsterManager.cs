@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using static ConfigManager;
+using static MonsterConfigs;
 
 // Managing the spawning and despawning of monster entities
 public class MonsterManager : MonoBehaviour
@@ -16,7 +16,8 @@ public class MonsterManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpawnCoroutine());
+        if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
+            StartCoroutine(SpawnCoroutine());
     }
 
     public void begin() {
@@ -50,7 +51,7 @@ public class MonsterManager : MonoBehaviour
             // Increase difficulty up to 4 over time
             if (difficulty < 4)
             {
-                difficulty = Mathf.FloorToInt(elapsed / 120) + 1;
+                difficulty = Mathf.FloorToInt(elapsed / 60) + 1;
             }
             yield return null;
         }
@@ -65,9 +66,9 @@ public class MonsterManager : MonoBehaviour
         if (monster != null)
         {
             // Config the monster
-            MonsterConfig[] monsterData = GameManager.Instance.configManager.getMonsters();
+            MonsterConfig monsterData = MonsterConfigs.Instance.getMonsterConfig(id);
             monster.transform.position = pos;
-            monster.SetMonsters(monsterData[id]);
+            monster.SetMonsters(monsterData);
             monster.UpdateHP();
         }
     }

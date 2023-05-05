@@ -31,7 +31,7 @@ public class BaseIndicator : MonoBehaviour
         float yMin = indicatorRectTransform.rect.height / 2f;
         float yMax = Screen.height - indicatorRectTransform.rect.height / 2f;
         screenPosition.x = Mathf.Clamp(screenPosition.x, xMin - 40f, xMax + 40f);
-        screenPosition.y = Mathf.Clamp(screenPosition.y, yMin -95f, yMax - 10f);
+        screenPosition.y = Mathf.Clamp(screenPosition.y, yMin - 95f, yMax - 10f);
 
         indicatorRectTransform.position = screenPosition + Vector3.up * indicatorOffset;
     }

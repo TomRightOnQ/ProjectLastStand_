@@ -60,6 +60,7 @@ MonoBehaviour:
   hpS: {fileID: 3803152321713899466}
   exp: 1
   id: 1
+  prefabManager: {fileID: 0}
 --- !u!33 &765353968
 MeshFilter:
   m_ObjectHideFlags: 0

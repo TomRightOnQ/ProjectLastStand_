@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using static MonsterConfigs;
 
+
 // All Monsters are one class
 public class Monsters : Entities
 {
@@ -13,22 +14,18 @@ public class Monsters : Entities
     [SerializeField] private int id = 1;
     private bool currentState;
     private Vector3 targetPosition;
+    private float prevHP;
+    public PrefabManager prefabManager;
+
     void Start()
     {
         gameObject.tag = "Monster";
         targetPosition = new Vector3(0, 0.1f, 0);
+        prefabManager = Resources.Load<PrefabManager>("PrefabManager");
     }
 
-    public float EXP
-    {
-        get { return exp; }
-        set { exp = value; }
-    }
-    public int ID
-    {
-        get { return id; }
-        set { id = value; }
-    }
+    public float EXP { get { return exp; } set { exp = value; } }
+    public int ID { get { return id; } set { id = value; } }
 
     // Sync
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -58,14 +55,23 @@ public class Monsters : Entities
         defaultWeaponAttack = MonsterConfigs.defaultWeaponAttack;
         defaultDefence = MonsterConfigs.defaultDefence;
         defaultMagicDefence = MonsterConfigs.defaultMagicDefence;
+        prevHP = currentHitPoints;
     }
 
     // HP Bar 
     public void UpdateHP()
     {
+        if (prevHP != currentHitPoints) {
+            float change = currentHitPoints - prevHP;
+            GameObject damageNumberObj = Instantiate(prefabManager.damageNumberPrefab, transform.position, Quaternion.identity);
+            DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
+            damageNumber.Init(change, transform.position);
+            prevHP = currentHitPoints;
+        }
         hpS.maxValue = hitPoints;
         hpS.value = currentHitPoints;
     }
+
     // Update
     void Update()
     {
@@ -84,9 +90,9 @@ public class Monsters : Entities
         {
             Base _base = other.gameObject.GetComponent<Base>();
             if (_base != null) {
-                _base.TakeDamage(defaultAttack * defaultWeaponAttack * 4);
+                _base.TakeDamage(defaultAttack * defaultWeaponAttack);
             }
-            currentHitPoints = -1;
+            GameManager.Instance.monsterManager.despawnForce(this);
         }
     }
 }

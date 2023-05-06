@@ -1,6 +1,8 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using static ConfigManager;
@@ -14,49 +16,52 @@ public class Players : Entities, IPunObservable
     [SerializeField] private float fortune = 1;
     private bool armed = false;
     private const string PREFAB_LOC = "Prefabs/";
+    // Levels
+    [SerializeField] private int level = 1;
+    [SerializeField] private Slider expS;
+    [SerializeField] private float exp = 0;
 
     // Weapons
     private List<Weapons> weapons = new List<Weapons>();
     public List<Weapons> WeaponList { get { return weapons; } set { weapons = value; } }
+
     void Start()
     {
         gameObject.tag = "Player";
-        prefabReference = GameManager.Instance.prefabManager;
         Debug.Log("Ready");
+        expS.maxValue = 10;
     }
 
     // Sync
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         base.OnPhotonSerializeView(stream, info);
-
-        if (stream.IsWriting)
-        {
-
-        }
-        else
-        {
-
-        }
     }
 
-    public int Index
+    // Bars
+    public void UpdateHP()
     {
-        get { return index; }
-        set { index = value; }
+        hpS.maxValue = hitPoints;
+        hpS.value = currentHitPoints;
+        expS.value = exp;
     }
 
-    public float Fortune
+    // Level Up
+    public void Upgrade()
     {
-        get { return fortune; }
-        set { fortune = value; }
+        level += 1;
+        exp = expS.value - expS.maxValue;
+        expS.maxValue = 10 * (float)Math.Pow(1.1, level);
+        expS.value = exp;
     }
 
-    public bool Armed 
-    {
-        get { return armed; }
-        set { armed = value; }
-    }
+    public int Index { get { return index; } set { index = value; } }
+
+    public float Fortune { get { return fortune; } set { fortune = value; } }
+
+    public bool Armed { get { return armed; } set { armed = value; } }
+
+    public float EXP { get { return exp; } set { exp = value; } }
 
     // Set prefabreference
     public void SetPrefabManager(PrefabManager prefabReference)
@@ -132,6 +137,10 @@ public class Players : Entities, IPunObservable
             addWeapon(0, 0);
             addWeapon(1, 0);
             armed = true;
+        }
+        UpdateHP();
+        if (exp >= expS.maxValue) {
+            Upgrade();
         }
     }
 }

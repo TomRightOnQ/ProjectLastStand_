@@ -123,54 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &196751017
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 196751018}
-  - component: {fileID: 196751019}
-  m_Layer: 0
-  m_Name: PrefabManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &196751018
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196751017}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.104927, y: -11.581164, z: 3.8485003}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &196751019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196751017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0b684c2ecee2d946b576f3bef25e481, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterPrefab: {fileID: 2668866916221753463, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
-  projPrefab: {fileID: 7790031011691829733, guid: fb40bd19a05b60b42b93a4d878866fa2, type: 3}
-  playerPrefab: {fileID: 927813109376346250, guid: 0876b712f50bf7d428bc21aa2804b1f8, type: 3}
-  weaponPrefab: {fileID: 2466599894649513485, guid: a0b0345c4da251a458b2d5e77f7bb3ac, type: 3}
 --- !u!1 &305753768
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +219,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &317560998
 GameObject:
@@ -335,7 +287,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &614587311
 GameObject:
@@ -462,7 +414,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataManager: {fileID: 1818597075}
-  prefabManager: {fileID: 196751019}
   monsterManager: {fileID: 0}
   configManager: {fileID: 0}
 --- !u!4 &1235449231
@@ -681,7 +632,7 @@ Transform:
   - {fileID: 2147216807}
   - {fileID: 1555213072}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1685272557
 PrefabInstance:
@@ -924,6 +875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e9480303c41cf44a4e399c14c612a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabManager: {fileID: 0}
 --- !u!4 &1818597076
 Transform:
   m_ObjectHideFlags: 0
@@ -995,7 +947,7 @@ RectTransform:
   - {fileID: 1765417050}
   - {fileID: 2126978946}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1159,7 +1111,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2126978945
 GameObject:
@@ -1383,7 +1335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1257153712032046013, guid: 838b736325ecb214284786f31a229410, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1257153712032046013, guid: 838b736325ecb214284786f31a229410, type: 3}
       propertyPath: m_LocalPosition.x

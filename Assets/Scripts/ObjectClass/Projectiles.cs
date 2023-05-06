@@ -141,7 +141,6 @@ public class Projectiles : Items, IPunObservable
                 if (!AOE)
                 {
                     gameObject.SetActive(false);
-                    Debug.Log("Has taken damage");
                     Deactivate();
                     monster.TakeDamage(Damage);
                     GameManager.Instance.monsterManager.despawnCheck(monster);

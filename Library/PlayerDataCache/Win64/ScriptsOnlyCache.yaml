@@ -6,6 +6,7 @@ ScriptsOnlyBuild:
     - CreateOrJoinCanvas
     - CreateRoom
     - CurrentRoomCanvas
+    - DamageNumber
     - DataManager
     - GameManager
     - GameSettings
@@ -185,8 +186,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1566}
     - Class: 114
-      Script: {instanceID: 1940}
-    - Class: 114
       Script: {instanceID: 2752}
     - Class: 114
       Script: {instanceID: 3164}
@@ -196,10 +195,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 3456}
     - Class: 114
       Script: {instanceID: 3700}
-    - Class: 114
-      Script: {instanceID: 4484}
-    - Class: 114
-      Script: {instanceID: 4522}
     - Class: 114
       Script: {instanceID: 5160}
     - Class: 114
@@ -211,17 +206,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6714}
     - Class: 114
-      Script: {instanceID: 6894}
-    - Class: 114
       Script: {instanceID: 7398}
     - Class: 114
       Script: {instanceID: 7632}
-    - Class: 114
-      Script: {instanceID: 7864}
-    - Class: 114
-      Script: {instanceID: 8310}
-    - Class: 114
-      Script: {instanceID: 8436}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -305,6 +292,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 1794}
     - Class: 114
       Script: {instanceID: 1834}
+    - Class: 114
+      Script: {instanceID: 1940}
     - Class: 114
       Script: {instanceID: 2258}
     - Class: 114
@@ -392,15 +381,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 7932}
     - Class: 114
-      Script: {instanceID: 8310}
+      Script: {instanceID: 8052}
     - Class: 114
-      Script: {instanceID: 8436}
+      Script: {instanceID: 8312}
     - Class: 114
-      Script: {instanceID: 8444}
+      Script: {instanceID: 8438}
     - Class: 114
-      Script: {instanceID: 8780}
+      Script: {instanceID: 8446}
     - Class: 114
-      Script: {instanceID: 24496}
+      Script: {instanceID: 8782}
+    - Class: 114
+      Script: {instanceID: 34086}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -578,7 +569,7 @@ ScriptsOnlyBuild:
     className: UnityOnMouseExitMessageListener
   - hash:
       serializedVersion: 2
-      Hash: a2d81e8e8081331fa744808bb165bb40
+      Hash: 139712fbc85f3d380790cca164534f93
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PrefabManager
@@ -1028,7 +1019,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 95f3bbdb2b0227b46f29b5e539c8a43f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DataManager
@@ -1250,13 +1241,13 @@ ScriptsOnlyBuild:
     className: UnityOnJointBreak2DMessageListener
   - hash:
       serializedVersion: 2
-      Hash: bf3a7d8c5b82e584c0b3fd117825bfea
+      Hash: ee8ff82754d74f7957f74ade49bee207
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Players
   - hash:
       serializedVersion: 2
-      Hash: 02dca83e8113606a63f3b4c500fced37
+      Hash: a845b3c44950110214d4c7fb4ff3b816
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Monsters
@@ -1880,7 +1871,7 @@ ScriptsOnlyBuild:
     className: PositionAsUV1
   - hash:
       serializedVersion: 2
-      Hash: 1ad67c800685c2a2b8517e7485ffd767
+      Hash: d36b32df621e3199e03de2a5970844b4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -2070,6 +2061,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
     className: RegionListView
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MonsterConfigs
   - hash:
       serializedVersion: 2
       Hash: 2b53d93770b9036b2fd1c7854560bc69
@@ -2264,10 +2261,10 @@ ScriptsOnlyBuild:
     className: UnityOnSliderValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 4f0557d859d7cdd25efea06b25eebc88
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: MonsterConfigs
+    className: DamageNumber
   platform: 19
   scenePathNames:
   - Assets/Scenes/MultiplayerLobby.unity

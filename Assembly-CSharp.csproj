@@ -100,10 +100,12 @@
     <Compile Include="Assets\Scripts\ObjectClass\Entities.cs" />
     <Compile Include="Assets\Scripts\Tools\PlayerMovement.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
+    <Compile Include="Assets\Scripts\Scriptable\MonsterConfigs.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextToggleIsOnTransition.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Projectiles.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
-    <Compile Include="Assets\Scripts\Scriptable\MonsterConfigs.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\DamageNumber.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\expAndLevels.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

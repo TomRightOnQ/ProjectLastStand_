@@ -24,12 +24,12 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         _name = "Simple Monster",
         id = 0,
         hitPoints = 50,
-        speed = 1f,
+        speed = 1.5f,
         defaultAttack = 10,
         defaultWeaponAttack = 5,
         defaultDefence = 5,
         defaultMagicDefence = 2,
-        exp = 100
+        exp = 2
     };
 
     public static MonsterConfig Goblin = new MonsterConfig
@@ -37,12 +37,12 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         _name = "Goblin",
         id = 1,
         hitPoints = 75,
-        speed = 1.5f,
+        speed = 2f,
         defaultAttack = 15,
         defaultWeaponAttack = 8,
         defaultDefence = 6,
         defaultMagicDefence = 3,
-        exp = 200
+        exp = 2
     };
     public MonsterConfig getMonsterConfig(int id)
     {

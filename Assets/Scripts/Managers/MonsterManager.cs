@@ -36,7 +36,7 @@ public class MonsterManager : MonoBehaviour
                 elapsed -= timePerSpawn;
 
                 Vector3 pos = Vector3.zero;
-                float distance = 140.0f;
+                float distance = 100.0f;
                 float distanceSqr = distance * distance;
                 while (true)
                 {
@@ -76,6 +76,19 @@ public class MonsterManager : MonoBehaviour
     // Check if a mosnter should get despawn
     public void despawnCheck(Monsters monster) {
         if (monster != null && monster.CurrentHitPoints <= 0) {
+            // Add experience points to players
+            GameManager.Instance.AddExp(monster.EXP);
+            monster.Deactivate();
+            GameManager.Instance.dataManager.RemoveDeactivatedMonster(monster);
+        }
+    }
+
+    // Kill a monster
+    public void despawnForce(Monsters monster)
+    {
+        if (monster != null)
+        {
+            monster.CurrentHitPoints = 0;
             monster.Deactivate();
             GameManager.Instance.dataManager.RemoveDeactivatedMonster(monster);
         }

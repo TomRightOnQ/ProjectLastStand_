@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 using static ConfigManager;
 using static MonsterConfigs;
 // Main Game Manager
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     private bool isLoaded = false;
     private int maxColliders = 50;
 
     private static GameManager instance;
     public DataManager dataManager;
-    public PrefabManager prefabManager;
     public MonsterManager monsterManager;
     public ConfigManager configManager;
 
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
             GameObject monsterManagerObj = new GameObject("MonsterManager");
             monsterManager = monsterManagerObj.AddComponent<MonsterManager>();
             
-            dataManager.initData(prefabManager);
+            dataManager.initData();
 
             if (configManager && monsterManager && dataManager)
             {
@@ -114,6 +115,26 @@ public class GameManager : MonoBehaviour
         }
         // Reset AOE positions
         damageExplosions.Clear();
+    }
+
+    // Add exp to players
+    public void AddExp(float amount)
+    {
+        if (!PhotonNetwork.IsConnected)
+        {
+            Players[] players = dataManager.GetPlayers();
+            foreach (Players player in players)
+            {
+                player.EXP += amount;
+            }
+        }
+        else if (PhotonNetwork.IsMasterClient) {
+            Players[] players = dataManager.GetPlayers();
+            foreach (Players player in players)
+            {
+                photonView.RPC("AddExpToPlayer", RpcTarget.All, player.photonView.ViewID, amount);
+            }
+        }
     }
 }
 

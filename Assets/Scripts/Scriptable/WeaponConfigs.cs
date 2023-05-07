@@ -10,6 +10,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     {
         public string _name;
         public int id;
+        public int rating;
         public int type;
         public float attack;
         public float pen;
@@ -27,8 +28,9 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     {
         _name = "Pistol",
         id = 0,
+        rating = 1,
         type = 0,
-        attack = 5,
+        attack = 2,
         pen = 0.1f,
         life = 1,
         cd = 0.1f,
@@ -45,6 +47,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         _name = "RPG",
         id = 1,
         type = 0,
+        rating = 2,
         attack = 20,
         pen = 0.5f,
         life = 3,
@@ -61,6 +64,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     {
         _name = "HeatLaser",
         id = 2,
+        rating = 1,
         type = 2,
         attack = 2,
         pen = 0.5f,
@@ -78,6 +82,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     {
         _name = "RubyLaser",
         id = 3,
+        rating = 2,
         type = 1,
         attack = 20,
         pen = 0.5f,

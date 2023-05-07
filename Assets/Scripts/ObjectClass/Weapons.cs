@@ -11,7 +11,7 @@ public class Weapons : DefaultObjects
     // Weapon Stats
     [SerializeField] protected string wpName = "DeaultWeapon";
     [SerializeField] protected int id = 0;
-
+    [SerializeField] protected int rating = 1;
     [SerializeField] protected int type = 0;
     [SerializeField] protected float attack = 10;
     [SerializeField] protected float pen = 0.1f;
@@ -19,10 +19,10 @@ public class Weapons : DefaultObjects
     [SerializeField] protected float cd = 0.5f;
     [SerializeField] protected bool selfDet = false;
     [SerializeField] protected float projectileSpeed = 10f;
-    [SerializeField] private float damageRange = 0.1f;
-    [SerializeField] private bool aoe = false;
-    [SerializeField] private string info = "";
-    [SerializeField] private string intro = "";
+    [SerializeField] protected float damageRange = 0.1f;
+    [SerializeField] protected bool aoe = false;
+    [SerializeField] protected string info = "";
+    [SerializeField] protected string intro = "";
 
     public const string UPDATE_PROJ = "UpdatePosition";
     private float timer = 0;
@@ -32,6 +32,7 @@ public class Weapons : DefaultObjects
     {
         id = weaponConfigs.id;
         wpName = weaponConfigs._name;
+        rating = weaponConfigs.rating;
         type = weaponConfigs.type;
         attack = weaponConfigs.attack;
         pen = weaponConfigs.pen;

@@ -365,6 +365,7 @@
 "Assets/Scripts/ObjectClass/Projectiles.cs"
 "Assets/Scripts/ObjectClass/Weapons.cs"
 "Assets/Scripts/Scriptable/MonsterConfigs.cs"
+"Assets/Scripts/Scriptable/UpgradeConfigs.cs"
 "Assets/Scripts/Scriptable/WeaponConfigs.cs"
 "Assets/Scripts/Tools/BaseIndicator.cs"
 "Assets/Scripts/Tools/ExtTransforms.cs"

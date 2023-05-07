@@ -106,7 +106,7 @@ public class DataManager : MonoBehaviourPunCallbacks
         }
 
         // Start the exp system
-        GameObject expAndLevels = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.expAndLevels.name, new Vector3(0f, -20f, 0f), Quaternion.identity);
+        GameObject expAndLevels = PhotonNetwork.Instantiate(PREFAB_LOC + "UI&System/" + prefabManager.expAndLevels.name, new Vector3(0f, -20f, 0f), Quaternion.identity);
         expAndLevels.SetActive(true);
 
         // Place the players in the field

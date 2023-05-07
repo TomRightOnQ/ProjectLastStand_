@@ -47,7 +47,7 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
     public void LevelUp()
     {
         // Notify the local UpgradeMenu that a level up occurred
-        UpgradeMenu.Instance.Points += 1;
+        UpgradeMenu.Instance.addPoints(1);
     }
 
     // Sync

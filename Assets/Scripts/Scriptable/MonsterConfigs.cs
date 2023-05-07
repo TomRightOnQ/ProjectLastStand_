@@ -23,10 +23,10 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
     {
         _name = "Simple Monster",
         id = 0,
-        hitPoints = 50,
+        hitPoints = 10,
         speed = 1.5f,
         defaultAttack = 10,
-        defaultWeaponAttack = 5,
+        defaultWeaponAttack = 1,
         defaultDefence = 5,
         defaultMagicDefence = 2,
         exp = 2
@@ -44,6 +44,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultMagicDefence = 3,
         exp = 2
     };
+
     public MonsterConfig getMonsterConfig(int id)
     {
         MonsterConfig monsterData = SimpleMonster;

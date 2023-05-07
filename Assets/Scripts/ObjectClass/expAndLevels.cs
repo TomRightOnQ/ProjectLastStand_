@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 // Hold the exp and levels info
 // Only one copy per game
@@ -13,7 +14,8 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] private float expL = 10;
     [SerializeField] private int level = 1;
     [SerializeField] private Slider ExpS;
-    public UpgradeMenu upgradeMenu;
+    [SerializeField] private TextMeshProUGUI levelText;
+    private UpgradeMenu upgradeMenu;
 
     public float EXP { get { return exp; } set { exp = value; } }
     public float EXPL { get { return expL; } set { expL = value; } }
@@ -23,6 +25,7 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
     {
         ExpS.value = exp;
         ExpS.maxValue = expL;
+        levelText.text = "Lv." + level;
         if (exp >= expL) {
             Upgrade();
         }
@@ -37,6 +40,13 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
         if (!PhotonNetwork.IsConnected)
         {
             upgradeMenu.Points += 1;
+            // Animation of leveling up
+            Players player = GameManager.Instance.dataManager.GetPlayers()[0];
+            ParticleSystem particleSystem = player.gameObject.GetComponentInChildren<ParticleSystem>();
+            if (particleSystem != null)
+            {
+                particleSystem.Play();
+            }
         }
         else {
             photonView.RPC("LevelUp", RpcTarget.All);
@@ -48,6 +58,15 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
     {
         // Notify the local UpgradeMenu that a level up occurred
         UpgradeMenu.Instance.addPoints(1);
+        // Animation of leveling up
+        Players[] players = GameManager.Instance.dataManager.GetPlayers();
+        foreach (Players player in players) {
+            ParticleSystem particleSystem = player.gameObject.GetComponentInChildren<ParticleSystem>();
+            if (particleSystem != null)
+            {
+                particleSystem.Play();
+            }
+        }
     }
 
     // Sync

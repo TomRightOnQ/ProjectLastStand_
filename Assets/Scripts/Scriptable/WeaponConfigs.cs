@@ -45,7 +45,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     public static WeaponConfig RPG = new WeaponConfig
     {
         _name = "RPG",
-        id = 1,
+        id = 100,
         type = 0,
         rating = 2,
         attack = 20,
@@ -63,8 +63,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     public static WeaponConfig HeatLaser = new WeaponConfig
     {
         _name = "HeatLaser",
-        id = 2,
-        rating = 1,
+        id = 101,
+        rating = 2,
         type = 2,
         attack = 2,
         pen = 0.5f,
@@ -81,8 +81,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     public static WeaponConfig RubyLaser = new WeaponConfig
     {
         _name = "RubyLaser",
-        id = 3,
-        rating = 2,
+        id = 200,
+        rating = 3,
         type = 1,
         attack = 20,
         pen = 0.5f,
@@ -92,11 +92,23 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         projectileSpeed = 5,
         aoe = true,
         damageRange = 0.1f,
-        info = "Chaerging...",
+        info = "Charging...",
         intro = "Slow but destructive laser cannon"
     };
 
-    public WeaponConfig getWeaponConfig(int id)
+    // Getters and Setters
+    private const int WHITE_BEGIN = 0;
+    private const int WHITE_COUNT = 1;
+    private const int GRTEE_BEGIN = 100;
+    private const int GREEN_COUNT = 2;
+    private const int BLUE_BEGIN = 200;
+    private const int BLUE_COUNT = 1;
+    private const int PURPLE_BEGIN = 300;
+    private const int PURPLE_COUNT = 0;
+    private const int ORANGE_BEGIN = 400;
+    private const int ORANGE_COUNT = 0;
+
+    public WeaponConfig _getWeaponConfig(int id)
     {
         WeaponConfig weaponData = Pistol;
         switch (id)
@@ -104,16 +116,87 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
             case 0:
                 weaponData = WeaponConfigs.Pistol;
             break;
-            case 1:
+            case 100:
                 weaponData = WeaponConfigs.RPG;
             break;
-            case 2:
+            case 101:
                 weaponData = WeaponConfigs.HeatLaser;
             break;
-            case 3:
+            case 200:
                 weaponData = WeaponConfigs.RubyLaser;
             break;
         }
         return weaponData;
+    }
+
+    public WeaponConfig getWeaponConfig()
+    {
+        // Select a random rarity level based on chances
+        int rarityRoll = Random.Range(1, 101);
+        int rarityLevel = 1; // default to white rarity
+
+
+        if (rarityRoll > 95)
+        {
+            rarityLevel = 5; // orange rarity
+        }
+        if (rarityRoll > 85 && rarityRoll <= 95)
+        {
+            rarityLevel = 4; // purple rarity
+        }
+        if (rarityRoll > 65 && rarityRoll <= 85)
+        {
+            rarityLevel = 3; // blue rarity
+        }
+        if (rarityRoll > 40 && rarityRoll <= 65)
+        {
+            rarityLevel = 2; // green rarity
+        }
+
+        // Get a random index for the rarity level
+        int begin = GetIndexBegin(rarityLevel);
+        int end = GetIndexEnd(rarityLevel) + 1;
+        int index = Random.Range(begin, end);
+        // Get the upgrade config based on the selected index
+        WeaponConfig config = _getWeaponConfig(index);
+        return config;
+    }
+
+    private int GetIndexBegin(int rarityLevel)
+    {
+        switch (rarityLevel)
+        {
+            case 1:
+                return WHITE_BEGIN;
+            case 2:
+                return GRTEE_BEGIN;
+            case 3:
+                return BLUE_BEGIN;
+            case 4:
+                return PURPLE_BEGIN;
+            case 5:
+                return ORANGE_BEGIN;
+            default:
+                return WHITE_BEGIN;
+        }
+    }
+
+    private int GetIndexEnd(int rarityLevel)
+    {
+        switch (rarityLevel)
+        {
+            case 1:
+                return WHITE_BEGIN + WHITE_COUNT - 1;
+            case 2:
+                return GRTEE_BEGIN + GREEN_COUNT - 1;
+            case 3:
+                return BLUE_BEGIN + BLUE_COUNT - 1;
+            case 4:
+                return PURPLE_BEGIN + PURPLE_COUNT - 1;
+            case 5:
+                return ORANGE_BEGIN + ORANGE_COUNT - 1;
+            default:
+                return WHITE_BEGIN + WHITE_COUNT - 1;
+        }
     }
 }

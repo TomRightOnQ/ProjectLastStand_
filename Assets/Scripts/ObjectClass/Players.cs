@@ -59,7 +59,7 @@ public class Players : Entities, IPunObservable
     id: weapon id
     return: add a Weapons type object instance to Weapons[] array */
     public void addWeapon(int slot, int id) {
-        WeaponConfig weaponData = WeaponConfigs.Instance.getWeaponConfig(id);
+        WeaponConfig weaponData = WeaponConfigs.Instance._getWeaponConfig(id);
         weapons[slot].SetWeapons(weaponData);
     }
 

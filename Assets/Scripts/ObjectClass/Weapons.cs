@@ -77,7 +77,7 @@ public class Weapons : DefaultObjects
             Vector3 weaponForward = transform.TransformDirection(Vector3.forward);
             Vector3 firePos = transform.position + weaponForward * 0.5f;
             // Config the Projectile
-            proj.transform.position = firePos;
+            proj.transform.position = new Vector3 (firePos.x, firePos.y - 0.5f, firePos.z);
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             proj.Damage = attack;
             proj.Owner = playerIdx;
@@ -171,7 +171,7 @@ public class Weapons : DefaultObjects
             Vector3 weaponForward = transform.TransformDirection(Vector3.forward);
             Vector3 localFirePos = transform.position + weaponForward * 0.5f;
             // Config the Projectile
-            proj.transform.position = localFirePos;
+            proj.transform.position = new Vector3(localFirePos.x, localFirePos.y - 0.5f, localFirePos.z) ;
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             proj.Damage = attack;
             proj.Owner = photonView.ViewID;

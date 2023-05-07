@@ -23,7 +23,7 @@ public class UpgradeMenu : MonoBehaviour
     // For Data
     // Each points means one upgrade
     [SerializeField] private int points = 0;
-    private int prevPoints = 0;
+    private bool regenChoices = true;
 
     // Including three choices
     [SerializeField] private Button choiceA;
@@ -64,13 +64,16 @@ public class UpgradeMenu : MonoBehaviour
         availablePoints.text = "Available Upgrades: " + points.ToString();
 
         // For Data
-        if (points != prevPoints && points > 0)
-        {
-            prevPoints = points;
-            genetareUpgrade();
+        if (regenChoices == true) {
+            generateUpgrade();
+            regenChoices = false;
         }
-        else if (points == 0 && prevPoints != 0) {
-            prevPoints = points;
+        if (points > 0)
+        {
+            enableAll();
+        }
+        else {
+            disableAll();
         }
     }
 
@@ -82,8 +85,11 @@ public class UpgradeMenu : MonoBehaviour
     // Methods on upgrades
     public void addPoints(int point)
     {
+        regenChoices = false;
+        if (points == 0) {
+            regenChoices = true;
+        }
         points += 1;
-        enableAll();
     }
 
     private void disableAll() 
@@ -107,28 +113,50 @@ public class UpgradeMenu : MonoBehaviour
             if (points == 0)
             {
                 isOpen = false;
-                disableAll();
+            }
+            else {
+                regenChoices = true;
             }
         }
     }
 
     // Generate three upgrades
-    private void genetareUpgrade()
+    private void generateUpgrade()
     {
-        Debug.Log("Refeshing...");
-        UpgradeConfigs.UpgradeConfig upgradeA = UpgradeConfigs.Instance.getUpgradeConfig();
-        UpgradeConfigs.UpgradeConfig upgradeB = UpgradeConfigs.Instance.getUpgradeConfig();
-        UpgradeConfigs.UpgradeConfig upgradeC = UpgradeConfigs.Instance.getUpgradeConfig();
-
         // Fill the text of each card
-        fillUpgradeCard(choiceA, upgradeA);
-        fillUpgradeCard(choiceB, upgradeB);
-        fillUpgradeCard(choiceC, upgradeC);
+        fillUpgradeCard(choiceA);
+        fillUpgradeCard(choiceB);
+        fillUpgradeCard(choiceC);
 
         enableAll();
     }
 
-    private void fillUpgradeCard(Button card, UpgradeConfigs.UpgradeConfig upgradeConfig)
+    private void fillUpgradeCard(Button card)
+    {
+        // 60% Upgrade, 40% Weapon
+        // Select a random rarity level based on chances
+        int chance = Random.Range(1, 101);
+        int cardType = 1; // Get a upgrade
+        if (chance > 60)
+        {
+            cardType = 2; // Get a weapon
+        }
+
+        switch (cardType)
+        {
+            case 1:
+                UpgradeConfigs.UpgradeConfig upgrade = UpgradeConfigs.Instance.getUpgradeConfig();
+                fillWithUpgrade(card, upgrade);
+                break;
+            case 2:
+                WeaponConfigs.WeaponConfig weapon = WeaponConfigs.Instance.getWeaponConfig();
+                fillWithWeapon(card, weapon);
+                break;
+        }
+    }
+
+    // Fill with upgrade
+    private void fillWithUpgrade(Button card, UpgradeConfigs.UpgradeConfig upgradeConfig) 
     {
         // Get the text components of the card
         TextMeshProUGUI nameText = card.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -141,6 +169,42 @@ public class UpgradeMenu : MonoBehaviour
         // Change the color of the card based on the rarity level
         Image cardImage = card.GetComponent<Image>();
         switch (upgradeConfig.rating)
+        {
+            case 1: // white
+                cardImage.color = Color.white;
+                break;
+            case 2: // green
+                cardImage.color = Color.green;
+                break;
+            case 3: // blue
+                cardImage.color = Color.blue;
+                break;
+            case 4: // purple
+                cardImage.color = new Color(0.5f, 0f, 1f);
+                break;
+            case 5: // orange
+                cardImage.color = new Color(1f, 0.5f, 0f);
+                break;
+            default:
+                cardImage.color = Color.white;
+                break;
+        }
+    }
+
+    // Fill with weapon
+    private void fillWithWeapon(Button card, WeaponConfigs.WeaponConfig weaponConfig)
+    {
+        // Get the text components of the card
+        TextMeshProUGUI nameText = card.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI infoText = card.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+        // Fill the name and info text
+        nameText.text = weaponConfig._name;
+        infoText.text = weaponConfig.intro + "\n\n"+ "<i>" + weaponConfig.info + "</i>";
+
+        // Change the color of the card based on the rarity level
+        Image cardImage = card.GetComponent<Image>();
+        switch (weaponConfig.rating)
         {
             case 1: // white
                 cardImage.color = Color.white;

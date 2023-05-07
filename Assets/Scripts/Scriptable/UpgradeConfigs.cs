@@ -112,22 +112,21 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
         int rarityRoll = Random.Range(1, 101);
         int rarityLevel = 1; // default to white rarity
 
-        if (rarityRoll > 40)
+        if (rarityRoll > 95)
         {
-            rarityLevel = 2; // green rarity
+            rarityLevel = 5; // orange rarity
         }
-  
-        else if (rarityRoll > 65)
-        {
-            rarityLevel = 3; // blue rarity
-        }
-        else if (rarityRoll > 85)
+        if (rarityRoll > 85 && rarityRoll <= 95)
         {
             rarityLevel = 4; // purple rarity
         }
-        else if (rarityRoll > 95)
+        if (rarityRoll > 65 && rarityRoll <= 85)
         {
-            rarityLevel = 5; // orange rarity
+            rarityLevel = 3; // blue rarity
+        }
+        if (rarityRoll > 40 && rarityRoll <= 65)
+        {
+            rarityLevel = 2; // green rarity
         }
 
         // Get a random index for the rarity level

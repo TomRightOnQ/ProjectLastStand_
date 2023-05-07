@@ -1,26 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
 // Hold the exp and levels info
 // Only one copy per game
-public class expAndLevels : MonoBehaviourPunCallbacks, IPunObservable
+public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField] private float exp = 0;
-    [SerializeField] private float expL = 20;
+    [SerializeField] private float expL = 10;
     [SerializeField] private int level = 1;
+    [SerializeField] private Slider ExpS;
+    public UpgradeMenu upgradeMenu;
 
     public float EXP { get { return exp; } set { exp = value; } }
     public float EXPL { get { return expL; } set { expL = value; } }
     public int Level { get { return level; } }
 
+    private void Update()
+    {
+        ExpS.value = exp;
+        ExpS.maxValue = expL;
+        if (exp >= expL) {
+            Upgrade();
+        }
+    }
+
     public void Upgrade()
     {
+        UpgradeMenu upgradeMenu = FindObjectOfType<UpgradeMenu>();
         level += 1;
-        exp = expL - exp;
+        exp = exp - expL;
         expL = 10 * (float)System.Math.Pow(1.1, level);
+        if (!PhotonNetwork.IsConnected)
+        {
+            upgradeMenu.Points += 1;
+        }
+        else {
+            photonView.RPC("LevelUp", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    public void LevelUp()
+    {
+        // Notify the local UpgradeMenu that a level up occurred
+        UpgradeMenu.Instance.Points += 1;
     }
 
     // Sync

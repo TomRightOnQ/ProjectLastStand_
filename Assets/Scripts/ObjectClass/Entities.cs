@@ -104,7 +104,7 @@ public abstract class Entities : DefaultObjects, IPunObservable
     }
 
     // Taking Damage
-    public void TakeDamage(float damage) {
+    public virtual void TakeDamage(float damage) {
 
         currentHitPoints -= damage;
         if (currentHitPoints > hitPoints) {

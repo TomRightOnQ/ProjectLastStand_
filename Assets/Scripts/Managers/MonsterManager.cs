@@ -10,7 +10,7 @@ public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
     private int difficulty = 1;
-    private float spawning = 1f;
+    private float spawning = 3f;
     private bool cycleBegin = false;
 
 
@@ -79,7 +79,6 @@ public class MonsterManager : MonoBehaviour
             // Add experience points to players
             GameManager.Instance.AddExp(monster.EXP);
             monster.Deactivate();
-            GameManager.Instance.dataManager.RemoveDeactivatedMonster(monster);
         }
     }
 
@@ -90,7 +89,6 @@ public class MonsterManager : MonoBehaviour
         {
             monster.CurrentHitPoints = 0;
             monster.Deactivate();
-            GameManager.Instance.dataManager.RemoveDeactivatedMonster(monster);
         }
     }
 }

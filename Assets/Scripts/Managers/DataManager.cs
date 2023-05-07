@@ -15,11 +15,9 @@ public class DataManager : MonoBehaviourPunCallbacks
     public const int PLAYER_COUNT = 4;
     // Monsters
     private List<Monsters> monsterPool = new List<Monsters>();
-    private List<Monsters> monsterPoolA = new List<Monsters>();
     public const int MONSTER_COUNT = 40;
     // Projectiles
     private List<Projectiles> projPool = new List<Projectiles>();
-    private List<Projectiles> projPoolA = new List<Projectiles>();
     public const int PROJ_COUNT = 100;
     // Weapons
     private List<Weapons> weaponsPool = new List<Weapons>();
@@ -49,6 +47,10 @@ public class DataManager : MonoBehaviourPunCallbacks
             Debug.LogError("Prefab reference is null!");
             return;
         }
+
+        // Start the exp system
+        GameObject expAndLevels = Instantiate(prefabManager.expAndLevels, new Vector3(0f, -20f, 0f), Quaternion.identity);
+        expAndLevels.SetActive(true);
 
         // Place the players in the field
         for (int i = 0; i < 1; i++)
@@ -102,6 +104,10 @@ public class DataManager : MonoBehaviourPunCallbacks
             Debug.LogError("Prefab reference is null");
             return;
         }
+
+        // Start the exp system
+        GameObject expAndLevels = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.expAndLevels.name, new Vector3(0f, -20f, 0f), Quaternion.identity);
+        expAndLevels.SetActive(true);
 
         // Place the players in the field
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
@@ -187,7 +193,6 @@ public class DataManager : MonoBehaviourPunCallbacks
         {
             if (!projPool[i].gameObject.activeSelf)
             {
-                projPoolA.Add(projPool[i]);
                 return projPool[i];
             }
         }
@@ -201,43 +206,16 @@ public class DataManager : MonoBehaviourPunCallbacks
             if (!monsterPool[i].gameObject.activeSelf)
             {
                 monsterPool[i].Activate();
-                monsterPoolA.Add(monsterPool[i]);
                 return monsterPool[i];
             }
         }
         return null;
     }
 
-    public void RemoveDeactivatedProj(Projectiles proj)
-    {
-        if (projPoolA.Contains(proj))
-        {
-            projPoolA.Remove(proj);
-        }
-    }
-
-    public void RemoveDeactivatedMonster(Monsters monster)
-    {
-        if (monsterPoolA.Contains(monster))
-        {
-            monsterPoolA.Remove(monster);
-        }
-    }
-
     // Getters for the pools
     public Players[] GetPlayers()
     {
         return playerList.ToArray(); ;
-    }
-
-    public Projectiles[] GetProjs()
-    {
-        return projPoolA.ToArray(); ;
-    }
-
-    public Monsters[] GetMonsters()
-    {
-        return monsterPoolA.ToArray(); ;
     }
     
     // manage EXP

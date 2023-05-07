@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using static ConfigManager;
+using static WeaponConfigs;
 
 // Define Weapons
 public class Weapons : DefaultObjects
@@ -21,6 +21,8 @@ public class Weapons : DefaultObjects
     [SerializeField] protected float projectileSpeed = 10f;
     [SerializeField] private float damageRange = 0.1f;
     [SerializeField] private bool aoe = false;
+    [SerializeField] private string info = "";
+    [SerializeField] private string intro = "";
 
     public const string UPDATE_PROJ = "UpdatePosition";
     private float timer = 0;
@@ -29,7 +31,7 @@ public class Weapons : DefaultObjects
     public void SetWeapons(WeaponConfig weaponConfigs)
     {
         id = weaponConfigs.id;
-        wpName = weaponConfigs.name;
+        wpName = weaponConfigs._name;
         type = weaponConfigs.type;
         attack = weaponConfigs.attack;
         pen = weaponConfigs.pen;
@@ -38,6 +40,8 @@ public class Weapons : DefaultObjects
         selfDet = weaponConfigs.selfDet;
         projectileSpeed = weaponConfigs.projectileSpeed;
         aoe = weaponConfigs.aoe;
+        info = weaponConfigs.info;
+        intro = weaponConfigs.intro;
     }
 
     // Fire based on type
@@ -194,63 +198,16 @@ public class Weapons : DefaultObjects
     }
 
     // Class properties
-    public string WpName
-    {
-        get { return wpName; }
-        set { wpName = value; }
-    }
-
-    public int ID
-    {
-        get { return id; }
-        set { id = value; }
-    }
-
-    public int Type
-    {
-        get { return type; }
-        set { type = value; }
-    }
-
-    public float Attack
-    {
-        get { return attack; }
-        set { attack = value; }
-    }
-
-    public float Pen
-    {
-        get { return pen; }
-        set { pen = value; }
-    }
-
-    public float Life
-    {
-        get { return life; }
-        set { life = value; }
-    }
-
-    public float ProjectileSpeed
-    {
-        get { return projectileSpeed; }
-        set { projectileSpeed = value; }
-    }
-
-    public float CD
-    {
-        get { return cd; }
-        set { cd = value; }
-    }
-
-    public bool SelfDet
-    {
-        get { return selfDet; }
-        set { selfDet = value; }
-    }
-
-    public float DamageRange
-    {
-        get { return damageRange; }
-        set { damageRange = value; }
-    }
+    public string WpName { get { return wpName; } set { wpName = value; } }
+    public int ID { get { return id; } set { id = value; } }
+    public int Type { get { return type; } set { type = value; } }
+    public float Attack { get { return attack; } set { attack = value; } }
+    public float Pen { get { return pen; } set { pen = value; } }
+    public float Life { get { return life; } set { life = value; } }
+    public float ProjectileSpeed { get { return projectileSpeed; } set { projectileSpeed = value; } }
+    public float CD { get { return cd; } set { cd = value; } }
+    public bool SelfDet { get { return selfDet; } set { selfDet = value; } }
+    public float DamageRange { get { return damageRange; } set { damageRange = value; } }
+    public string Info { get { return info; } set { Info = value; } }
+    public string Intro { get { return intro; } set { Intro = value; } }
 } 

@@ -8,6 +8,7 @@ ScriptsOnlyBuild:
     - CurrentRoomCanvas
     - DamageNumber
     - DataManager
+    - ExpAndLevels
     - GameManager
     - GameSettings
     - LeaveRoomMenu
@@ -25,7 +26,9 @@ ScriptsOnlyBuild:
     - RoomListingsMenu
     - RoomsCanvases
     - SingletonReferences
+    - UpgradeMenu
     - Version
+    - WeaponConfigs
     - Weapons
     PhotonUnityNetworking.Demos.dll:
     - Photon.Pun.Demo.Asteroids.Asteroid
@@ -145,6 +148,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: RoomListing
     methodName: OnClick_Button
+  - assembly: Assembly-CSharp
+    fullTypeName: UpgradeMenu
+    methodName: ToggleMenu
   sceneClasses:
     Assets/Scenes/GameMain.unity:
     - Class: 1
@@ -192,23 +198,33 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3220}
     - Class: 114
+      Script: {instanceID: 3314}
+    - Class: 114
       Script: {instanceID: 3456}
     - Class: 114
       Script: {instanceID: 3700}
     - Class: 114
-      Script: {instanceID: 5160}
+      Script: {instanceID: 4484}
     - Class: 114
-      Script: {instanceID: 5552}
+      Script: {instanceID: 5162}
     - Class: 114
-      Script: {instanceID: 6202}
+      Script: {instanceID: 5554}
     - Class: 114
-      Script: {instanceID: 6358}
+      Script: {instanceID: 6204}
     - Class: 114
-      Script: {instanceID: 6714}
+      Script: {instanceID: 6360}
     - Class: 114
-      Script: {instanceID: 7398}
+      Script: {instanceID: 6716}
     - Class: 114
-      Script: {instanceID: 7632}
+      Script: {instanceID: 7400}
+    - Class: 114
+      Script: {instanceID: 7634}
+    - Class: 114
+      Script: {instanceID: 7866}
+    - Class: 114
+      Script: {instanceID: 8314}
+    - Class: 114
+      Script: {instanceID: 40390}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -337,61 +353,65 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4742}
     - Class: 114
-      Script: {instanceID: 5074}
+      Script: {instanceID: 4880}
     - Class: 114
-      Script: {instanceID: 5160}
+      Script: {instanceID: 5076}
     - Class: 114
-      Script: {instanceID: 5328}
+      Script: {instanceID: 5162}
     - Class: 114
-      Script: {instanceID: 5486}
+      Script: {instanceID: 5330}
     - Class: 114
-      Script: {instanceID: 5552}
+      Script: {instanceID: 5488}
     - Class: 114
-      Script: {instanceID: 5944}
+      Script: {instanceID: 5554}
     - Class: 114
-      Script: {instanceID: 5992}
+      Script: {instanceID: 5946}
     - Class: 114
-      Script: {instanceID: 6202}
+      Script: {instanceID: 5994}
     - Class: 114
-      Script: {instanceID: 6358}
+      Script: {instanceID: 6204}
     - Class: 114
-      Script: {instanceID: 6658}
+      Script: {instanceID: 6360}
     - Class: 114
-      Script: {instanceID: 6714}
+      Script: {instanceID: 6660}
     - Class: 114
-      Script: {instanceID: 6726}
+      Script: {instanceID: 6716}
     - Class: 114
       Script: {instanceID: 6728}
     - Class: 114
-      Script: {instanceID: 6894}
+      Script: {instanceID: 6730}
     - Class: 114
-      Script: {instanceID: 7052}
+      Script: {instanceID: 6896}
     - Class: 114
-      Script: {instanceID: 7186}
+      Script: {instanceID: 7054}
     - Class: 114
-      Script: {instanceID: 7192}
+      Script: {instanceID: 7188}
     - Class: 114
-      Script: {instanceID: 7378}
+      Script: {instanceID: 7194}
     - Class: 114
-      Script: {instanceID: 7632}
+      Script: {instanceID: 7380}
     - Class: 114
-      Script: {instanceID: 7864}
+      Script: {instanceID: 7634}
     - Class: 114
-      Script: {instanceID: 7928}
+      Script: {instanceID: 7866}
     - Class: 114
-      Script: {instanceID: 7932}
+      Script: {instanceID: 7930}
     - Class: 114
-      Script: {instanceID: 8052}
+      Script: {instanceID: 7934}
     - Class: 114
-      Script: {instanceID: 8312}
+      Script: {instanceID: 8054}
     - Class: 114
-      Script: {instanceID: 8438}
+      Script: {instanceID: 8314}
     - Class: 114
-      Script: {instanceID: 8446}
+      Script: {instanceID: 8440}
     - Class: 114
-      Script: {instanceID: 8782}
+      Script: {instanceID: 8448}
     - Class: 114
-      Script: {instanceID: 34086}
+      Script: {instanceID: 8594}
+    - Class: 114
+      Script: {instanceID: 8786}
+    - Class: 114
+      Script: {instanceID: 31738}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -569,7 +589,7 @@ ScriptsOnlyBuild:
     className: UnityOnMouseExitMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 139712fbc85f3d380790cca164534f93
+      Hash: f9fa5ca3abde64732b417cf777afefcd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PrefabManager
@@ -1241,7 +1261,7 @@ ScriptsOnlyBuild:
     className: UnityOnJointBreak2DMessageListener
   - hash:
       serializedVersion: 2
-      Hash: ee8ff82754d74f7957f74ade49bee207
+      Hash: 72200ce38a4c75749f2e60bdd5088aa0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Players
@@ -1311,6 +1331,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit.Forms
     className: LoadLevelUIForm
+  - hash:
+      serializedVersion: 2
+      Hash: 4f0557d859d7cdd25efea06b25eebc88
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DamageNumber
   - hash:
       serializedVersion: 2
       Hash: e7f4e9cb5468a346609dfdb36da26dcc
@@ -1727,7 +1753,7 @@ ScriptsOnlyBuild:
     className: IsConnectedAndReadyProperty
   - hash:
       serializedVersion: 2
-      Hash: 52f1e147dfc1e3f0efb0ac7a4ada7784
+      Hash: 17a103766c1afcd7da9e388fa875b00c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Weapons
@@ -1871,7 +1897,7 @@ ScriptsOnlyBuild:
     className: PositionAsUV1
   - hash:
       serializedVersion: 2
-      Hash: d36b32df621e3199e03de2a5970844b4
+      Hash: 35508b245dd73bfd6fe23008d3a4f0b3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -2195,6 +2221,12 @@ ScriptsOnlyBuild:
     className: AppVersionProperty
   - hash:
       serializedVersion: 2
+      Hash: 3e022504495f74492c651b0431e4ea3a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ExpAndLevels
+  - hash:
+      serializedVersion: 2
       Hash: 8220b46879dc5e37db1b940c938f5744
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -2261,10 +2293,34 @@ ScriptsOnlyBuild:
     className: UnityOnSliderValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 4f0557d859d7cdd25efea06b25eebc88
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: DamageNumber
+    className: WeaponConfigs
+  - hash:
+      serializedVersion: 2
+      Hash: 0edeba255bdbade25edc357f1412ba38
+    assemblyName: Unity.2D.SpriteShape.Runtime.dll
+    namespaceName: UnityEngine.U2D
+    className: SpriteShape
+  - hash:
+      serializedVersion: 2
+      Hash: 523ce309f50d9eee6a8fc0e2f86c9c97
+    assemblyName: Unity.2D.SpriteShape.Runtime.dll
+    namespaceName: 
+    className: SpriteShapeGeometryCache
+  - hash:
+      serializedVersion: 2
+      Hash: 349d08daa6108b9a28f8c38fd40ce96f
+    assemblyName: Unity.2D.SpriteShape.Runtime.dll
+    namespaceName: UnityEngine.U2D
+    className: SpriteShapeController
+  - hash:
+      serializedVersion: 2
+      Hash: 2d02f5c426c78d154f3ec28594f81306
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UpgradeMenu
   platform: 19
   scenePathNames:
   - Assets/Scenes/MultiplayerLobby.unity

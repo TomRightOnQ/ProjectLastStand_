@@ -60,6 +60,8 @@ MonoBehaviour:
   projectileSpeed: 10
   damageRange: 0.1
   aoe: 0
+  info: 
+  intro: 
 --- !u!33 &525003350
 MeshFilter:
   m_ObjectHideFlags: 0

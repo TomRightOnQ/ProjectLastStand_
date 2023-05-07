@@ -17,3 +17,4 @@ MonoBehaviour:
   playerPrefab: {fileID: 927813109376346250, guid: 0876b712f50bf7d428bc21aa2804b1f8, type: 3}
   weaponPrefab: {fileID: 2466599894649513485, guid: a0b0345c4da251a458b2d5e77f7bb3ac, type: 3}
   damageNumberPrefab: {fileID: 8429875003257297645, guid: 32f16dcc3f0bd7347ae6e04664c1d7cd, type: 3}
+  expAndLevels: {fileID: 4527507130772758286, guid: c3f5f4687ea9cb3429ed2f24a32d8fee, type: 3}

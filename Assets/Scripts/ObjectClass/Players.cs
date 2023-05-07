@@ -5,12 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
-using static ConfigManager;
+using static WeaponConfigs;
 
 // All players are a Players object
 public class Players : Entities, IPunObservable
 {
     private PrefabManager prefabReference;
+    public static WeaponConfigs Instance;
     // Player 1 - 4
     [SerializeField] private int index = 0;
     [SerializeField] private float fortune = 1;
@@ -18,8 +19,6 @@ public class Players : Entities, IPunObservable
     private const string PREFAB_LOC = "Prefabs/";
     // Levels
     [SerializeField] private int level = 1;
-    [SerializeField] private Slider expS;
-    [SerializeField] private float exp = 0;
 
     // Weapons
     private List<Weapons> weapons = new List<Weapons>();
@@ -29,7 +28,6 @@ public class Players : Entities, IPunObservable
     {
         gameObject.tag = "Player";
         Debug.Log("Ready");
-        expS.maxValue = 10;
     }
 
     // Sync
@@ -43,16 +41,6 @@ public class Players : Entities, IPunObservable
     {
         hpS.maxValue = hitPoints;
         hpS.value = currentHitPoints;
-        expS.value = exp;
-    }
-
-    // Level Up
-    public void Upgrade()
-    {
-        level += 1;
-        exp = expS.value - expS.maxValue;
-        expS.maxValue = 10 * (float)Math.Pow(1.1, level);
-        expS.value = exp;
     }
 
     public int Index { get { return index; } set { index = value; } }
@@ -60,8 +48,6 @@ public class Players : Entities, IPunObservable
     public float Fortune { get { return fortune; } set { fortune = value; } }
 
     public bool Armed { get { return armed; } set { armed = value; } }
-
-    public float EXP { get { return exp; } set { exp = value; } }
 
     // Set prefabreference
     public void SetPrefabManager(PrefabManager prefabReference)
@@ -73,8 +59,8 @@ public class Players : Entities, IPunObservable
     id: weapon id
     return: add a Weapons type object instance to Weapons[] array */
     public void addWeapon(int slot, int id) {
-        WeaponConfig[] weaponData = GameManager.Instance.configManager.getWeapons();
-        weapons[slot].SetWeapons(weaponData[id]);
+        WeaponConfig weaponData = WeaponConfigs.Instance.getWeaponConfig(id);
+        weapons[slot].SetWeapons(weaponData);
     }
 
     // Attack!
@@ -139,8 +125,5 @@ public class Players : Entities, IPunObservable
             armed = true;
         }
         UpdateHP();
-        if (exp >= expS.maxValue) {
-            Upgrade();
-        }
     }
 }

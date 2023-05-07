@@ -11,4 +11,5 @@ public class PrefabManager : ScriptableSingleton<MonsterConfigs>
     public GameObject playerPrefab;
     public GameObject weaponPrefab;
     public GameObject damageNumberPrefab;
+    public GameObject expAndLevels;
 }

@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.IO;
 
 // Load configuration files
+/* This file is NOT IN USED anymore*/
 public class ConfigManager : MonoBehaviour
 {
     private WeaponConfig[] WeaponTemplate;
@@ -26,6 +27,7 @@ public class ConfigManager : MonoBehaviour
         public float projectileSpeed;
         public float damageRange;
         public bool aoe;
+        public string info;
     }
 
     // Loader
@@ -58,7 +60,6 @@ public class ConfigManager : MonoBehaviour
     public WeaponConfig[] getWeapons() {
         return WeaponTemplate;
     }
-
 
     public bool ConfigLoaded() {
         return loaded;

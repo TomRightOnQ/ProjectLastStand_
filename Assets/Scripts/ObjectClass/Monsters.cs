@@ -58,14 +58,21 @@ public class Monsters : Entities
         prevHP = currentHitPoints;
     }
 
+    // Taking Damage
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        GameObject damageNumberObj = Instantiate(prefabManager.damageNumberPrefab, transform.position, Quaternion.identity);
+        DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
+        damageNumber.Init(damage, transform.position);
+    }
+
     // HP Bar 
     public void UpdateHP()
     {
         if (prevHP != currentHitPoints) {
             float change = currentHitPoints - prevHP;
-            GameObject damageNumberObj = Instantiate(prefabManager.damageNumberPrefab, transform.position, Quaternion.identity);
-            DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
-            damageNumber.Init(change, transform.position);
+
             prevHP = currentHitPoints;
         }
         hpS.maxValue = hitPoints;

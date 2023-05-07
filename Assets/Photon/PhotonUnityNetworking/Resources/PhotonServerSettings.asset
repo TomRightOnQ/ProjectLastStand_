@@ -53,6 +53,7 @@ MonoBehaviour:
   - FireForPlayer
   - SimulateLaser
   - AddExpToPlayer
+  - LevelUp
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

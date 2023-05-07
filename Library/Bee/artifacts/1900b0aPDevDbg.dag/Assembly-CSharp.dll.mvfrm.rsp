@@ -1,3 +1,8 @@
+Library\Bee\artifacts\mvdfrm\Unity.2D.Common.Runtime.ref.dll_F4C3D8F2A1B89548.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.2D.SpriteShape.Runtime.ref.dll_CF02B480CEA03B39.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.ref.dll_BE0D7F38C205EB87.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.InternalAPIEngineBridge.001.ref.dll_14109B26984D5102.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Mathematics.ref.dll_D68AAF47D00A7B0D.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.Services.Core.Analytics.ref.dll_B33FBA8D01A941BE.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.Services.Core.Environments.ref.dll_0A42FDD3340E721E.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.Services.Core.ref.dll_3F6B09C6C7F946B6.mvfrm
@@ -74,4 +79,9 @@ Library\Bee\artifacts\mvdfrm\UnityEngine.VirtualTexturingModule.dll_D766DF2C40F6
 Library\Bee\artifacts\mvdfrm\UnityEngine.VRModule.dll_357F0517A125AF19.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEngine.WindModule.dll_137B052E5580AD55.mvfrm
 Library\Bee\artifacts\mvdfrm\UnityEngine.XRModule.dll_683DC81C2A5FFC77.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.dll_65DBD6B9BC665D32.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Mdb.dll_05ED6E4945565CEF.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Pdb.dll_1D3FE6B8C40B5E72.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Cecil.Rocks.dll_051C5BA4A24200D2.mvfrm
+Library\Bee\artifacts\mvdfrm\Unity.Burst.Unsafe.dll_D582A23C36BB47C1.mvfrm
 Library\Bee\artifacts\mvdfrm\Unity.VisualScripting.Antlr3.Runtime.dll_A667FC32B6C56409.mvfrm

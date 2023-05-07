@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     private static GameManager instance;
     public DataManager dataManager;
     public MonsterManager monsterManager;
-    public ConfigManager configManager;
 
     // Data
     private MonsterConfig[] monsterData;
@@ -46,17 +45,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             // init all manager objects
             instance = this;
             DontDestroyOnLoad(gameObject);
-            GameObject configManagerObj = new GameObject("ConfigManager");
-            configManager = configManagerObj.AddComponent<ConfigManager>();
-
-            configManager.Load();
-
             GameObject monsterManagerObj = new GameObject("MonsterManager");
             monsterManager = monsterManagerObj.AddComponent<MonsterManager>();
             
             dataManager.initData();
 
-            if (configManager && monsterManager && dataManager)
+            if (monsterManager && dataManager)
             {
                 Debug.Log("All managers loaded");
                 monsterManager.begin();
@@ -78,20 +72,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             Debug.Log("Loading...");
             return;
         }
-        // Prepare pools
-        Projectiles[] projPoolA = GameManager.Instance.dataManager.GetProjs();
-        Monsters[] monsterPoolA = GameManager.Instance.dataManager.GetMonsters();
         // Test Attack
         Players[] players = dataManager.GetPlayers();
 
         // AOE
         foreach (DamageExplosion explosion in damageExplosions)
         {
-            // Early termination
-            if (monsterPoolA.Length == 0)
-            {
-                return;
-            }
+
             // create a list to store the colliders within the explosion range
             Collider[] colliders = new Collider[maxColliders];
             int numColliders = Physics.OverlapSphereNonAlloc(explosion.position, explosion.damageRange, colliders);
@@ -120,19 +107,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Add exp to players
     public void AddExp(float amount)
     {
-        if (!PhotonNetwork.IsConnected)
-        {
-            Players[] players = dataManager.GetPlayers();
-            foreach (Players player in players)
+        if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient) {
+
+            ExpAndLevels expObj = GameObject.FindObjectOfType<ExpAndLevels>();
+            if (expObj != null)
             {
-                player.EXP += amount;
-            }
-        }
-        else if (PhotonNetwork.IsMasterClient) {
-            Players[] players = dataManager.GetPlayers();
-            foreach (Players player in players)
-            {
-                photonView.RPC("AddExpToPlayer", RpcTarget.All, player.photonView.ViewID, amount);
+                expObj.EXP += amount;
             }
         }
     }

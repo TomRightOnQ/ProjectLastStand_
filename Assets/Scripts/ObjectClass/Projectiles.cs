@@ -127,7 +127,6 @@ public class Projectiles : Items, IPunObservable
     {
         transform.position = new Vector3(-10f, -10f, -10f);
         gameObject.SetActive(false);
-        GameManager.Instance.dataManager.RemoveDeactivatedProj(this);
     }
 
     // Damage Detection

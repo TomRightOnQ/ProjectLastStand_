@@ -50,8 +50,6 @@ public class DamageNumber : MonoBehaviour
             _text.color = newColor;
             yield return null;
         }
-
         Destroy(gameObject);
     }
-
 }

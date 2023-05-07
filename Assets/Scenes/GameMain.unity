@@ -709,7 +709,7 @@ MonoBehaviour:
   arrow: {fileID: 1321478727}
   speed: 10
   availablePoints: {fileID: 106649969}
-  points: 10
+  points: 1
   choiceA: {fileID: 1307660122}
   choiceB: {fileID: 958815523}
   choiceC: {fileID: 1259679416}

@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wpName: DeaultWeapon
   id: 0
+  rating: 1
   type: 0
   attack: 10
   pen: 0.1

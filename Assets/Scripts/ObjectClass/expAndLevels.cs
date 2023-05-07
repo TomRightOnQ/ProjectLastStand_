@@ -49,7 +49,9 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
         else {
-            photonView.RPC("LevelUp", RpcTarget.All);
+            if (PhotonNetwork.IsMasterClient) {
+                photonView.RPC("LevelUp", RpcTarget.All);
+            }
         }
     }
 
@@ -59,7 +61,7 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
         // Notify the local UpgradeMenu that a level up occurred
         UpgradeMenu.Instance.addPoints(1);
         // Animation of leveling up
-        Players[] players = GameManager.Instance.dataManager.GetPlayers();
+        Players[] players = FindObjectsOfType<Players>();
         foreach (Players player in players) {
             ParticleSystem particleSystem = player.gameObject.GetComponentInChildren<ParticleSystem>();
             if (particleSystem != null)

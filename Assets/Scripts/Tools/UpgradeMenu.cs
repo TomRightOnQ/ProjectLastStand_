@@ -46,7 +46,6 @@ public class UpgradeMenu : MonoBehaviour
         originalPosition = panelTransform.anchoredPosition;
         panelWidth = panelTransform.rect.width;
         closedPosition = new Vector3(-(panelWidth / 2), originalPosition.y, originalPosition.z);
-        points += 1;
     }
 
     void Update()

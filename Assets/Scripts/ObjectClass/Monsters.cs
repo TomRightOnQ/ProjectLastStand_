@@ -101,5 +101,14 @@ public class Monsters : Entities
             }
             GameManager.Instance.monsterManager.despawnForce(this);
         }
+        else if (other.CompareTag("Player"))
+        {
+            Players _player = other.gameObject.GetComponent<Players>();
+            if (_player != null)
+            {
+                _player.TakeDamage(defaultAttack * defaultWeaponAttack);
+            }
+            GameManager.Instance.monsterManager.despawnForce(this);
+        }
     }
 }

@@ -46,6 +46,12 @@ public class Weapons : DefaultObjects
         intro = weaponConfigs.intro;
     }
 
+    // Updrage
+    public void Upgrade() 
+    {
+    
+    }
+
     // Fire based on type
     public void Fire(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack)
     {

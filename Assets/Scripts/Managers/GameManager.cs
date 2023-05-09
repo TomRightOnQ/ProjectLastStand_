@@ -116,6 +116,44 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    // Looking for a player
+    public Players GetLocalPlayer()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonView photonView = PhotonView.Find(GameManager.Instance.dataManager.PlayerViewID);
+            if (photonView != null)
+            {
+                return photonView.GetComponent<Players>();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        else
+        {
+            return GameManager.Instance.dataManager.GetPlayers()[0];
+        }
+    }
+
+    public Players GetLocalPlayer(int viewID)
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonView photonView = PhotonView.Find(viewID);
+            if (photonView != null)
+            {
+                return photonView.GetComponent<Players>();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        return null;
+    }
 }
 
 // Processing AOE damage

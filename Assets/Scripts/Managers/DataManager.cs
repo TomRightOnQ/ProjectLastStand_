@@ -24,7 +24,11 @@ public class DataManager : MonoBehaviourPunCallbacks
 
     private const string PREFAB_LOC = "Prefabs/";
     private int WEAPON_COUNT = 2;
-    private float exp = 0;
+
+    // For multiplayer
+    private int playerViewID;
+    public int PlayerViewID { get { return playerViewID; } set { playerViewID = value; } }
+
     // Set up a reference sheet of objects
     public void initData()
     {
@@ -77,8 +81,6 @@ public class DataManager : MonoBehaviourPunCallbacks
             projPool.Add(projObj.GetComponent<Projectiles>());
         }
 
-        Debug.Log("DataManager is Ready");
-
         // Prepare weapons
         int numWeapons = WEAPON_COUNT;
         int onLeft = 1;
@@ -92,6 +94,7 @@ public class DataManager : MonoBehaviourPunCallbacks
             weapon.transform.SetParent(playerList[0].transform);
             onLeft *= -1;
         }
+        Debug.Log("DataManager is Ready");
     }
 
     // Init pools
@@ -137,8 +140,6 @@ public class DataManager : MonoBehaviourPunCallbacks
             projPool.Add(projObj.GetComponent<Projectiles>());
         }
 
-        Debug.Log("DataManager is Ready");
-
         // Prepare weapons
         int numWeapons = WEAPON_COUNT * PhotonNetwork.PlayerList.Length;
         int onLeft = 1;
@@ -161,9 +162,11 @@ public class DataManager : MonoBehaviourPunCallbacks
                 PhotonView weaponView = weaponsPool[i * WEAPON_COUNT + j].GetComponent<PhotonView>();
                 weaponView.TransferOwnership(PhotonNetwork.PlayerList[i]);
                 photonView.RPC("AddWeaponToPlayer", RpcTarget.AllBuffered, playerViewID, weaponViewID, j);
+                photonView.RPC("assignViewID", PhotonNetwork.PlayerList[i], playerViewID);
             }
             playerList[i].transform.position = new Vector3(Random.Range(-25f, 25f), 0.1f, (Random.Range(-25f, 25f)));
         }
+        Debug.Log("DataManager is Ready");
     }
 
     [PunRPC]
@@ -184,6 +187,13 @@ public class DataManager : MonoBehaviourPunCallbacks
                 weapon.transform.SetParent(player.transform);
             }
         }
+    }
+
+    [PunRPC]
+    // give the viewID to each player
+    public void assignViewID(int viewID)
+    {
+        playerViewID = viewID;
     }
 
     // Take an object from the pool and push it to the other
@@ -218,17 +228,6 @@ public class DataManager : MonoBehaviourPunCallbacks
         return playerList.ToArray(); ;
     }
     
-    // manage EXP
-    public float EXP
-    {
-        get { return exp; }
-        set { exp = value; }
-    }
-
-    public void addEXP(int x) {
-        exp += x;
-    }
-
     void Start()
     {
 

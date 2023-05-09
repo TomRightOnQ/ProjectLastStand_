@@ -418,7 +418,6 @@
 "Assets/Scripts/Scriptable/MonsterConfigs.cs"
 "Assets/Scripts/Scriptable/UpgradeConfigs.cs"
 "Assets/Scripts/Scriptable/WeaponConfigs.cs"
-"Assets/Scripts/Tools/BaseIndicator.cs"
 "Assets/Scripts/Tools/ExtTransforms.cs"
 "Assets/Scripts/Tools/GameSettings.cs"
 "Assets/Scripts/Tools/LobbyMultiplayer/CreateOrJoinCanvas.cs"
@@ -434,8 +433,12 @@
 "Assets/Scripts/Tools/LobbyMultiplayer/TestConnect.cs"
 "Assets/Scripts/Tools/PlayerMovement.cs"
 "Assets/Scripts/Tools/SingletonReferences.cs"
-"Assets/Scripts/Tools/UpgradeMenu.cs"
-"Assets/Scripts/Tools/Version.cs"
+"Assets/Scripts/Tools/UIs/BaseIndicator.cs"
+"Assets/Scripts/Tools/UIs/keyBinding.cs"
+"Assets/Scripts/Tools/UIs/UpgradeCards.cs"
+"Assets/Scripts/Tools/UIs/UpgradeMenu.cs"
+"Assets/Scripts/Tools/UIs/Version.cs"
+"Assets/Scripts/Tools/UIs/WeaponInfo.cs"
 -langversion:9.0
 
 /deterministic

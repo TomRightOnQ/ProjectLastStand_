@@ -18,7 +18,7 @@ public class DamageNumber : MonoBehaviour
         screenPos.z = 0f;
         _text.transform.position = screenPos;
 
-        _text.text = Mathf.Abs(damage).ToString();
+        _text.text = Mathf.CeilToInt(damage).ToString();
         initialPosition = _text.transform.position;
         StartCoroutine(Fly());
         StartCoroutine(FadeOut());

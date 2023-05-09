@@ -9,20 +9,21 @@ using static WeaponConfigs;
 public class Weapons : DefaultObjects
 {
     // Weapon Stats
-    [SerializeField] protected string wpName = "DeaultWeapon";
-    [SerializeField] protected int id = 0;
-    [SerializeField] protected int rating = 1;
-    [SerializeField] protected int type = 0;
-    [SerializeField] protected float attack = 10;
-    [SerializeField] protected float pen = 0.1f;
-    [SerializeField] protected float life = 6.0f;
-    [SerializeField] protected float cd = 0.5f;
-    [SerializeField] protected bool selfDet = false;
-    [SerializeField] protected float projectileSpeed = 10f;
-    [SerializeField] protected float damageRange = 0.1f;
-    [SerializeField] protected bool aoe = false;
-    [SerializeField] protected string info = "";
-    [SerializeField] protected string intro = "";
+    [SerializeField] private string wpName = "DeaultWeapon";
+    [SerializeField] private int id = 0;
+    [SerializeField] private int rating = 1;
+    [SerializeField] private int type = 0;
+    [SerializeField] private float attack = 10;
+    [SerializeField] private float pen = 0.1f;
+    [SerializeField] private float life = 6.0f;
+    [SerializeField] private float cd = 0.5f;
+    [SerializeField] private bool selfDet = false;
+    [SerializeField] private float projectileSpeed = 10f;
+    [SerializeField] private float damageRange = 0.1f;
+    [SerializeField] private bool aoe = false;
+    [SerializeField] private string info = "";
+    [SerializeField] private string intro = "";
+    [SerializeField] private int level = 1;
 
     public const string UPDATE_PROJ = "UpdatePosition";
     private float timer = 0;
@@ -46,7 +47,7 @@ public class Weapons : DefaultObjects
     }
 
     // Fire based on type
-    public void Fire(int playerIdx, Vector3 direction)
+    public void Fire(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack)
     {
         if (timer < cd)
         {
@@ -54,20 +55,20 @@ public class Weapons : DefaultObjects
         }
         switch (type) {
             case 0:
-                FireBullet(playerIdx, direction);
+                FireBullet(playerIdx, direction, playerAttack, weaponAttack);
                 break;
             case 1:
-                FireLaser(playerIdx, direction);
+                FireLaser(playerIdx, direction, playerAttack, weaponAttack);
                 break;
             case 2:
-                FireLaser(playerIdx, direction);
+                FireLaser(playerIdx, direction, playerAttack, weaponAttack);
                 break;
         }
         timer = 0;
     }
 
     // Type 0: Bullet
-    private void FireBullet(int playerIdx, Vector3 direction)
+    private void FireBullet(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack)
     {
         // Get projectile from pool
         Projectiles proj = GameManager.Instance.dataManager.TakeProjPool();
@@ -79,7 +80,7 @@ public class Weapons : DefaultObjects
             // Config the Projectile
             proj.transform.position = new Vector3 (firePos.x, firePos.y - 0.5f, firePos.z);
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-            proj.Damage = attack;
+            proj.Damage = attack * playerAttack;
             proj.Owner = playerIdx;
             proj.Life = life;
             proj.SelfDet = true;
@@ -96,8 +97,9 @@ public class Weapons : DefaultObjects
     }
 
     // Type 1: Laser
-    private void FireLaser(int playerIdx, Vector3 direction)
+    private void FireLaser(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack)
     {
+        Debug.Log("Firing Laser");
         RaycastHit[] hitInfos = Physics.RaycastAll(transform.position, direction, 800);
         Vector3 endPos = transform.position + direction * 5f;
 
@@ -110,7 +112,7 @@ public class Weapons : DefaultObjects
                 Monsters monster = hitInfo.collider.gameObject.GetComponent<Monsters>();
                 if (monster != null)
                 {
-                    monster.TakeDamage(attack);
+                    monster.TakeDamage(attack * playerAttack);
                     if (type == 2) {
                         endPos = hitInfo.point;
                         break;
@@ -127,6 +129,35 @@ public class Weapons : DefaultObjects
         {
             photonView.RPC("SimulateLaser", RpcTarget.All, photonView.ViewID, direction, endPos);
         }
+        else {
+            SimulateLaser(direction, endPos);
+        }
+    }
+
+    private void SimulateLaser(Vector3 direction, Vector3 endPos)
+    {
+        Vector3 weaponForward = transform.TransformDirection(Vector3.forward);
+        Vector3 startPos = transform.position + weaponForward * 0.5f;
+        // Get or add the Line Renderer component to the weapon object
+        LineRenderer lineRenderer = GetComponent<LineRenderer>();
+        if (lineRenderer == null)
+        {
+            lineRenderer = gameObject.AddComponent<LineRenderer>();
+            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+            lineRenderer.startColor = Color.red;
+            Color color = Color.red;
+            color.a = 0.5f;
+            lineRenderer.startColor = color;
+            lineRenderer.endColor = color;
+            lineRenderer.startWidth = 0.5f;
+            lineRenderer.endWidth = 0.5f;
+            lineRenderer.positionCount = 2;
+        }
+
+        // Update the Line Renderer with the laser positions
+        lineRenderer.SetPosition(0, startPos);
+        lineRenderer.SetPosition(1, endPos);
+        Destroy(lineRenderer, 0.05f);
     }
 
     // Simulating a laser
@@ -201,6 +232,7 @@ public class Weapons : DefaultObjects
     // Class properties
     public string WpName { get { return wpName; } set { wpName = value; } }
     public int ID { get { return id; } set { id = value; } }
+    public int Rating { get { return rating; } set { rating = value; } }
     public int Type { get { return type; } set { type = value; } }
     public float Attack { get { return attack; } set { attack = value; } }
     public float Pen { get { return pen; } set { pen = value; } }

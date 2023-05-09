@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using static UpgradeConfigs;
 
 // Menu that goes out each time the players reach to the enxt level
-public class UpgradeMenu : MonoBehaviour
+public class UpgradeMenu : MonoBehaviourPunCallbacks
 {
     public static UpgradeMenu Instance { get; private set; }
 
-    // For Displayer
+    // For Display
     [SerializeField] private RectTransform panelTransform;
     [SerializeField] private Image arrow;
     private Vector3 originalPosition;
@@ -23,7 +25,7 @@ public class UpgradeMenu : MonoBehaviour
     // For Data
     // Each points means one upgrade
     [SerializeField] private int points = 0;
-    private bool regenChoices = true;
+    private bool regenChoices = false;
 
     // Including three choices
     [SerializeField] private Button choiceA;
@@ -37,6 +39,7 @@ public class UpgradeMenu : MonoBehaviour
 
     void Awake()
     {
+        gameObject.SetActive(true);
         Instance = this;
     }
 
@@ -46,6 +49,7 @@ public class UpgradeMenu : MonoBehaviour
         originalPosition = panelTransform.anchoredPosition;
         panelWidth = panelTransform.rect.width;
         closedPosition = new Vector3(-(panelWidth / 2), originalPosition.y, originalPosition.z);
+        enableAll();
     }
 
     void Update()
@@ -91,7 +95,7 @@ public class UpgradeMenu : MonoBehaviour
         points += 1;
     }
 
-    private void disableAll() 
+    private void disableAll()
     {
         choiceA.gameObject.SetActive(false);
         choiceB.gameObject.SetActive(false);
@@ -111,6 +115,7 @@ public class UpgradeMenu : MonoBehaviour
             points -= 1;
             if (points == 0)
             {
+                generateUpgrade();
                 isOpen = false;
             }
             else {
@@ -126,8 +131,6 @@ public class UpgradeMenu : MonoBehaviour
         fillUpgradeCard(choiceA);
         fillUpgradeCard(choiceB);
         fillUpgradeCard(choiceC);
-
-        enableAll();
     }
 
     private void fillUpgradeCard(Button card)
@@ -136,8 +139,11 @@ public class UpgradeMenu : MonoBehaviour
         // Select a random rarity level based on chances
         int chance = Random.Range(1, 101);
         int cardType = 1; // Get a upgrade
+        UpgradeCards upCard = card.GetComponent<UpgradeCards>();
+        upCard.IsWeapon = false;
         if (chance > 60)
         {
+            upCard.IsWeapon = true;
             cardType = 2; // Get a weapon
         }
 
@@ -155,16 +161,11 @@ public class UpgradeMenu : MonoBehaviour
     }
 
     // Fill with upgrade
-    private void fillWithUpgrade(Button card, UpgradeConfigs.UpgradeConfig upgradeConfig) 
+    private void fillWithUpgrade(Button card, UpgradeConfigs.UpgradeConfig upgradeConfig)
     {
-        // Get the text components of the card
-        TextMeshProUGUI nameText = card.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI infoText = card.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-
-        // Fill the name and info text
-        nameText.text = upgradeConfig._name;
-        infoText.text = upgradeConfig.description;
-
+        UpgradeCards upCard = card.GetComponent<UpgradeCards>();
+        upCard.UpgradeData = upgradeConfig;
+        upCard.fillUpgrade();
         // Change the color of the card based on the rarity level
         Image cardImage = card.GetComponent<Image>();
         switch (upgradeConfig.rating)
@@ -193,13 +194,9 @@ public class UpgradeMenu : MonoBehaviour
     // Fill with weapon
     private void fillWithWeapon(Button card, WeaponConfigs.WeaponConfig weaponConfig)
     {
-        // Get the text components of the card
-        TextMeshProUGUI nameText = card.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI infoText = card.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-
-        // Fill the name and info text
-        nameText.text = weaponConfig._name;
-        infoText.text = weaponConfig.intro + "\n\n"+ "<i>" + weaponConfig.info + "</i>";
+        UpgradeCards upCard = card.GetComponent<UpgradeCards>();
+        upCard.WeaponData = weaponConfig;
+        upCard.fillWeapon();
 
         // Change the color of the card based on the rarity level
         Image cardImage = card.GetComponent<Image>();
@@ -224,5 +221,65 @@ public class UpgradeMenu : MonoBehaviour
                 cardImage.color = Color.white;
                 break;
         }
+    }
+
+    // Choosing 
+    public void choiceChosen(Button choice) {
+        Players player = GameManager.Instance.GetLocalPlayer();
+        if (player == null) {
+            return;
+        }
+        UpgradeCards upCard = choice.GetComponent<UpgradeCards>();
+        Debug.Log(upCard.IsWeapon);
+        if (upCard.IsWeapon)
+        {
+            Debug.Log("Getting weapons");
+            //read weaponConfig upCard.WeaponData
+            WeaponConfigs.WeaponConfig weaponConfig = upCard.WeaponData;
+            if (!PhotonNetwork.IsConnected)
+            {
+                player.addWeapon(0, weaponConfig.id);
+            }
+            else
+            {
+                player.addWeapon(0, weaponConfig.id);
+                int playerViewID = GameManager.Instance.dataManager.PlayerViewID;
+                int weaponID = weaponConfig.id;
+                photonView.RPC("addWeaponsRPC", RpcTarget.Others, playerViewID, weaponID);
+            }
+        }
+        else {
+            //read upgradeConfig upCard.UpgradeData
+            UpgradeConfigs.UpgradeConfig upgradeConfig = upCard.UpgradeData;
+            player.HitPoints += upgradeConfig.hitPoints;
+            player.CurrentHitPoints += upgradeConfig.regen;
+            player.Speed += upgradeConfig.speed;
+            player.DefaultAttack += upgradeConfig.defaultAttack;
+            player.DefaultWeaponAttack += upgradeConfig.defaultWeaponAttack;
+            player.DefaultDefence += upgradeConfig.defaultDefence;
+            player.DefaultMagicDefence += upgradeConfig.defaultMagicDefence;
+        }
+    }
+
+    [PunRPC]
+    public void addWeaponsRPC(int playerViewID, int id) {
+        Players player = GameManager.Instance.GetLocalPlayer(playerViewID);
+        if (player == null)
+        {
+            return;
+        }
+        player.addWeapon(0, id);
+    }
+
+    public void AChosen() {
+        choiceChosen(choiceA);
+    }
+    public void BChosen()
+    {
+        choiceChosen(choiceB);
+    }
+    public void CChosen()
+    {
+        choiceChosen(choiceC);
     }
 }

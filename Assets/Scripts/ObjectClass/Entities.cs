@@ -56,47 +56,13 @@ public abstract class Entities : DefaultObjects, IPunObservable
     }
 
     // Getters and Setters
-    public float HitPoints
-    {
-        get { return hitPoints; }
-        set { hitPoints = value; }
-    }
-
-    public float CurrentHitPoints
-    {
-        get { return currentHitPoints; }
-        set { currentHitPoints = value; }
-    }
-
-    public float DefaultAttack
-    {
-        get { return defaultAttack; }
-        set { defaultAttack = value; }
-    }
-
-    public float DefaultWeaponAttack
-    {
-        get { return defaultWeaponAttack; }
-        set { defaultWeaponAttack = value; }
-    }
-
-    public float DefaultDefence
-    {
-        get { return defaultDefence; }
-        set { defaultDefence = value; }
-    }
-
-    public float DefaultmagicDefence
-    {
-        get { return defaultMagicDefence; }
-        set { defaultMagicDefence = value; }
-    }
-
-    public float Speed
-    {
-        get { return speed; }
-        set { speed = value; }
-    }
+    public float HitPoints { get { return hitPoints; }set { hitPoints = value; } }
+    public float CurrentHitPoints { get { return currentHitPoints; } set { currentHitPoints = value; } }
+    public float DefaultAttack { get { return defaultAttack; } set { defaultAttack = value; } }
+    public float DefaultWeaponAttack { get { return defaultWeaponAttack; } set { defaultWeaponAttack = value; } }
+    public float DefaultDefence { get { return defaultDefence; } set { defaultDefence = value; } }
+    public float DefaultMagicDefence { get { return defaultMagicDefence; } set { defaultMagicDefence = value; } }
+    public float Speed { get { return speed; } set { speed = value; } }
 
     // Update
     void Update() {

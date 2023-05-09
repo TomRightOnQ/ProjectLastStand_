@@ -23,11 +23,20 @@ public class Players : Entities, IPunObservable
     // Weapons
     private List<Weapons> weapons = new List<Weapons>();
     public List<Weapons> WeaponList { get { return weapons; } set { weapons = value; } }
+    // private int weapon1Index = -1;
+    // private int weapon2Index = -1;
+
+    // Weapon Infos
+    [SerializeField] WeaponInfo weapon1Info;
+    [SerializeField] WeaponInfo weapon2Info;
+    private List<WeaponInfo> weaponInfos = new List<WeaponInfo>();
 
     void Start()
     {
         gameObject.tag = "Player";
         Debug.Log("Ready");
+        weaponInfos.Add(weapon1Info);
+        weaponInfos.Add(weapon2Info);
     }
 
     // Sync
@@ -41,6 +50,9 @@ public class Players : Entities, IPunObservable
     {
         hpS.maxValue = hitPoints;
         hpS.value = currentHitPoints;
+        if (currentHitPoints >= hitPoints) {
+            currentHitPoints = hitPoints;
+        }
     }
 
     public int Index { get { return index; } set { index = value; } }
@@ -61,6 +73,7 @@ public class Players : Entities, IPunObservable
     public void addWeapon(int slot, int id) {
         WeaponConfig weaponData = WeaponConfigs.Instance._getWeaponConfig(id);
         weapons[slot].SetWeapons(weaponData);
+        setWeaponPreview(slot);
     }
 
     // Attack!
@@ -69,18 +82,14 @@ public class Players : Entities, IPunObservable
             if (weapon == null) {
                 return;
             }
-            if (weapon.Type == 0) {
-                if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
-                {
-                    weapon.Fire(index, GetAimDirection());
-                }
-                else {
-                    int weaponViewID = -1;
-                    weaponViewID = weapon.photonView.ViewID;
-                    photonView.RPC("FireForPlayer", RpcTarget.MasterClient, weaponViewID, index, photonView.ViewID, GetAimDirection());
-                }
-            } else if (weapon.Type == 1 || weapon.Type == 2) {
-                weapon.Fire(index, GetAimDirection());
+            if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
+            {
+                weapon.Fire(index, GetAimDirection(), defaultAttack, defaultWeaponAttack);
+            }
+            else {
+                int weaponViewID = -1;
+                weaponViewID = weapon.photonView.ViewID;
+                photonView.RPC("FireForPlayer", RpcTarget.MasterClient, weaponViewID, index, photonView.ViewID, GetAimDirection());
             }
             index += 1;
         }
@@ -100,8 +109,7 @@ public class Players : Entities, IPunObservable
             Debug.LogWarning("FireForPlayer RPC called on non-master client");
             return;
         }
-        PhotonView playerView = PhotonView.Find(playerViewID);
-        Players player = playerView.GetComponent<Players>();
+        Players player = GameManager.Instance.GetLocalPlayer(playerViewID);
 
         if (weaponViewID != -1)
         {
@@ -111,18 +119,26 @@ public class Players : Entities, IPunObservable
                 Weapons weapon = weapon1View.GetComponent<Weapons>();
                 if (weapon != null)
                 {
-                    weapon.Fire(index, direction0);
+                    weapon.Fire(index, direction0, defaultAttack, defaultWeaponAttack);
                 }
             }
         }
     }
 
+    // Set Weapon Info
+    private void setWeaponPreview(int slot)
+    {
+        weaponInfos[slot].SetWeaponInfo(WeaponList[slot]);
+    }
+
     private void Update()
     {
         if (!armed && weapons.Count >= 2) {
-            addWeapon(0, 0);
-            addWeapon(1, 0);
+            addWeapon(0, -1);
+            addWeapon(1, -1);
             armed = true;
+            setWeaponPreview(0);
+            setWeaponPreview(1);
         }
         UpdateHP();
     }

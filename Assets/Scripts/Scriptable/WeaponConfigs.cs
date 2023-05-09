@@ -27,10 +27,28 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     public static WeaponConfig Pistol = new WeaponConfig
     {
         _name = "Pistol",
-        id = 0,
+        id = -1,
         rating = 1,
         type = 0,
         attack = 2,
+        pen = 0.1f,
+        life = 1,
+        cd = 0.5f,
+        selfDet = false,
+        projectileSpeed = 10,
+        aoe = false,
+        damageRange = 0.1f,
+        info = "Better than nothing...",
+        intro = "A default weapon"
+    };
+
+    public static WeaponConfig LMG = new WeaponConfig
+    {
+        _name = "LMG",
+        id = 0,
+        rating = 1,
+        type = 0,
+        attack = 1,
         pen = 0.1f,
         life = 1,
         cd = 0.1f,
@@ -38,8 +56,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         projectileSpeed = 10,
         aoe = false,
         damageRange = 0.1f,
-        info = "Better than nothing...",
-        intro = "A default weapon"
+        info = "LMG! Mounted! and Loaded!",
+        intro = "Light machine gun with great RPM"
     };
 
     public static WeaponConfig RPG = new WeaponConfig
@@ -69,7 +87,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         attack = 2,
         pen = 0.5f,
         life = 0.1f,
-        cd = 0.05f,
+        cd = 0.2f,
         selfDet = true,
         projectileSpeed = 5,
         aoe = true,
@@ -113,8 +131,11 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         WeaponConfig weaponData = Pistol;
         switch (id)
         {
-            case 0:
+            case -1:
                 weaponData = WeaponConfigs.Pistol;
+            break;
+            case 0:
+                weaponData = WeaponConfigs.LMG;
             break;
             case 100:
                 weaponData = WeaponConfigs.RPG;

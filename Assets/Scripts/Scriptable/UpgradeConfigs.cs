@@ -64,7 +64,7 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
         _name = "Regenration",
         id = 2,
         rating = 1,
-        hitPoints = 10,
+        hitPoints = 0,
         speed = 0,
         regen = 10,
         defaultAttack = 0,
@@ -72,7 +72,7 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
         defaultDefence = 0,
         defaultMagicDefence = 0,
         specialEffectIndex = -1,
-        description = "Heal 2 points of HP"
+        description = "Heal 10 points of HP"
     };
 
     // Getters and Setters

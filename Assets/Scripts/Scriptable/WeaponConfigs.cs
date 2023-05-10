@@ -116,8 +116,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
 
     // Getters and Setters
     private const int WHITE_BEGIN = 0;
-    private const int WHITE_COUNT = 1;
-    private const int GRTEE_BEGIN = 100;
+    private const int WHITE_COUNT = 2;
+    private const int GREEN_BEGIN = 100;
     private const int GREEN_COUNT = 2;
     private const int BLUE_BEGIN = 200;
     private const int BLUE_COUNT = 1;
@@ -127,25 +127,25 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     private const int ORANGE_COUNT = 0;
 
     public WeaponConfig _getWeaponConfig(int id)
-    {
+	{
         WeaponConfig weaponData = Pistol;
         switch (id)
         {
             case -1:
                 weaponData = WeaponConfigs.Pistol;
-            break;
+                break;
             case 0:
                 weaponData = WeaponConfigs.LMG;
-            break;
+                break;
             case 100:
                 weaponData = WeaponConfigs.RPG;
-            break;
-            case 101:
+                break;
+			case 200:
+				weaponData = WeaponConfigs.RubyLaser;
+				break;
+			case 101:
                 weaponData = WeaponConfigs.HeatLaser;
-            break;
-            case 200:
-                weaponData = WeaponConfigs.RubyLaser;
-            break;
+                break;	
         }
         return weaponData;
     }
@@ -190,7 +190,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
             case 1:
                 return WHITE_BEGIN;
             case 2:
-                return GRTEE_BEGIN;
+                return GREEN_BEGIN;
             case 3:
                 return BLUE_BEGIN;
             case 4:
@@ -209,7 +209,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
             case 1:
                 return WHITE_BEGIN + WHITE_COUNT - 1;
             case 2:
-                return GRTEE_BEGIN + GREEN_COUNT - 1;
+                return GREEN_BEGIN + GREEN_COUNT - 1;
             case 3:
                 return BLUE_BEGIN + BLUE_COUNT - 1;
             case 4:

@@ -23,7 +23,7 @@ public class Weapons : DefaultObjects
     [SerializeField] private bool aoe = false;
     [SerializeField] private string info = "";
     [SerializeField] private string intro = "";
-    [SerializeField] private int level = 1;
+    // [SerializeField] private int level = 1;
 
     public const string UPDATE_PROJ = "UpdatePosition";
     private float timer = 0;

@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\Tools\GameSettings.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\FriendItem.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Entities.cs" />
+    <Compile Include="Assets\Scripts\Tools\Automation\WeaponConfigEditor.cs" />
     <Compile Include="Assets\Scripts\Tools\PlayerMovement.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
     <Compile Include="Assets\Scripts\Scriptable\MonsterConfigs.cs" />

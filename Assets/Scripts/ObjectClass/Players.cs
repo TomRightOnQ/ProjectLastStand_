@@ -18,7 +18,7 @@ public class Players : Entities, IPunObservable
     private bool armed = false;
     private const string PREFAB_LOC = "Prefabs/";
     // Levels
-    [SerializeField] private int level = 1;
+    // [SerializeField] private int level = 1;
 
     // Weapons
     private List<Weapons> weapons = new List<Weapons>();

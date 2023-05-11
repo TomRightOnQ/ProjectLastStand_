@@ -232,21 +232,23 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
             return;
         }
         UpgradeCards upCard = choice.GetComponent<UpgradeCards>();
-        Debug.Log(upCard.IsWeapon);
         if (upCard.IsWeapon)
         {
             Debug.Log("Getting weapons");
+            int weaponIndex = upCard.WeaponData.id;
             //read weaponConfig upCard.WeaponData
             if (!PhotonNetwork.IsConnected)
             {
                 GameObject dropObj = Instantiate(PrefabManager.Instance.DroppedWeapon, player.transform.position, Quaternion.identity);
                 DroppedItems dropped = dropObj.GetComponent<DroppedItems>();
+                dropped.WeaponIndex = weaponIndex;
                 dropped.SetUp();
             }
             else
             {
                 GameObject dropObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.DroppedWeapon.name, player.transform.position, Quaternion.identity);
                 DroppedItems dropped = dropObj.GetComponent<DroppedItems>();
+                dropped.WeaponIndex = weaponIndex;
                 dropped.SetUp();
             }
         }

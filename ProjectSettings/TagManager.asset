@@ -8,6 +8,8 @@ TagManager:
   - Monster
   - Base
   - Wall
+  - Bullet
+  - Items
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Base
-  - 
+  - Items
   - 
   - 
   - 

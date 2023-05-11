@@ -19,3 +19,4 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 8429875003257297645, guid: 32f16dcc3f0bd7347ae6e04664c1d7cd, type: 3}
   expAndLevels: {fileID: 4527507130772758286, guid: c3f5f4687ea9cb3429ed2f24a32d8fee, type: 3}
   droppedWeapon: {fileID: 3957798750301473208, guid: 0d5f603072ef8ed428cd529ac22673e5, type: 3}
+  itemListing: {fileID: 6555111087248660811, guid: bf24a36fe7cad5241a3c87afbd8a9112, type: 3}

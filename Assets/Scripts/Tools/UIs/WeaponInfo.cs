@@ -40,7 +40,6 @@ public class WeaponInfo : MonoBehaviour
     public float Pen { get { return pen; } set { pen = value; } }
     public float CD { get { return cd; } set { cd = value; } }
 
-
     void Start()
     {
         // For Display

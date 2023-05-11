@@ -119,8 +119,38 @@ public class Players : Entities, IPunObservable
     // Set Weapon Info
     private void setWeaponPreview(int slot)
     {
-        GameUI.Instance.setWeaponInfo(slot, weapons[slot]);
+        GameUI.Instance.SetWeaponInfo(slot, weapons[slot]);
     }
+
+    // Weapon Picked up
+    public void AddDroppedItem(DroppedItems dropped)
+    {
+        if (!PhotonNetwork.IsConnected || photonView.IsMine)
+        {
+            // Check if already recorded
+            if (!GameUI.Instance.DroppedList.Contains(dropped))
+            {
+                GameUI.Instance.DroppedList.Add(dropped);
+                GameObject itemObj = Instantiate(PrefabManager.Instance.ItemListing, Vector3.zero, Quaternion.identity);
+                ItemListings itemListing = itemObj.GetComponent<ItemListings>();
+                itemListing.DroppedId = dropped.DroppedId;
+                GameUI.Instance.AddItem(itemListing);
+            }
+        }
+    }
+
+    public void RemoveDroppedItem(DroppedItems dropped)
+    {
+        if (!PhotonNetwork.IsConnected || photonView.IsMine)
+        {
+            // Check if already recorded
+            if (GameUI.Instance.DroppedList.Contains(dropped))
+            {
+                GameUI.Instance.RemoveDroppedItem(dropped);
+            }
+        }
+    }
+
 
     private void Update()
     {

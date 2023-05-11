@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Managers\Online\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\UpgradeMenu.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatAppIdCheckerUI.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\DroppedItems.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\AppSettingsExtensions.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RoomListing.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CreateOrJoinCanvas.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CreateRoom.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\BaseIndicator.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\UpgradeCards.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\GameUI.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextButtonTransition.cs" />
     <Compile Include="Assets\Scripts\Scriptable\WeaponConfigs.cs" />
@@ -113,8 +115,7 @@
     <Compile Include="Assets\Scripts\ObjectClass\Projectiles.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
-    <Compile Include="Assets\Scripts\ObjectClass\DroppedItems.cs" />
-    <Compile Include="Assets\Scripts\Tools\UIs\GameUI.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\ItemListings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

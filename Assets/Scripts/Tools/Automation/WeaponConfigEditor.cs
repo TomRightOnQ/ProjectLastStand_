@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-
+#if UNITY_EDITOR
 public class WeaponConfigsEditor : EditorWindow
 {
     [MenuItem("Tools/Generate WeaponConfigs")]
@@ -126,3 +126,4 @@ public class WeaponConfigsEditor : EditorWindow
         }
     }
 }
+#endif

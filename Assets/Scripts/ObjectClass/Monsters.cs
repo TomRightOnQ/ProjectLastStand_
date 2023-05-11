@@ -62,7 +62,7 @@ public class Monsters : Entities
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        GameObject damageNumberObj = Instantiate(prefabManager.damageNumberPrefab, transform.position, Quaternion.identity);
+        GameObject damageNumberObj = Instantiate(prefabManager.DamageNumberPrefab, transform.position, Quaternion.identity);
         DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
         damageNumber.Init(damage, transform.position);
     }

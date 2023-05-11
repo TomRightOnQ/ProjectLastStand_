@@ -154,6 +154,28 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         return null;
     }
+
+    // Looking for a dropped weapon
+    public DroppedItems GetDroppedItems(int viewID)
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonView photonView = PhotonView.Find(viewID);
+            if (photonView != null)
+            {
+                DroppedItems dropped = photonView.GetComponent<DroppedItems>();
+                Debug.Log($"Found DroppedItems with viewID {viewID}: {dropped}");
+                return dropped;
+            }
+            else
+            {
+                Debug.LogWarning($"PhotonView not found for viewID {viewID}");
+                return null;
+            }
+        }
+        Debug.LogWarning("Not connected to Photon network");
+        return null;
+    }
 }
 
 // Processing AOE damage

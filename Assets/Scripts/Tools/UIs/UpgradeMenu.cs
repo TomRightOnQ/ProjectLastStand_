@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using static UpgradeConfigs;
+using static PrefabManager;
 
 // Menu that goes out each time the players reach to the enxt level
 public class UpgradeMenu : MonoBehaviourPunCallbacks
@@ -26,6 +27,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     // Each points means one upgrade
     [SerializeField] private int points = 0;
     private bool regenChoices = false;
+    private const string PREFAB_LOC = "Prefabs/";
 
     // Including three choices
     [SerializeField] private Button choiceA;
@@ -235,17 +237,17 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         {
             Debug.Log("Getting weapons");
             //read weaponConfig upCard.WeaponData
-            WeaponConfigs.WeaponConfig weaponConfig = upCard.WeaponData;
             if (!PhotonNetwork.IsConnected)
             {
-                player.addWeapon(0, weaponConfig.id);
+                GameObject dropObj = Instantiate(PrefabManager.Instance.DroppedWeapon, player.transform.position, Quaternion.identity);
+                DroppedItems dropped = dropObj.GetComponent<DroppedItems>();
+                dropped.SetUp();
             }
             else
             {
-                player.addWeapon(0, weaponConfig.id);
-                int playerViewID = GameManager.Instance.dataManager.PlayerViewID;
-                int weaponID = weaponConfig.id;
-                photonView.RPC("addWeaponsRPC", RpcTarget.Others, playerViewID, weaponID);
+                GameObject dropObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.DroppedWeapon.name, player.transform.position, Quaternion.identity);
+                DroppedItems dropped = dropObj.GetComponent<DroppedItems>();
+                dropped.SetUp();
             }
         }
         else {

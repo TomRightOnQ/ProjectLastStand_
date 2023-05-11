@@ -26,17 +26,10 @@ public class Players : Entities, IPunObservable
     // private int weapon1Index = -1;
     // private int weapon2Index = -1;
 
-    // Weapon Infos
-    [SerializeField] WeaponInfo weapon1Info;
-    [SerializeField] WeaponInfo weapon2Info;
-    private List<WeaponInfo> weaponInfos = new List<WeaponInfo>();
-
     void Start()
     {
         gameObject.tag = "Player";
         Debug.Log("Ready");
-        weaponInfos.Add(weapon1Info);
-        weaponInfos.Add(weapon2Info);
     }
 
     // Sync
@@ -48,8 +41,6 @@ public class Players : Entities, IPunObservable
     // Bars
     public void UpdateHP()
     {
-        hpS.maxValue = hitPoints;
-        hpS.value = currentHitPoints;
         if (currentHitPoints >= hitPoints) {
             currentHitPoints = hitPoints;
         }
@@ -128,7 +119,7 @@ public class Players : Entities, IPunObservable
     // Set Weapon Info
     private void setWeaponPreview(int slot)
     {
-        weaponInfos[slot].SetWeaponInfo(WeaponList[slot]);
+        GameUI.Instance.setWeaponInfo(slot, weapons[slot]);
     }
 
     private void Update()
@@ -137,8 +128,6 @@ public class Players : Entities, IPunObservable
             addWeapon(0, -1);
             addWeapon(1, -1);
             armed = true;
-            setWeaponPreview(0);
-            setWeaponPreview(1);
         }
         UpdateHP();
     }

@@ -59,6 +59,8 @@ MonoBehaviour:
   - DropWeaponsRPC
   - RPCSetUP
   - RPCRemoveDroppedItem
+  - RPCRequestDestroyDroppedItem
+  - RPCaddWeapons
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

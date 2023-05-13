@@ -222,16 +222,6 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC]
-    public void addWeaponsRPC(int playerViewID, int id) {
-        Players player = GameManager.Instance.GetLocalPlayer(playerViewID);
-        if (player == null)
-        {
-            return;
-        }
-        player.addWeapon(0, id);
-    }
-
     public void AChosen() {
         choiceChosen(choiceA);
     }

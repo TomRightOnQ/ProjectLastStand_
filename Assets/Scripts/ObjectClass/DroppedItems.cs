@@ -45,13 +45,11 @@ public class DroppedItems : Items
         {
             stream.SendNext(weaponIndex);
             stream.SendNext(level);
-            stream.SendNext(droppedId);
         }
         else
         {
             weaponIndex = (int)stream.ReceiveNext();
             level = (int)stream.ReceiveNext();
-            droppedId = (long)stream.ReceiveNext();
         }
     }
 
@@ -94,6 +92,7 @@ public class DroppedItems : Items
     {
         rb.AddForce(transform.up * throwForce, ForceMode.Impulse);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

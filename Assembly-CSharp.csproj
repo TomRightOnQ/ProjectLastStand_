@@ -68,6 +68,7 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatAppIdCheckerUI.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\DroppedItems.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\AppSettingsExtensions.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\ItemListings.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RoomListing.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CreateOrJoinCanvas.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\WeaponInfo.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Scripts\Managers\MonsterManager.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\Version.cs" />
     <Compile Include="Assets\Scripts\Tools\SingletonReferences.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\WeaponChoice.cs" />
     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\EventSystemSpawner.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CurrentRoomCanvas.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Assets\Scripts\Tools\GameSettings.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\FriendItem.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Entities.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\InteractionScrollView.cs" />
     <Compile Include="Assets\Scripts\Tools\Automation\WeaponConfigEditor.cs" />
     <Compile Include="Assets\Scripts\Tools\PlayerMovement.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
@@ -115,9 +118,7 @@
     <Compile Include="Assets\Scripts\ObjectClass\Projectiles.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
-    <Compile Include="Assets\Scripts\Tools\UIs\ItemListings.cs" />
-    <Compile Include="Assets\Scripts\Tools\UIs\InteractionScrollView.cs" />
-    <Compile Include="Assets\Scripts\Tools\UIs\WeaponChoice.cs" />
+    <Compile Include="Assets\Scripts\Tools\CameraRotation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -146,6 +147,7 @@
     <None Include="Assets\Photon\PhotonLibs\Metro\Photon3Unity3D.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.xml" />
+    <None Include="Assets\SkySeries Freebie\Hdri setup.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />

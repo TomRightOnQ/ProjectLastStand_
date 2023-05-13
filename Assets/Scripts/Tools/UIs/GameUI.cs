@@ -55,6 +55,21 @@ public class GameUI : MonoBehaviourPunCallbacks
         if (!found) return;
         HpS.maxValue = player.HitPoints;
         HpS.value = player.CurrentHitPoints;
+        // Check for ItemListings without corresponding DroppedItems and remove them
+        for (int i = ItemList.Count - 1; i >= 0; i--)
+        {
+            ItemListings item = ItemList[i];
+            DroppedItems droppedItem = DroppedList.Find(x => x.DroppedId == item.DroppedId);
+
+            if (droppedItem == null)
+            {
+                ItemList.RemoveAt(i);
+                if (WeaponChoice.Instance.GetID() == item.DroppedId) {
+                    WeaponChoice.Instance.HidePanel();
+                }
+                Destroy(item.gameObject);
+            }
+        }
     }
 
     // Item listing
@@ -86,37 +101,35 @@ public class GameUI : MonoBehaviourPunCallbacks
         DroppedItems targetDropped = DroppedList.Find(x => x.DroppedId == targetId);
         if (targetDropped != null)
         {
-            // Remove from DroppedList
-            DroppedList.Remove(targetDropped);
-
-            if (PhotonNetwork.IsConnected)
-            {
-                PhotonNetwork.Destroy(targetDropped.gameObject);
-            }
-            else
+            Player owner = targetDropped.photonView.Owner;
+            if (!PhotonNetwork.IsConnected)
             {
                 Destroy(targetDropped.gameObject);
             }
-            ItemListings targetItem = ItemList.Find(x => x.DroppedId == targetId);
-            if (targetItem != null)
+            else if (PhotonNetwork.IsConnected && owner != null)
             {
-                ItemList.Remove(targetItem);
-                if (PhotonNetwork.IsConnected) {
-                    photonView.RPC("RPCRemoveDroppedItem", RpcTarget.Others, targetId);
+                if (targetDropped.photonView.IsMine) {
+                    Debug.Log("Destroying dropped item -> Owner: " + targetDropped.name);
+                    PhotonNetwork.Destroy(targetDropped.gameObject);
                 }
-                Destroy(targetItem.gameObject);
+                Debug.Log("Requesting destroy dropped item from owner: " + owner.NickName);
+                photonView.RPC("RPCRequestDestroyDroppedItem", owner, targetDropped.ViewID);
             }
         }
     }
 
     [PunRPC]
-    public void RPCRemoveDroppedItem(long targetId)
+    public void RPCRequestDestroyDroppedItem(int viewID)
     {
-        DroppedItems targetDropped = DroppedList.Find(x => x.DroppedId == targetId);
-        if (targetDropped != null)
+        DroppedItems targetDropped = GameManager.Instance.GetDroppedItems(viewID);
+        if (targetDropped != null && targetDropped.photonView.IsMine)
         {
-            DroppedList.Remove(targetDropped);
-            Destroy(targetDropped.gameObject);
+            Debug.Log("RPC: Received request to destroy dropped item: " + targetDropped.name);
+            PhotonNetwork.Destroy(targetDropped.gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("RPC: Invalid request to destroy dropped item with target ViewID: " + viewID);
         }
     }
 

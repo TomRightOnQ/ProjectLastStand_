@@ -73,7 +73,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         selfDet = true,
         projectileSpeed = 5,
         aoe = true,
-        damageRange = 0.5f,
+        damageRange = 2.5f,
         info = "R! P! G!",
         intro = "Explosive weapon that causes AOE damage"
     };

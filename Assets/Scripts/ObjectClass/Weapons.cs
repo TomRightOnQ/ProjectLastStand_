@@ -108,7 +108,6 @@ public class Weapons : DefaultObjects
     // Type 1: Laser
     private void FireLaser(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack)
     {
-        Debug.Log("Firing Laser");
         RaycastHit[] hitInfos = Physics.RaycastAll(transform.position, direction, 800);
         Vector3 endPos = transform.position + direction * 5f;
 

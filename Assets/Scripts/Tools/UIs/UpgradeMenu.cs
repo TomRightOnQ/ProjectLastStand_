@@ -191,7 +191,6 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         UpgradeCards upCard = choice.GetComponent<UpgradeCards>();
         if (upCard.IsWeapon)
         {
-            Debug.Log("Getting weapons");
             int weaponIndex = upCard.WeaponData.id;
             //read weaponConfig upCard.WeaponData
             if (!PhotonNetwork.IsConnected)

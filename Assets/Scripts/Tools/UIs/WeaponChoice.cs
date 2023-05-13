@@ -47,26 +47,22 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
         if (weapon1Info.ID == weapon3Info.ID)
         {
             weapon1Hint.text = "Upgrade this weapon";
-            levelAdder = 1;
             weapon1Hint.color = Color.green;
         }
         else
         {
             weapon1Hint.text = "Replace this weapon";
-            levelAdder = -1;
             weapon1Hint.color = Color.red;
         }
         if (weapon2Info.ID == weapon3Info.ID)
         {
             weapon2Hint.text = "Upgrade this weapon";
-            levelAdder = 1;
             weapon1Hint.color = Color.green;
         }
         else
         {
             weapon2Hint.text = "Replace this weapon";
             weapon2Hint.color = Color.red;
-            levelAdder = -1;
         }
     }
 
@@ -140,10 +136,19 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
         if (chosenWeapon == 0)
         {
             chosenWeapon = -1;
+            levelAdder = -1;
         }
         else
         {
             chosenWeapon = 0;
+            if (weapon1Info.ID == weapon3Info.ID)
+            {
+                levelAdder = 1;
+            }
+            else
+            {
+                levelAdder = -1;
+            }
             confirmButton.gameObject.SetActive(true);
         }
     }
@@ -153,10 +158,18 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
         if (chosenWeapon == 1)
         {
             chosenWeapon = -1;
+            levelAdder = -1;
         }
         else
         {
             chosenWeapon = 1;
+            if (weapon2Info.ID == weapon3Info.ID)
+            {
+                levelAdder = 1;
+            }
+            else {
+                levelAdder = -1;
+            }
             confirmButton.gameObject.SetActive(true);
         }
     }

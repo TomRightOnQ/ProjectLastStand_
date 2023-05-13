@@ -63,9 +63,9 @@ public class Players : Entities, IPunObservable
     return: add a Weapons type object instance to Weapons[] array */
     public void addWeapon(int slot, int id, int level) {
         WeaponConfig weaponData = WeaponConfigs.Instance._getWeaponConfig(id);
-        
         if (level <= 0)
         {
+            Debug.Log("Changing Weapon...");
             weapons[slot].SetWeapons(weaponData);
         }
         else {

@@ -120,6 +120,8 @@ public class Players : Entities, IPunObservable
     private void setWeaponPreview(int slot)
     {
         GameUI.Instance.SetWeaponInfo(slot, weapons[slot]);
+        Debug.Log(WeaponChoice.Instance);
+        WeaponChoice.Instance.SetWeaponInfo(slot, weapons[slot]);
     }
 
     // Weapon Picked up
@@ -134,6 +136,8 @@ public class Players : Entities, IPunObservable
                 GameObject itemObj = Instantiate(PrefabManager.Instance.ItemListing, Vector3.zero, Quaternion.identity);
                 ItemListings itemListing = itemObj.GetComponent<ItemListings>();
                 itemListing.DroppedId = dropped.DroppedId;
+                itemListing.WeaponIndex = dropped.WeaponIndex;
+                itemListing.SetUp();
                 GameUI.Instance.AddItem(itemListing);
             }
         }
@@ -150,7 +154,6 @@ public class Players : Entities, IPunObservable
             }
         }
     }
-
 
     private void Update()
     {

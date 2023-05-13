@@ -55,14 +55,18 @@ public class DroppedItems : Items
         }
     }
 
-    private void Start()
+    private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         if (PhotonNetwork.IsConnected)
         {
             PhotonView photonView = GetComponent<PhotonView>();
             viewID = photonView.ViewID;
         }
+    }
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
         Throw();
         // Generate a unique id
         long ticks = DateTime.UtcNow.Ticks - epochTicks;
@@ -115,16 +119,20 @@ public class DroppedItems : Items
         // set details
         nameText.text = weaponData._name;
         if (PhotonNetwork.IsConnected) {
-            photonView.RPC("RPCSetUP", RpcTarget.Others, viewID);
+            photonView.RPC("RPCSetUP", RpcTarget.Others, viewID, weaponData._name, weaponIndex);
         }
     }
 
     [PunRPC]
-    public void RPCSetUP(int viewID) 
+    public void RPCSetUP(int viewID, string weaponName, int _weaponIndex) 
     {
         WeaponConfig weaponData = WeaponConfigs.Instance._getWeaponConfig(weaponIndex);
         DroppedItems dropped = GameManager.Instance.GetDroppedItems(viewID);
-        // set details
-        dropped.nameText.text = weaponData._name;
+        dropped.WeaponIndex = _weaponIndex;
+        dropped.SetWeaponName(weaponName);
+    }
+    public void SetWeaponName(string weaponName)
+    {
+        nameText.text = weaponName;
     }
 }

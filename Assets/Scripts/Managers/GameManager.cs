@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                 monsterManager.begin();
                 isLoaded = true;
             }
-            
         }
     }
 

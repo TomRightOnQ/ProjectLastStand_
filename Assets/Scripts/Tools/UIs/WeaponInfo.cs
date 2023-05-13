@@ -14,23 +14,30 @@ public class WeaponInfo : MonoBehaviour
     [SerializeField] private RectTransform panelTransform;
     private Vector3 originalPosition;
     private Vector3 closedPosition;
-    private bool isOpen = true;
+    [SerializeField] private bool isOpen = true;
     private float panelHeight;
     [SerializeField] private float speed = 10;
     [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI slotText;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI attackText;
+    [SerializeField] private bool movable = true;
+    [SerializeField] private bool choice = false; // If used as a weapon choice
+    [SerializeField] private WeaponInfo theOtherChoice;
+    [SerializeField] private TextMeshProUGUI weaponHintText;
 
     // For weapon's info
     // Weapon Stats
     [SerializeField] private string wpName = "DeaultWeapon";
-    [SerializeField] private int id = 0;
-    [SerializeField] private int rating = 1;
-    [SerializeField] private int type = 0;
-    [SerializeField] private float attack = 10;
-    [SerializeField] private float pen = 0.1f;
-    [SerializeField] private float cd = 0.5f;
-    [SerializeField] private int level = 1;
+    private int id = 0;
+    private int rating = 1;
+    private int type = 0;
+    private float attack = 10;
+    private float pen = 0.1f;
+    private float cd = 0.5f;
+    private int level = 1;
+
+    [SerializeField] private float verticalDistance = -1;
 
     // Class properties
     public string WpName { get { return wpName; } set { wpName = value; } }
@@ -44,7 +51,14 @@ public class WeaponInfo : MonoBehaviour
     {
         // For Display
         originalPosition = panelTransform.anchoredPosition;
-        panelHeight = panelTransform.rect.height;
+        if (verticalDistance == -1)
+        {
+            panelHeight = panelTransform.rect.height;
+        }
+        else {
+            panelHeight = verticalDistance;
+        }
+
         closedPosition = new Vector3(originalPosition.x, (panelHeight / 2), originalPosition.z);
     }
 
@@ -53,15 +67,27 @@ public class WeaponInfo : MonoBehaviour
         // For Display
         Vector3 targetPosition = isOpen ? originalPosition : closedPosition;
         panelTransform.anchoredPosition = Vector3.Lerp(panelTransform.anchoredPosition, targetPosition, speed * Time.deltaTime);
+        if (choice) {
+            weaponHintText.gameObject.SetActive(!isOpen);
+        }
     }
 
     public void ToggleMenu()
     {
+        if (!movable) return;
         isOpen = !isOpen;
+        if (choice && !theOtherChoice.isOpen) {
+            theOtherChoice.CloseMenu();
+        }
+    }
+
+    public void CloseMenu()
+    {
+        isOpen = true;
     }
 
     // Morph the weapon
-    public void SetWeaponInfo(Weapons weapon)
+    public void SetWeaponInfo(int slot, Weapons weapon)
     {
         id = weapon.ID;
         wpName = weapon.WpName;
@@ -71,5 +97,20 @@ public class WeaponInfo : MonoBehaviour
         attackText.text = "ATK: " + attack.ToString();
         nameText.text = wpName.ToString();
         levelText.text = "Lv." + level.ToString();
+        slotText.text = (slot + 1).ToString();
+    }
+
+    // Morph the weapon
+    public void SetWeaponInfo(int slot, WeaponConfig weapon)
+    {
+        id = weapon.id;
+        wpName = weapon._name;
+        rating = weapon.rating;
+        type = weapon.type;
+        attack = weapon.attack;
+        attackText.text = "ATK: " + attack.ToString();
+        nameText.text = wpName.ToString();
+        levelText.text = "Lv." + level.ToString();
+        slotText.text = (slot + 1).ToString();
     }
 }

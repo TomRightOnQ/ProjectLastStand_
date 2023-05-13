@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2613597633578051021}
   - component: {fileID: 2613597633578051023}
-  - component: {fileID: 2613597633578051020}
   - component: {fileID: 1095627089416040868}
   - component: {fileID: 2383095227362566293}
   - component: {fileID: 1563212230420698920}
-  m_Layer: 0
+  - component: {fileID: 8200153967749653618}
+  m_Layer: 5
   m_Name: WeaponInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,33 +50,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2613597633578051018}
   m_CullTransparentMesh: 1
---- !u!114 &2613597633578051020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2613597633578051018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.7176471}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!114 &1095627089416040868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +90,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 2613597633578051020}
+  m_TargetGraphic: {fileID: 8200153967749653618}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -146,17 +119,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelTransform: {fileID: 2613597633578051021}
+  isOpen: 1
   speed: 10
   nameText: {fileID: 791166010960208988}
+  slotText: {fileID: 3684814298502164250}
   levelText: {fileID: 2450187914327840288}
   attackText: {fileID: 4724549845422131922}
+  movable: 1
+  choice: 0
+  theOtherChoice: {fileID: 0}
+  weaponHintText: {fileID: 0}
   wpName: DeaultWeapon
-  id: 0
-  rating: 1
-  type: 0
-  attack: 10
-  pen: 0.1
-  cd: 0.5
+  verticalDistance: -1
 --- !u!114 &1563212230420698920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,8 +143,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604dcce83fd78584ebaef6cc3cc50d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 
-  button: {fileID: 0}
+  key: 2
+  button: {fileID: 1095627089416040868}
+--- !u!114 &8200153967749653618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613597633578051018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 07287319609ff4046a5f3c974220f900, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 100
 --- !u!1 &3001371476950183946
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +186,7 @@ GameObject:
   - component: {fileID: 4678626299332618272}
   - component: {fileID: 2425296044720381816}
   - component: {fileID: 791166010960208988}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -317,7 +321,7 @@ GameObject:
   - component: {fileID: 6921568799036917096}
   - component: {fileID: 8606012610206058042}
   - component: {fileID: 4724549845422131922}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AttackText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,8 +456,8 @@ GameObject:
   - component: {fileID: 7000979887088991065}
   - component: {fileID: 616543156937785252}
   - component: {fileID: 3684814298502164250}
-  m_Layer: 0
-  m_Name: IndexText
+  m_Layer: 5
+  m_Name: SlotText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -585,7 +589,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7367802739181180044}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Texts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +631,7 @@ GameObject:
   - component: {fileID: 6268350639509630432}
   - component: {fileID: 8574631896690668631}
   - component: {fileID: 2450187914327840288}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

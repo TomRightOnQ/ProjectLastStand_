@@ -13,16 +13,20 @@ public class GameUI : MonoBehaviourPunCallbacks
     public static GameUI Instance;
     // Player Info UIs
     [SerializeField] Slider HpS;
-    [SerializeField] WeaponInfo weapon1Info;
-    [SerializeField] WeaponInfo weapon2Info;
+    [SerializeField] private WeaponInfo weapon1Info;
+    [SerializeField] private WeaponInfo weapon2Info;
+    [SerializeField] private Players player;
+    [SerializeField] private GameObject content;
+    [SerializeField] private int selectedItemIndex = 0;
+    
     private List<WeaponInfo> weaponInfos = new List<WeaponInfo>();
-    [SerializeField] Players player;
-
     private List<DroppedItems> droppedList;
     private List<ItemListings> itemList;
     private List<int> itemIDs;
+    private int chosenIndex;
     public List<DroppedItems> DroppedList { get { return droppedList; } set { droppedList = value; } }
     public List<ItemListings> ItemList { get { return itemList; } set { itemList = value; } }
+    public GameObject Content { get { return content; } }
 
     bool found = false;
 
@@ -75,7 +79,48 @@ public class GameUI : MonoBehaviourPunCallbacks
         }
     }
 
+    // Delete a dropped item
+    // Destroy both network and local
+    public void RemoveDroppedItem(long targetId)
+    {
+        DroppedItems targetDropped = DroppedList.Find(x => x.DroppedId == targetId);
+        if (targetDropped != null)
+        {
+            // Remove from DroppedList
+            DroppedList.Remove(targetDropped);
+
+            if (PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.Destroy(targetDropped.gameObject);
+            }
+            else
+            {
+                Destroy(targetDropped.gameObject);
+            }
+            ItemListings targetItem = ItemList.Find(x => x.DroppedId == targetId);
+            if (targetItem != null)
+            {
+                ItemList.Remove(targetItem);
+                if (PhotonNetwork.IsConnected) {
+                    photonView.RPC("RPCRemoveDroppedItem", RpcTarget.Others, targetId);
+                }
+                Destroy(targetItem.gameObject);
+            }
+        }
+    }
+
+    [PunRPC]
+    public void RPCRemoveDroppedItem(long targetId)
+    {
+        DroppedItems targetDropped = DroppedList.Find(x => x.DroppedId == targetId);
+        if (targetDropped != null)
+        {
+            DroppedList.Remove(targetDropped);
+            Destroy(targetDropped.gameObject);
+        }
+    }
+
     public void SetWeaponInfo(int slot, Weapons weapon) {
-        weaponInfos[slot].SetWeaponInfo(weapon);
+        weaponInfos[slot].SetWeaponInfo(slot, weapon);
     }
 }

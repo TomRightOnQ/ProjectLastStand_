@@ -169,28 +169,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         upCard.UpgradeData = upgradeConfig;
         upCard.fillUpgrade();
         // Change the color of the card based on the rarity level
-        Image cardImage = card.GetComponent<Image>();
-        switch (upgradeConfig.rating)
-        {
-            case 1: // white
-                cardImage.color = Color.white;
-                break;
-            case 2: // green
-                cardImage.color = Color.green;
-                break;
-            case 3: // blue
-                cardImage.color = Color.blue;
-                break;
-            case 4: // purple
-                cardImage.color = new Color(0.5f, 0f, 1f);
-                break;
-            case 5: // orange
-                cardImage.color = new Color(1f, 0.5f, 0f);
-                break;
-            default:
-                cardImage.color = Color.white;
-                break;
-        }
+        upCard.SetColor(upgradeConfig.rating);
     }
 
     // Fill with weapon
@@ -199,30 +178,8 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         UpgradeCards upCard = card.GetComponent<UpgradeCards>();
         upCard.WeaponData = weaponConfig;
         upCard.fillWeapon();
-
         // Change the color of the card based on the rarity level
-        Image cardImage = card.GetComponent<Image>();
-        switch (weaponConfig.rating)
-        {
-            case 1: // white
-                cardImage.color = Color.white;
-                break;
-            case 2: // green
-                cardImage.color = Color.green;
-                break;
-            case 3: // blue
-                cardImage.color = Color.blue;
-                break;
-            case 4: // purple
-                cardImage.color = new Color(0.5f, 0f, 1f);
-                break;
-            case 5: // orange
-                cardImage.color = new Color(1f, 0.5f, 0f);
-                break;
-            default:
-                cardImage.color = Color.white;
-                break;
-        }
+        upCard.SetColor(weaponConfig.rating);
     }
 
     // Choosing 

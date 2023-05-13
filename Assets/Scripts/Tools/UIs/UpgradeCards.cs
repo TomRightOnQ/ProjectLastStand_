@@ -10,6 +10,9 @@ using static WeaponConfigs;
 public class UpgradeCards : MonoBehaviour
 {
     // flag the return type
+    [SerializeField] Image cardImage;
+    [SerializeField] TextMeshProUGUI nameText;
+    [SerializeField] TextMeshProUGUI infoText;
     private bool isWeapon = false;
     private WeaponConfig weaponData;
     private UpgradeConfig upgradeData;
@@ -20,27 +23,45 @@ public class UpgradeCards : MonoBehaviour
 
     public void Start()
     {
-        Image cardImage = GetComponent<Image>();
         cardImage.color = new Color(0.5f, 0f, 1f);
     }
 
     public void fillUpgrade()
     {
         isWeapon = false;
-        // Get the text components of the card
-        TextMeshProUGUI nameText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI infoText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         nameText.text = UpgradeData._name;
         infoText.text = UpgradeData.description;
     }
     public void fillWeapon()
     {
         isWeapon = true;
-        // Get the text components of the card
-        TextMeshProUGUI nameText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI infoText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         // Fill the name and info text
         nameText.text = weaponData._name;
         infoText.text = weaponData.intro + "\n\n" + "<i>" + weaponData.info + "</i>";
+    }
+
+    public void SetColor(int rating)
+    {
+        switch (rating)
+        {
+            case 1: // white
+                cardImage.color = Color.white;
+                break;
+            case 2: // green
+                cardImage.color = Color.green;
+                break;
+            case 3: // blue
+                cardImage.color = Color.blue;
+                break;
+            case 4: // purple
+                cardImage.color = new Color(0.5f, 0f, 1f);
+                break;
+            case 5: // orange
+                cardImage.color = new Color(1f, 0.5f, 0f);
+                break;
+            default:
+                cardImage.color = Color.white;
+                break;
+        }
     }
 }

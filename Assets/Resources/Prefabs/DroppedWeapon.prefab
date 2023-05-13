@@ -231,6 +231,7 @@ MonoBehaviour:
   levelText: {fileID: 0}
   nameText: {fileID: 8759291410449145729}
   weaponIndex: 0
+  droppedId: 0
 --- !u!65 &40070346
 BoxCollider:
   m_ObjectHideFlags: 0

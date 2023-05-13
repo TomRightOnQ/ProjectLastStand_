@@ -94,6 +94,7 @@ public class WeaponInfo : MonoBehaviour
         rating = weapon.Rating;
         type = weapon.Type;
         attack = weapon.Attack;
+        level = weapon.Level;
         attackText.text = "ATK: " + attack.ToString();
         nameText.text = wpName.ToString();
         levelText.text = "Lv." + level.ToString();
@@ -101,7 +102,7 @@ public class WeaponInfo : MonoBehaviour
     }
 
     // Morph the weapon
-    public void SetWeaponInfo(int slot, WeaponConfig weapon)
+    public void SetWeaponInfo(int slot, WeaponConfig weapon, int _level)
     {
         id = weapon.id;
         wpName = weapon._name;
@@ -110,6 +111,7 @@ public class WeaponInfo : MonoBehaviour
         attack = weapon.attack;
         attackText.text = "ATK: " + attack.ToString();
         nameText.text = wpName.ToString();
+        level = _level;
         levelText.text = "Lv." + level.ToString();
         slotText.text = (slot + 1).ToString();
     }

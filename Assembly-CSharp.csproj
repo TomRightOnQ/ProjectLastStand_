@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\TestConnect.cs" />
     <Compile Include="Assets\Scripts\Managers\PrefabManager.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
+    <Compile Include="Assets\Scripts\Tools\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\Scriptable\UpgradeConfigs.cs" />
     <Compile Include="Assets\Scripts\Managers\Online\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\UpgradeMenu.cs" />
@@ -118,7 +119,6 @@
     <Compile Include="Assets\Scripts\ObjectClass\Projectiles.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
-    <Compile Include="Assets\Scripts\Tools\CameraRotation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

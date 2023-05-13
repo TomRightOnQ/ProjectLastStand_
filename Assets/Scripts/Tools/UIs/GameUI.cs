@@ -17,7 +17,6 @@ public class GameUI : MonoBehaviourPunCallbacks
     [SerializeField] private WeaponInfo weapon2Info;
     [SerializeField] private Players player;
     [SerializeField] private GameObject content;
-    [SerializeField] private int selectedItemIndex = 0;
     
     private List<WeaponInfo> weaponInfos = new List<WeaponInfo>();
     private List<DroppedItems> droppedList;

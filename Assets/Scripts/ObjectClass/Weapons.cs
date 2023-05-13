@@ -23,7 +23,7 @@ public class Weapons : DefaultObjects
     [SerializeField] private bool aoe = false;
     [SerializeField] private string info = "";
     [SerializeField] private string intro = "";
-    // [SerializeField] private int level = 1;
+    [SerializeField] private int level = 1;
 
     public const string UPDATE_PROJ = "UpdatePosition";
     private float timer = 0;
@@ -44,12 +44,15 @@ public class Weapons : DefaultObjects
         aoe = weaponConfigs.aoe;
         info = weaponConfigs.info;
         intro = weaponConfigs.intro;
+        level = 1;
     }
 
     // Updrage
-    public void Upgrade() 
+    public void Upgrade(int _level) 
     {
-    
+        Debug.Log("Upgrading!" + level.ToString() + " " + _level.ToString()) ;
+        level += _level;
+        Debug.Log(level);
     }
 
     // Fire based on type
@@ -236,6 +239,7 @@ public class Weapons : DefaultObjects
     }
 
     // Class properties
+    public int Level { get { return level; } set { level = value; } }
     public string WpName { get { return wpName; } set { wpName = value; } }
     public int ID { get { return id; } set { id = value; } }
     public int Rating { get { return rating; } set { rating = value; } }

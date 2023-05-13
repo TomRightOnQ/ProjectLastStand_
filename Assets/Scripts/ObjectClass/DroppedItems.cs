@@ -15,7 +15,6 @@ public class DroppedItems : Items
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI nameText;
-    private bool isFalling = true;
     private float throwForce = 5f;
     private Rigidbody rb;
 
@@ -75,13 +74,11 @@ public class DroppedItems : Items
     {
         if (transform.position.y >= 0.01f)
         {
-            isFalling = true;
             rb.isKinematic = false;
             rb.useGravity = true;
         }
         else
         {
-            isFalling = false;
             rb.isKinematic = true;
             rb.useGravity = false;
         }

@@ -63,6 +63,7 @@ MonoBehaviour:
   aoe: 0
   info: 
   intro: 
+  level: 1
 --- !u!33 &525003350
 MeshFilter:
   m_ObjectHideFlags: 0

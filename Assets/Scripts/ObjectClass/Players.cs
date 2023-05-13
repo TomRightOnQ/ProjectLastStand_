@@ -61,9 +61,17 @@ public class Players : Entities, IPunObservable
     slot: 1 or 2, indicate the current slot
     id: weapon id
     return: add a Weapons type object instance to Weapons[] array */
-    public void addWeapon(int slot, int id) {
+    public void addWeapon(int slot, int id, int level) {
         WeaponConfig weaponData = WeaponConfigs.Instance._getWeaponConfig(id);
-        weapons[slot].SetWeapons(weaponData);
+        
+        if (level <= 0)
+        {
+            weapons[slot].SetWeapons(weaponData);
+        }
+        else {
+            Debug.Log("Upgrading Weapon...");
+            weapons[slot].Upgrade(level);
+        }
         setWeaponPreview(slot);
     }
 
@@ -120,7 +128,6 @@ public class Players : Entities, IPunObservable
     private void setWeaponPreview(int slot)
     {
         GameUI.Instance.SetWeaponInfo(slot, weapons[slot]);
-        Debug.Log(WeaponChoice.Instance);
         WeaponChoice.Instance.SetWeaponInfo(slot, weapons[slot]);
     }
 
@@ -158,8 +165,8 @@ public class Players : Entities, IPunObservable
     private void Update()
     {
         if (!armed && weapons.Count >= 2) {
-            addWeapon(0, -1);
-            addWeapon(1, -1);
+            addWeapon(0, -1, 0);
+            addWeapon(1, -1, 0);
             armed = true;
         }
         UpdateHP();

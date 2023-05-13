@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2613597633578051023}
   - component: {fileID: 1095627089416040868}
   - component: {fileID: 2383095227362566293}
-  - component: {fileID: 1563212230420698920}
   - component: {fileID: 8200153967749653618}
   m_Layer: 5
   m_Name: WeaponInfo
@@ -131,20 +130,6 @@ MonoBehaviour:
   weaponHintText: {fileID: 0}
   wpName: DeaultWeapon
   verticalDistance: -1
---- !u!114 &1563212230420698920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2613597633578051018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 604dcce83fd78584ebaef6cc3cc50d15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  key: 2
-  button: {fileID: 1095627089416040868}
 --- !u!114 &8200153967749653618
 MonoBehaviour:
   m_ObjectHideFlags: 0

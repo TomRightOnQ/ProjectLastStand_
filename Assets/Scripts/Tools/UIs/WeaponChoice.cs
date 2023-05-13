@@ -21,6 +21,7 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
     [SerializeField] private TextMeshProUGUI weapon2Hint;
     private List<WeaponInfo> weaponInfos = new List<WeaponInfo>();
     [SerializeField] private int chosenWeapon = -1;
+    private int levelAdder = 0;
     private long droppedId;
 
     private void Awake()
@@ -46,20 +47,26 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
         if (weapon1Info.ID == weapon3Info.ID)
         {
             weapon1Hint.text = "Upgrade this weapon";
+            levelAdder = 1;
+            weapon1Hint.color = Color.green;
         }
         else
         {
             weapon1Hint.text = "Replace this weapon";
+            levelAdder = -1;
             weapon1Hint.color = Color.red;
         }
         if (weapon2Info.ID == weapon3Info.ID)
         {
             weapon2Hint.text = "Upgrade this weapon";
+            levelAdder = 1;
+            weapon1Hint.color = Color.green;
         }
         else
         {
             weapon2Hint.text = "Replace this weapon";
             weapon2Hint.color = Color.red;
+            levelAdder = -1;
         }
     }
 
@@ -72,9 +79,9 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
         return droppedId;
     }
 
-    public void SetWeaponInfo(int slot, WeaponConfig weaponData)
+    public void SetWeaponInfo(int slot, WeaponConfig weaponData, int _level)
     {
-        weaponInfos[slot].SetWeaponInfo(slot, weaponData);
+        weaponInfos[slot].SetWeaponInfo(slot, weaponData, _level);
     }
 
     public void SetWeaponInfo(int slot, Weapons weapon)
@@ -105,9 +112,9 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
             Players player = GameManager.Instance.GetLocalPlayer();
             if (PhotonNetwork.IsConnected) {
                 int playerViewID = GameManager.Instance.dataManager.PlayerViewID;
-                photonView.RPC("RPCaddWeapons", RpcTarget.Others, playerViewID, chosenWeapon, weapon3Info.ID);
-            }
-            player.addWeapon(chosenWeapon, weapon3Info.ID);
+                photonView.RPC("RPCaddWeapons", RpcTarget.Others, playerViewID, chosenWeapon, weapon3Info.ID, levelAdder);
+            } 
+            player.addWeapon(chosenWeapon, weapon3Info.ID, levelAdder);
             // Destroy the listing and dropped item with the same ID
             GameUI.Instance.RemoveDroppedItem(droppedId);
             chosenWeapon = -1;
@@ -117,14 +124,14 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
 
     // Change Weapon
     [PunRPC]
-    public void RPCaddWeapons(int playerViewID, int slot, int id)
+    public void RPCaddWeapons(int playerViewID, int slot, int id, int level)
     {
         Players player = GameManager.Instance.GetLocalPlayer(playerViewID);
         if (player == null)
         {
             return;
         }
-        player.addWeapon(slot, id);
+        player.addWeapon(slot, id, level);
     }
 
     // Selection of weapon

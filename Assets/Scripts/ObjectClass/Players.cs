@@ -165,10 +165,12 @@ public class Players : Entities, IPunObservable
     private void Update()
     {
         if (!armed && weapons.Count >= 2) {
-            addWeapon(0, -1, 0);
-            addWeapon(1, -1, 0);
+            addWeapon(0, 100, 0);
+            addWeapon(1, 100, 0);
             armed = true;
         }
         UpdateHP();
+        setWeaponPreview(0);
+        setWeaponPreview(1);
     }
 }

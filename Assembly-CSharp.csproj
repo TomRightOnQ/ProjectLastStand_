@@ -119,6 +119,9 @@
     <Compile Include="Assets\Scripts\ObjectClass\Projectiles.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
+    <Compile Include="Assets\Scripts\Scriptable\AnimConfigs.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Anim.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Explosions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

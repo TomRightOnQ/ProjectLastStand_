@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -13,7 +14,8 @@ public class Weapons : DefaultObjects
     [SerializeField] private int id = 0;
     [SerializeField] private int rating = 1;
     [SerializeField] private int type = 0;
-    [SerializeField] private float attack = 10;
+    [SerializeField] private float extraAttack = 0;
+    [SerializeField] private float attack = 2;
     [SerializeField] private float pen = 0.1f;
     [SerializeField] private float life = 6.0f;
     [SerializeField] private float cd = 0.5f;
@@ -24,7 +26,9 @@ public class Weapons : DefaultObjects
     [SerializeField] private string info = "";
     [SerializeField] private string intro = "";
     [SerializeField] private int level = 1;
+    [SerializeField] private int hitAnim = 0;
 
+    private float atk;
     public const string UPDATE_PROJ = "UpdatePosition";
     private float timer = 0;
 
@@ -44,15 +48,28 @@ public class Weapons : DefaultObjects
         aoe = weaponConfigs.aoe;
         info = weaponConfigs.info;
         intro = weaponConfigs.intro;
+        hitAnim = weaponConfigs.hitAnim;
+        damageRange = weaponConfigs.damageRange;
         level = 1;
+    }
+
+    private void Start()
+    {
+        atk = attack + extraAttack;
     }
 
     // Updrage
     public void Upgrade(int _level) 
     {
-        Debug.Log("Upgrading!" + level.ToString() + " " + _level.ToString()) ;
         level += _level;
-        Debug.Log(level);
+        configureLevel();
+    }
+
+    // Change weapon based on the current level;
+    private void configureLevel()
+    {
+        extraAttack = (level - 1) * MathF.Ceiling((0.1f * attack));
+        atk = attack + extraAttack;
     }
 
     // Fire based on type
@@ -89,12 +106,14 @@ public class Weapons : DefaultObjects
             // Config the Projectile
             proj.transform.position = new Vector3 (firePos.x, firePos.y - 0.5f, firePos.z);
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-            proj.Damage = attack * playerAttack;
+            proj.Damage = atk * playerAttack;
             proj.Owner = playerIdx;
             proj.Life = life;
             proj.SelfDet = true;
             proj.Player = true;
             proj.AOE = aoe;
+            proj.HitAnim = hitAnim;
+            proj.DamageRange = damageRange;
             proj.GetComponent<Rigidbody>().velocity = direction * projectileSpeed * 10;
             proj.Activate();
 
@@ -120,7 +139,7 @@ public class Weapons : DefaultObjects
                 Monsters monster = hitInfo.collider.gameObject.GetComponent<Monsters>();
                 if (monster != null)
                 {
-                    monster.TakeDamage(attack * playerAttack);
+                    monster.TakeDamage(atk * playerAttack);
                     if (type == 2) {
                         endPos = hitInfo.point;
                         break;
@@ -235,6 +254,7 @@ public class Weapons : DefaultObjects
     private void Update()
     {
         timer += Time.deltaTime;
+        atk = attack + extraAttack;
     }
 
     // Class properties
@@ -252,4 +272,6 @@ public class Weapons : DefaultObjects
     public float DamageRange { get { return damageRange; } set { damageRange = value; } }
     public string Info { get { return info; } set { Info = value; } }
     public string Intro { get { return intro; } set { Intro = value; } }
+    public float Atk { get { return atk; } }
+    public int HitAnim { get { return HitAnim; } }
 } 

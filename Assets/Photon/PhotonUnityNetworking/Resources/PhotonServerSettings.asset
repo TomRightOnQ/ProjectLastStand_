@@ -61,6 +61,7 @@ MonoBehaviour:
   - RPCRemoveDroppedItem
   - RPCRequestDestroyDroppedItem
   - RPCaddWeapons
+  - RPCPlayHitAnim
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

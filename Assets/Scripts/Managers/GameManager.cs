@@ -10,7 +10,6 @@ using static MonsterConfigs;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     private bool isLoaded = false;
-    private int maxColliders = 50;
 
     private static GameManager instance;
     public DataManager dataManager;
@@ -19,8 +18,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Data
     private MonsterConfig[] monsterData;
     private WeaponConfig[] WeaponData;
-    private List<DamageExplosion> damageExplosions = new List<DamageExplosion>();
-    public List<DamageExplosion> DamageExplosions { get {return damageExplosions; } }
+
     public static GameManager Instance
     {
         get
@@ -73,34 +71,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         // Test Attack
         Players[] players = dataManager.GetPlayers();
-
-        // AOE
-        foreach (DamageExplosion explosion in damageExplosions)
-        {
-
-            // create a list to store the colliders within the explosion range
-            Collider[] colliders = new Collider[maxColliders];
-            int numColliders = Physics.OverlapSphereNonAlloc(explosion.position, explosion.damageRange, colliders);
-            if (numColliders == 0) {
-                continue;
-            }
-            // iterate over the colliders within range
-            for (int i = 0; i < numColliders; i++)
-            {
-                Monsters monster = colliders[i].GetComponent<Monsters>();
-
-                if (monster != null && monster.gameObject.activeSelf && monster.gameObject.CompareTag("Monster"))
-                {
-                    Debug.Log("Explosion damage taken");
-                    float distance = Vector3.Distance(explosion.position, monster.transform.position);
-                    float damage = explosion.damageValue / (1 + distance/explosion.damageRange * 0.5f);
-                    monster.TakeDamage(explosion.damageValue);
-                    GameManager.Instance.monsterManager.despawnCheck(monster); 
-                }
-            }   
-        }
-        // Reset AOE positions
-        damageExplosions.Clear();
     }
 
     // Add exp to players
@@ -174,20 +144,5 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         Debug.LogWarning("Not connected to Photon network");
         return null;
-    }
-}
-
-// Processing AOE damage
-public class DamageExplosion
-{
-    public Vector3 position;
-    public float damageRange;
-    public float damageValue;
-
-    public DamageExplosion(Vector3 pos, float range, float value)
-    {
-        position = pos;
-        damageRange = range;
-        damageValue = value;
     }
 }

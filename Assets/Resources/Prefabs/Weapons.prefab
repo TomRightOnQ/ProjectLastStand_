@@ -53,6 +53,7 @@ MonoBehaviour:
   id: 0
   rating: 1
   type: 0
+  extraAttack: 0
   attack: 10
   pen: 0.1
   life: 6
@@ -64,6 +65,7 @@ MonoBehaviour:
   info: 
   intro: 
   level: 1
+  hitAnim: 0
 --- !u!33 &525003350
 MeshFilter:
   m_ObjectHideFlags: 0

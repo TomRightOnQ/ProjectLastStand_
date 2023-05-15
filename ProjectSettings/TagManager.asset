@@ -19,7 +19,7 @@ TagManager:
   - UI
   - Base
   - Items
-  - 
+  - FX
   - 
   - 
   - 
@@ -55,4 +55,7 @@ TagManager:
     locked: 0
   - name: Base
     uniqueID: 450873349
+    locked: 0
+  - name: FX
+    uniqueID: 15109399
     locked: 0

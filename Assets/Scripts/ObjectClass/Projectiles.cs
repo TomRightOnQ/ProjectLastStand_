@@ -19,9 +19,10 @@ public class Projectiles : Items, IPunObservable
     [SerializeField] private float life = 1.0f;
     [SerializeField] private bool selfDet = false;
     [SerializeField] private bool player = false;
-    [SerializeField] private bool pen = false;
+    [SerializeField] private float pen = 0;
     [SerializeField] private bool aoe = false;
     [SerializeField] private float damageRange = 0.1f;
+    [SerializeField] private int hitAnim = 0;
 
     private float creationTime;
 
@@ -51,6 +52,7 @@ public class Projectiles : Items, IPunObservable
             stream.SendNext(pen);
             stream.SendNext(aoe);
             stream.SendNext(damageRange);
+            stream.SendNext(hitAnim);
         }
         else
         {
@@ -59,9 +61,10 @@ public class Projectiles : Items, IPunObservable
             life = (float)stream.ReceiveNext();
             selfDet = (bool)stream.ReceiveNext();
             player = (bool)stream.ReceiveNext();
-            pen = (bool)stream.ReceiveNext();
+            pen = (float)stream.ReceiveNext();
             aoe = (bool)stream.ReceiveNext();
             damageRange = (float)stream.ReceiveNext();
+            hitAnim = (int)stream.ReceiveNext();
         }
     }
 
@@ -70,8 +73,9 @@ public class Projectiles : Items, IPunObservable
     public float Life { get { return life; } set { life = value; } }
     public bool SelfDet { get { return selfDet; } set { selfDet = value; } }
     public bool Player { get { return player; } set { player = value; } }
-    public bool Pen { get { return pen; } set { pen = value; } }
+    public float Pen { get { return pen; } set { pen = value; } }
     public bool AOE { get { return aoe; } set { aoe = value; } }
+    public int HitAnim { get { return HitAnim; } set { hitAnim = value; } }
 
     public float DamageRange
     {
@@ -137,18 +141,29 @@ public class Projectiles : Items, IPunObservable
             Monsters monster = other.gameObject.GetComponent<Monsters>();
             if (monster != null && monster.gameObject.activeSelf)
             {
+                GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(hitAnim), Vector3.zero, Quaternion.identity);
+                Vector3 pos = new Vector3(monster.transform.position.x, monster.transform.position.y + 4, monster.transform.position.z - 1.5f);
+                animObject.transform.position = pos;
+                animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+                animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
+                if (PhotonNetwork.IsConnected) {
+                    photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
+                }
+
                 if (!AOE)
                 {
                     gameObject.SetActive(false);
                     Deactivate();
-                    monster.TakeDamage(Damage);
+                    monster.TakeDamage(damage);
                     GameManager.Instance.monsterManager.despawnCheck(monster);
                 }
                 else
                 {
+                    Debug.Log("Area Damage");
+                    // AOE
+                    Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                    explosion.Initialize(damageRange, damage, pen);
                     gameObject.SetActive(false);
-                    // Push to AOE list
-                    GameManager.Instance.DamageExplosions.Add(new DamageExplosion(transform.position, DamageRange, Damage));
                     Deactivate();
                 }
             }
@@ -158,5 +173,14 @@ public class Projectiles : Items, IPunObservable
             gameObject.SetActive(false);
             Deactivate();
         }
+    }
+
+    [PunRPC]
+    public void RPCPlayHitAnim(int id, Vector3 pos, float scale) 
+    {
+        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
+        animObject.transform.position = pos;
+        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+        animObject.transform.localScale = new Vector3(scale, scale, scale);
     }
 }

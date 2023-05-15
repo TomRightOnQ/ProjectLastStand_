@@ -93,7 +93,7 @@ public class WeaponInfo : MonoBehaviour
         wpName = weapon.WpName;
         rating = weapon.Rating;
         type = weapon.Type;
-        attack = weapon.Attack;
+        attack = weapon.Atk;
         level = weapon.Level;
         attackText.text = "ATK: " + attack.ToString();
         nameText.text = wpName.ToString();

@@ -190,6 +190,7 @@ MonoBehaviour:
   pen: 0
   aoe: 0
   damageRange: 0.1
+  hitAnim: 0
 --- !u!33 &1650229930
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -22,6 +22,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         public bool aoe;
         public string info;
         public string intro;
+        public int hitAnim;
     }
 
     public static WeaponConfig Pistol = new WeaponConfig
@@ -37,9 +38,10 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         selfDet = false,
         projectileSpeed = 10,
         aoe = false,
-        damageRange = 0.1f,
+        damageRange = 0.3f,
         info = "Better than nothing...",
-        intro = "A default weapon"
+        intro = "A default weapon",
+        hitAnim = 0
     };
 
     public static WeaponConfig LMG = new WeaponConfig
@@ -55,9 +57,11 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         selfDet = false,
         projectileSpeed = 10,
         aoe = false,
-        damageRange = 0.1f,
+        damageRange = 0.3f,
         info = "LMG! Mounted! and Loaded!",
-        intro = "Light machine gun with great RPM"
+        intro = "Light machine gun with great RPM",
+        hitAnim = 0
+
     };
 
     public static WeaponConfig RPG = new WeaponConfig
@@ -73,9 +77,10 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         selfDet = true,
         projectileSpeed = 5,
         aoe = true,
-        damageRange = 2.5f,
+        damageRange = 1f,
         info = "R! P! G!",
-        intro = "Explosive weapon that causes AOE damage"
+        intro = "Explosive weapon that causes AOE damage",
+        hitAnim = 0
     };
 
     public static WeaponConfig HeatLaser = new WeaponConfig
@@ -93,7 +98,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         aoe = true,
         damageRange = 0.1f,
         info = "OVERLOAD!",
-        intro = "Burning the first enemy with a beam of laser"
+        intro = "Burning the first enemy with a beam of laser",
+        hitAnim = 0
     };
 
     public static WeaponConfig RubyLaser = new WeaponConfig
@@ -111,7 +117,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         aoe = true,
         damageRange = 0.1f,
         info = "Charging...",
-        intro = "Slow but destructive laser cannon"
+        intro = "Slow but destructive laser cannon",
+        hitAnim = 0
     };
 
     // Getters and Setters

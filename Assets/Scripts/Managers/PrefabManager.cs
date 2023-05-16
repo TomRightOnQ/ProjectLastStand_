@@ -15,6 +15,7 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     [SerializeField] private GameObject droppedWeapon; // Dropped items - weapon
     [SerializeField] private GameObject itemListing; // Items on the list right side
     [SerializeField] private GameObject explosionPrefab; // Explosions
+    [SerializeField] private GameObject indicatorPrefab; // Player Indicator
 
     public GameObject MonsterPrefab { get { return monsterPrefab; } }
     public GameObject ProjPrefab { get { return projPrefab; } }
@@ -25,4 +26,5 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     public GameObject DroppedWeapon { get { return droppedWeapon; } }
     public GameObject ItemListing { get { return itemListing; } }
     public GameObject ExplosionPrefab { get { return explosionPrefab; } }
+    public GameObject IndicatorPrefab { get { return indicatorPrefab; } }
 }

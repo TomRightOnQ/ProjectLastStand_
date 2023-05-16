@@ -90,7 +90,7 @@ public abstract class Entities : DefaultObjects, IPunObservable
         }
     }
 
-    public void Deactivate()
+    public virtual void Deactivate()
     {
         if (PhotonNetwork.IsConnected)
         {

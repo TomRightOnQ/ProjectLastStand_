@@ -21,3 +21,4 @@ MonoBehaviour:
   droppedWeapon: {fileID: 3957798750301473208, guid: 0d5f603072ef8ed428cd529ac22673e5, type: 3}
   itemListing: {fileID: 6555111087248660811, guid: bf24a36fe7cad5241a3c87afbd8a9112, type: 3}
   explosionPrefab: {fileID: 2341705877739338234, guid: 9991f77020bf72d4e807f09403e2fcb4, type: 3}
+  indicatorPrefab: {fileID: 7965540852787817605, guid: aaedb15d93468f84895413d52558b616, type: 3}

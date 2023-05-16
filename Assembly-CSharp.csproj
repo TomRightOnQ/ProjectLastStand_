@@ -122,6 +122,8 @@
     <Compile Include="Assets\Scripts\Scriptable\AnimConfigs.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Anim.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Explosions.cs" />
+    <Compile Include="Assets\Scripts\AI\MonsterAI.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\PlayerIndicator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

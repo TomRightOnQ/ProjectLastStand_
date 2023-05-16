@@ -24,10 +24,8 @@ public class AnimConfigs : ScriptableSingleton<AnimConfigs>
     }
     public GameObject _getEXPAnim()
     {
-        Debug.Log("Getting anim...");
         GameObject animation = null;
-        int id = Random.Range(0, 3);
-        Debug.Log(id);
+        int id = Random.Range(0, 3);;
         switch (id)
         {
             case 0:

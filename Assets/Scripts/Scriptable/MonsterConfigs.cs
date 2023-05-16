@@ -6,6 +6,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Configs/MonsterConfigs")]
 public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
 {
+    public enum MonsterBehaviorType
+    {
+        Walker,
+        Shooter
+    }
+
     public struct MonsterConfig
     {
         public string _name;
@@ -17,6 +23,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         public int defaultDefence;
         public int defaultMagicDefence;
         public int exp;
+        public MonsterBehaviorType behaviorType;
     }
 
     public static MonsterConfig SimpleMonster = new MonsterConfig
@@ -29,21 +36,23 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultWeaponAttack = 1,
         defaultDefence = 5,
         defaultMagicDefence = 2,
-        exp = 2
+        exp = 2,
+        behaviorType = MonsterBehaviorType.Shooter
     };
 
-    public static MonsterConfig Goblin = new MonsterConfig
+    public static MonsterConfig MonsterShooter = new MonsterConfig
     {
-        _name = "Goblin",
+        _name = "Monster Shooter",
         id = 1,
         hitPoints = 75,
-        speed = 2f,
-        defaultAttack = 15,
-        defaultWeaponAttack = 8,
-        defaultDefence = 6,
+        speed = 1.2f,
+        defaultAttack = 5,
+        defaultWeaponAttack = 1,
+        defaultDefence = 4,
         defaultMagicDefence = 3,
-        exp = 2
-    };
+        exp = 4,
+        behaviorType = MonsterBehaviorType.Shooter
+};
 
     public MonsterConfig getMonsterConfig(int id)
     {
@@ -54,7 +63,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
                 monsterData = MonsterConfigs.SimpleMonster;
                 break;
             case 1:
-                monsterData = MonsterConfigs.Goblin;
+                monsterData = MonsterConfigs.MonsterShooter;
                 break;
         }
         return monsterData;

@@ -12,20 +12,22 @@ public class Monsters : Entities
     // Monster Stats
     [SerializeField] private float exp = 1;
     [SerializeField] private int id = 1;
-    private bool currentState;
-    private Vector3 targetPosition;
+    [SerializeField] private int type = 0;
+    [SerializeField] private MonsterAI monsterAI;
+    [SerializeField] private MonsterBehaviorType behaviorType;
     private float prevHP;
+
     public PrefabManager prefabManager;
 
     void Start()
     {
         gameObject.tag = "Monster";
-        targetPosition = new Vector3(0, 0.1f, 0);
         prefabManager = Resources.Load<PrefabManager>("PrefabManager");
     }
 
     public float EXP { get { return exp; } set { exp = value; } }
     public int ID { get { return id; } set { id = value; } }
+    public MonsterBehaviorType BehaviorType { get { return behaviorType; } }
 
     // Sync
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -56,6 +58,8 @@ public class Monsters : Entities
         defaultDefence = MonsterConfigs.defaultDefence;
         defaultMagicDefence = MonsterConfigs.defaultMagicDefence;
         prevHP = currentHitPoints;
+        behaviorType = MonsterConfigs.behaviorType;
+        monsterAI.SetUp();
     }
 
     // Taking Damage
@@ -83,11 +87,6 @@ public class Monsters : Entities
     void Update()
     {
         UpdateHP();
-        Vector3 direction = targetPosition - transform.position;
-        direction.y = 0;
-        direction.Normalize();
-        transform.LookAt(targetPosition);
-        transform.position += direction * speed * 4 * Time.deltaTime;
         GameManager.Instance.monsterManager.despawnCheck(this);
     }
 
@@ -110,5 +109,12 @@ public class Monsters : Entities
             }
             GameManager.Instance.monsterManager.despawnForce(this);
         }
+    }
+
+    // Remove AI
+    public override void Deactivate()
+    {
+        monsterAI.RemoveAI();
+        base.Deactivate();
     }
 }

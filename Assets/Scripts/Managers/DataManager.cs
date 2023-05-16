@@ -21,6 +21,8 @@ public class DataManager : MonoBehaviourPunCallbacks
     public const int PROJ_COUNT = 100;
     // Weapons
     private List<Weapons> weaponsPool = new List<Weapons>();
+    // Indicators
+    private List<PlayerIndicator> indicatorPool = new List<PlayerIndicator>();
 
     private const string PREFAB_LOC = "Prefabs/";
     private int WEAPON_COUNT = 2;
@@ -152,18 +154,32 @@ public class DataManager : MonoBehaviourPunCallbacks
             onLeft *= -1;
         }
 
+        // Prepare indicators
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            GameObject indicatorObj = PhotonNetwork.Instantiate(PREFAB_LOC + "UI&System/" + prefabManager.IndicatorPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.Euler(0f, 0f, 0f));
+            PlayerIndicator playerIndicator = indicatorObj.GetComponent<PlayerIndicator>();
+            indicatorPool.Add(playerIndicator);
+            onLeft *= -1;
+        }
+
         // Assigning
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
+            int playerViewID = playerList[i].photonView.ViewID;
             for (int j = 0; j < WEAPON_COUNT; j++)
             {
-                int playerViewID = playerList[i].photonView.ViewID;
                 int weaponViewID = weaponsPool[i * WEAPON_COUNT + j].photonView.ViewID;
                 PhotonView weaponView = weaponsPool[i * WEAPON_COUNT + j].GetComponent<PhotonView>();
                 weaponView.TransferOwnership(PhotonNetwork.PlayerList[i]);
                 photonView.RPC("AddWeaponToPlayer", RpcTarget.AllBuffered, playerViewID, weaponViewID, j);
                 photonView.RPC("assignViewID", PhotonNetwork.PlayerList[i], playerViewID);
             }
+            PhotonView indicatorView = indicatorPool[i].GetComponent<PhotonView>();
+            int indicatorViewID = indicatorView.ViewID;
+            Debug.Log(PhotonNetwork.PlayerList[i]);
+            indicatorView.TransferOwnership(PhotonNetwork.PlayerList[i]);
+            photonView.RPC("AddIndicatorToPlayer", RpcTarget.AllBuffered, playerViewID, indicatorViewID);
             playerList[i].transform.position = new Vector3(Random.Range(-25f, 25f), 0.1f, (Random.Range(-25f, 25f)));
         }
         Debug.Log("DataManager is Ready");
@@ -185,6 +201,25 @@ public class DataManager : MonoBehaviourPunCallbacks
             {
                 player.WeaponList.Add(weapon);
                 weapon.transform.SetParent(player.transform);
+            }
+        }
+    }
+
+    [PunRPC]
+    public void AddIndicatorToPlayer(int playerViewID, int indicatorViewID)
+    {
+        PhotonView playerView = PhotonView.Find(playerViewID);
+        PhotonView indicatorView = PhotonView.Find(indicatorViewID);
+
+        if (playerView != null && indicatorView != null)
+        {
+            Players player = playerView.GetComponent<Players>();
+            PlayerIndicator indicator = indicatorView.GetComponent<PlayerIndicator>();
+
+            if (player != null && indicator != null)
+            {
+                indicator.transform.SetParent(player.transform);
+                indicator.SetUp();
             }
         }
     }

@@ -65,11 +65,9 @@ public class Players : Entities, IPunObservable
         WeaponConfig weaponData = WeaponConfigs.Instance._getWeaponConfig(id);
         if (level <= 0)
         {
-            Debug.Log("Changing Weapon...");
             weapons[slot].SetWeapons(weaponData);
         }
         else {
-            Debug.Log("Upgrading Weapon...");
             weapons[slot].Upgrade(level);
         }
         setWeaponPreview(slot);
@@ -166,7 +164,7 @@ public class Players : Entities, IPunObservable
     {
         if (!armed && weapons.Count >= 2) {
             addWeapon(0, 100, 0);
-            addWeapon(1, 100, 0);
+            addWeapon(0, 100, 0);
             armed = true;
         }
         UpdateHP();

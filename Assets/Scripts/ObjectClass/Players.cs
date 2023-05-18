@@ -70,7 +70,9 @@ public class Players : Entities, IPunObservable
         else {
             weapons[slot].Upgrade(level);
         }
-        setWeaponPreview(slot);
+        if (PhotonNetwork.IsConnected && photonView.IsMine) {
+            setWeaponPreview(slot);
+        }
     }
 
     // Attack!
@@ -125,6 +127,7 @@ public class Players : Entities, IPunObservable
     // Set Weapon Info
     private void setWeaponPreview(int slot)
     {
+        Debug.Log("Setting preview");
         GameUI.Instance.SetWeaponInfo(slot, weapons[slot]);
         WeaponChoice.Instance.SetWeaponInfo(slot, weapons[slot]);
     }
@@ -163,12 +166,11 @@ public class Players : Entities, IPunObservable
     private void Update()
     {
         if (!armed && weapons.Count >= 2) {
-            addWeapon(0, 100, 0);
-            addWeapon(0, 100, 0);
+            addWeapon(0, -1, 0);
+            addWeapon(1, -1, 0);
             armed = true;
         }
+        currentHitPoints += 0.005f;
         UpdateHP();
-        setWeaponPreview(0);
-        setWeaponPreview(1);
     }
 }

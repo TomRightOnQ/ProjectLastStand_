@@ -35,7 +35,7 @@ public class InteractionScrollView : MonoBehaviour
         }
 
         // Select the highlighted item when the F key is pressed
-        if (Input.GetKeyUp(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && !WeaponChoice.Instance.IsOpened)
         {
             SelectHighlightedItem();
         }

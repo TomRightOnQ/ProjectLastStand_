@@ -23,6 +23,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         public string info;
         public string intro;
         public int hitAnim;
+        public ArtConfigs.Artconfig mesh;
     }
 
     public static WeaponConfig Pistol = new WeaponConfig
@@ -41,7 +42,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         damageRange = 0.3f,
         info = "Better than nothing...",
         intro = "A default weapon",
-        hitAnim = 0
+        hitAnim = 0,
+        mesh = ArtConfigs.Artconfig.PistolMesh
     };
 
     public static WeaponConfig LMG = new WeaponConfig
@@ -60,8 +62,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         damageRange = 0.3f,
         info = "LMG! Mounted! and Loaded!",
         intro = "Light machine gun with great RPM",
-        hitAnim = 0
-
+        hitAnim = 0,
+        mesh = ArtConfigs.Artconfig.LMGMesh
     };
 
     public static WeaponConfig RPG = new WeaponConfig
@@ -80,7 +82,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         damageRange = 1f,
         info = "R! P! G!",
         intro = "Explosive weapon that causes AOE damage",
-        hitAnim = 0
+        hitAnim = 0,
+        mesh = ArtConfigs.Artconfig.RPGMesh
     };
 
     public static WeaponConfig HeatLaser = new WeaponConfig
@@ -99,7 +102,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         damageRange = 0.1f,
         info = "OVERLOAD!",
         intro = "Burning the first enemy with a beam of laser",
-        hitAnim = 0
+        hitAnim = 0,
+        mesh = ArtConfigs.Artconfig.HeatLaserMesh
     };
 
     public static WeaponConfig RubyLaser = new WeaponConfig
@@ -118,7 +122,8 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         damageRange = 0.1f,
         info = "Charging...",
         intro = "Slow but destructive laser cannon",
-        hitAnim = 0
+        hitAnim = 0,
+        mesh = ArtConfigs.Artconfig.LaserGunMesh
     };
 
     // Getters and Setters

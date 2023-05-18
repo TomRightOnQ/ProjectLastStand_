@@ -33,6 +33,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     [SerializeField] private Button choiceA;
     [SerializeField] private Button choiceB;
     [SerializeField] private Button choiceC;
+    private Button[] choiceArr = new Button[3];
 
     // The annoying red dot
     [SerializeField] private Image redDot;
@@ -51,6 +52,11 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         originalPosition = panelTransform.anchoredPosition;
         panelWidth = panelTransform.rect.width;
         closedPosition = new Vector3(-(panelWidth / 2), originalPosition.y, originalPosition.z);
+        choiceArr[0] = choiceA;
+        choiceArr[1] = choiceB;
+        choiceArr[2] = choiceC;
+        regenChoices = false;
+        initUpgradeCard();
         enableAll();
     }
 
@@ -79,6 +85,21 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         }
         else {
             disableAll();
+        }
+    }
+
+    // Fill with standard choices
+    public void initUpgradeCard()
+    {
+        int[] choices = new int[4] { -1, -2, -3,- 4};
+        int excluded = Random.Range(-4, 0);
+        for (int i = 0, j = 0; i < 4 && j < 3; i++)
+        {
+            if (choices[i] != excluded)
+            {
+                fillWithUpgrade(choiceArr[j], UpgradeConfigs.Instance._getUpgradeConfig(choices[i]));
+                j++;
+            }
         }
     }
 
@@ -166,6 +187,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     private void fillWithUpgrade(Button card, UpgradeConfigs.UpgradeConfig upgradeConfig)
     {
         UpgradeCards upCard = card.GetComponent<UpgradeCards>();
+        upCard.IsWeapon = false;
         upCard.UpgradeData = upgradeConfig;
         upCard.fillUpgrade();
         // Change the color of the card based on the rarity level
@@ -189,6 +211,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
             return;
         }
         UpgradeCards upCard = choice.GetComponent<UpgradeCards>();
+        Debug.Log(upCard.IsWeapon);
         if (upCard.IsWeapon)
         {
             int weaponIndex = upCard.WeaponData.id;
@@ -211,6 +234,10 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         else {
             //read upgradeConfig upCard.UpgradeData
             UpgradeConfigs.UpgradeConfig upgradeConfig = upCard.UpgradeData;
+            Debug.Log(upgradeConfig.id);
+            if (upgradeConfig.id <= -1) {
+                player.SwapMesh(upgradeConfig.id);
+            }
             player.HitPoints += upgradeConfig.hitPoints;
             player.CurrentHitPoints += upgradeConfig.regen;
             player.Speed += upgradeConfig.speed;
@@ -219,6 +246,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
             player.DefaultDefence += upgradeConfig.defaultDefence;
             player.DefaultMagicDefence += upgradeConfig.defaultMagicDefence;
         }
+        pointsOff();
     }
 
     public void AChosen() {

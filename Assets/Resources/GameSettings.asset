@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e19d85b6c7529c448147d7eab87eaf4, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  gameVersion: Alpha 0.30
+  gameVersion: Alpha 0.5
   nickName: Defender

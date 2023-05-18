@@ -38,6 +38,7 @@ public class Base : Entities, IPunObservable
 
     void Update()
     {
+        currentHitPoints += 0.01f;
         UpdateHP();
         if (CurrentHitPoints <= 0) {
             gameOver.SetActive(true);

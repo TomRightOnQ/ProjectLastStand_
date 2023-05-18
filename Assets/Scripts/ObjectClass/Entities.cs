@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using static UpgradeConfigs;
 
 // Entities are all NPCs and player-controlled units
 public abstract class Entities : DefaultObjects, IPunObservable
@@ -75,6 +76,38 @@ public abstract class Entities : DefaultObjects, IPunObservable
         currentHitPoints -= damage;
         if (currentHitPoints > hitPoints) {
             currentHitPoints = hitPoints;
+        }
+    }
+
+    public void SwapMesh(int id) 
+    {
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        if (meshFilter != null)
+        {
+            UpgradeConfig upgradeConfig = UpgradeConfigs.Instance._getUpgradeConfig(id);
+            Mesh mesh = ArtConfigs.Instance.getMesh(upgradeConfig.mesh);
+            // Call the RPC to synchronize the mesh change across the network
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("RPCSwapMesh", RpcTarget.All, id);
+            }
+            else
+            {
+                meshFilter.mesh = mesh;
+            }
+        }
+    }
+
+    [PunRPC]
+    public void RPCSwapMesh(int id)
+    {
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        UpgradeConfig upgradeConfig = UpgradeConfigs.Instance._getUpgradeConfig(id);
+        Mesh mesh = ArtConfigs.Instance.getMesh(upgradeConfig.mesh);
+
+        if (meshFilter != null)
+        {
+            meshFilter.mesh = mesh;
         }
     }
 

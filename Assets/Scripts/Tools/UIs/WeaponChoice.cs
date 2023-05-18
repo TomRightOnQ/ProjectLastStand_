@@ -23,6 +23,8 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
     [SerializeField] private int chosenWeapon = -1;
     private int levelAdder = 0;
     private long droppedId;
+    [SerializeField] private bool isOpend = false;
+    public bool IsOpened { get { return isOpend; } }
 
     private void Awake()
     {
@@ -64,6 +66,10 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
             weapon2Hint.text = "Replace this weapon";
             weapon2Hint.color = Color.red;
         }
+        if (isOpend && Input.GetKeyDown(KeyCode.F)) 
+        {
+            HidePanel();
+        }
     }
 
     public void SetID(long id)
@@ -88,6 +94,7 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
     public void HidePanel()
     {
         gameObject.SetActive(false);
+        isOpend = false;
         chosenWeapon = -1;
         weapon1Info.CloseMenu();
         weapon2Info.CloseMenu();
@@ -97,6 +104,7 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
     public void ShowPanel()
     {
         gameObject.SetActive(true);
+        isOpend = true;
     }
 
     // Confirm
@@ -108,7 +116,8 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
             Players player = GameManager.Instance.GetLocalPlayer();
             if (PhotonNetwork.IsConnected) {
                 int playerViewID = GameManager.Instance.dataManager.PlayerViewID;
-                photonView.RPC("RPCaddWeapons", RpcTarget.Others, playerViewID, chosenWeapon, weapon3Info.ID, levelAdder);
+                Debug.Log("Adding Weapons");
+                photonView.RPC("RPCaddWeapons", RpcTarget.All, playerViewID, chosenWeapon, weapon3Info.ID, levelAdder);
             } 
             player.addWeapon(chosenWeapon, weapon3Info.ID, levelAdder);
             // Destroy the listing and dropped item with the same ID
@@ -125,6 +134,7 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
         Players player = GameManager.Instance.GetLocalPlayer(playerViewID);
         if (player == null)
         {
+            Debug.LogError("RPCaddWeapons: Player is null.");
             return;
         }
         player.addWeapon(slot, id, level);

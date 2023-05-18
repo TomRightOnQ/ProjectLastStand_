@@ -36,21 +36,21 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultWeaponAttack = 1,
         defaultDefence = 5,
         defaultMagicDefence = 2,
-        exp = 2,
-        behaviorType = MonsterBehaviorType.Shooter
+        exp = 4,
+        behaviorType = MonsterBehaviorType.Walker
     };
 
     public static MonsterConfig MonsterShooter = new MonsterConfig
     {
         _name = "Monster Shooter",
         id = 1,
-        hitPoints = 75,
+        hitPoints = 15,
         speed = 1.2f,
         defaultAttack = 5,
         defaultWeaponAttack = 1,
         defaultDefence = 4,
         defaultMagicDefence = 3,
-        exp = 4,
+        exp = 6,
         behaviorType = MonsterBehaviorType.Shooter
 };
 
@@ -66,6 +66,13 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
                 monsterData = MonsterConfigs.MonsterShooter;
                 break;
         }
+        return monsterData;
+    }
+
+    public MonsterConfig getMonsterConfig()
+    {
+        int id = Random.Range(0,2);
+        MonsterConfig monsterData = getMonsterConfig(id);
         return monsterData;
     }
 }

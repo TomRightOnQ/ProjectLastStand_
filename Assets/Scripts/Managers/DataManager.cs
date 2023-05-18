@@ -15,7 +15,7 @@ public class DataManager : MonoBehaviourPunCallbacks
     public const int PLAYER_COUNT = 4;
     // Monsters
     private List<Monsters> monsterPool = new List<Monsters>();
-    public const int MONSTER_COUNT = 40;
+    public const int MONSTER_COUNT = 60;
     // Projectiles
     private List<Projectiles> projPool = new List<Projectiles>();
     public const int PROJ_COUNT = 100;
@@ -61,7 +61,7 @@ public class DataManager : MonoBehaviourPunCallbacks
         // Place the players in the field
         for (int i = 0; i < 1; i++)
         {
-            GameObject playerObj = Instantiate(prefabManager.PlayerPrefab, new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            GameObject playerObj = Instantiate(prefabManager.PlayerPrefab, new Vector3(0f, 0.01f, 0f), Quaternion.identity);
             playerObj.SetActive(true);
             playerList.Add(playerObj.GetComponent<Players>());
             playerObj.GetComponent<Players>().Index = i;
@@ -117,7 +117,7 @@ public class DataManager : MonoBehaviourPunCallbacks
         // Place the players in the field
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            GameObject playerObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.PlayerPrefab.name, new Vector3(0f, 0.1f, 0f), Quaternion.identity);
+            GameObject playerObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.PlayerPrefab.name, new Vector3(0f, 0.01f, 0f), Quaternion.identity);
             playerObj.SetActive(true); 
             playerList.Add(playerObj.GetComponent<Players>());
             playerObj.GetComponent<Players>().Index = i;
@@ -180,7 +180,7 @@ public class DataManager : MonoBehaviourPunCallbacks
             Debug.Log(PhotonNetwork.PlayerList[i]);
             indicatorView.TransferOwnership(PhotonNetwork.PlayerList[i]);
             photonView.RPC("AddIndicatorToPlayer", RpcTarget.AllBuffered, playerViewID, indicatorViewID);
-            playerList[i].transform.position = new Vector3(Random.Range(-25f, 25f), 0.1f, (Random.Range(-25f, 25f)));
+            playerList[i].transform.position = new Vector3(Random.Range(-25f, 25f), 0.01f, (Random.Range(-25f, 25f)));
         }
         Debug.Log("DataManager is Ready");
     }

@@ -105,7 +105,7 @@ public class Monsters : Entities
             Players _player = other.gameObject.GetComponent<Players>();
             if (_player != null)
             {
-                _player.TakeDamage(defaultAttack * defaultWeaponAttack);
+                _player.TakeDamage(defaultAttack * defaultWeaponAttack / 2);
             }
             GameManager.Instance.monsterManager.despawnForce(this);
         }

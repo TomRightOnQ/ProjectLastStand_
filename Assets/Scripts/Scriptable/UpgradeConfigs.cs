@@ -24,9 +24,79 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
         public float defaultMagicDefence; // Add to the player's magical defence modifier
         public int specialEffectIndex; // Special effects not yet implemented
         public string description; // A description
+        public ArtConfigs.Artconfig mesh;
     }
 
     // Data Scetion
+    // Character Choice
+    public static UpgradeConfig Human = new UpgradeConfig
+    {
+        _name = "Normal Human",
+        id = -1,
+        rating = 4,
+        hitPoints = 4,
+        speed = 0,
+        regen = 4,
+        defaultAttack = 0,
+        defaultWeaponAttack = 0,
+        defaultDefence = 0.1f,
+        defaultMagicDefence = 0,
+        specialEffectIndex = -1,
+        description = "Who am I? Where am I?",
+        mesh = ArtConfigs.Artconfig.HumanMesh
+    };
+
+    public static UpgradeConfig FireMage = new UpgradeConfig
+    {
+        _name = "Fire Mage",
+        id = -2,
+        rating = 4,
+        hitPoints = 0,
+        speed = 0,
+        regen = 0,
+        defaultAttack = 0,
+        defaultWeaponAttack = 0.2f,
+        defaultDefence = 0,
+        defaultMagicDefence = 0.2f,
+        specialEffectIndex = -1,
+        description = "No magic here",
+        mesh = ArtConfigs.Artconfig.MageMesh
+    };
+
+    public static UpgradeConfig Skeleton = new UpgradeConfig
+    {
+        _name = "Skeleton Shooter",
+        id = -3,
+        rating = 4,
+        hitPoints = -2,
+        speed = 0.1f,
+        regen = -2,
+        defaultAttack = 0.2f,
+        defaultWeaponAttack = 0,
+        defaultDefence = -0.2f,
+        defaultMagicDefence = 0,
+        specialEffectIndex = -1,
+        description = "Trying not to collapse",
+        mesh = ArtConfigs.Artconfig.SkeletonMesh
+    };
+
+    public static UpgradeConfig Soldier = new UpgradeConfig
+    {
+        _name = "Soldier",
+        id = -4,
+        rating = 4,
+        hitPoints = 0,
+        speed = 0.2f,
+        regen = 0,
+        defaultAttack = 0,
+        defaultWeaponAttack = 0,
+        defaultDefence = 0.2f,
+        defaultMagicDefence = 0.2f,
+        specialEffectIndex = -1,
+        description = "unit ready.",
+        mesh = ArtConfigs.Artconfig.SoldierMesh
+    };
+
     public static UpgradeConfig LifeBoost = new UpgradeConfig
     {
         _name = "Life Boost",
@@ -92,6 +162,19 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
         UpgradeConfig upgradeData = UpgradeConfigs.LifeBoost; // default config
         switch (id)
         {
+            case -1:
+                upgradeData = UpgradeConfigs.Human;
+                break;
+            case -2:
+                upgradeData = UpgradeConfigs.FireMage;
+                break;
+            case -3:
+                upgradeData = UpgradeConfigs.Skeleton;
+                break;
+            case -4:
+                upgradeData = UpgradeConfigs.Soldier;
+                break;
+
             case 0:
                 upgradeData = UpgradeConfigs.LifeBoost;
                 break;

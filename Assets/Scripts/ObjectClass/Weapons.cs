@@ -27,7 +27,7 @@ public class Weapons : DefaultObjects
     [SerializeField] private string intro = "";
     [SerializeField] private int level = 1;
     [SerializeField] private int hitAnim = 0;
-
+    
     private float atk;
     public const string UPDATE_PROJ = "UpdatePosition";
     private float timer = 0;
@@ -50,9 +50,41 @@ public class Weapons : DefaultObjects
         intro = weaponConfigs.intro;
         hitAnim = weaponConfigs.hitAnim;
         damageRange = weaponConfigs.damageRange;
+        SwapMesh(weaponConfigs.id);
         level = 1;
     }
 
+    public void SwapMesh(int id)
+    {
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        if (meshFilter != null)
+        {
+            WeaponConfig weaponConfig = WeaponConfigs.Instance._getWeaponConfig(id);
+            Mesh mesh = ArtConfigs.Instance.getMesh(weaponConfig.mesh);
+            // Call the RPC to synchronize the mesh change across the network
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("RPCSwapMesh", RpcTarget.All, id);
+            }
+            else
+            {
+                meshFilter.mesh = mesh;
+            }
+        }
+    }
+
+    [PunRPC]
+    public void RPCSwapMesh(int id)
+    {
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        WeaponConfig weaponConfig = WeaponConfigs.Instance._getWeaponConfig(id);
+        Mesh mesh = ArtConfigs.Instance.getMesh(weaponConfig.mesh);
+
+        if (meshFilter != null)
+        {
+            meshFilter.mesh = mesh;
+        }
+    }
     private void Start()
     {
         atk = attack + extraAttack;

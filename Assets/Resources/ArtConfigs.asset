@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb94aa643c7424f4caea4864a57afe45, type: 3}
+  m_Name: ArtConfigs
+  m_EditorClassIdentifier: 
+  HumanMesh: {fileID: 3495905867244197508, guid: 505c40e35bcf426489ded7d3f4d55052, type: 3}
+  MageMesh: {fileID: 6541337565203471981, guid: 019e64ec692c3c3409da5303c4ffaa41, type: 3}
+  SkeletonMesh: {fileID: -5523277661179574252, guid: 8c0ca59d1a61b9f42b488031f0d17fde, type: 3}
+  SoldierMesh: {fileID: 7948980272811208021, guid: 7cabe51dd8602ba48930e34f2f987fee, type: 3}
+  PistolMesh: {fileID: 8545472337109659444, guid: fd771ab2c84b73240b01972ca227ae7d, type: 3}
+  RPGMesh: {fileID: -5824094307506378920, guid: 33bdc60e90ddd344e9955df4d7354045, type: 3}
+  LMGMesh: {fileID: -706898683356029150, guid: 1aa9573988aeca146a2b5cc3778665f9, type: 3}
+  HeatLaserMesh: {fileID: 1692000649483383855, guid: 998095ec3771d3d458b021f2356fe38e, type: 3}
+  LaserGunMesh: {fileID: -1721837903093826391, guid: 9a64bfa4f02be2646af135265b160b7b, type: 3}

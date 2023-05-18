@@ -484,6 +484,7 @@ GameObject:
   - component: {fileID: 411795618}
   - component: {fileID: 411795617}
   - component: {fileID: 411795619}
+  - component: {fileID: 411795620}
   m_Layer: 5
   m_Name: WeaponChoice
   m_TagString: Untagged
@@ -575,6 +576,28 @@ MonoBehaviour:
   weapon1Hint: {fileID: 1675480719}
   weapon2Hint: {fileID: 861610747}
   chosenWeapon: -1
+--- !u!114 &411795620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411795615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 6
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &459719793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,7 +1268,7 @@ MonoBehaviour:
   arrow: {fileID: 1321478727}
   speed: 10
   availablePoints: {fileID: 106649969}
-  points: 1
+  points: 2
   choiceA: {fileID: 1307660122}
   choiceB: {fileID: 958815523}
   choiceC: {fileID: 1259679416}
@@ -2272,7 +2295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -2300,7 +2323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: pointsOff
+      value: BChosen
       objectReference: {fileID: 0}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -2590,7 +2613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -2618,7 +2641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: pointsOff
+      value: CChosen
       objectReference: {fileID: 0}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -4694,6 +4717,14 @@ PrefabInstance:
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 2126978945}
+    - target: {fileID: 1257153712032045952, guid: 838b736325ecb214284786f31a229410, type: 3}
+      propertyPath: hitPoints
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 1257153712032045952, guid: 838b736325ecb214284786f31a229410, type: 3}
+      propertyPath: currentHitPoints
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 1257153712032045953, guid: 838b736325ecb214284786f31a229410, type: 3}
       propertyPath: sceneViewId
       value: 3
@@ -4821,7 +4852,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 29.999878, y: -30}
+  m_AnchoredPosition: {x: 30, y: -30}
   m_SizeDelta: {x: -1680, y: 240}
   m_Pivot: {x: 0, y: 1}
 --- !u!1001 &3148609556292233629
@@ -4924,6 +4955,10 @@ PrefabInstance:
       value: Choice
       objectReference: {fileID: 0}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 632431642}
@@ -4933,7 +4968,7 @@ PrefabInstance:
       objectReference: {fileID: 632431642}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: pointsOff
+      value: AChosen
       objectReference: {fileID: 0}
     - target: {fileID: 3148609557291574983, guid: f7d01b867faf20d448c416d7c2a33d0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -5090,11 +5125,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2613597633578051021, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 288.94
+      value: 288.93994
       objectReference: {fileID: 0}
     - target: {fileID: 2613597633578051021, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2613597633578051021, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

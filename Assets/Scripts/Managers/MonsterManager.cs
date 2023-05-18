@@ -10,7 +10,7 @@ public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
     private int difficulty = 1;
-    private float spawning = 3f;
+    private float spawning = 2.8f;
     private bool cycleBegin = false;
 
 
@@ -66,7 +66,7 @@ public class MonsterManager : MonoBehaviour
         if (monster != null)
         {
             // Config the monster
-            MonsterConfig monsterData = MonsterConfigs.Instance.getMonsterConfig(id);
+            MonsterConfig monsterData = MonsterConfigs.Instance.getMonsterConfig();
             monster.transform.position = pos;
             monster.SetMonsters(monsterData);
             monster.UpdateHP();

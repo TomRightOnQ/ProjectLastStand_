@@ -28,7 +28,7 @@ public class Weapons : DefaultObjects
     [SerializeField] private int level = 1;
     [SerializeField] private int hitAnim = 0;
     
-    private float atk;
+    private float atk = 2;
     public const string UPDATE_PROJ = "UpdatePosition";
     private float timer = 0;
 
@@ -50,6 +50,7 @@ public class Weapons : DefaultObjects
         intro = weaponConfigs.intro;
         hitAnim = weaponConfigs.hitAnim;
         damageRange = weaponConfigs.damageRange;
+        atk = attack;
         SwapMesh(weaponConfigs.id);
         level = 1;
     }
@@ -107,26 +108,27 @@ public class Weapons : DefaultObjects
     // Fire based on type
     public void Fire(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack)
     {
+        transform.LookAt(new Vector3 (direction.x, transform.position.y, direction.z));
         if (timer < cd)
         {
             return;
         }
         switch (type) {
             case 0:
-                FireBullet(playerIdx, direction, playerAttack, weaponAttack);
+                FireBullet(playerIdx, playerAttack, weaponAttack);
                 break;
             case 1:
-                FireLaser(playerIdx, direction, playerAttack, weaponAttack);
+                FireLaser(playerIdx, playerAttack, weaponAttack);
                 break;
             case 2:
-                FireLaser(playerIdx, direction, playerAttack, weaponAttack);
+                FireLaser(playerIdx, playerAttack, weaponAttack);
                 break;
         }
         timer = 0;
     }
 
     // Type 0: Bullet
-    private void FireBullet(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack)
+    private void FireBullet(int playerIdx, float playerAttack, float weaponAttack)
     {
         // Get projectile from pool
         Projectiles proj = GameManager.Instance.dataManager.TakeProjPool();
@@ -135,8 +137,9 @@ public class Weapons : DefaultObjects
             int projectileID = proj.photonView.ViewID;
             Vector3 weaponForward = transform.TransformDirection(Vector3.forward);
             Vector3 firePos = transform.position + weaponForward * 0.5f;
+            Vector3 direction = transform.forward;
             // Config the Projectile
-            proj.transform.position = new Vector3 (firePos.x, firePos.y - 0.5f, firePos.z);
+            proj.transform.position = new Vector3 (firePos.x, firePos.y, firePos.z);
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             proj.Damage = atk * playerAttack;
             proj.Owner = playerIdx;
@@ -157,8 +160,9 @@ public class Weapons : DefaultObjects
     }
 
     // Type 1: Laser
-    private void FireLaser(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack)
+    private void FireLaser(int playerIdx, float playerAttack, float weaponAttack)
     {
+        Vector3 direction = transform.forward;
         RaycastHit[] hitInfos = Physics.RaycastAll(transform.position, direction, 800);
         Vector3 endPos = transform.position + direction * 5f;
 
@@ -261,7 +265,7 @@ public class Weapons : DefaultObjects
             Vector3 weaponForward = transform.TransformDirection(Vector3.forward);
             Vector3 localFirePos = transform.position + weaponForward * 0.5f;
             // Config the Projectile
-            proj.transform.position = new Vector3(localFirePos.x, localFirePos.y - 0.5f, localFirePos.z) ;
+            proj.transform.position = new Vector3(localFirePos.x, localFirePos.y, localFirePos.z) ;
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             proj.Damage = attack;
             proj.Owner = photonView.ViewID;

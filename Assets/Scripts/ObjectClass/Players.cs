@@ -68,22 +68,25 @@ public class Players : Entities, IPunObservable
             weapons[slot].SetWeapons(weaponData);
         }
         else {
-            weapons[slot].Upgrade(level);
+            weapons[slot].Upgrade(1);
         }
         if (PhotonNetwork.IsConnected && photonView.IsMine) {
+            setWeaponPreview(slot);
+        } else if (!PhotonNetwork.IsConnected) {
             setWeaponPreview(slot);
         }
     }
 
     // Attack!
-    public void fire() {
+    public void fire(Vector3 targetPosition) {
+        Debug.Log(targetPosition.ToString());
         foreach (Weapons weapon in weapons) {
             if (weapon == null) {
                 return;
             }
             if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
             {
-                weapon.Fire(index, GetAimDirection(), defaultAttack, defaultWeaponAttack);
+                weapon.Fire(index, targetPosition, defaultAttack, defaultWeaponAttack);
             }
             else {
                 int weaponViewID = -1;

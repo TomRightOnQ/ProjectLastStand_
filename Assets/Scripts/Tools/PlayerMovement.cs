@@ -36,9 +36,20 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
+
+        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+        Plane plane = new Plane(Vector3.up, new Vector3(transform.position.x, 0.65f, transform.position.z));
+        float distanceToPlane;
+        Vector3 mousePosition = transform.position;
+
+        if (plane.Raycast(ray, out distanceToPlane))
+        {
+            mousePosition = ray.GetPoint(distanceToPlane);
+        }
+
         if (Input.GetMouseButton(0))
         {
-            player.fire();
+            player.fire(mousePosition);
         }
         float horizontalInput = 0.0f;
         float verticalInput = 0.0f;
@@ -61,16 +72,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             horizontalInput = 1.0f;
-        }
-
-        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-        Plane plane = new Plane(Vector3.up, transform.position);
-        float distanceToPlane;
-        Vector3 mousePosition = transform.position;
-
-        if (plane.Raycast(ray, out distanceToPlane))
-        {
-            mousePosition = ray.GetPoint(distanceToPlane);
         }
 
         // Rotate towards the mouse position

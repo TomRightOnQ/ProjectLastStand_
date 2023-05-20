@@ -26,6 +26,7 @@ public class DataManager : MonoBehaviourPunCallbacks
 
     private const string PREFAB_LOC = "Prefabs/";
     private int WEAPON_COUNT = 2;
+    private const float WEAPON_Y_OFFSET = 0.65f;
 
     // For multiplayer
     private int playerViewID;
@@ -34,7 +35,8 @@ public class DataManager : MonoBehaviourPunCallbacks
     // Set up a reference sheet of objects
     public void initData()
     {
-        prefabManager = Resources.Load<PrefabManager>("PrefabManager");
+        prefabManager = PrefabManager.Instance;
+        // aimPlane = new Plane(Vector3.up, new Vector3(0f, 0.5f, 0f));
         if (!PhotonNetwork.IsConnected) {
             initPoolLocal();
             return;
@@ -88,12 +90,13 @@ public class DataManager : MonoBehaviourPunCallbacks
         int onLeft = 1;
         for (int i = 0; i < numWeapons; i++)
         {
-            GameObject weaponObj = Instantiate(prefabManager.WeaponPrefab, new Vector3(onLeft * -1.25f, 0.88f, 0.6f), Quaternion.Euler(0f, 0f, 0f));
+            GameObject weaponObj = Instantiate(prefabManager.WeaponPrefab, Vector3.zero, Quaternion.Euler(0f, 0f, 0f));
             weaponObj.SetActive(true);
             Weapons weapon = weaponObj.GetComponent<Weapons>();
             weaponsPool.Add(weapon);
             playerList[0].WeaponList.Add(weapon);
             weapon.transform.SetParent(playerList[0].transform);
+            weapon.transform.localPosition = new Vector3(onLeft * -0.625f, WEAPON_Y_OFFSET, 0.6f);
             onLeft *= -1;
         }
         Debug.Log("DataManager is Ready");
@@ -147,7 +150,7 @@ public class DataManager : MonoBehaviourPunCallbacks
         int onLeft = 1;
         for (int i = 0; i < numWeapons; i++)
         {
-            GameObject weaponObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.WeaponPrefab.name, new Vector3(onLeft * -1.25f, 0.88f, 0.6f), Quaternion.Euler(0f, 0f, 0f));
+            GameObject weaponObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.WeaponPrefab.name, Vector3.zero, Quaternion.Euler(0f, 0f, 0f));
             weaponObj.SetActive(true);
             Weapons weapon = weaponObj.GetComponent<Weapons>();
             weaponsPool.Add(weapon);
@@ -172,8 +175,9 @@ public class DataManager : MonoBehaviourPunCallbacks
                 int weaponViewID = weaponsPool[i * WEAPON_COUNT + j].photonView.ViewID;
                 PhotonView weaponView = weaponsPool[i * WEAPON_COUNT + j].GetComponent<PhotonView>();
                 weaponView.TransferOwnership(PhotonNetwork.PlayerList[i]);
-                photonView.RPC("AddWeaponToPlayer", RpcTarget.AllBuffered, playerViewID, weaponViewID, j);
+                photonView.RPC("AddWeaponToPlayer", RpcTarget.AllBuffered, playerViewID, weaponViewID, j, onLeft);
                 photonView.RPC("assignViewID", PhotonNetwork.PlayerList[i], playerViewID);
+                onLeft *= -1;
             }
             PhotonView indicatorView = indicatorPool[i].GetComponent<PhotonView>();
             int indicatorViewID = indicatorView.ViewID;
@@ -186,7 +190,7 @@ public class DataManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void AddWeaponToPlayer(int playerViewID, int weaponViewID, int slotIndex)
+    public void AddWeaponToPlayer(int playerViewID, int weaponViewID, int slotIndex, int onLeft)
     {
         Debug.Log("Adding weapon for playr " + playerViewID + " with weapon " + weaponViewID);
         PhotonView playerView = PhotonView.Find(playerViewID);
@@ -201,6 +205,7 @@ public class DataManager : MonoBehaviourPunCallbacks
             {
                 player.WeaponList.Add(weapon);
                 weapon.transform.SetParent(player.transform);
+                weapon.transform.localPosition = new Vector3(onLeft * -0.625f, WEAPON_Y_OFFSET, 0.6f);
             }
         }
     }

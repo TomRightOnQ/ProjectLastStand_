@@ -79,19 +79,20 @@ public class Players : Entities, IPunObservable
 
     // Attack!
     public void fire(Vector3 targetPosition) {
-        Debug.Log(targetPosition.ToString());
         foreach (Weapons weapon in weapons) {
             if (weapon == null) {
                 return;
             }
             if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
             {
+                weapon.transform.LookAt(new Vector3(targetPosition.x, weapon.transform.position.y, targetPosition.z));
                 weapon.Fire(index, targetPosition, defaultAttack, defaultWeaponAttack);
             }
             else {
                 int weaponViewID = -1;
                 weaponViewID = weapon.photonView.ViewID;
-                photonView.RPC("FireForPlayer", RpcTarget.MasterClient, weaponViewID, index, photonView.ViewID, GetAimDirection());
+                weapon.transform.LookAt(new Vector3(targetPosition.x, weapon.transform.position.y, targetPosition.z));
+                photonView.RPC("FireForPlayer", RpcTarget.MasterClient, weaponViewID, index, photonView.ViewID, targetPosition);
             }
             index += 1;
         }
@@ -104,13 +105,8 @@ public class Players : Entities, IPunObservable
 
     // For client firing, let master do it
     [PunRPC]
-    private void FireForPlayer(int weaponViewID, int index, int playerViewID, Vector3 direction0, PhotonMessageInfo info)
+    private void FireForPlayer(int weaponViewID, int index, int playerViewID, Vector3 targetPosition)
     {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            Debug.LogWarning("FireForPlayer RPC called on non-master client");
-            return;
-        }
         Players player = GameManager.Instance.GetLocalPlayer(playerViewID);
 
         if (weaponViewID != -1)
@@ -121,7 +117,7 @@ public class Players : Entities, IPunObservable
                 Weapons weapon = weapon1View.GetComponent<Weapons>();
                 if (weapon != null)
                 {
-                    weapon.Fire(index, direction0, defaultAttack, defaultWeaponAttack);
+                    weapon.Fire(index, targetPosition, defaultAttack, defaultWeaponAttack);
                 }
             }
         }
@@ -170,10 +166,10 @@ public class Players : Entities, IPunObservable
     {
         if (!armed && weapons.Count >= 2) {
             addWeapon(0, -1, 0);
-            addWeapon(1, -1, 0);
+            addWeapon(1, 200, 0);
             armed = true;
         }
-        currentHitPoints += 0.005f;
+        currentHitPoints += 0.0005f;
         UpdateHP();
     }
 }

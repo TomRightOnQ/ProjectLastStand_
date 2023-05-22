@@ -23,7 +23,9 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         public string info;
         public string intro;
         public int hitAnim;
+        public bool isMagic;
         public ArtConfigs.Artconfig mesh;
+        public ArtConfigs.Artconfig projMesh;
     }
 
     public static WeaponConfig Pistol = new WeaponConfig
@@ -43,7 +45,9 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         info = "Better than nothing...",
         intro = "A default weapon",
         hitAnim = 0,
-        mesh = ArtConfigs.Artconfig.PistolMesh
+        isMagic = false,
+        mesh = ArtConfigs.Artconfig.PistolMesh,
+        projMesh = ArtConfigs.Artconfig.DefaultProj
     };
 
     public static WeaponConfig LMG = new WeaponConfig
@@ -63,7 +67,9 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         info = "LMG! Mounted! and Loaded!",
         intro = "Light machine gun with great RPM",
         hitAnim = 0,
-        mesh = ArtConfigs.Artconfig.LMGMesh
+        isMagic = false,
+        mesh = ArtConfigs.Artconfig.LMGMesh,
+        projMesh = ArtConfigs.Artconfig.DefaultProj
     };
 
     public static WeaponConfig RPG = new WeaponConfig
@@ -72,10 +78,10 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         id = 100,
         type = 0,
         rating = 2,
-        attack = 20,
+        attack = 8,
         pen = 0.5f,
-        life = 3,
-        cd = 2,
+        life = 3f,
+        cd = 2f,
         selfDet = true,
         projectileSpeed = 5,
         aoe = true,
@@ -83,7 +89,9 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         info = "R! P! G!",
         intro = "Explosive weapon that causes AOE damage",
         hitAnim = 0,
-        mesh = ArtConfigs.Artconfig.RPGMesh
+        isMagic = false,
+        mesh = ArtConfigs.Artconfig.RPGMesh,
+        projMesh = ArtConfigs.Artconfig.DefaultProj
     };
 
     public static WeaponConfig HeatLaser = new WeaponConfig
@@ -95,15 +103,17 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         attack = 2,
         pen = 0.5f,
         life = 0.1f,
-        cd = 0.2f,
+        cd = 0.1f,
         selfDet = true,
         projectileSpeed = 5,
-        aoe = true,
+        aoe = false,
         damageRange = 0.1f,
         info = "OVERLOAD!",
         intro = "Burning the first enemy with a beam of laser",
         hitAnim = 0,
-        mesh = ArtConfigs.Artconfig.HeatLaserMesh
+        isMagic = false,
+        mesh = ArtConfigs.Artconfig.HeatLaserMesh,
+        projMesh = ArtConfigs.Artconfig.DefaultProj
     };
 
     public static WeaponConfig RubyLaser = new WeaponConfig
@@ -112,18 +122,42 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         id = 200,
         rating = 3,
         type = 1,
-        attack = 20,
+        attack = 5,
         pen = 0.5f,
-        life = 0.1f,
-        cd = 2,
+        life = 0.3f,
+        cd = 1,
         selfDet = true,
         projectileSpeed = 5,
-        aoe = true,
+        aoe = false,
         damageRange = 0.1f,
         info = "Charging...",
         intro = "Slow but destructive laser cannon",
         hitAnim = 0,
-        mesh = ArtConfigs.Artconfig.LaserGunMesh
+        isMagic = false,
+        mesh = ArtConfigs.Artconfig.LaserGunMesh,
+        projMesh = ArtConfigs.Artconfig.DefaultProj
+    };
+
+    public static WeaponConfig Kornet = new WeaponConfig
+    {
+        _name = "9M133",
+        id = 300,
+        rating = 4,
+        type = 0,
+        attack = 16,
+        pen = 0.5f,
+        life = 3f,
+        cd = 2f,
+        selfDet = true,
+        projectileSpeed = 6,
+        aoe = true,
+        damageRange = 0.75f,
+        info = "Nothing is unshakeable",
+        intro = "Extremly strong missile",
+        hitAnim = 0,
+        isMagic = true,
+        mesh = ArtConfigs.Artconfig.KornetMesh,
+        projMesh = ArtConfigs.Artconfig.KornetProjMesh
     };
 
     // Getters and Setters
@@ -134,7 +168,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     private const int BLUE_BEGIN = 200;
     private const int BLUE_COUNT = 1;
     private const int PURPLE_BEGIN = 300;
-    private const int PURPLE_COUNT = 0;
+    private const int PURPLE_COUNT = 1;
     private const int ORANGE_BEGIN = 400;
     private const int ORANGE_COUNT = 0;
 
@@ -157,7 +191,10 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
 				break;
 			case 101:
                 weaponData = WeaponConfigs.HeatLaser;
-                break;	
+                break;
+            case 300:
+                weaponData = WeaponConfigs.Kornet;
+                break;
         }
         return weaponData;
     }

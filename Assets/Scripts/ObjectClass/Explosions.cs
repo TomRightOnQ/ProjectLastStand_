@@ -15,14 +15,16 @@ public class Explosions : MonoBehaviour
     public float DamageRange { get { return damageRange; } set { damageRange = value; } }
     public float Damage { get { return damage; } set { damage = value; } }
     public float Pen { get { return pen; } set { pen = value; } }
-
+    
     private bool initialized = false;
+    private bool isMagic = false;
 
-    public void Initialize(float damageRange, float damage, float pen)
+    public void Initialize(float damageRange, float damage, float pen, bool isMagic)
     {
         this.damageRange = damageRange;
         this.damage = damage;
         this.pen = pen;
+        this.isMagic = isMagic;
         GetComponent<SphereCollider>().enabled = true;
         initialized = true;
     }
@@ -48,7 +50,7 @@ public class Explosions : MonoBehaviour
             Monsters monster = other.GetComponent<Monsters>();
             if (monster != null && monster.gameObject.activeSelf)
             {
-                monster.TakeDamage(damage);
+                monster.TakeDamage(damage, isMagic);
             }
         }
     }

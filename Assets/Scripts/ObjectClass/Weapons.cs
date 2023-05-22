@@ -27,31 +27,36 @@ public class Weapons : DefaultObjects
     [SerializeField] private string intro = "";
     [SerializeField] private int level = 1;
     [SerializeField] private int hitAnim = 0;
-    
+    [SerializeField] private bool isMagic;
+
+    private const float LASER_LENGTH = 200f;
+    private const float PROJ_YOFFSET = 1.1f;
+    private const float LASER_YOFFSET = 1.6f;
+
     private float atk = 2;
-    public const string UPDATE_PROJ = "UpdatePosition";
     private float timer = 0;
 
     // Morph the weapon
-    public void SetWeapons(WeaponConfig weaponConfigs)
+    public void SetWeapons(WeaponConfig weaponConfig)
     {
-        id = weaponConfigs.id;
-        wpName = weaponConfigs._name;
-        rating = weaponConfigs.rating;
-        type = weaponConfigs.type;
-        attack = weaponConfigs.attack;
-        pen = weaponConfigs.pen;
-        life = weaponConfigs.life;
-        cd = weaponConfigs.cd;
-        selfDet = weaponConfigs.selfDet;
-        projectileSpeed = weaponConfigs.projectileSpeed;
-        aoe = weaponConfigs.aoe;
-        info = weaponConfigs.info;
-        intro = weaponConfigs.intro;
-        hitAnim = weaponConfigs.hitAnim;
-        damageRange = weaponConfigs.damageRange;
+        id = weaponConfig.id;
+        wpName = weaponConfig._name;
+        rating = weaponConfig.rating;
+        type = weaponConfig.type;
+        attack = weaponConfig.attack;
+        pen = weaponConfig.pen;
+        life = weaponConfig.life;
+        cd = weaponConfig.cd;
+        selfDet = weaponConfig.selfDet;
+        projectileSpeed = weaponConfig.projectileSpeed;
+        aoe = weaponConfig.aoe;
+        info = weaponConfig.info;
+        intro = weaponConfig.intro;
+        hitAnim = weaponConfig.hitAnim;
+        damageRange = weaponConfig.damageRange;
+        isMagic = weaponConfig.isMagic;
         atk = attack;
-        SwapMesh(weaponConfigs.id);
+        SwapMesh(weaponConfig.id);
         level = 1;
     }
 
@@ -86,6 +91,7 @@ public class Weapons : DefaultObjects
             meshFilter.mesh = mesh;
         }
     }
+
     private void Start()
     {
         atk = attack + extraAttack;
@@ -108,7 +114,6 @@ public class Weapons : DefaultObjects
     // Fire based on type
     public void Fire(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack)
     {
-        transform.LookAt(new Vector3 (direction.x, transform.position.y, direction.z));
         if (timer < cd)
         {
             return;
@@ -139,9 +144,11 @@ public class Weapons : DefaultObjects
             Vector3 firePos = transform.position + weaponForward * 0.5f;
             Vector3 direction = transform.forward;
             // Config the Projectile
-            proj.transform.position = new Vector3 (firePos.x, firePos.y, firePos.z);
+            proj.transform.position = firePos;
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-            proj.Damage = atk * playerAttack;
+
+            proj.Damage = (!isMagic) ? atk * playerAttack : atk * weaponAttack;
+
             proj.Owner = playerIdx;
             proj.Life = life;
             proj.SelfDet = true;
@@ -149,12 +156,14 @@ public class Weapons : DefaultObjects
             proj.AOE = aoe;
             proj.HitAnim = hitAnim;
             proj.DamageRange = damageRange;
+            proj.IsMagic = isMagic;
             proj.GetComponent<Rigidbody>().velocity = direction * projectileSpeed * 10;
+            proj.SwapMesh(id);
             proj.Activate();
 
             if (PhotonNetwork.IsConnected)
             {
-                photonView.RPC("SimulateProjectile", RpcTarget.Others, projectileID, photonView.ViewID, direction, projectileSpeed);
+                photonView.RPC("RPCSimulateProjectile", RpcTarget.Others, projectileID, photonView.ViewID, direction, projectileSpeed);
             }
         }
     }
@@ -162,110 +171,77 @@ public class Weapons : DefaultObjects
     // Type 1: Laser
     private void FireLaser(int playerIdx, float playerAttack, float weaponAttack)
     {
-        Vector3 direction = transform.forward;
-        RaycastHit[] hitInfos = Physics.RaycastAll(transform.position, direction, 800);
-        Vector3 endPos = transform.position + direction * 5f;
-
-        for (int i = 0; i < hitInfos.Length; i++)
+        // Get laser from pool
+        Lasers laser = GameManager.Instance.dataManager.TakeLaserPool();
+        if (laser != null)
         {
-            RaycastHit hitInfo = hitInfos[i];
+            int laserID = laser.photonView.ViewID;
+            Vector3 weaponForward = transform.TransformDirection(Vector3.forward);
+            Vector3 firePos = transform.position + weaponForward * 0.5f + weaponForward * LASER_LENGTH;
+            Vector3 simulatePos = transform.position + weaponForward * 0.5f;
+            Vector3 direction = transform.forward;
 
-            if (hitInfo.collider.CompareTag("Monster"))
+            // Config the Line Renderer
+            LineRenderer lineRenderer = laser.GetComponent<LineRenderer>();
+            // lineRenderer.SetPosition(0, simulatePos);
+            // lineRenderer.SetPosition(1, simulatePos + direction * LASER_LENGTH  / 2);
+
+            // Config the Projectile
+            laser.transform.localPosition = new Vector3(firePos.x, LASER_YOFFSET, firePos.z);
+            laser.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            laser.Damage = (!isMagic) ? atk * playerAttack : atk * weaponAttack;
+            laser.Owner = playerIdx;
+            laser.Life = life;
+            laser.SelfDet = true;
+            laser.Player = true;
+            laser.AOE = aoe;
+            laser.HitAnim = hitAnim;
+            laser.DamageRange = damageRange;
+            laser.IsMagic = isMagic;
+            laser.Activate();
+
+            if (PhotonNetwork.IsConnected)
             {
-                Monsters monster = hitInfo.collider.gameObject.GetComponent<Monsters>();
-                if (monster != null)
-                {
-                    monster.TakeDamage(atk * playerAttack);
-                    if (type == 2) {
-                        endPos = hitInfo.point;
-                        break;
-                    }
-                }
+                photonView.RPC("RPCSimulateLaser", RpcTarget.Others, laserID, simulatePos, simulatePos + direction * LASER_LENGTH / 2);
             }
-            else if (hitInfo.collider.CompareTag("Base") || hitInfo.collider.CompareTag("Wall"))
-            {
-                endPos = hitInfo.point;
-                break;
-            }
-        }
-        if (PhotonNetwork.IsConnected)
-        {
-            photonView.RPC("SimulateLaser", RpcTarget.All, photonView.ViewID, direction, endPos);
-        }
-        else {
-            SimulateLaser(direction, endPos);
+            SimulateLaser(lineRenderer, simulatePos, simulatePos + direction * LASER_LENGTH / 2);
         }
     }
 
-    private void SimulateLaser(Vector3 direction, Vector3 endPos)
+    private void SimulateLaser(LineRenderer lineRenderer, Vector3 start, Vector3 end)
     {
-        Vector3 weaponForward = transform.TransformDirection(Vector3.forward);
-        Vector3 startPos = transform.position + weaponForward * 0.5f;
-        // Get or add the Line Renderer component to the weapon object
-        LineRenderer lineRenderer = GetComponent<LineRenderer>();
-        if (lineRenderer == null)
-        {
-            lineRenderer = gameObject.AddComponent<LineRenderer>();
-            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            lineRenderer.startColor = Color.red;
-            Color color = Color.red;
-            color.a = 0.5f;
-            lineRenderer.startColor = color;
-            lineRenderer.endColor = color;
-            lineRenderer.startWidth = 0.5f;
-            lineRenderer.endWidth = 0.5f;
-            lineRenderer.positionCount = 2;
-        }
-
-        // Update the Line Renderer with the laser positions
-        lineRenderer.SetPosition(0, startPos);
-        lineRenderer.SetPosition(1, endPos);
-        Destroy(lineRenderer, 0.05f);
+        lineRenderer.SetPosition(0, start);
+        lineRenderer.SetPosition(1, end);
     }
 
     // Simulating a laser
     [PunRPC]
-    private void SimulateLaser(int weaponViewID, Vector3 direction, Vector3 endPos)
+    private void RPCSimulateLaser(int laserViewID, Vector3 start, Vector3 end)
     {
-        Weapons weapon = PhotonView.Find(weaponViewID).GetComponent<Weapons>();
-        Vector3 weaponForward = weapon.transform.TransformDirection(Vector3.forward);
-        Vector3 startPos = transform.position + weaponForward * 0.5f;
-        // Get or add the Line Renderer component to the weapon object
-        LineRenderer lineRenderer = weapon.GetComponent<LineRenderer>();
-        if (lineRenderer == null)
+        // Get the laser object
+        Lasers laser = PhotonView.Find(laserViewID).GetComponent<Lasers>();
+        if (laser != null)
         {
-            lineRenderer = weapon.gameObject.AddComponent<LineRenderer>();
-            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            lineRenderer.startColor = Color.red;
-            Color color = Color.red;
-            color.a = 0.5f;
-            lineRenderer.startColor = color;
-            lineRenderer.endColor = color;
-            lineRenderer.startWidth = 0.5f;
-            lineRenderer.endWidth = 0.5f;
-            lineRenderer.positionCount = 2;
+            // Config the Line Renderer
+            LineRenderer lineRenderer = laser.GetComponent<LineRenderer>();
+            lineRenderer.SetPosition(0, start);
+            lineRenderer.SetPosition(1, end);
         }
-
-        // Update the Line Renderer with the laser positions
-        lineRenderer.SetPosition(0, startPos);
-        lineRenderer.SetPosition(1, endPos);
-        Destroy(lineRenderer, 0.05f);
     }
 
     // Simulating a projectile
     [PunRPC]
-    private void SimulateProjectile(int projectileID, int weaponViewID, Vector3 direction, float speed)
+    private void RPCSimulateProjectile(int projectileID, int weaponViewID, Vector3 direction, float speed)
     {
         // Get projectile from pool
         Projectiles proj = PhotonView.Find(projectileID).GetComponent<Projectiles>();
-        Weapons weapon = PhotonView.Find(weaponViewID).GetComponent<Weapons>();
 
         if (proj != null)
         {
             Vector3 weaponForward = transform.TransformDirection(Vector3.forward);
             Vector3 localFirePos = transform.position + weaponForward * 0.5f;
             // Config the Projectile
-            proj.transform.position = new Vector3(localFirePos.x, localFirePos.y, localFirePos.z) ;
+            proj.transform.position = localFirePos;
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             proj.Damage = attack;
             proj.Owner = photonView.ViewID;
@@ -273,6 +249,7 @@ public class Weapons : DefaultObjects
             proj.SelfDet = true;
             proj.Player = true;
             proj.AOE = aoe;
+            proj.SwapMesh(id);
             proj.GetComponent<Rigidbody>().velocity = direction * speed * 10;
         }
     }
@@ -310,4 +287,5 @@ public class Weapons : DefaultObjects
     public string Intro { get { return intro; } set { Intro = value; } }
     public float Atk { get { return atk; } }
     public int HitAnim { get { return HitAnim; } }
+    public bool IsMagic { get { return isMagic; } set { isMagic = value; } }
 } 

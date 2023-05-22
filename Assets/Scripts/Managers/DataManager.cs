@@ -15,10 +15,13 @@ public class DataManager : MonoBehaviourPunCallbacks
     public const int PLAYER_COUNT = 4;
     // Monsters
     private List<Monsters> monsterPool = new List<Monsters>();
-    public const int MONSTER_COUNT = 60;
+    public const int MONSTER_COUNT = 100;
     // Projectiles
     private List<Projectiles> projPool = new List<Projectiles>();
     public const int PROJ_COUNT = 100;
+    private List<Lasers> laserPool = new List<Lasers>();
+    public const int LASER_COUNT = 75;
+
     // Weapons
     private List<Weapons> weaponsPool = new List<Weapons>();
     // Indicators
@@ -85,6 +88,14 @@ public class DataManager : MonoBehaviourPunCallbacks
             projPool.Add(projObj.GetComponent<Projectiles>());
         }
 
+        // Initialize laser pool
+        for (int i = 0; i < LASER_COUNT; i++)
+        {
+            GameObject laserObj = Instantiate(prefabManager.LaserPrefab, dPpos, Quaternion.identity);
+            laserObj.SetActive(false);
+            laserPool.Add(laserObj.GetComponent<Lasers>());
+        }
+
         // Prepare weapons
         int numWeapons = WEAPON_COUNT;
         int onLeft = 1;
@@ -143,6 +154,14 @@ public class DataManager : MonoBehaviourPunCallbacks
             GameObject projObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.ProjPrefab.name, dPpos, Quaternion.identity);
             projObj.SetActive(false);
             projPool.Add(projObj.GetComponent<Projectiles>());
+        }
+
+        // Initialize laser pool
+        for (int i = 0; i < LASER_COUNT; i++)
+        {
+            GameObject laserObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.LaserPrefab.name, dPpos, Quaternion.identity);
+            laserObj.SetActive(false);
+            laserPool.Add(laserObj.GetComponent<Lasers>());
         }
 
         // Prepare weapons
@@ -244,6 +263,18 @@ public class DataManager : MonoBehaviourPunCallbacks
             if (!projPool[i].gameObject.activeSelf)
             {
                 return projPool[i];
+            }
+        }
+        return null;
+    }
+
+    public Lasers TakeLaserPool()
+    {
+        for (int i = 0; i < laserPool.Count; i++)
+        {
+            if (!laserPool[i].gameObject.activeSelf)
+            {
+                return laserPool[i];
             }
         }
         return null;

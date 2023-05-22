@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Camera _camera;
     private Players player;
-
+    private const float CLOSET_FIRERANGE = 10.0f;
     private float globalTime = 0.0f;
 
     void Start()
@@ -49,8 +49,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            player.fire(mousePosition);
+            Vector3 directionToMouse = mousePosition - transform.position;
+            float distanceToMouse = directionToMouse.magnitude;
+            directionToMouse.Normalize();
+            Vector3 firePosition = distanceToMouse > CLOSET_FIRERANGE ? mousePosition : transform.position + directionToMouse * CLOSET_FIRERANGE;
+            player.fire(firePosition);
         }
+
         float horizontalInput = 0.0f;
         float verticalInput = 0.0f;
 

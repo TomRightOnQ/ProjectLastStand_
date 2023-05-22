@@ -39,7 +39,7 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
         expL = 10 * (float)System.Math.Pow(1.1, level);
         if (!PhotonNetwork.IsConnected)
         {
-            upgradeMenu.Points += 1;
+            upgradeMenu.addPoints(1);
             // Animation of leveling up
             Players player = GameManager.Instance.dataManager.GetPlayers()[0];
             ParticleSystem particleSystem = player.gameObject.GetComponentInChildren<ParticleSystem>();

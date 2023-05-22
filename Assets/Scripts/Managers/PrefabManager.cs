@@ -8,6 +8,7 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
 {
     [SerializeField] private GameObject monsterPrefab; // Monsters
     [SerializeField] private GameObject projPrefab; // Projectiles
+    [SerializeField] private GameObject laserPrefab;
     [SerializeField] private GameObject playerPrefab; // Players
     [SerializeField] private GameObject weaponPrefab; // Weapons
     [SerializeField] private GameObject damageNumberPrefab; // Damage Number system
@@ -19,6 +20,7 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
 
     public GameObject MonsterPrefab { get { return monsterPrefab; } }
     public GameObject ProjPrefab { get { return projPrefab; } }
+    public GameObject LaserPrefab { get { return laserPrefab; } }
     public GameObject PlayerPrefab { get { return playerPrefab; } }
     public GameObject WeaponPrefab { get { return weaponPrefab; } }
     public GameObject DamageNumberPrefab { get { return damageNumberPrefab; } }

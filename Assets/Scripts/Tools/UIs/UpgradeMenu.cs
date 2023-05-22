@@ -30,6 +30,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     private const string PREFAB_LOC = "Prefabs/";
 
     // Including three choices
+    [SerializeField] private Button expandBtn;
     [SerializeField] private Button choiceA;
     [SerializeField] private Button choiceB;
     [SerializeField] private Button choiceC;
@@ -116,6 +117,10 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
             regenChoices = true;
         }
         points += 1;
+        if (!isOpen)
+        {
+            expandBtn.onClick.Invoke();
+        }
     }
 
     private void disableAll()

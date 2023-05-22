@@ -72,9 +72,18 @@ public class InteractionScrollView : MonoBehaviour
             // Get Weapons
             WeaponConfig weaponData = WeaponConfigs.Instance._getWeaponConfig(listing.WeaponIndex);
             // Show the WeaponChpice page
-            WeaponChoice.Instance.ShowPanel();
-            WeaponChoice.Instance.SetWeaponInfo(2, weaponData, 1);
-            WeaponChoice.Instance.SetID(listing.DroppedId);
+            // If the weapon is already there, upgrade it directly
+            int chosen = WeaponChoice.Instance.FindWeapon(weaponData);
+            if (chosen != -1)
+            {
+                WeaponChoice.Instance.SetID(listing.DroppedId);
+                WeaponChoice.Instance.ConfirmWeaponChoice(chosen, weaponData.id);
+            }
+            else {
+                WeaponChoice.Instance.ShowPanel();
+                WeaponChoice.Instance.SetWeaponInfo(2, weaponData, 1);
+                WeaponChoice.Instance.SetID(listing.DroppedId);
+            }
         }
     }
 }

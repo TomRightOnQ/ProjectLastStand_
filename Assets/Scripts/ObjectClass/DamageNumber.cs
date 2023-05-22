@@ -12,7 +12,7 @@ public class DamageNumber : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _text;
     private Vector3 initialPosition;
 
-    public void Init(float damage, Vector3 monsterPosition)
+    public void Init(float damage, Vector3 monsterPosition, bool isMagic)
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(monsterPosition);
         screenPos.z = 0f;
@@ -20,6 +20,15 @@ public class DamageNumber : MonoBehaviour
 
         _text.text = Mathf.CeilToInt(damage).ToString();
         initialPosition = _text.transform.position;
+
+        if (isMagic)
+        {
+            _text.color = new Color(0.5f, 0f, 1f);
+        }
+        else {
+            _text.color = new Color(1f, 0.5f, 0f);
+        }
+
         StartCoroutine(Fly());
         StartCoroutine(FadeOut());
     }

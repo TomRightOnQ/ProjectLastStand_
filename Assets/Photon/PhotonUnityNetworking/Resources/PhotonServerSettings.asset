@@ -64,6 +64,9 @@ MonoBehaviour:
   - RPCPlayHitAnim
   - AddIndicatorToPlayer
   - RPCSwapMesh
+  - RPCSimulateLaser
+  - RPCSimulateProjectile
+  - takeDamageRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

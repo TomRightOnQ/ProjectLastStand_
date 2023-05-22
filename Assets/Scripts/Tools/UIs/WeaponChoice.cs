@@ -45,31 +45,21 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
         {
             confirmButton.gameObject.SetActive(false);
         }
-        // Weapon hints
-        if (weapon1Info.ID == weapon3Info.ID)
-        {
-            weapon1Hint.text = "Upgrade this weapon";
-            weapon1Hint.color = Color.green;
-        }
-        else
-        {
-            weapon1Hint.text = "Replace this weapon";
-            weapon1Hint.color = Color.red;
-        }
-        if (weapon2Info.ID == weapon3Info.ID)
-        {
-            weapon2Hint.text = "Upgrade this weapon";
-            weapon1Hint.color = Color.green;
-        }
-        else
-        {
-            weapon2Hint.text = "Replace this weapon";
-            weapon2Hint.color = Color.red;
-        }
         if (isOpend && Input.GetKeyDown(KeyCode.F)) 
         {
             HidePanel();
         }
+    }
+
+    // find if a weapon is the same type
+    public int FindWeapon(WeaponConfig weaponData)
+    {
+        if (weapon1Info.ID == weaponData.id) {
+            return 0;
+        } else if (weapon2Info.ID == weaponData.id) {
+            return 1;
+        }
+        return -1;
     }
 
     public void SetID(long id)
@@ -127,6 +117,23 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
         }
     }
 
+    // Upgrade
+    public void ConfirmWeaponChoice(int chosen, int id)
+    {
+        // Get Players
+        Players player = GameManager.Instance.GetLocalPlayer();
+        if (PhotonNetwork.IsConnected)
+        {
+            int playerViewID = GameManager.Instance.dataManager.PlayerViewID;
+            Debug.Log("Adding Weapons");
+            photonView.RPC("RPCaddWeapons", RpcTarget.All, playerViewID, chosen, id, 1);
+        }
+        player.addWeapon(chosen, id, 1);
+        // Destroy the listing and dropped item with the same ID
+        GameUI.Instance.RemoveDroppedItem(droppedId);
+        HidePanel();
+    }
+
     // Change Weapon
     [PunRPC]
     public void RPCaddWeapons(int playerViewID, int slot, int id, int level)
@@ -134,7 +141,7 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
         Players player = GameManager.Instance.GetLocalPlayer(playerViewID);
         if (player == null)
         {
-            Debug.LogError("RPCaddWeapons: Player is null.");
+            Debug.LogError("RPCaddWeapons: Player is null");
             return;
         }
         player.addWeapon(slot, id, level);

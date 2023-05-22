@@ -11,14 +11,19 @@ public class MonsterAI : MonoBehaviour
     protected enum MonsterState
     {
         MoveTowardBase,
-        Aimming,
-        FireAtPlayer
+        Aiming,
+        FireAtPlayer,
+        Lock
     }
+
+    [SerializeField] protected bool hasTarget;
+    [SerializeField] protected GameObject targetPlayer;
+    protected float searchRadius = 10f;
 
     // Data
     [SerializeField] protected Monsters monster;
     protected Vector3 targetPosition;
-    protected MonsterState currentState;
+    [SerializeField] protected MonsterState currentState;
     private MonsterAI currentBehavior;
     private bool isSetUp = false;
 
@@ -31,8 +36,9 @@ public class MonsterAI : MonoBehaviour
 
     // Constants
     protected const float WALKING_TIME = 3f;
-    protected const float AIMMING_TIME = 0.5f;
+    protected const float AIMMING_TIME = 0.1f;
     protected const float FIRING_TIME = 0.5f;
+    protected const float LOCKING_TIME = 5f;
 
     private void Awake()
     {
@@ -42,11 +48,14 @@ public class MonsterAI : MonoBehaviour
 
         // Map state to behavior methods
         stateBehaviors[MonsterState.MoveTowardBase] = AIWalkTowardBase;
+        stateBehaviors[MonsterState.Aiming] = AISearchForPlayer;
+        stateBehaviors[MonsterState.Lock] = AILookingAt;
         stateBehaviors[MonsterState.FireAtPlayer] = AIFireAtPlayer;
 
         // Set waiting times for state transitions
         stateWaitingTimes[MonsterState.MoveTowardBase] = WALKING_TIME;
-        stateWaitingTimes[MonsterState.Aimming] = AIMMING_TIME;
+        stateWaitingTimes[MonsterState.Aiming] = AIMMING_TIME;
+        stateWaitingTimes[MonsterState.Lock] = LOCKING_TIME;
         stateWaitingTimes[MonsterState.FireAtPlayer] = FIRING_TIME;
         currentStateStartTime = Time.time;
     }
@@ -77,20 +86,16 @@ public class MonsterAI : MonoBehaviour
         }
     }
 
-
     // Transitions
-    protected void TransitionToNextState()
+    protected virtual void TransitionToNextState()
     {
         // Implement state transition logic here
-        // For example, move to the next state based on a specific condition or a predefined sequence
 
         switch (currentState)
         {
             case MonsterState.MoveTowardBase:
-                currentState = MonsterState.FireAtPlayer;
-                break;
-            case MonsterState.FireAtPlayer:
                 currentState = MonsterState.MoveTowardBase;
+                behaviorTimer = stateWaitingTimes[currentState];
                 break;
         }
 
@@ -107,11 +112,48 @@ public class MonsterAI : MonoBehaviour
         transform.LookAt(targetPosition);
         Vector3 newPos = direction * monster.Speed * 3 * Time.deltaTime;
         transform.position += newPos;
+        hasTarget = false;
     }
 
     protected void AIFireAtPlayer()
     {
+        // Fire a bullet
+        AIFireBullet();
+    }
+
+    protected void AISearchForPlayer()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, searchRadius, LayerMask.GetMask("Player"));
+
+        if (colliders.Length > 0)
+        {
+            // Found a player, set it as the target
+            targetPlayer = colliders[0].gameObject;
+            hasTarget = true;
+        }
+        else {
+            hasTarget = false;
+        }
+    }
+
+    protected void AILookingAt()
+    {
+        Vector3 targetPosition = targetPlayer.transform.position;
+        transform.LookAt(new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
+    }
+
+    protected void AIFireBullet()
+    {
+        // Instantiate and fire a bullet
         // ...
+        Debug.Log("An enemy is firing at the player!");
+        // Wait for reload time
+        StartCoroutine(Reload());
+    }
+
+    protected IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(1f);
     }
 }
 
@@ -125,6 +167,43 @@ public class MonsterWalker : MonsterAI
 
 public class MonsterShooter : MonsterAI
 {
+    private void Start()
+    {
+        searchRadius = 15;
+    }
+
+    // Transitions
+    protected override void TransitionToNextState()
+    {
+        // Implement state transition logic here
+
+        switch (currentState)
+        {
+            case MonsterState.MoveTowardBase:
+                currentState = MonsterState.Aiming;
+                break;
+            case MonsterState.Aiming:
+                if (hasTarget)
+                {
+                    currentState = MonsterState.Lock;
+                }
+                else
+                {
+                    currentState = MonsterState.MoveTowardBase;
+                }
+                break;
+            case MonsterState.Lock:
+                currentState = MonsterState.FireAtPlayer;
+                break;
+            case MonsterState.FireAtPlayer:
+                currentState = MonsterState.Aiming;
+                break;
+        }
+
+        // Reset current state start time
+        currentStateStartTime = Time.time;
+    }
+
     private void Update()
     {
         stateBehaviors[currentState]();
@@ -134,7 +213,6 @@ public class MonsterShooter : MonsterAI
             TransitionToNextState();
             behaviorTimer = stateWaitingTimes[currentState];
         }
-
         behaviorTimer -= Time.deltaTime;
     }
 }

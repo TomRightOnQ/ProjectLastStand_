@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 2668866916221753463, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
   projPrefab: {fileID: 7790031011691829733, guid: fb40bd19a05b60b42b93a4d878866fa2, type: 3}
+  laserPrefab: {fileID: 429702960988942824, guid: 669aafcba1aa42941b652a9b2882cca2, type: 3}
   playerPrefab: {fileID: 927813109376346250, guid: 0876b712f50bf7d428bc21aa2804b1f8, type: 3}
   weaponPrefab: {fileID: 2466599894649513485, guid: a0b0345c4da251a458b2d5e77f7bb3ac, type: 3}
   damageNumberPrefab: {fileID: 8429875003257297645, guid: 32f16dcc3f0bd7347ae6e04664c1d7cd, type: 3}

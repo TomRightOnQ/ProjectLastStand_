@@ -198,7 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f09258c2445921c4698e500fc2d85690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasTarget: 0
+  targetPlayer: {fileID: 0}
   monster: {fileID: 2668866916221753457}
+  currentState: 0
 --- !u!195 &8619025673127021484
 NavMeshAgent:
   m_ObjectHideFlags: 0

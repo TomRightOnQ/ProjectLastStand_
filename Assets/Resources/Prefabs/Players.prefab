@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 882334727}
   - component: {fileID: 882334729}
   - component: {fileID: 882334728}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LvlUpParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4830,7 +4830,7 @@ GameObject:
   - component: {fileID: 224926928878471590}
   - component: {fileID: -2465301564175870986}
   - component: {fileID: 5292845521668930812}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Players
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5034,7 +5034,7 @@ GameObject:
   - component: {fileID: 2578835373238454897}
   - component: {fileID: 5152133825347670201}
   - component: {fileID: 5932194281081782269}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: IndicatorShape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5111,7 +5111,7 @@ GameObject:
   - component: {fileID: 8896752649797080851}
   - component: {fileID: 1368870048249825965}
   - component: {fileID: 3369095277862414218}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerLowIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

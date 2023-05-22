@@ -7,28 +7,41 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Configs/ArtConfigs")]
 public class ArtConfigs : ScriptableSingleton<ArtConfigs>
 {
+    // Player
     [SerializeField] private Mesh HumanMesh;
     [SerializeField] private Mesh MageMesh;
     [SerializeField] private Mesh SkeletonMesh;
     [SerializeField] private Mesh SoldierMesh;
 
+    // Weapon
     [SerializeField] private Mesh PistolMesh;
     [SerializeField] private Mesh RPGMesh;
     [SerializeField] private Mesh LMGMesh;
     [SerializeField] private Mesh HeatLaserMesh;
     [SerializeField] private Mesh LaserGunMesh;
+    [SerializeField] private Mesh KornetMesh;
+
+    // Projectiles
+    [SerializeField] private Mesh DefaultProjMesh;
+    [SerializeField] private Mesh KornetProjMesh;
 
     public enum Artconfig
     {
+        // Player
         HumanMesh,
         MageMesh,
         SkeletonMesh,
         SoldierMesh,
+        // Weapon
         PistolMesh,
         RPGMesh,
         LMGMesh,
         HeatLaserMesh,
-        LaserGunMesh
+        LaserGunMesh,
+        KornetMesh,
+        // Projectiles
+        DefaultProj,
+        KornetProjMesh
     }
 
     public Mesh getMesh(Artconfig type) 
@@ -63,6 +76,16 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
             break;
         case Artconfig.LaserGunMesh:
             ret = LaserGunMesh;
+            break;
+        case Artconfig.KornetMesh:
+            ret = KornetMesh;
+            break;
+
+        case Artconfig.DefaultProj:
+            ret = DefaultProjMesh;
+            break;
+        case Artconfig.KornetProjMesh:
+            ret = KornetProjMesh;
             break;
         }
         return ret;

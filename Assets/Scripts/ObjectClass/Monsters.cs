@@ -19,7 +19,7 @@ public class Monsters : Entities
 
     public PrefabManager prefabManager;
 
-    void Start()
+    void Awake()
     {
         gameObject.tag = "Monster";
         prefabManager = Resources.Load<PrefabManager>("PrefabManager");
@@ -63,12 +63,23 @@ public class Monsters : Entities
     }
 
     // Taking Damage
-    public override void TakeDamage(float damage)
+    public override void TakeDamage(float damage, bool isMagic)
     {
-        base.TakeDamage(damage);
+        base.TakeDamage(damage, isMagic);
         GameObject damageNumberObj = Instantiate(prefabManager.DamageNumberPrefab, transform.position, Quaternion.identity);
         DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
-        damageNumber.Init(damage, transform.position);
+        damageNumber.Init(damage, transform.position, isMagic);
+        if (PhotonNetwork.IsConnected) {
+            photonView.RPC("takeDamageRPC", RpcTarget.Others, transform.position, isMagic);
+        }
+    }
+
+    [PunRPC]
+    public void takeDamageRPC(Vector3 position, int damage, bool isMagic)
+    {
+        GameObject damageNumberObj = Instantiate(prefabManager.DamageNumberPrefab, transform.position, Quaternion.identity);
+        DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
+        damageNumber.Init(damage, position, isMagic);
     }
 
     // HP Bar 
@@ -96,7 +107,7 @@ public class Monsters : Entities
         {
             Base _base = other.gameObject.GetComponent<Base>();
             if (_base != null) {
-                _base.TakeDamage(defaultAttack * defaultWeaponAttack);
+                _base.TakeDamage(defaultAttack * defaultWeaponAttack, false);
             }
             GameManager.Instance.monsterManager.despawnForce(this);
         }
@@ -105,7 +116,7 @@ public class Monsters : Entities
             Players _player = other.gameObject.GetComponent<Players>();
             if (_player != null)
             {
-                _player.TakeDamage(defaultAttack * defaultWeaponAttack / 2);
+                _player.TakeDamage(defaultAttack * defaultWeaponAttack / 2, false);
             }
             GameManager.Instance.monsterManager.despawnForce(this);
         }

@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using static WeaponConfigs;
 
-// Bullets
+// Lasers
 [RequireComponent(typeof(PhotonView))]
-public class Projectiles : Items, IPunObservable
+public class Lasers : Items, IPunObservable
 {
-    void Awake() 
+    void Start()
     {
         gameObject.tag = "Proj";
     }
@@ -87,38 +86,6 @@ public class Projectiles : Items, IPunObservable
         set { damageRange = value; }
     }
 
-    public void SwapMesh(int id)
-    {
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        if (meshFilter != null)
-        {
-            WeaponConfig weaponConfig = WeaponConfigs.Instance._getWeaponConfig(id);
-            Mesh mesh = ArtConfigs.Instance.getMesh(weaponConfig.projMesh);
-            // Call the RPC to synchronize the mesh change across the network
-            if (PhotonNetwork.IsConnected)
-            {
-                photonView.RPC("RPCSwapMesh", RpcTarget.All, id);
-            }
-            else
-            {
-                meshFilter.mesh = mesh;
-            }
-        }
-    }
-
-    [PunRPC]
-    public void RPCSwapMesh(int id)
-    {
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        WeaponConfig weaponConfig = WeaponConfigs.Instance._getWeaponConfig(id);
-        Mesh mesh = ArtConfigs.Instance.getMesh(weaponConfig.projMesh);
-
-        if (meshFilter != null)
-        {
-            meshFilter.mesh = mesh;
-        }
-    }
-
     // Control the lifespan of a projectile
     public override void OnEnable()
     {
@@ -182,37 +149,29 @@ public class Projectiles : Items, IPunObservable
                 animObject.transform.position = pos;
                 animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
                 animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
-                if (PhotonNetwork.IsConnected) {
+                if (PhotonNetwork.IsConnected)
+                {
                     photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
                 }
 
                 if (!AOE)
                 {
-                    gameObject.SetActive(false);
-                    Deactivate();
+                    Debug.Log("Laser hitting enemy");
                     monster.TakeDamage(damage, isMagic);
                     GameManager.Instance.monsterManager.despawnCheck(monster);
                 }
                 else
                 {
-                    Debug.Log("Area Damage");
                     // AOE
                     Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
                     explosion.Initialize(damageRange, damage, pen, isMagic);
-                    gameObject.SetActive(false);
-                    Deactivate();
                 }
             }
-        }
-        else if (other.CompareTag("Base"))
-        {
-            gameObject.SetActive(false);
-            Deactivate();
         }
     }
 
     [PunRPC]
-    public void RPCPlayHitAnim(int id, Vector3 pos, float scale) 
+    public void RPCPlayHitAnim(int id, Vector3 pos, float scale)
     {
         GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
         animObject.transform.position = pos;

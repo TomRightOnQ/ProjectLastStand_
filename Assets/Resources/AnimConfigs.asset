@@ -15,3 +15,4 @@ MonoBehaviour:
   EXPAnim1: {fileID: 5030594300904479199, guid: 04589fafdb9bdb64790b0cda1579e384, type: 3}
   EXPAnim2: {fileID: 8775938826091091008, guid: b08ea9e512a71944a92885eff4b95225, type: 3}
   EXPAnim3: {fileID: 2684233824418978056, guid: 671f6b4f78668ae498b1c10a436288d7, type: 3}
+  BladeAnim: {fileID: 5192568825081523183, guid: 50acb92df0db239449e7499eaabab29c, type: 3}

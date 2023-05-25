@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
-using Photon.Realtime;
 using TMPro;
-using static UpgradeConfigs;
-using static PrefabManager;
 
 // Menu that goes out each time the players reach to the enxt level
 public class UpgradeMenu : MonoBehaviourPunCallbacks
@@ -57,7 +52,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         choiceArr[1] = choiceB;
         choiceArr[2] = choiceC;
         regenChoices = false;
-        initUpgradeCard();
+        InitUpgradeCard();
         enableAll();
     }
 
@@ -90,7 +85,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     }
 
     // Fill with standard choices
-    public void initUpgradeCard()
+    public void InitUpgradeCard()
     {
         int[] choices = new int[4] { -1, -2, -3,- 4};
         int excluded = Random.Range(-4, 0);
@@ -216,7 +211,6 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
             return;
         }
         UpgradeCards upCard = choice.GetComponent<UpgradeCards>();
-        Debug.Log(upCard.IsWeapon);
         if (upCard.IsWeapon)
         {
             int weaponIndex = upCard.WeaponData.id;
@@ -243,13 +237,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
             if (upgradeConfig.id <= -1) {
                 player.SwapMesh(upgradeConfig.id);
             }
-            player.HitPoints += upgradeConfig.hitPoints;
-            player.CurrentHitPoints += upgradeConfig.regen;
-            player.Speed += upgradeConfig.speed;
-            player.DefaultAttack += upgradeConfig.defaultAttack;
-            player.DefaultWeaponAttack += upgradeConfig.defaultWeaponAttack;
-            player.DefaultDefence += upgradeConfig.defaultDefence;
-            player.DefaultMagicDefence += upgradeConfig.defaultMagicDefence;
+            player.AddEffect(upgradeConfig.specialEffectIndex, upgradeConfig.level);
         }
         pointsOff();
     }

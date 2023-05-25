@@ -1,10 +1,6 @@
-using System.Collections;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Photon.Pun;
-using Photon.Realtime;
 using static WeaponConfigs;
 
 // All players are a Players object
@@ -166,10 +162,13 @@ public class Players : Entities, IPunObservable
     {
         if (!armed && weapons.Count >= 2) {
             addWeapon(0, -1, 0);
-            addWeapon(1, 200, 0);
+            addWeapon(1, -2, 0);
             armed = true;
         }
-        currentHitPoints += 0.0005f;
+        if (currentHitPoints < hitPoints / 2)
+        {
+            currentHitPoints += 0.001f;
+        }
         UpdateHP();
     }
 }

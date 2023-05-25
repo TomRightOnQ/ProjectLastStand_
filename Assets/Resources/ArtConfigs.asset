@@ -23,4 +23,5 @@ MonoBehaviour:
   LaserGunMesh: {fileID: -1721837903093826391, guid: 9a64bfa4f02be2646af135265b160b7b, type: 3}
   KornetMesh: {fileID: 7450088072707823083, guid: fe10caa905d67704b9c4a2fd61852254, type: 3}
   DefaultProjMesh: {fileID: 2979886809707569963, guid: c8c4988520c837b49b3539e03f38a4f9, type: 3}
+  DefaultMonsterProjMesh: {fileID: 4711208715938537054, guid: bbfcba21bc822c14cb60b982c5728317, type: 3}
   KornetProjMesh: {fileID: -3494573097253896334, guid: 2bf53354427e8584e8bf252b93bbf066, type: 3}

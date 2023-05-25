@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 using static WeaponConfigs;
+using static ArtConfigs;
 
 // Bullets
 [RequireComponent(typeof(PhotonView))]
@@ -94,10 +92,26 @@ public class Projectiles : Items, IPunObservable
         {
             WeaponConfig weaponConfig = WeaponConfigs.Instance._getWeaponConfig(id);
             Mesh mesh = ArtConfigs.Instance.getMesh(weaponConfig.projMesh);
-            // Call the RPC to synchronize the mesh change across the network
             if (PhotonNetwork.IsConnected)
             {
                 photonView.RPC("RPCSwapMesh", RpcTarget.All, id);
+            }
+            else
+            {
+                meshFilter.mesh = mesh;
+            }
+        }
+    }
+
+    public void SwapMesh(Artconfig type)
+    {
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        if (meshFilter != null)
+        {
+            Mesh mesh = ArtConfigs.Instance.getMesh(type);
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("RPCSwapMesh_Type", RpcTarget.All, type);
             }
             else
             {
@@ -112,6 +126,18 @@ public class Projectiles : Items, IPunObservable
         MeshFilter meshFilter = GetComponent<MeshFilter>();
         WeaponConfig weaponConfig = WeaponConfigs.Instance._getWeaponConfig(id);
         Mesh mesh = ArtConfigs.Instance.getMesh(weaponConfig.projMesh);
+
+        if (meshFilter != null)
+        {
+            meshFilter.mesh = mesh;
+        }
+    }
+
+    [PunRPC]
+    public void RPCSwapMesh_Type(Artconfig type)
+    {
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        Mesh mesh = ArtConfigs.Instance.getMesh(type);
 
         if (meshFilter != null)
         {
@@ -172,16 +198,13 @@ public class Projectiles : Items, IPunObservable
     // Damage Detection
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Monster"))
+        if (other.CompareTag("Monster") && owner != -1)
         {
             Monsters monster = other.gameObject.GetComponent<Monsters>();
             if (monster != null && monster.gameObject.activeSelf)
             {
-                GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(hitAnim), Vector3.zero, Quaternion.identity);
                 Vector3 pos = new Vector3(monster.transform.position.x, monster.transform.position.y + 4, monster.transform.position.z - 1.5f);
-                animObject.transform.position = pos;
-                animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-                animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
+                PlayHitAnim(pos);
                 if (PhotonNetwork.IsConnected) {
                     photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
                 }
@@ -206,14 +229,47 @@ public class Projectiles : Items, IPunObservable
         }
         else if (other.CompareTag("Base"))
         {
+            if (owner == -1) {
+                Base _base = other.gameObject.GetComponent<Base>();
+                if (_base != null)
+                {
+                    _base.TakeDamage(damage, false);
+                    gameObject.SetActive(false);
+                    Deactivate();
+                }
+            }
+            gameObject.SetActive(false);
+            Deactivate();
+        }
+        else if (other.CompareTag("Player") && owner == -1)
+        {
+            Players player = other.gameObject.GetComponent<Players>();
+            if (player != null)
+            {
+                player.TakeDamage(damage, false);
+                gameObject.SetActive(false);
+                Deactivate();
+            }
             gameObject.SetActive(false);
             Deactivate();
         }
     }
 
-    [PunRPC]
-    public void RPCPlayHitAnim(int id, Vector3 pos, float scale) 
+    public void PlayHitAnim(Vector3 pos)
     {
+        if (AnimConfigs.Instance.GetAnim(hitAnim) == null)
+            return;
+        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(hitAnim), Vector3.zero, Quaternion.identity);
+        animObject.transform.position = pos;
+        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+        animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
+    }
+
+    [PunRPC]
+    public void RPCPlayHitAnim(int id, Vector3 pos, float scale)
+    {
+        if (AnimConfigs.Instance.GetAnim(id) == null)
+            return;
         GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
         animObject.transform.position = pos;
         animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);

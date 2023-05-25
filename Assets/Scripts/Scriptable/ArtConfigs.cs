@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 // Providing references for art assets
 [CreateAssetMenu(menuName = "Configs/ArtConfigs")]
@@ -23,6 +20,7 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
 
     // Projectiles
     [SerializeField] private Mesh DefaultProjMesh;
+    [SerializeField] private Mesh DefaultMonsterProjMesh;
     [SerializeField] private Mesh KornetProjMesh;
 
     public enum Artconfig
@@ -41,7 +39,29 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
         KornetMesh,
         // Projectiles
         DefaultProj,
+        DefaultMonsterProj,
         KornetProjMesh
+    }
+
+    public Mesh getMesh(string type)
+    {
+        Mesh ret = null;
+        switch (type)
+        {
+            case "HumanMesh":
+                ret = HumanMesh;
+                break;
+            case "MageMesh":
+                ret = MageMesh;
+                break;
+            case "SkeletonMesh":
+                ret = SkeletonMesh;
+                break;
+            case "SoldierMesh":
+                ret = SoldierMesh;
+                break;
+        }
+        return ret;
     }
 
     public Mesh getMesh(Artconfig type) 
@@ -83,6 +103,9 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
 
         case Artconfig.DefaultProj:
             ret = DefaultProjMesh;
+            break;
+        case Artconfig.DefaultMonsterProj:
+            ret = DefaultMonsterProjMesh;
             break;
         case Artconfig.KornetProjMesh:
             ret = KornetProjMesh;

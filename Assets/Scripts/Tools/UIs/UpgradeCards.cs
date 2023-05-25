@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,7 +11,7 @@ public class UpgradeCards : MonoBehaviour
     [SerializeField] Image cardImage;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI infoText;
-    private bool isWeapon = false;
+    [SerializeField] private bool isWeapon = false;
     private WeaponConfig weaponData;
     private UpgradeConfig upgradeData;
 

@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 using static WeaponConfigs;
 
 // Define Weapons
@@ -27,6 +24,7 @@ public class Weapons : DefaultObjects
     [SerializeField] private string intro = "";
     [SerializeField] private int level = 1;
     [SerializeField] private int hitAnim = 0;
+    [SerializeField] private int fireAnim = 0;
     [SerializeField] private bool isMagic;
 
     private const float LASER_LENGTH = 200f;
@@ -53,6 +51,7 @@ public class Weapons : DefaultObjects
         info = weaponConfig.info;
         intro = weaponConfig.intro;
         hitAnim = weaponConfig.hitAnim;
+        fireAnim = weaponConfig.fireAnim;
         damageRange = weaponConfig.damageRange;
         isMagic = weaponConfig.isMagic;
         atk = attack;
@@ -118,6 +117,12 @@ public class Weapons : DefaultObjects
         {
             return;
         }
+        Vector3 firePos = transform.position + transform.TransformDirection(Vector3.forward) * 1f;
+        PlayFireAnim(firePos);
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("RPCPlayFireAnim", RpcTarget.Others, hitAnim, firePos, damageRange);
+        }
         switch (type) {
             case 0:
                 FireBullet(playerIdx, playerAttack, weaponAttack);
@@ -168,7 +173,7 @@ public class Weapons : DefaultObjects
         }
     }
 
-    // Type 1: Laser
+    // Type 1/2: Laser
     private void FireLaser(int playerIdx, float playerAttack, float weaponAttack)
     {
         // Get laser from pool
@@ -183,8 +188,6 @@ public class Weapons : DefaultObjects
 
             // Config the Line Renderer
             LineRenderer lineRenderer = laser.GetComponent<LineRenderer>();
-            // lineRenderer.SetPosition(0, simulatePos);
-            // lineRenderer.SetPosition(1, simulatePos + direction * LASER_LENGTH  / 2);
 
             // Config the Projectile
             laser.transform.localPosition = new Vector3(firePos.x, LASER_YOFFSET, firePos.z);
@@ -254,9 +257,25 @@ public class Weapons : DefaultObjects
         }
     }
 
-    public void SetRotation(Vector3 targetPosition)
+    public void PlayFireAnim(Vector3 pos)
     {
-        transform.LookAt(targetPosition);
+        if (AnimConfigs.Instance.GetAnim(fireAnim) == null)
+            return;
+        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(fireAnim), Vector3.zero, Quaternion.identity);
+        animObject.transform.position = pos;
+        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+        animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
+    }
+
+    [PunRPC]
+    public void RPCPlayFireAnim(int id, Vector3 pos, float scale)
+    {
+        if (AnimConfigs.Instance.GetAnim(id) == null)
+            return;
+        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
+        animObject.transform.position = pos;
+        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+        animObject.transform.localScale = new Vector3(scale, scale, scale);
     }
 
     public void SetRotation(Quaternion rotation)
@@ -287,5 +306,6 @@ public class Weapons : DefaultObjects
     public string Intro { get { return intro; } set { Intro = value; } }
     public float Atk { get { return atk; } }
     public int HitAnim { get { return HitAnim; } }
+    public int FireAnim { get { return fireAnim; } }
     public bool IsMagic { get { return isMagic; } set { isMagic = value; } }
 } 

@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 using static MonsterConfigs;
 
 // Managing the spawning and despawning of monster entities
@@ -75,7 +73,7 @@ public class MonsterManager : MonoBehaviour
 
     // Check if a mosnter should get despawn
     public void despawnCheck(Monsters monster) {
-        if (monster != null && monster.CurrentHitPoints <= 0) {
+        if (monster != null && monster.CurrentHitPoints <= 0.1) {
             // Add experience points to players
             GameManager.Instance.AddExp(monster.EXP);
             monster.Deactivate();

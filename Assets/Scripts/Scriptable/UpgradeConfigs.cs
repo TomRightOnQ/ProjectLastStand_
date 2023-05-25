@@ -1,5 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 
 // Hold the Configuration of all upgrades
@@ -9,185 +11,70 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
     // Rating
     // 1 - 5 White, Green, Blue, Purple, Orange
     // Chance: 40:25:20:10:5
+    private Dictionary<int, UpgradeConfig> upgradeConfigDictionary = new Dictionary<int, UpgradeConfig>();
+    public bool ready = false;
+
+    private const string FILE_NAME = "UpgradeConfigs.json";
+
+    // Getters and Setters
+    private const int WHITE_BEGIN = 0;
+    private int WHITE_COUNT = 0;
+    private const int GRTEE_BEGIN = 100;
+    private int GREEN_COUNT = 0;
+    private const int BLUE_BEGIN = 200;
+    private int BLUE_COUNT = 0;
+    private const int PURPLE_BEGIN = 300;
+    private int PURPLE_COUNT = 0;
+    private const int ORANGE_BEGIN = 400;
+    private int ORANGE_COUNT = 0;
 
     public struct UpgradeConfig
     {
         public string _name; // Name of the buff
         public int id; // ID of the buff
         public int rating; // Rarity
-        public float hitPoints; // Add to the upper limit of the players HP
-        public float speed; // Add to the player's speed modifier, 0.05 means increaae by 5%
-        public float regen; // Heal the player instantly
-        public float defaultAttack; // Add to the player's physical attack modifier
-        public float defaultWeaponAttack; // Add to the player's magical attack modifier
-        public float defaultDefence; // Add to the player's defence modifier
-        public float defaultMagicDefence; // Add to the player's magical defence modifier
         public int specialEffectIndex; // Special effects not yet implemented
         public string description; // A description
-        public ArtConfigs.Artconfig mesh;
+        public int level;
+        public string mesh;
     }
 
-    // Data Scetion
-    // Character Choice
-    public static UpgradeConfig Human = new UpgradeConfig
+    public void InitEffect()
     {
-        _name = "Normal Human",
-        id = -1,
-        rating = 4,
-        hitPoints = 4,
-        speed = 0,
-        regen = 4,
-        defaultAttack = 0,
-        defaultWeaponAttack = 0,
-        defaultDefence = 0.1f,
-        defaultMagicDefence = 0,
-        specialEffectIndex = -1,
-        description = "Who am I? Where am I?",
-        mesh = ArtConfigs.Artconfig.HumanMesh
-    };
+        string path = Path.Combine(Application.streamingAssetsPath, FILE_NAME);
+        string json = File.ReadAllText(path);
+        UpgradeConfig[] configs = JsonConvert.DeserializeObject<UpgradeConfig[]>(json);
 
-    public static UpgradeConfig FireMage = new UpgradeConfig
+        // Clear the existing dictionary
+        upgradeConfigDictionary.Clear();
+
+        // Populate the dictionary with UpgradeConfig objects
+        foreach (UpgradeConfig config in configs)
+        {
+            upgradeConfigDictionary[config.id] = config;
+        }
+
+        // Update the count variables based on the loaded data
+        WHITE_COUNT = configs.Count(c => c.rating == 1) - 1;
+        GREEN_COUNT = configs.Count(c => c.rating == 2);
+        BLUE_COUNT = configs.Count(c => c.rating == 3);
+        PURPLE_COUNT = configs.Count(c => c.rating == 4) - 4;
+        ORANGE_COUNT = configs.Count(c => c.rating == 5);
+    }
+
+    public void AddUpgradeConfig(UpgradeConfig config)
     {
-        _name = "Fire Mage",
-        id = -2,
-        rating = 4,
-        hitPoints = 0,
-        speed = 0,
-        regen = 0,
-        defaultAttack = 0,
-        defaultWeaponAttack = 0.2f,
-        defaultDefence = 0,
-        defaultMagicDefence = 0.2f,
-        specialEffectIndex = -1,
-        description = "No magic here",
-        mesh = ArtConfigs.Artconfig.MageMesh
-    };
+        upgradeConfigDictionary.Add(config.id, config);
+    }
 
-    public static UpgradeConfig Skeleton = new UpgradeConfig
-    {
-        _name = "Skeleton Shooter",
-        id = -3,
-        rating = 4,
-        hitPoints = -2,
-        speed = 0.1f,
-        regen = -2,
-        defaultAttack = 0.2f,
-        defaultWeaponAttack = 0,
-        defaultDefence = -0.2f,
-        defaultMagicDefence = 0,
-        specialEffectIndex = -1,
-        description = "Trying not to collapse",
-        mesh = ArtConfigs.Artconfig.SkeletonMesh
-    };
-
-    public static UpgradeConfig Soldier = new UpgradeConfig
-    {
-        _name = "Soldier",
-        id = -4,
-        rating = 4,
-        hitPoints = 0,
-        speed = 0.2f,
-        regen = 0,
-        defaultAttack = 0,
-        defaultWeaponAttack = 0,
-        defaultDefence = 0.2f,
-        defaultMagicDefence = 0.2f,
-        specialEffectIndex = -1,
-        description = "unit ready.",
-        mesh = ArtConfigs.Artconfig.SoldierMesh
-    };
-
-    public static UpgradeConfig LifeBoost = new UpgradeConfig
-    {
-        _name = "Life Boost",
-        id = 0,
-        rating = 1,
-        hitPoints = 2,
-        speed = 0,
-        regen = 0,
-        defaultAttack = 0,
-        defaultWeaponAttack = 0,
-        defaultDefence = 0,
-        defaultMagicDefence = 0,
-        specialEffectIndex = -1,
-        description = "Increase your HP by 2" 
-    };
-
-    public static UpgradeConfig AttackBoost = new UpgradeConfig
-    {
-        _name = "AP Boost",
-        id = 1,
-        rating = 2,
-        hitPoints = 0,
-        speed = 0,
-        regen = 0,
-        defaultAttack = 0.1f,
-        defaultWeaponAttack = 0,
-        defaultDefence = 0,
-        defaultMagicDefence = 0,
-        specialEffectIndex = -1,
-        description = "Increase your physcial damage by 10%"
-    };
-
-    public static UpgradeConfig Regenration = new UpgradeConfig
-    {
-        _name = "Regenration",
-        id = 2,
-        rating = 1,
-        hitPoints = 0,
-        speed = 0,
-        regen = 10,
-        defaultAttack = 0,
-        defaultWeaponAttack = 0,
-        defaultDefence = 0,
-        defaultMagicDefence = 0,
-        specialEffectIndex = -1,
-        description = "Heal 10 points of HP"
-    };
-
-    // Getters and Setters
-    private const int WHITE_BEGIN = 0;
-    private const int WHITE_COUNT = 2;
-    private const int GRTEE_BEGIN = 100;
-    private const int GREEN_COUNT = 1;
-    private const int BLUE_BEGIN = 200;
-    private const int BLUE_COUNT = 0;
-    private const int PURPLE_BEGIN = 300;
-    private const int PURPLE_COUNT = 0;
-    private const int ORANGE_BEGIN = 400;
-    private const int ORANGE_COUNT = 0;
 
     public UpgradeConfig _getUpgradeConfig(int id)
     {
-        UpgradeConfig upgradeData = UpgradeConfigs.LifeBoost; // default config
-        switch (id)
-        {
-            case -1:
-                upgradeData = UpgradeConfigs.Human;
-                break;
-            case -2:
-                upgradeData = UpgradeConfigs.FireMage;
-                break;
-            case -3:
-                upgradeData = UpgradeConfigs.Skeleton;
-                break;
-            case -4:
-                upgradeData = UpgradeConfigs.Soldier;
-                break;
-
-            case 0:
-                upgradeData = UpgradeConfigs.LifeBoost;
-                break;
-            case 100:
-                upgradeData = UpgradeConfigs.AttackBoost;
-                break;
-            case 1:
-                upgradeData = UpgradeConfigs.Regenration;
-                break;
-                // add more cases for other upgrade configs
-        }
-        return upgradeData;
+        Debug.Log("Getting config with id " + id.ToString());
+        upgradeConfigDictionary.TryGetValue(id, out UpgradeConfig upgradeConfig);
+        return upgradeConfig;
     }
+
 
     public UpgradeConfig getUpgradeConfig()
     {

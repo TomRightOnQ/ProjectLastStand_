@@ -67,6 +67,8 @@ MonoBehaviour:
   - RPCSimulateLaser
   - RPCSimulateProjectile
   - takeDamageRPC
+  - RPCSwapMesh_Type
+  - RPCPlayFireAnim
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

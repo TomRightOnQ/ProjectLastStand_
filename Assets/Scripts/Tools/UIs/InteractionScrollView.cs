@@ -1,10 +1,5 @@
-using System.Collections;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
-using Photon.Realtime;
 using static WeaponConfigs;
 
 public class InteractionScrollView : MonoBehaviour

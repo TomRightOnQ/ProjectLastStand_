@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
-using Photon.Realtime;
 
 // Show the player on screen
 public class PlayerIndicator : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Transform target;
-    [SerializeField] private float indicatorOffset = 50f;
     [SerializeField] private Image indicatorImage;
 
     private Quaternion INDICATOR_ROTATION;

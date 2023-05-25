@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Returning corresponding Animations
@@ -10,6 +8,8 @@ public class AnimConfigs : ScriptableSingleton<AnimConfigs>
     [SerializeField] private GameObject EXPAnim2;
     [SerializeField] private GameObject EXPAnim3;
 
+    [SerializeField] private GameObject BladeAnim;
+
     public GameObject GetAnim(int id) 
     {
         GameObject animation = null;
@@ -18,6 +18,11 @@ public class AnimConfigs : ScriptableSingleton<AnimConfigs>
         {
             case 0:
                 animation = _getEXPAnim();
+                break;
+            case 1:
+                animation = BladeAnim;
+                break;
+            default:
                 break;
         }
         return animation;
@@ -39,7 +44,6 @@ public class AnimConfigs : ScriptableSingleton<AnimConfigs>
                 break;
 
             default:
-                Debug.LogWarning("Animation ID not found: " + id);
                 break;
         }
         return animation;

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using static MonsterConfigs;
 
 // Monster behaviours
@@ -26,6 +25,8 @@ public class MonsterAI : MonoBehaviour
     [SerializeField] protected MonsterState currentState;
     private MonsterAI currentBehavior;
     private bool isSetUp = false;
+    protected int fireCount = 0;
+    protected int currentFireCount = 0;
 
     // Map state and data
     protected Dictionary<MonsterState, System.Action> stateBehaviors = new Dictionary<MonsterState, System.Action>();
@@ -37,8 +38,8 @@ public class MonsterAI : MonoBehaviour
     // Constants
     protected const float WALKING_TIME = 3f;
     protected const float AIMMING_TIME = 0.1f;
-    protected const float FIRING_TIME = 0.5f;
-    protected const float LOCKING_TIME = 5f;
+    protected const float FIRING_TIME = 0.3f;
+    protected const float LOCKING_TIME = 2f;
 
     private void Awake()
     {
@@ -77,6 +78,7 @@ public class MonsterAI : MonoBehaviour
                 break;
         }
     }
+
     // Destroy
     public void RemoveAI()
     {
@@ -130,6 +132,7 @@ public class MonsterAI : MonoBehaviour
             // Found a player, set it as the target
             targetPlayer = colliders[0].gameObject;
             hasTarget = true;
+            currentFireCount = fireCount;
         }
         else {
             hasTarget = false;
@@ -144,16 +147,20 @@ public class MonsterAI : MonoBehaviour
 
     protected void AIFireBullet()
     {
-        // Instantiate and fire a bullet
-        // ...
-        Debug.Log("An enemy is firing at the player!");
-        // Wait for reload time
-        StartCoroutine(Reload());
+        if (currentFireCount <= 0) {
+            return;
+        }
+        for (int i = currentFireCount; i > 0; i--)
+        {
+            currentFireCount--;
+            monster.FireBullet();
+            StartCoroutine(Reload());
+        }
     }
 
     protected IEnumerator Reload()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
     }
 }
 
@@ -169,7 +176,8 @@ public class MonsterShooter : MonsterAI
 {
     private void Start()
     {
-        searchRadius = 15;
+        searchRadius = 25f;
+        fireCount = 2;
     }
 
     // Transitions

@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
-using Photon.Realtime;
 using static WeaponConfigs;
 
 // Dropped weapons

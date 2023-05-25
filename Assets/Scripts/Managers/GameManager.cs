@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 using static ConfigManager;
 using static MonsterConfigs;
+using System.Collections;
 // Main Game Manager
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -45,7 +43,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             DontDestroyOnLoad(gameObject);
             GameObject monsterManagerObj = new GameObject("MonsterManager");
             monsterManager = monsterManagerObj.AddComponent<MonsterManager>();
-            
             dataManager.initData();
 
             if (monsterManager && dataManager)
@@ -56,6 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
     }
+
 
     private void Start()
     {
@@ -69,7 +67,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             Debug.Log("Loading...");
             return;
         }
-        // Test Attack
         Players[] players = dataManager.GetPlayers();
     }
 

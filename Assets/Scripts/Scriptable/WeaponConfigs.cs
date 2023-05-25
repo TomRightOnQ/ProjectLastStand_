@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Hold the Configuration of all weapons
@@ -23,6 +21,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         public string info;
         public string intro;
         public int hitAnim;
+        public int fireAnim;
         public bool isMagic;
         public ArtConfigs.Artconfig mesh;
         public ArtConfigs.Artconfig projMesh;
@@ -45,6 +44,30 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         info = "Better than nothing...",
         intro = "A default weapon",
         hitAnim = 0,
+        fireAnim = 0,
+        isMagic = false,
+        mesh = ArtConfigs.Artconfig.PistolMesh,
+        projMesh = ArtConfigs.Artconfig.DefaultProj
+    };
+
+    public static WeaponConfig Sword = new WeaponConfig
+    {
+        _name = "Sword",
+        id = -2,
+        rating = 1,
+        type = 0,
+        attack = 2,
+        pen = 0.1f,
+        life = 0.05f,
+        cd = 0.5f,
+        selfDet = false,
+        projectileSpeed = 5,
+        aoe = false,
+        damageRange = 0.4f,
+        info = "In theory, you can slain a dragon with it",
+        intro = "A default melee",
+        hitAnim = 0,
+        fireAnim = 1,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.PistolMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj
@@ -67,6 +90,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         info = "LMG! Mounted! and Loaded!",
         intro = "Light machine gun with great RPM",
         hitAnim = 0,
+        fireAnim = 0,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.LMGMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj
@@ -89,6 +113,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         info = "R! P! G!",
         intro = "Explosive weapon that causes AOE damage",
         hitAnim = 0,
+        fireAnim = 0,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.RPGMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj
@@ -111,6 +136,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         info = "OVERLOAD!",
         intro = "Burning the first enemy with a beam of laser",
         hitAnim = 0,
+        fireAnim = 0,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.HeatLaserMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj
@@ -133,6 +159,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         info = "Charging...",
         intro = "Slow but destructive laser cannon",
         hitAnim = 0,
+        fireAnim = 0,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.LaserGunMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj
@@ -155,6 +182,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         info = "Nothing is unshakeable",
         intro = "Extremly strong missile",
         hitAnim = 0,
+        fireAnim = 0,
         isMagic = true,
         mesh = ArtConfigs.Artconfig.KornetMesh,
         projMesh = ArtConfigs.Artconfig.KornetProjMesh
@@ -162,7 +190,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
 
     // Getters and Setters
     private const int WHITE_BEGIN = 0;
-    private const int WHITE_COUNT = 2;
+    private const int WHITE_COUNT = 1;
     private const int GREEN_BEGIN = 100;
     private const int GREEN_COUNT = 2;
     private const int BLUE_BEGIN = 200;
@@ -177,6 +205,9 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         WeaponConfig weaponData = Pistol;
         switch (id)
         {
+            case -2:
+                weaponData = WeaponConfigs.Sword;
+                break;
             case -1:
                 weaponData = WeaponConfigs.Pistol;
                 break;

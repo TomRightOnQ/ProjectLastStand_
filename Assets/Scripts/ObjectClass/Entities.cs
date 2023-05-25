@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
-using Photon.Realtime;
 using static UpgradeConfigs;
 
 // Entities are all NPCs and player-controlled units
@@ -20,6 +18,13 @@ public abstract class Entities : DefaultObjects, IPunObservable
     [SerializeField] protected float speed = 1;
     [SerializeField] protected Slider hpS;
 
+    protected Effects _effect;
+    protected List<EffectComponents> effects = new List<EffectComponents>();
+
+    private void Awake()
+    {
+        _effect = GetComponent<Effects>();
+    }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -68,6 +73,15 @@ public abstract class Entities : DefaultObjects, IPunObservable
     // Update
     void Update() {
 
+    }
+
+    // Add effects
+    public virtual void AddEffect(int index, int level)
+    {
+        EffectComponents currentEffect = _effect.SetUp(index, level);
+        if (currentEffect != null) {
+            effects.Add(currentEffect);
+        }
     }
 
     // Taking Damage

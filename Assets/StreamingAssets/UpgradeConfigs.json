@@ -1,0 +1,254 @@
+[
+    {
+        "_name": "Normal Human",
+        "id": -1,
+        "rating": 4,
+        "specialEffectIndex": -1,
+        "description": "Who am I? Where am I?",
+        "level": 1,
+        "mesh": "HumanMesh"
+    },
+    {
+        "_name": "Fire Mage",
+        "id": -2,
+        "rating": 4,
+        "specialEffectIndex": -1,
+        "description": "No magic here",
+        "level": 1,
+        "mesh": "MageMesh"
+    },
+    {
+        "_name": "Skeleton Shooter",
+        "id": -3,
+        "rating": 4,
+        "specialEffectIndex": -1,
+        "description": "Trying not to collapse",
+        "level": 1,
+        "mesh": "SkeletonMesh"
+    },
+    {
+        "_name": "Soldier",
+        "id": -4,
+        "rating": 4,
+        "specialEffectIndex": -1,
+        "description": "unit ready.",
+        "level": 1,
+        "mesh": "SoldierMesh"
+    },
+    {
+        "_name": "Toughness I",
+        "id": 0,
+        "rating": 1,
+        "specialEffectIndex": 0,
+        "description": "Increase your HP by 2",
+        "level": 1
+    },
+    {
+        "_name": "Toughness II",
+        "id": 100,
+        "rating": 2,
+        "specialEffectIndex": 0,
+        "description": "Increase your HP by 3",
+        "level": 2
+    },
+    {
+        "_name": "Toughness III",
+        "id": 200,
+        "rating": 3,
+        "specialEffectIndex": 0,
+        "description": "Increase your HP by 4",
+        "level": 3
+    },
+    {
+        "_name": "Toughness IV",
+        "id": 300,
+        "rating": 4,
+        "specialEffectIndex": 0,
+        "description": "Increase your HP by 5",
+        "level": 4
+    },
+    {
+        "_name": "Swift I",
+        "id": 1,
+        "rating": 1,
+        "specialEffectIndex": 1,
+        "description": "Increase your movement speed by 6%",
+        "level": 1
+    },
+    {
+        "_name": "Swift II",
+        "id": 101,
+        "rating": 2,
+        "specialEffectIndex": 1,
+        "description": "Increase your movement speed by 8%",
+        "level": 2
+    },
+    {
+        "_name": "Swift III",
+        "id": 201,
+        "rating": 3,
+        "specialEffectIndex": 1,
+        "description": "Increase your movement speed by 10%",
+        "level": 3
+    },
+    {
+        "_name": "Swift IV",
+        "id": 301,
+        "rating": 4,
+        "specialEffectIndex": 1,
+        "description": "Increase your movement speed by 12%",
+        "level": 4
+    },
+    {
+        "_name": "Damage I",
+        "id": 2,
+        "rating": 1,
+        "specialEffectIndex": 2,
+        "description": "Increase your physical damage by 6%",
+        "level": 1
+    },
+    {
+        "_name": "Damage II",
+        "id": 102,
+        "rating": 2,
+        "specialEffectIndex": 2,
+        "description": "Increase your physical damage by 8%",
+        "level": 2
+    },
+    {
+        "_name": "Damage III",
+        "id": 202,
+        "rating": 3,
+        "specialEffectIndex": 2,
+        "description": "Increase your physical damage by 10%",
+        "level": 3
+    },
+    {
+        "_name": "Damage IV",
+        "id": 302,
+        "rating": 4,
+        "specialEffectIndex": 2,
+        "description": "Increase your physical damage by 12%",
+        "level": 4
+    },
+    {
+        "_name": "Defender I",
+        "id": 3,
+        "rating": 1,
+        "specialEffectIndex": 3,
+        "description": "Increase 10% damage to base-targeted enemies",
+        "level": 1
+    },
+    {
+        "_name": "Defender II",
+        "id": 103,
+        "rating": 2,
+        "specialEffectIndex": 3,
+        "description": "Increase 12% damage to base-targeted enemies",
+        "level": 2
+    },
+    {
+        "_name": "Counter I",
+        "id": 4,
+        "rating": 1,
+        "specialEffectIndex": 4,
+        "description": "Increase 10% damage to player-targeted enemies",
+        "level": 1
+    },
+    {
+        "_name": "Counter II",
+        "id": 104,
+        "rating": 2,
+        "specialEffectIndex": 4,
+        "description": "Increase 12% damage to player-targeted enemies",
+        "level": 2
+    },
+    {
+        "_name": "Blood Sacrifice",
+        "id": 105,
+        "rating": 2,
+        "specialEffectIndex": 105,
+        "description": "Decrease max HP to increase your damage and speed",
+        "level": 1
+    },
+    {
+        "_name": "Savage Striker",
+        "id": 203,
+        "rating": 3,
+        "specialEffectIndex": 203,
+        "description": "Increase your critical damage",
+        "level": 1
+    },
+    {
+        "_name": "Rocket Master",
+        "id": 204,
+        "rating": 3,
+        "specialEffectIndex": 204,
+        "description": "Increase explosion range",
+        "level": 1
+    },
+    {
+        "_name": "Rampage",
+        "id": 303,
+        "rating": 4,
+        "specialEffectIndex": 303,
+        "description": "Killing an enemy grants you 15% speed and damage for 3 seconds",
+        "level": 1
+    },
+    {
+        "_name": "Rampage",
+        "id": -5,
+        "rating": 1,
+        "specialEffectIndex": -5,
+        "description": "Extra 15% speed and damage for 3 seconds",
+        "level": 1
+    },
+    {
+        "_name": "Relentless Resent",
+        "id": 304,
+        "rating": 4,
+        "specialEffectIndex": 304,
+        "description": "The lower your HP is, the stronger you are",
+        "level": 1
+    },
+    {
+        "_name": "Immortal",
+        "id": 400,
+        "rating": 5,
+        "specialEffectIndex": 400,
+        "description": "Max HP + 10, your HP will heal slowly",
+        "level": 1
+    },
+    {
+        "_name": "Flight",
+        "id": 401,
+        "rating": 5,
+        "specialEffectIndex": 401,
+        "description": "Movement speed increases by 30%",
+        "level": 1
+    },
+    {
+        "_name": "Damage-MAX!",
+        "id": 402,
+        "rating": 5,
+        "specialEffectIndex": 402,
+        "description": "Deal with additional 20% of damage",
+        "level": 1
+    },
+    {
+        "_name": "Melee Grand Master",
+        "id": 403,
+        "rating": 5,
+        "specialEffectIndex": 403,
+        "description": "You are extra stronger with more melee weapons equipped, and heal from killing enemies",
+        "level": 1
+    },
+    {
+        "_name": "Guardian Angel",
+        "id": 404,
+        "rating": 5,
+        "specialEffectIndex": 404,
+        "description": "Double your HP, but you cannot heal. When you die, you take extra time to revive and all players level up. Base defense increases 50%.",
+        "level": 1
+    }
+]

@@ -56,7 +56,6 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
     <Compile Include="Assets\Scripts\Scriptable\AnimConfigs.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\PlayerListing.cs" />
     <Compile Include="Assets\Scripts\Managers\MasterManager.cs" />
@@ -68,25 +67,23 @@
     <Compile Include="Assets\Scripts\Scriptable\UpgradeConfigs.cs" />
     <Compile Include="Assets\Scripts\Managers\Online\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\UpgradeMenu.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatAppIdCheckerUI.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\DroppedItems.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\AppSettingsExtensions.cs" />
+    <Compile Include="Assets\Scripts\Managers\PersistentConfigManager.cs" />
     <Compile Include="Assets\Scripts\Scriptable\ArtConfigs.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\ItemListings.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RoomListing.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CreateOrJoinCanvas.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\WeaponInfo.cs" />
     <Compile Include="Assets\Scripts\Managers\ScriptableSingleton.cs" />
+    <Compile Include="Assets\Scripts\Effects\Effects.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\PlayerListingsMenu.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Base.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RandomProperty.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChannelSelector.cs" />
     <Compile Include="Assets\Scripts\Managers\MonsterManager.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\Version.cs" />
     <Compile Include="Assets\Scripts\Tools\SingletonReferences.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\WeaponChoice.cs" />
     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\Common\EventSystemSpawner.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CurrentRoomCanvas.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Players.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Monsters.cs" />
@@ -99,34 +96,28 @@
     <Compile Include="Assets\Scripts\Tools\UIs\UpgradeCards.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\GameUI.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextButtonTransition.cs" />
     <Compile Include="Assets\Scripts\Scriptable\WeaponConfigs.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Lasers.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\PlayerIndicator.cs" />
     <Compile Include="Assets\Scripts\Tools\ExtTransforms.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Explosions.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\DefaultObjects.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RoomListingsMenu.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Weapons.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\LeaveRoomMenu.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RoomsCanvases.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\keyBinding.cs" />
     <Compile Include="Assets\Scripts\Managers\ConfigManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Tools\GameSettings.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\FriendItem.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Entities.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\InteractionScrollView.cs" />
     <Compile Include="Assets\Scripts\Tools\Automation\WeaponConfigEditor.cs" />
     <Compile Include="Assets\Scripts\Tools\PlayerMovement.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
     <Compile Include="Assets\Scripts\Scriptable\MonsterConfigs.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\Common\TextToggleIsOnTransition.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Projectiles.cs" />
-    <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
-    <Compile Include="Assets\Scripts\ObjectClass\Lasers.cs" />
+    <Compile Include="Assets\Scripts\Effects\EffectComponents.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -148,14 +139,12 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Photon\PhotonUnityNetworking\readme.txt" />
-    <None Include="Assets\Photon\PhotonChat\Demos\DemoChat\Files\eurof_tt.txt" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll" />
     <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.dll" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Photon\PhotonLibs\Metro\Photon3Unity3D.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.xml" />
-    <None Include="Assets\SkySeries Freebie\Hdri setup.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
@@ -943,17 +932,9 @@
       <Project>{13C50843-A0B4-553E-FCFF-601A6E672687}</Project>
       <Name>PhotonUnityNetworking.Utilities.PhotonPlayer.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="PunDemos.DemoHubEditor.csproj">
-      <Project>{D039D33F-1386-3EF3-B41D-175ED41A2B02}</Project>
-      <Name>PunDemos.DemoHubEditor</Name>
-    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.csproj">
       <Project>{1AB0E968-9902-B38A-56B6-8B7B98410D78}</Project>
       <Name>PhotonUnityNetworking</Name>
-    </ProjectReference>
-    <ProjectReference Include="PunDemos.DemoSlotcarEditor.csproj">
-      <Project>{A6A1D387-85D4-C1C1-1D3E-9E808D39F3CD}</Project>
-      <Name>PunDemos.DemoSlotcarEditor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.Culling.Editor.csproj">
       <Project>{DB75AA64-4A2A-74D0-CDBB-DD3B4C4FC24B}</Project>
@@ -966,10 +947,6 @@
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
       <Project>{DE8E8C06-ED8E-2A96-C712-A8D44A894F75}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="PhotonUnityNetworking.Demos.csproj">
-      <Project>{4C20BD78-B543-442B-3787-4ABEAD8716DE}</Project>
-      <Name>PhotonUnityNetworking.Demos</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -30,7 +30,7 @@ public class PersistentConfigManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         isLoaded = true;
         Debug.Log("ready");
-        SceneManager.LoadScene("GameMain");
+        SceneManager.LoadScene("MainMenu");
     }
 
     // Method to check if the loading process is complete

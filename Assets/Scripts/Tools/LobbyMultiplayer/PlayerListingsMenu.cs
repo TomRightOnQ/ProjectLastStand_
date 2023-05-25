@@ -123,7 +123,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
             if (!AllReady()) { return; }
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
-            PhotonNetwork.LoadLevel(1);
+            PhotonNetwork.LoadLevel(3);
         }
         else {
             if (ready)

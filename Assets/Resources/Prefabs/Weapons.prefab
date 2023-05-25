@@ -67,6 +67,7 @@ MonoBehaviour:
   intro: 
   level: 1
   hitAnim: 0
+  fireAnim: 0
   isMagic: 0
 --- !u!33 &525003350
 MeshFilter:

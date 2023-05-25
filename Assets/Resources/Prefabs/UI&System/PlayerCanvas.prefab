@@ -193,7 +193,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  indicatorOffset: 50
   indicatorImage: {fileID: 7324518585930397694}
 --- !u!114 &-6395804471206455808
 MonoBehaviour:

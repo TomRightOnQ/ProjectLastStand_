@@ -118,6 +118,7 @@
     <Compile Include="Assets\Scripts\ObjectClass\Projectiles.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
     <Compile Include="Assets\Scripts\Effects\EffectComponents.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\MainMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

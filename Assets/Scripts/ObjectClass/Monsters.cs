@@ -58,8 +58,6 @@ public class Monsters : Entities
         monsterAI.SetUp();
     }
 
-
-
     // Taking Damage
     public override void TakeDamage(float damage, bool isMagic)
     {
@@ -68,14 +66,14 @@ public class Monsters : Entities
         DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
         damageNumber.Init(damage, transform.position, isMagic);
         if (PhotonNetwork.IsConnected) {
-            photonView.RPC("takeDamageRPC", RpcTarget.Others, transform.position, isMagic);
+            photonView.RPC("takeDamageRPC", RpcTarget.Others, transform.position, damage, isMagic);
         }
     }
 
     [PunRPC]
-    public void takeDamageRPC(Vector3 position, int damage, bool isMagic)
+    public void takeDamageRPC(Vector3 position, float damage, bool isMagic)
     {
-        GameObject damageNumberObj = Instantiate(prefabManager.DamageNumberPrefab, transform.position, Quaternion.identity);
+        GameObject damageNumberObj = Instantiate(prefabManager.DamageNumberPrefab, position, Quaternion.identity);
         DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
         damageNumber.Init(damage, position, isMagic); 
     }

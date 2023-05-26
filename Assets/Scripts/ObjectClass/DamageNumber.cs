@@ -15,8 +15,14 @@ public class DamageNumber : MonoBehaviour
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(monsterPosition);
         screenPos.z = 0f;
-        _text.transform.position = screenPos;
 
+        // Apply offset
+        float offsetX = Random.Range(-2f, 2f); // Adjust the range as needed
+        float offsetY = Random.Range(-2f, 2f); // Adjust the range as needed
+        screenPos.x += offsetX;
+        screenPos.y += offsetY;
+
+        _text.transform.position = screenPos;
         _text.text = Mathf.CeilToInt(damage).ToString();
         initialPosition = _text.transform.position;
 
@@ -24,7 +30,8 @@ public class DamageNumber : MonoBehaviour
         {
             _text.color = new Color(0.5f, 0f, 1f);
         }
-        else {
+        else
+        {
             _text.color = new Color(1f, 0.5f, 0f);
         }
 

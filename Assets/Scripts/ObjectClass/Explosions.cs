@@ -17,7 +17,7 @@ public class Explosions : MonoBehaviour
     public void Initialize(float damageRange, float damage, float pen, bool isMagic)
     {
         this.damageRange = damageRange;
-        this.damage = damage;
+        this.damage = Mathf.Ceil(damage);
         this.pen = pen;
         this.isMagic = isMagic;
         GetComponent<SphereCollider>().enabled = true;
@@ -42,6 +42,7 @@ public class Explosions : MonoBehaviour
     {
         if (other.CompareTag("Monster"))
         {
+            Debug.Log("Area Damage");
             Monsters monster = other.GetComponent<Monsters>();
             if (monster != null && monster.gameObject.activeSelf)
             {

@@ -4874,9 +4874,20 @@ MonoBehaviour:
   defaultDefence: 5
   defaultMagicDefence: 0
   speed: 1
+  criticalRate: 0.2
+  criticalDamage: 1
+  criticalBase: 2
+  criticalMod: 1
   hpS: {fileID: 0}
+  SpeedBase: 1
+  SpeedMod: 1
+  DamageBase: 1
+  WeaponDamageBase: 1
+  DamageMod: 1
+  AoeEnhanced: 0
   index: 0
   fortune: 1
+  _effect: {fileID: 2142552488737839218}
 --- !u!33 &1077923511953711539
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5036,7 +5047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ede394cf6d97054793177ee01ffdc98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: -5020718716551738481}
+  player: {fileID: -5020718716551738481}
 --- !u!1 &1373600650250658066
 GameObject:
   m_ObjectHideFlags: 0

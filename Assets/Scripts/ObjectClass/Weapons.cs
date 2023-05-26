@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using Photon.Pun;
+using UnityEngine;
 using static WeaponConfigs;
 
 // Define Weapons
@@ -19,13 +19,16 @@ public class Weapons : DefaultObjects
     [SerializeField] private bool selfDet = false;
     [SerializeField] private float projectileSpeed = 10f;
     [SerializeField] private float damageRange = 0.1f;
+    [SerializeField] private float damageRangeBase = 0.1f;
+    public float DamageRangeMod = 1.0f;
     [SerializeField] private bool aoe = false;
     [SerializeField] private string info = "";
     [SerializeField] private string intro = "";
     [SerializeField] private int level = 1;
     [SerializeField] private int hitAnim = 0;
     [SerializeField] private int fireAnim = 0;
-    [SerializeField] private bool isMagic;
+    [SerializeField] private bool isMagic = false;
+    [SerializeField] private bool isNova = false;
 
     private const float LASER_LENGTH = 200f;
     private const float PROJ_YOFFSET = 1.1f;
@@ -33,6 +36,7 @@ public class Weapons : DefaultObjects
 
     private float atk = 2;
     private float timer = 0;
+
 
     // Morph the weapon
     public void SetWeapons(WeaponConfig weaponConfig)
@@ -52,7 +56,7 @@ public class Weapons : DefaultObjects
         intro = weaponConfig.intro;
         hitAnim = weaponConfig.hitAnim;
         fireAnim = weaponConfig.fireAnim;
-        damageRange = weaponConfig.damageRange;
+        damageRangeBase = weaponConfig.damageRange;
         isMagic = weaponConfig.isMagic;
         atk = attack;
         SwapMesh(weaponConfig.id);
@@ -97,7 +101,7 @@ public class Weapons : DefaultObjects
     }
 
     // Updrage
-    public void Upgrade(int _level) 
+    public void Upgrade(int _level)
     {
         level += _level;
         configureLevel();
@@ -111,7 +115,7 @@ public class Weapons : DefaultObjects
     }
 
     // Fire based on type
-    public void Fire(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack)
+    public void Fire(int playerIdx, Vector3 direction, float playerAttack, float weaponAttack, float criticalRate, float criticalDamage)
     {
         if (timer < cd)
         {
@@ -119,26 +123,42 @@ public class Weapons : DefaultObjects
         }
         Vector3 firePos = transform.position + transform.TransformDirection(Vector3.forward) * 1f;
         PlayFireAnim(firePos);
+
+        float localCritical = 1;
+        if (RollCriticalDamage(criticalRate))
+        {
+            localCritical *= criticalDamage;
+        }
+
         if (PhotonNetwork.IsConnected)
         {
             photonView.RPC("RPCPlayFireAnim", RpcTarget.Others, hitAnim, firePos, damageRange);
         }
-        switch (type) {
+        switch (type)
+        {
             case 0:
-                FireBullet(playerIdx, playerAttack, weaponAttack);
+                FireBullet(playerIdx, playerAttack, weaponAttack, localCritical);
                 break;
             case 1:
-                FireLaser(playerIdx, playerAttack, weaponAttack);
+                FireLaser(playerIdx, playerAttack, weaponAttack, localCritical);
                 break;
             case 2:
-                FireLaser(playerIdx, playerAttack, weaponAttack);
+                FireLaser(playerIdx, playerAttack, weaponAttack, localCritical);
                 break;
         }
         timer = 0;
     }
+    private bool RollCriticalDamage(float criticalRate)
+    {
+        if (UnityEngine.Random.value < criticalRate)
+        {
+            return true;
+        }
+        return false;
+    }
 
     // Type 0: Bullet
-    private void FireBullet(int playerIdx, float playerAttack, float weaponAttack)
+    private void FireBullet(int playerIdx, float playerAttack, float weaponAttack, float localCritical)
     {
         // Get projectile from pool
         Projectiles proj = GameManager.Instance.dataManager.TakeProjPool();
@@ -151,12 +171,12 @@ public class Weapons : DefaultObjects
             // Config the Projectile
             proj.transform.position = firePos;
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-
+            proj.IsNova = isNova;
             proj.Damage = (!isMagic) ? atk * playerAttack : atk * weaponAttack;
-
+            proj.Damage *= localCritical;
             proj.Owner = playerIdx;
             proj.Life = life;
-            proj.SelfDet = true;
+            proj.SelfDet = selfDet;
             proj.Player = true;
             proj.AOE = aoe;
             proj.HitAnim = hitAnim;
@@ -174,7 +194,7 @@ public class Weapons : DefaultObjects
     }
 
     // Type 1/2: Laser
-    private void FireLaser(int playerIdx, float playerAttack, float weaponAttack)
+    private void FireLaser(int playerIdx, float playerAttack, float weaponAttack, float localCritical)
     {
         // Get laser from pool
         Lasers laser = GameManager.Instance.dataManager.TakeLaserPool();
@@ -192,10 +212,12 @@ public class Weapons : DefaultObjects
             // Config the Projectile
             laser.transform.localPosition = new Vector3(firePos.x, LASER_YOFFSET, firePos.z);
             laser.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            laser.IsNova = isNova;
             laser.Damage = (!isMagic) ? atk * playerAttack : atk * weaponAttack;
+            laser.Damage *= localCritical;
             laser.Owner = playerIdx;
             laser.Life = life;
-            laser.SelfDet = true;
+            laser.SelfDet = selfDet;
             laser.Player = true;
             laser.AOE = aoe;
             laser.HitAnim = hitAnim;
@@ -287,6 +309,7 @@ public class Weapons : DefaultObjects
     {
         timer += Time.deltaTime;
         atk = attack + extraAttack;
+        damageRange = damageRangeBase * DamageRangeMod;
     }
 
     // Class properties
@@ -300,6 +323,7 @@ public class Weapons : DefaultObjects
     public float Life { get { return life; } set { life = value; } }
     public float ProjectileSpeed { get { return projectileSpeed; } set { projectileSpeed = value; } }
     public float CD { get { return cd; } set { cd = value; } }
+    public bool Aoe { get { return aoe; } set { aoe = value; } }
     public bool SelfDet { get { return selfDet; } set { selfDet = value; } }
     public float DamageRange { get { return damageRange; } set { damageRange = value; } }
     public string Info { get { return info; } set { Info = value; } }
@@ -308,4 +332,5 @@ public class Weapons : DefaultObjects
     public int HitAnim { get { return HitAnim; } }
     public int FireAnim { get { return fireAnim; } }
     public bool IsMagic { get { return isMagic; } set { isMagic = value; } }
-} 
+    public bool IsNova { get { return isNova; } set { isNova = value; } }
+}

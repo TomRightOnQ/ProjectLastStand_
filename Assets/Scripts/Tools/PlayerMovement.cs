@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
         globalTime += Time.fixedDeltaTime;
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (globalTime < 1.0f || !Application.isFocused)
         {

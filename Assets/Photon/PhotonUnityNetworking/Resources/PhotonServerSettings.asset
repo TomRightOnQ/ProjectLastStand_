@@ -69,6 +69,7 @@ MonoBehaviour:
   - takeDamageRPC
   - RPCSwapMesh_Type
   - RPCPlayFireAnim
+  - RPCFlight
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

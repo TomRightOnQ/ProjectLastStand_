@@ -41,6 +41,7 @@
         "rating": 1,
         "specialEffectIndex": 0,
         "description": "Increase your HP by 2",
+        "unique": false,
         "level": 1
     },
     {
@@ -48,6 +49,7 @@
         "id": 100,
         "rating": 2,
         "specialEffectIndex": 0,
+        "unique": false,
         "description": "Increase your HP by 3",
         "level": 2
     },
@@ -56,6 +58,7 @@
         "id": 200,
         "rating": 3,
         "specialEffectIndex": 0,
+        "unique": false,
         "description": "Increase your HP by 4",
         "level": 3
     },
@@ -64,6 +67,7 @@
         "id": 300,
         "rating": 4,
         "specialEffectIndex": 0,
+        "unique": false,
         "description": "Increase your HP by 5",
         "level": 4
     },
@@ -72,6 +76,7 @@
         "id": 1,
         "rating": 1,
         "specialEffectIndex": 1,
+        "unique": false,
         "description": "Increase your movement speed by 6%",
         "level": 1
     },
@@ -80,6 +85,7 @@
         "id": 101,
         "rating": 2,
         "specialEffectIndex": 1,
+        "unique": false,
         "description": "Increase your movement speed by 8%",
         "level": 2
     },
@@ -88,6 +94,7 @@
         "id": 201,
         "rating": 3,
         "specialEffectIndex": 1,
+        "unique": false,
         "description": "Increase your movement speed by 10%",
         "level": 3
     },
@@ -96,6 +103,7 @@
         "id": 301,
         "rating": 4,
         "specialEffectIndex": 1,
+        "unique": false,
         "description": "Increase your movement speed by 12%",
         "level": 4
     },
@@ -104,6 +112,7 @@
         "id": 2,
         "rating": 1,
         "specialEffectIndex": 2,
+        "unique": false,
         "description": "Increase your physical damage by 6%",
         "level": 1
     },
@@ -112,6 +121,7 @@
         "id": 102,
         "rating": 2,
         "specialEffectIndex": 2,
+        "unique": false,
         "description": "Increase your physical damage by 8%",
         "level": 2
     },
@@ -120,6 +130,7 @@
         "id": 202,
         "rating": 3,
         "specialEffectIndex": 2,
+        "unique": false,
         "description": "Increase your physical damage by 10%",
         "level": 3
     },
@@ -128,6 +139,7 @@
         "id": 302,
         "rating": 4,
         "specialEffectIndex": 2,
+        "unique": false,
         "description": "Increase your physical damage by 12%",
         "level": 4
     },
@@ -136,6 +148,7 @@
         "id": 3,
         "rating": 1,
         "specialEffectIndex": 3,
+        "unique": false,
         "description": "Increase 10% damage to base-targeted enemies",
         "level": 1
     },
@@ -144,6 +157,7 @@
         "id": 103,
         "rating": 2,
         "specialEffectIndex": 3,
+        "unique": false,
         "description": "Increase 12% damage to base-targeted enemies",
         "level": 2
     },
@@ -152,6 +166,7 @@
         "id": 4,
         "rating": 1,
         "specialEffectIndex": 4,
+        "unique": false,
         "description": "Increase 10% damage to player-targeted enemies",
         "level": 1
     },
@@ -160,6 +175,7 @@
         "id": 104,
         "rating": 2,
         "specialEffectIndex": 4,
+        "unique": false,
         "description": "Increase 12% damage to player-targeted enemies",
         "level": 2
     },
@@ -168,6 +184,7 @@
         "id": 105,
         "rating": 2,
         "specialEffectIndex": 105,
+        "unique": false,
         "description": "Decrease max HP to increase your damage and speed",
         "level": 1
     },
@@ -176,6 +193,7 @@
         "id": 203,
         "rating": 3,
         "specialEffectIndex": 203,
+        "unique": true,
         "description": "Increase your critical damage",
         "level": 1
     },
@@ -184,6 +202,7 @@
         "id": 204,
         "rating": 3,
         "specialEffectIndex": 204,
+        "unique": true,
         "description": "Increase explosion range",
         "level": 1
     },
@@ -192,7 +211,8 @@
         "id": 303,
         "rating": 4,
         "specialEffectIndex": 303,
-        "description": "Killing an enemy grants you 15% speed and damage for 3 seconds",
+        "unique": true,
+        "description": "Taking damage grants you 15% speed and attack for 3 seconds",
         "level": 1
     },
     {
@@ -200,6 +220,7 @@
         "id": -5,
         "rating": 1,
         "specialEffectIndex": -5,
+        "unique": false,
         "description": "Extra 15% speed and damage for 3 seconds",
         "level": 1
     },
@@ -208,14 +229,88 @@
         "id": 304,
         "rating": 4,
         "specialEffectIndex": 304,
+        "unique": true,
         "description": "The lower your HP is, the stronger you are",
         "level": 1
+    },
+    {
+        "_name": "Magician I",
+        "id": 6,
+        "rating": 1,
+        "specialEffectIndex": 6,
+        "unique": false,
+        "description": "Increase your magical damage by 6%",
+        "level": 1
+    },
+    {
+        "_name": "Magician II",
+        "id": 106,
+        "rating": 2,
+        "specialEffectIndex": 6,
+        "unique": false,
+        "description": "Increase your magical damage by 8%",
+        "level": 2
+    },
+    {
+        "_name": "Magician III",
+        "id": 206,
+        "rating": 3,
+        "specialEffectIndex": 6,
+        "unique": false,
+        "description": "Increase your magical damage by 10%",
+        "level": 3
+    },
+    {
+        "_name": "Magician IV",
+        "id": 306,
+        "rating": 4,
+        "specialEffectIndex": 6,
+        "unique": false,
+        "description": "Increase your magical damage by 12%",
+        "level": 4
+    },
+    {
+        "_name": "Precision I",
+        "id": 7,
+        "rating": 1,
+        "specialEffectIndex": 7,
+        "unique": false,
+        "description": "Increase your critical rate by 5%",
+        "level": 1
+    },
+    {
+        "_name": "Precision II",
+        "id": 107,
+        "rating": 2,
+        "specialEffectIndex": 7,
+        "unique": false,
+        "description": "Increase your critical rate by 7%",
+        "level": 2
+    },
+    {
+        "_name": "Precision III",
+        "id": 207,
+        "rating": 3,
+        "specialEffectIndex": 7,
+        "unique": false,
+        "description": "Increase your critical rate by 9%",
+        "level": 3
+    },
+    {
+        "_name": "Precision IV",
+        "id": 307,
+        "rating": 4,
+        "specialEffectIndex": 7,
+        "unique": false,
+        "description": "Increase your critical rate by 11%",
+        "level": 4
     },
     {
         "_name": "Immortal",
         "id": 400,
         "rating": 5,
         "specialEffectIndex": 400,
+        "unique": true,
         "description": "Max HP + 10, your HP will heal slowly",
         "level": 1
     },
@@ -224,6 +319,7 @@
         "id": 401,
         "rating": 5,
         "specialEffectIndex": 401,
+        "unique": true,
         "description": "Movement speed increases by 30%",
         "level": 1
     },
@@ -232,7 +328,8 @@
         "id": 402,
         "rating": 5,
         "specialEffectIndex": 402,
-        "description": "Deal with additional 20% of damage",
+        "unique": true,
+        "description": "Deal with additional 20% of physical damage",
         "level": 1
     },
     {
@@ -240,7 +337,8 @@
         "id": 403,
         "rating": 5,
         "specialEffectIndex": 403,
-        "description": "You are extra stronger with more melee weapons equipped, and heal from killing enemies",
+        "unique": true,
+        "description": "You are extra stronger with more melee weapons equipped",
         "level": 1
     },
     {
@@ -248,7 +346,26 @@
         "id": 404,
         "rating": 5,
         "specialEffectIndex": 404,
-        "description": "Double your HP, but you cannot heal. When you die, you take extra time to revive and all players level up. Base defense increases 50%.",
+        "unique": true,
+        "description": "Double your HP. When you die, you take extra time to revive and all players level up. Magical defense increases 30%.",
+        "level": 1
+    },
+    {
+        "_name": "Holy Nova",
+        "id": 406,
+        "rating": 5,
+        "specialEffectIndex": 406,
+        "unique": true,
+        "description": "Your attack will bring addtional 33% of magical damage",
+        "level": 1
+    },
+    {
+        "_name": "Assassination",
+        "id": 407,
+        "rating": 5,
+        "specialEffectIndex": 407,
+        "unique": true,
+        "description": "By 50% percent your critical damage could be 700%, 1% to deal an extreme damage",
         "level": 1
     }
 ]

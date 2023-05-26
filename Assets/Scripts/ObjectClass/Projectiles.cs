@@ -23,7 +23,7 @@ public class Projectiles : Items, IPunObservable
     [SerializeField] private float damageRange = 0.1f;
     [SerializeField] private int hitAnim = 0;
     [SerializeField] private bool isMagic = false;
-
+    [SerializeField] private bool isNova = false;
     private float creationTime;
 
     // Sync
@@ -41,6 +41,7 @@ public class Projectiles : Items, IPunObservable
         //      7. damageRange
         //      8. hitAnim
         //      9. isMagic
+        //      10. isNova
         if (stream.IsWriting)
         {
             stream.SendNext(damage);
@@ -53,6 +54,7 @@ public class Projectiles : Items, IPunObservable
             stream.SendNext(damageRange);
             stream.SendNext(hitAnim);
             stream.SendNext(isMagic);
+            stream.SendNext(isNova);
         }
         else
         {
@@ -66,6 +68,7 @@ public class Projectiles : Items, IPunObservable
             damageRange = (float)stream.ReceiveNext();
             hitAnim = (int)stream.ReceiveNext();
             isMagic = (bool)stream.ReceiveNext();
+            isNova = (bool)stream.ReceiveNext();
         }
     }
 
@@ -78,6 +81,7 @@ public class Projectiles : Items, IPunObservable
     public bool AOE { get { return aoe; } set { aoe = value; } }
     public int HitAnim { get { return HitAnim; } set { hitAnim = value; } }
     public bool IsMagic { get { return isMagic; } set { isMagic = value; } }
+    public bool IsNova { get { return isNova; } set { isNova = value; } }
 
     public float DamageRange
     {
@@ -154,6 +158,25 @@ public class Projectiles : Items, IPunObservable
 
     public override void OnDisable()
     {
+        if (selfDet && aoe)
+        {
+            Debug.Log("Area Damage");
+            // AOE
+            Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
+            explosion.Initialize(damageRange, damage, pen, isMagic);
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y + 4, transform.position.z - 1.5f);
+            PlayHitAnim(pos);
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
+            }
+        }
+        else
+        {
+            // Regular disable behavior
+            Deactivate();
+        }
+
         CancelInvoke("Deactivate");
     }
 
@@ -208,7 +231,11 @@ public class Projectiles : Items, IPunObservable
                 if (PhotonNetwork.IsConnected) {
                     photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
                 }
-
+                if (isNova)
+                {
+                    Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                    explosion.Initialize(0.5f, damage / 3, pen, isMagic);
+                }
                 if (!AOE)
                 {
                     gameObject.SetActive(false);
@@ -218,7 +245,6 @@ public class Projectiles : Items, IPunObservable
                 }
                 else
                 {
-                    Debug.Log("Area Damage");
                     // AOE
                     Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
                     explosion.Initialize(damageRange, damage, pen, isMagic);

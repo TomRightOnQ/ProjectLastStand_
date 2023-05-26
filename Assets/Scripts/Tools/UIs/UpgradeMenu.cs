@@ -233,11 +233,13 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         else {
             //read upgradeConfig upCard.UpgradeData
             UpgradeConfigs.UpgradeConfig upgradeConfig = upCard.UpgradeData;
-            Debug.Log(upgradeConfig.id);
             if (upgradeConfig.id <= -1) {
                 player.SwapMesh(upgradeConfig.id);
             }
             player.AddEffect(upgradeConfig.specialEffectIndex, upgradeConfig.level);
+            if (upgradeConfig.unique) {
+                UpgradeConfigs.Instance.Locked.Add(upgradeConfig.id);
+            }
         }
         pointsOff();
     }

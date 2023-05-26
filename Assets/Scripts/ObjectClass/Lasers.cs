@@ -21,7 +21,7 @@ public class Lasers : Items, IPunObservable
     [SerializeField] private float damageRange = 0.1f;
     [SerializeField] private int hitAnim = 0;
     [SerializeField] private bool isMagic = false;
-
+    [SerializeField] private bool isNova = false;
     private float creationTime;
 
     // Sync
@@ -39,6 +39,7 @@ public class Lasers : Items, IPunObservable
         //      7. damageRange
         //      8. hitAnim
         //      9. isMagic
+        //      10. isNova
         if (stream.IsWriting)
         {
             stream.SendNext(damage);
@@ -51,6 +52,7 @@ public class Lasers : Items, IPunObservable
             stream.SendNext(damageRange);
             stream.SendNext(hitAnim);
             stream.SendNext(isMagic);
+            stream.SendNext(isNova);
         }
         else
         {
@@ -64,6 +66,7 @@ public class Lasers : Items, IPunObservable
             damageRange = (float)stream.ReceiveNext();
             hitAnim = (int)stream.ReceiveNext();
             isMagic = (bool)stream.ReceiveNext();
+            isNova = (bool)stream.ReceiveNext();
         }
     }
 
@@ -76,6 +79,7 @@ public class Lasers : Items, IPunObservable
     public bool AOE { get { return aoe; } set { aoe = value; } }
     public int HitAnim { get { return HitAnim; } set { hitAnim = value; } }
     public bool IsMagic { get { return isMagic; } set { isMagic = value; } }
+    public bool IsNova { get { return isNova; } set { isNova = value; } }
 
     public float DamageRange
     {
@@ -150,10 +154,13 @@ public class Lasers : Items, IPunObservable
                 {
                     photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
                 }
-
+                if (isNova)
+                {
+                    Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                    explosion.Initialize(0.5f, damage / 3, pen, isMagic);
+                }
                 if (!AOE)
                 {
-                    Debug.Log("Laser hitting enemy");
                     monster.TakeDamage(damage, isMagic);
                     GameManager.Instance.monsterManager.despawnCheck(monster);
                 }

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce42f8825e884c24db44571b85f49042, type: 3}
+  m_Name: ImageConfigs
+  m_EditorClassIdentifier: 
+  toughnessIcon: {fileID: 21300000, guid: 752613499845ae24aba48f6f97e210d5, type: 3}
+  swiftIcon: {fileID: 21300000, guid: ccd17e3b8759bc74abcf6db3905fdcac, type: 3}
+  damageIcon: {fileID: 21300000, guid: 8465e9c938ad3754e820e5ed163250cb, type: 3}
+  defenderIcon: {fileID: 21300000, guid: eff8279d15ed0784a8da028873ea9ff2, type: 3}
+  counterIcon: {fileID: 21300000, guid: 3cbe7a7ed3e300046976612d9c3a8a89, type: 3}
+  magicianIcon: {fileID: 21300000, guid: b492c4d054a425b46a20f0dd6c250731, type: 3}
+  precisionIcon: {fileID: 21300000, guid: 81ff0a1b1b3952047951fa82ead0c522, type: 3}
+  bloodSacrificeIcon: {fileID: 21300000, guid: 476f45469193ea64db012223519af205, type: 3}
+  savageStrikerIcon: {fileID: 21300000, guid: cbb0621da3c36b947930053cb1c101b7, type: 3}
+  rocketMasterIcon: {fileID: 21300000, guid: 438b91a1d16693049a8b6de8bd8a2d21, type: 3}
+  rampageIcon: {fileID: 21300000, guid: 51fd53d9b01c50f4087190205b5f5fc4, type: 3}
+  relentlessResentIcon: {fileID: 21300000, guid: 7ef2b040e646d524095650c934ce5998, type: 3}
+  immortalIcon: {fileID: 21300000, guid: ee28c6c60d6f080439dc32295ed1541c, type: 3}
+  flightIcon: {fileID: 21300000, guid: 167e7d7897b19d749b74555a00f453e8, type: 3}
+  damageMaxIcon: {fileID: 21300000, guid: f91f52b927d9f8d45adcad7e26b29e12, type: 3}
+  meleeGrandMasterIcon: {fileID: 21300000, guid: ee7d999004be48f44954764e66e0dc29, type: 3}
+  guardianAngelIcon: {fileID: 21300000, guid: 812a90c0c0696f240905ab96c30e6e05, type: 3}
+  holyNovaIcon: {fileID: 21300000, guid: 4a10daa02b741374caa93e5601b49afa, type: 3}
+  assassinationIcon: {fileID: 21300000, guid: 495439248a77d654e972b6fdc71c35d9, type: 3}
+  DefaultIcon: {fileID: 21300000, guid: 2a01a5a231dc43645a923310189f2e14, type: 3}

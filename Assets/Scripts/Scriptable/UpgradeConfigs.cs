@@ -28,6 +28,9 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
     private const int ORANGE_BEGIN = 400;
     private int ORANGE_COUNT = 0;
 
+    public List<int> Locked = new List<int>();
+    public List<int> AwaitUnlocked = new List<int>() {400, 401, 402, 406, 407};
+
     public struct UpgradeConfig
     {
         public string _name; // Name of the buff
@@ -37,6 +40,19 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
         public string description; // A description
         public int level;
         public string mesh;
+        public bool unique;
+    }
+
+    public void Unlock(int id) 
+    {
+        if (AwaitUnlocked.Contains(id))
+            AwaitUnlocked.Remove(id);
+    }
+
+    public void Lock(int id)
+    {
+        if (!AwaitUnlocked.Contains(id))
+            AwaitUnlocked.Add(id);
     }
 
     public void InitEffect()
@@ -60,6 +76,12 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
         BLUE_COUNT = configs.Count(c => c.rating == 3);
         PURPLE_COUNT = configs.Count(c => c.rating == 4) - 4;
         ORANGE_COUNT = configs.Count(c => c.rating == 5);
+
+        Debug.Log("White Count: " + WHITE_COUNT);
+        Debug.Log("Green Count: " + GREEN_COUNT);
+        Debug.Log("Blue Count: " + BLUE_COUNT);
+        Debug.Log("Purple Count: " + PURPLE_COUNT);
+        Debug.Log("Orange Count: " + ORANGE_COUNT);
     }
 
     public void AddUpgradeConfig(UpgradeConfig config)
@@ -70,13 +92,40 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
 
     public UpgradeConfig _getUpgradeConfig(int id)
     {
-        Debug.Log("Getting config with id " + id.ToString());
         upgradeConfigDictionary.TryGetValue(id, out UpgradeConfig upgradeConfig);
         return upgradeConfig;
     }
 
 
     public UpgradeConfig getUpgradeConfig()
+    {
+        int rarityLevel = getRarity();
+        // Get a random index for the rarity level
+        int begin = GetIndexBegin(rarityLevel);
+        int end = GetIndexEnd(rarityLevel) + 1;
+        int index = rollIndex(begin, end);
+        // Get the upgrade config based on the selected index
+        UpgradeConfig config = _getUpgradeConfig(index);
+        return config;
+    }
+
+    private int rollIndex(int begin, int end)
+    {
+        int index = Random.Range(begin, end);
+        if (!Locked.Contains(index) && !AwaitUnlocked.Contains(index))
+        {
+            return index;
+        }
+        else {
+            int rarityLevel = getRarity();
+            // Get a random index for the rarity level
+            begin = GetIndexBegin(rarityLevel);
+            end = GetIndexEnd(rarityLevel) + 1;
+            return rollIndex(begin, end);
+        }
+    }
+
+    private int getRarity()
     {
         // Select a random rarity level based on chances
         int rarityRoll = Random.Range(1, 101);
@@ -98,14 +147,7 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
         {
             rarityLevel = 2; // green rarity
         }
-
-        // Get a random index for the rarity level
-        int begin = GetIndexBegin(rarityLevel);
-        int end = GetIndexEnd(rarityLevel) + 1;
-        int index = Random.Range(begin, end);
-        // Get the upgrade config based on the selected index
-        UpgradeConfig config = _getUpgradeConfig(index);
-        return config;
+        return rarityLevel;
     }
 
     private int GetIndexBegin(int rarityLevel)

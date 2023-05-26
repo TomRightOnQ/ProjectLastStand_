@@ -9,22 +9,24 @@ public abstract class Entities : DefaultObjects, IPunObservable
 {
 
     // Player Stats
-    [SerializeField] protected float hitPoints = 20;
-    [SerializeField] protected float currentHitPoints = 20;
-    [SerializeField] protected float defaultAttack = 1;
-    [SerializeField] protected float defaultWeaponAttack = 1;
-    [SerializeField] protected float defaultDefence = 5;
+    [SerializeField] protected float hitPoints = 20.0f;
+    [SerializeField] protected float currentHitPoints = 20.0f;
+    [SerializeField] protected float defaultAttack = 1.0f;
+    [SerializeField] protected float defaultWeaponAttack = 1.0f;
+    [SerializeField] protected float defaultDefence = 5.0f;
     [SerializeField] protected float defaultMagicDefence = 0;
     [SerializeField] protected float speed = 1;
+    [SerializeField] protected float criticalRate = 0.2f;
+    [SerializeField] protected float criticalDamage = 1.0f;
+    [SerializeField] protected float criticalBase = 2.0f;
+    [SerializeField] protected float criticalMod = 1.0f;
     [SerializeField] protected Slider hpS;
 
-    protected Effects _effect;
-    protected List<EffectComponents> effects = new List<EffectComponents>();
-
-    private void Awake()
-    {
-        _effect = GetComponent<Effects>();
-    }
+    [SerializeField] public float SpeedBase = 1.0f;
+    [SerializeField] public float SpeedMod = 1.0f;
+    [SerializeField] public float DamageBase = 1.0f;
+    [SerializeField] public float WeaponDamageBase = 1.0f;
+    [SerializeField] public float DamageMod = 1.0f;
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -69,20 +71,10 @@ public abstract class Entities : DefaultObjects, IPunObservable
     public float DefaultDefence { get { return defaultDefence; } set { defaultDefence = value; } }
     public float DefaultMagicDefence { get { return defaultMagicDefence; } set { defaultMagicDefence = value; } }
     public float Speed { get { return speed; } set { speed = value; } }
-
-    // Update
-    void Update() {
-
-    }
-
-    // Add effects
-    public virtual void AddEffect(int index, int level)
-    {
-        EffectComponents currentEffect = _effect.SetUp(index, level);
-        if (currentEffect != null) {
-            effects.Add(currentEffect);
-        }
-    }
+    public float CriticalRate { get { return criticalRate; } set { criticalRate = value; } }
+    public float CriticalDamage { get { return criticalDamage; } set { criticalDamage = value; } }
+    public float CriticalMod { get { return criticalMod; } set { criticalMod = value; } }
+    public float CriticalBase { get { return criticalBase; } set { criticalBase = value; } }
 
     // Taking Damage
     public virtual void TakeDamage(float damage, bool isMagic) {
@@ -90,6 +82,10 @@ public abstract class Entities : DefaultObjects, IPunObservable
         currentHitPoints -= damage;
         if (currentHitPoints > hitPoints) {
             currentHitPoints = hitPoints;
+        }
+        Rampage rampage = GetComponent<Rampage>();
+        if (rampage != null) {
+            rampage.Invoke();
         }
     }
 

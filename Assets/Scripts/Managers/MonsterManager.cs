@@ -7,10 +7,9 @@ using static MonsterConfigs;
 public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
-    private int difficulty = 1;
+    [SerializeField] private int difficulty = 1;
     private float spawning = 2.8f;
     private bool cycleBegin = false;
-
 
     void Start()
     {

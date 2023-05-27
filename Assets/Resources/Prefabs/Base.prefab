@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a67b58d6cddcd4345b1e001340de5a76, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8f333cabe1bb524f9cd453b1defc9ad, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -321,7 +321,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &1534613917
 MonoBehaviour:
@@ -445,7 +445,16 @@ MonoBehaviour:
   defaultDefence: 5
   defaultMagicDefence: 0
   speed: 1
+  criticalRate: 0.2
+  criticalDamage: 1
+  criticalBase: 2
+  criticalMod: 1
   hpS: {fileID: 2717302531181266008}
+  SpeedBase: 1
+  SpeedMod: 1
+  DamageBase: 1
+  WeaponDamageBase: 1
+  DamageMod: 1
   gameOver: {fileID: 0}
 --- !u!33 &1257153712032046008
 MeshFilter:

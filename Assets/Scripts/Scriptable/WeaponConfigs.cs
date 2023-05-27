@@ -173,7 +173,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         type = 0,
         attack = 16,
         pen = 0.5f,
-        life = 0.5f,
+        life = 3f,
         cd = 2f,
         selfDet = true,
         projectileSpeed = 6,

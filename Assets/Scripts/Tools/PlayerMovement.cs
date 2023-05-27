@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
         _camera = Camera.main;
         globalTime = 0.0f;
     }
+
     void FixedUpdate()
     {
         // increment the global time in each FixedUpdate()
@@ -24,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        if (globalTime < 1.0f || !Application.isFocused)
+        if (globalTime < 1.0f || !Application.isFocused || GameManager.Instance.IsPaused)
         {
             return;
         }

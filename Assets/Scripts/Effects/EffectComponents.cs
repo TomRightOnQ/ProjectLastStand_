@@ -35,9 +35,22 @@ public class EffectComponents : MonoBehaviour
 
 public class Rampage : EffectComponents
 {
+    private float currentHP;
+    private float prevHP;
+
+    private void Awake()
+    {
+        currentHP = player.CurrentHitPoints;
+        prevHP = currentHP;
+    }
+
     protected override void Update()
     {
         base.Update();
+        if (currentHP < prevHP) {
+            Invoke();
+            currentHP = prevHP;
+        }
     }
 
     public void Invoke() 
@@ -187,7 +200,7 @@ public class MeleeGrandMaster : EffectComponents
 
 public class Assassination : EffectComponents
 {
-    private const float CRITCAL_RATE = 0.5f;
+    private const float CRITCAL_RATE = 0.20f;
     private const float CRITCAL_DAMAGE = 3.5f;
     private const float EXTREME_RATE = 0.01f;
     private const float EXTREME_DAMAGE = 50f;
@@ -209,7 +222,5 @@ public class Assassination : EffectComponents
         {
             player.CriticalMod = 1;
         }
-
     }
-
 }

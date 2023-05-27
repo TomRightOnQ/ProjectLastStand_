@@ -184,7 +184,6 @@ public class MonsterShooter : MonsterAI
     protected override void TransitionToNextState()
     {
         // Implement state transition logic here
-
         switch (currentState)
         {
             case MonsterState.MoveTowardBase:

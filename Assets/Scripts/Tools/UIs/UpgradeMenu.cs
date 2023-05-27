@@ -60,7 +60,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     {
         // For Display
         Vector3 targetPosition = isOpen ? originalPosition : closedPosition;
-        float arrowZ = isOpen ? -90f : 90f;
+        float arrowZ = isOpen ? -180f : 0f;
         arrow.transform.rotation = Quaternion.Euler(arrow.transform.rotation.x, arrow.transform.rotation.y, arrowZ);
         panelTransform.anchoredPosition = Vector3.Lerp(panelTransform.anchoredPosition, targetPosition, speed * Time.deltaTime);
         if (points <= 0) {

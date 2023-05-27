@@ -297,14 +297,4 @@ public class DataManager : MonoBehaviourPunCallbacks
     {
         return playerList.ToArray(); ;
     }
-    
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
 }

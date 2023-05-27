@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 // Create a new multiplayer room
 public class CreateRoom : MonoBehaviourPunCallbacks
@@ -27,5 +28,18 @@ public class CreateRoom : MonoBehaviourPunCallbacks
 
     public override void OnCreateRoomFailed(short returnCode, string message) {
         Debug.LogWarning("Cretaed room Failed");
+    }
+
+    public void MainMenu() {
+        DisconnectFromPhoton();
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    private void DisconnectFromPhoton()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+        }
     }
 }

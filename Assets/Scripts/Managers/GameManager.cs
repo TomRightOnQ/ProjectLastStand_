@@ -1,10 +1,11 @@
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 using static ConfigManager;
 using static MonsterConfigs;
 using System.Collections;
-// Main Game Manager
 
+// Main Game Manager
 public class GameManager : MonoBehaviourPunCallbacks
 {
     private bool isLoaded = false;
@@ -16,6 +17,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Data
     private MonsterConfig[] monsterData;
     private WeaponConfig[] WeaponData;
+
+    // Canvases
+    [SerializeField] private Canvas loadingScreen;
+    [SerializeField] private Canvas PauseCanvas;
+    [SerializeField] private GameObject GameUI;
+
+    private bool isPaused = false;
+
+    public bool IsPaused { get { return isPaused; } }
 
     public static GameManager Instance
     {
@@ -31,6 +41,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        Debug.Log("Awaking");
+        loadingScreen.gameObject.SetActive(true);
         // Check repeated instances
         if (instance != null && instance != this)
         {
@@ -40,7 +52,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             // init all manager objects
             instance = this;
-            DontDestroyOnLoad(gameObject);
             GameObject monsterManagerObj = new GameObject("MonsterManager");
             monsterManager = monsterManagerObj.AddComponent<MonsterManager>();
             dataManager.initData();
@@ -52,12 +63,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 isLoaded = true;
             }
         }
-    }
-
-
-    private void Start()
-    {
-
+        StartCoroutine(DisableScreenAfterDelay(3f));
     }
 
     void Update()
@@ -141,5 +147,42 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         Debug.LogWarning("Not connected to Photon network");
         return null;
+    }
+
+    private IEnumerator DisableScreenAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        loadingScreen.gameObject.SetActive(false);
+    }
+
+    public void PauseGame()
+    {
+        PauseCanvas.gameObject.SetActive(true);
+        isPaused = true;
+        if (!PhotonNetwork.IsConnected)
+        {
+            Time.timeScale = 0f;
+        }
+    }
+
+    public void ResumeGame()
+    {
+        PauseCanvas.gameObject.SetActive(false);
+        isPaused = false;
+        if (!PhotonNetwork.IsConnected)
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
+    public void MainMenu()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.Disconnect();
+        }
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
     }
 }

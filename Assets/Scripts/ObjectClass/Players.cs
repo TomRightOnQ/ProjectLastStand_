@@ -27,9 +27,6 @@ public class Players : Entities, IPunObservable
     private List<int> effectHeld = new List<int>();
     public int MeleeCounts = 0;
 
-    [SerializeField] private GameObject volObj;
-    [SerializeField] private GameObject playerUIObj;
-    [SerializeField] private TextMeshProUGUI countDown;
     float reviveCount = 0;
 
     public List<Weapons> WeaponList { get { return weapons; } set { weapons = value; } }
@@ -164,37 +161,8 @@ public class Players : Entities, IPunObservable
             if (weapon == null) {
                 return;
             }
-            if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
-            {
-                weapon.transform.LookAt(new Vector3(targetPosition.x, weapon.transform.position.y, targetPosition.z));
-                weapon.Fire(index, targetPosition, defaultAttack, defaultWeaponAttack, criticalRate, criticalDamage);
-            }
-            else {
-                int weaponViewID = -1;
-                weaponViewID = weapon.photonView.ViewID;
-                weapon.transform.LookAt(new Vector3(targetPosition.x, weapon.transform.position.y, targetPosition.z));
-                photonView.RPC("FireForPlayer", RpcTarget.MasterClient, weaponViewID, index, photonView.ViewID, targetPosition, criticalRate, criticalDamage);
-            }
-        }
-    }
-
-    // For client firing, let master do it
-    [PunRPC]
-    private void FireForPlayer(int weaponViewID, int index, int playerViewID, Vector3 targetPosition, float criticalRate, float criticalDamage)
-    {
-        Players player = GameManager.Instance.GetLocalPlayer(playerViewID);
-
-        if (weaponViewID != -1)
-        {
-            PhotonView weapon1View = PhotonView.Find(weaponViewID);
-            if (weapon1View != null)
-            {
-                Weapons weapon = weapon1View.GetComponent<Weapons>();
-                if (weapon != null)
-                {
-                    weapon.Fire(index, targetPosition, defaultAttack, defaultWeaponAttack, criticalRate, criticalDamage);
-                }
-            }
+            weapon.transform.LookAt(new Vector3(targetPosition.x, weapon.transform.position.y, targetPosition.z));
+            weapon.Fire(index, targetPosition, defaultAttack, defaultWeaponAttack, criticalRate, criticalDamage);
         }
     }
 
@@ -240,8 +208,8 @@ public class Players : Entities, IPunObservable
     public void PlayerDead()
     {
         isAlive = false;
-        playerUIObj.SetActive(true);
-        volObj.SetActive(true);
+        GameUI.Instance.playerUIObj.SetActive(true);
+        GameUI.Instance.volObj.SetActive(true);
         reviveCount = 0;
         transform.position = new Vector3(-20f, -40f, -20f);
     }
@@ -250,8 +218,8 @@ public class Players : Entities, IPunObservable
     {
         isAlive = true;
         currentHitPoints = HitPoints;
-        playerUIObj.SetActive(false);
-        volObj.SetActive(false);
+        GameUI.Instance.playerUIObj.SetActive(false);
+        GameUI.Instance.volObj.SetActive(false);
         transform.position = new Vector3(Random.Range(-25f, 25f), 0.01f, (Random.Range(-25f, 25f)));
         
     }
@@ -278,15 +246,22 @@ public class Players : Entities, IPunObservable
             speed = SpeedBase * SpeedMod;
             if (currentHitPoints <= 0)
             {
+                if (PhotonNetwork.IsConnected && !photonView.IsMine) {
+                    return;
+                }
                 PlayerDead();
             }
         }
         else {
+            if (PhotonNetwork.IsConnected && !photonView.IsMine)
+            {
+                return;
+            }
             if (reviveCount >= timeForRevive) {
                 PlayerAlive();
             }
             reviveCount += Time.deltaTime;
-            countDown.text = Mathf.Ceil(timeForRevive - reviveCount).ToString();
+            GameUI.Instance.countDown.text = Mathf.Ceil(timeForRevive - reviveCount).ToString();
         }
     }
 

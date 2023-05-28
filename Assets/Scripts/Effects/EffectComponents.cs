@@ -40,6 +40,7 @@ public class Rampage : EffectComponents
 
     private void Awake()
     {
+        player = GetComponent<Players>();
         currentHP = player.CurrentHitPoints;
         prevHP = currentHP;
     }
@@ -63,6 +64,7 @@ public class RampageEffect : EffectComponents
 {
     private void Awake()
     {
+        player = GetComponent<Players>();
         life = 3f;
         currentLife = life;
         player.DefaultAttack += 0.05f;
@@ -89,6 +91,11 @@ public class RelentlessResent : EffectComponents
     private const float DAMAGE = 0.07f;
     private const float SPEED = 0.07f;
     private const float CRITICAL = 0.07f;
+
+    private void Awake()
+    {
+        player = GetComponent<Players>();
+    }
 
     protected override void Update()
     {
@@ -128,6 +135,11 @@ public class Immortal : EffectComponents
     private float healTimer = 0f;
     private float healRate = 1f;
 
+    private void Awake()
+    {
+        player = GetComponent<Players>();
+    }
+
     protected override void Update()
     {
         base.Update();
@@ -147,9 +159,13 @@ public class Immortal : EffectComponents
 
 public class MeleeGrandMaster : EffectComponents
 {
+
+
     private int prevCount = 0;
     private void Awake()
     {
+        player = GetComponent<Players>();
+
         if (player.MeleeCounts == 1)
         {
             player.SpeedMod += 0.2f;
@@ -205,6 +221,10 @@ public class Assassination : EffectComponents
     private const float EXTREME_RATE = 0.01f;
     private const float EXTREME_DAMAGE = 50f;
 
+    private void Awake()
+    {
+        player = GetComponent<Players>();
+    }
     protected override void Update() 
     {
         if (UnityEngine.Random.value < CRITCAL_RATE)

@@ -17,9 +17,10 @@ public class DataManager : MonoBehaviourPunCallbacks
     public const int MONSTER_COUNT = 100;
     // Projectiles
     private List<Projectiles> projPool = new List<Projectiles>();
-    public const int PROJ_COUNT = 100;
+    public const int PROJ_COUNT = 50;
     private List<Lasers> laserPool = new List<Lasers>();
-    public const int LASER_COUNT = 75;
+    public const int LASER_COUNT = 50;
+    private List<Projectiles> monsterProjPool = new List<Projectiles>();
 
     // Weapons
     private List<Weapons> weaponsPool = new List<Weapons>();
@@ -39,13 +40,16 @@ public class DataManager : MonoBehaviourPunCallbacks
     {
         prefabManager = PrefabManager.Instance;
         // aimPlane = new Plane(Vector3.up, new Vector3(0f, 0.5f, 0f));
-        if (!PhotonNetwork.IsConnected) {
+        if (!PhotonNetwork.IsConnected)
+        {
             initPoolLocal();
             return;
         }
-        if (PhotonNetwork.IsMasterClient) {
+        if (PhotonNetwork.IsMasterClient)
+        {
             initPool();
         }
+        initProjPool();
     }
 
     private void initPoolLocal()
@@ -113,7 +117,27 @@ public class DataManager : MonoBehaviourPunCallbacks
     }
 
     // Init pools
-    private void initPool() 
+    private void initProjPool()
+    {
+        Vector3 dPpos = new Vector3(-10f, -20f, -20f);
+        Vector3 dLpos = new Vector3(-10f, -60f, -20f);
+        // Initialize projectile pool
+        for (int i = 0; i < PROJ_COUNT; i++)
+        {
+            GameObject projObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.ProjPrefab.name, dPpos, Quaternion.identity);
+            projObj.SetActive(false);
+            projPool.Add(projObj.GetComponent<Projectiles>());
+        }
+        // Initialize laser pool
+        for (int i = 0; i < LASER_COUNT; i++)
+        {
+            GameObject laserObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.LaserPrefab.name, dLpos, Quaternion.identity);
+            laserObj.SetActive(false);
+            laserPool.Add(laserObj.GetComponent<Lasers>());
+        }
+    }
+
+    private void initPool()
     {
         Vector3 dPpos = new Vector3(-10f, -20f, -20f);
         Vector3 dMpos = new Vector3(-10f, -30f, 20f);
@@ -131,7 +155,7 @@ public class DataManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             GameObject playerObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.PlayerPrefab.name, new Vector3(0f, 0.01f, 0f), Quaternion.identity);
-            playerObj.SetActive(true); 
+            playerObj.SetActive(true);
             playerList.Add(playerObj.GetComponent<Players>());
             playerObj.GetComponent<Players>().Index = i;
             // Assigning to players
@@ -142,25 +166,17 @@ public class DataManager : MonoBehaviourPunCallbacks
         // Initialize monster pool
         for (int i = 0; i < MONSTER_COUNT; i++)
         {
-            GameObject monsterObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.MonsterPrefab.name, dMpos, Quaternion.identity);
+            GameObject monsterObj = PhotonNetwork.InstantiateRoomObject(PREFAB_LOC + prefabManager.MonsterPrefab.name, dMpos, Quaternion.identity);
             monsterObj.SetActive(false);
             monsterPool.Add(monsterObj.GetComponent<Monsters>());
         }
 
-        // Initialize projectile pool
+        // Initialize mosnter projectile pool
         for (int i = 0; i < PROJ_COUNT; i++)
         {
             GameObject projObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.ProjPrefab.name, dPpos, Quaternion.identity);
             projObj.SetActive(false);
-            projPool.Add(projObj.GetComponent<Projectiles>());
-        }
-
-        // Initialize laser pool
-        for (int i = 0; i < LASER_COUNT; i++)
-        {
-            GameObject laserObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.LaserPrefab.name, dPpos, Quaternion.identity);
-            laserObj.SetActive(false);
-            laserPool.Add(laserObj.GetComponent<Lasers>());
+            monsterProjPool.Add(projObj.GetComponent<Projectiles>());
         }
 
         // Prepare weapons
@@ -267,6 +283,18 @@ public class DataManager : MonoBehaviourPunCallbacks
         return null;
     }
 
+    public Projectiles MonsterTakeProjPool()
+    {
+        for (int i = 0; i < projPool.Count; i++)
+        {
+            if (!monsterProjPool[i].gameObject.activeSelf)
+            {
+                return monsterProjPool[i];
+            }
+        }
+        return null;
+    }
+
     public Lasers TakeLaserPool()
     {
         for (int i = 0; i < laserPool.Count; i++)
@@ -291,6 +319,7 @@ public class DataManager : MonoBehaviourPunCallbacks
         }
         return null;
     }
+
 
     // Getters for the pools
     public Players[] GetPlayers()

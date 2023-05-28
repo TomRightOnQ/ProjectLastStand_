@@ -66,7 +66,7 @@ public class Monsters : Entities
         DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
         damageNumber.Init(damage, transform.position, isMagic);
         if (PhotonNetwork.IsConnected) {
-            photonView.RPC("takeDamageRPC", RpcTarget.Others, transform.position, damage, isMagic);
+            //photonView.RPC("takeDamageRPC", RpcTarget.Others, transform.position, damage, isMagic);
         }
     }
 
@@ -84,7 +84,7 @@ public class Monsters : Entities
         if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient)
             return;
         // Get projectile from pool
-        Projectiles proj = GameManager.Instance.dataManager.TakeProjPool();
+        Projectiles proj = GameManager.Instance.dataManager.MonsterTakeProjPool();
         if (proj != null)
         {
             int projectileID = proj.photonView.ViewID;

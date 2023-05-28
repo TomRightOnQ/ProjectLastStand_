@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private Canvas PauseCanvas;
     [SerializeField] private GameObject GameUI;
 
+    [SerializeField] private GameObject blockingCanvas;
+
     private bool isPaused = false;
 
     public bool IsPaused { get { return isPaused; } }
@@ -101,6 +103,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             else
             {
+                Debug.Log("Cannot Find!");
                 return null;
             }
         }
@@ -184,5 +187,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1f;
+    }
+
+    public void LockInput()
+    {
+        blockingCanvas.SetActive(true);
+    }
+
+    public void UnlockInput()
+    {
+        blockingCanvas.SetActive(false);
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 // Manage in-game UI status
 public class GameUI : MonoBehaviourPunCallbacks
@@ -14,7 +15,11 @@ public class GameUI : MonoBehaviourPunCallbacks
     [SerializeField] private WeaponInfo weapon2Info;
     [SerializeField] private Players player;
     [SerializeField] private GameObject content;
-    
+
+    public GameObject volObj;
+    public GameObject playerUIObj;
+    public TextMeshProUGUI countDown;
+
     private List<WeaponInfo> weaponInfos = new List<WeaponInfo>();
     private List<DroppedItems> droppedList;
     private List<ItemListings> itemList;

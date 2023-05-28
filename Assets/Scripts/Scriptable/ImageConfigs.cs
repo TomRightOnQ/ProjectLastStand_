@@ -48,7 +48,6 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
 
     public Sprite GetEffectImage(int id)
     {
-        Debug.Log("Getting pic " + id);
         switch (id)
         {
             case 0:

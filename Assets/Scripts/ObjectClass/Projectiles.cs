@@ -182,25 +182,32 @@ public class Projectiles : Items, IPunObservable
 
     public void Activate()
     {
-        if (PhotonNetwork.IsConnected)
+        if (!PhotonNetwork.IsConnected) {
+            _activate();
+        }
+        else if (!photonView.IsMine)
+        {
+            return;
+        }
+        else if (photonView.IsMine)
         {
             photonView.RPC("_activate", RpcTarget.All);
-        }
-        else
-        {
-            _activate();
         }
     }
 
     public void Deactivate()
     {
-        if (PhotonNetwork.IsConnected)
-        {
-            photonView.RPC("_deactivate", RpcTarget.All);
-        }
-        else
+        if (!PhotonNetwork.IsConnected)
         {
             _deactivate();
+        }
+        else if (!photonView.IsMine)
+        {
+            return;
+        }
+        else if (photonView.IsMine)
+        {
+            photonView.RPC("_deactivate", RpcTarget.All);
         }
     }
 
@@ -240,7 +247,14 @@ public class Projectiles : Items, IPunObservable
                 {
                     gameObject.SetActive(false);
                     Deactivate();
-                    monster.TakeDamage(damage, isMagic);
+                    if (PhotonNetwork.IsConnected)
+                    {
+                        photonView.RPC("RPCDamageToMonster", RpcTarget.All, monster.photonView.ViewID, damage, isMagic);
+                    }
+                    else
+                    {
+                        monster.TakeDamage(damage, isMagic);
+                    }
                     GameManager.Instance.monsterManager.despawnCheck(monster);
                 }
                 else
@@ -278,6 +292,17 @@ public class Projectiles : Items, IPunObservable
             }
             gameObject.SetActive(false);
             Deactivate();
+        }
+    }
+
+    [PunRPC]
+    private void RPCDamageToMonster(int monsterViewID, float damage, bool isMagic)
+    {
+        Monsters monster = PhotonView.Find(monsterViewID)?.GetComponent<Monsters>();
+        if (monster != null)
+        {
+            monster.TakeDamage(damage, isMagic);
+            GameManager.Instance.monsterManager.despawnCheck(monster);
         }
     }
 

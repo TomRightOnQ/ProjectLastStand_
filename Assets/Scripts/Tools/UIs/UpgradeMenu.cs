@@ -13,12 +13,15 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     [SerializeField] private Image arrow;
     private Vector3 originalPosition;
     private Vector3 closedPosition;
-    private bool isOpen = true;
+    private bool isOpen = false;
     private float panelWidth;
     [SerializeField] private float speed = 10;
     [SerializeField] private TextMeshProUGUI availablePoints;
 
     // For Data
+    // Hint
+    [SerializeField] private GameObject hintObj;
+
     // Each points means one upgrade
     [SerializeField] private int points = 0;
     private bool regenChoices = false;
@@ -60,7 +63,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     {
         // For Display
         Vector3 targetPosition = isOpen ? originalPosition : closedPosition;
-        float arrowZ = isOpen ? -180f : 0f;
+        float arrowZ = isOpen ? 0f : -180f;
         arrow.transform.rotation = Quaternion.Euler(arrow.transform.rotation.x, arrow.transform.rotation.y, arrowZ);
         panelTransform.anchoredPosition = Vector3.Lerp(panelTransform.anchoredPosition, targetPosition, speed * Time.deltaTime);
         if (points <= 0) {
@@ -82,6 +85,12 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
         else {
             disableAll();
         }
+    }
+
+    // Show the hint
+    public void ShowHint()
+    {
+        hintObj.SetActive(true);
     }
 
     // Fill with standard choices
@@ -206,6 +215,9 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
 
     // Choosing 
     public void choiceChosen(Button choice) {
+        if (hintObj.activeSelf) {
+            hintObj.SetActive(false);
+        }
         Players player = GameManager.Instance.GetLocalPlayer();
         if (player == null) {
             return;

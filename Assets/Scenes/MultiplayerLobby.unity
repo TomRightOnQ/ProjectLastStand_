@@ -6880,6 +6880,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450651875496550}
+  - component: {fileID: 919132147666520285}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -6887,6 +6888,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &919132147666520285
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147666520284}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1b17f52e16f705c40be64fd1022bb115, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!33 &934007036636435121
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9837,60 +9858,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 2
---- !u!114 &1990810044960467256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990810044960467258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1990810044960467257}
-  sceneViewId: 2
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1990810044960467257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990810044960467258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08e6565bdec9d5542b7a1aba9172c9a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitPoints: 1500
-  currentHitPoints: 1500
-  defaultAttack: 1
-  defaultWeaponAttack: 1
-  defaultDefence: 5
-  defaultMagicDefence: 0
-  speed: 1
-  criticalRate: 0.2
-  criticalDamage: 1
-  criticalBase: 2
-  criticalMod: 1
-  hpS: {fileID: 0}
-  SpeedBase: 1
-  SpeedMod: 1
-  DamageBase: 1
-  WeaponDamageBase: 1
-  DamageMod: 1
-  gameOver: {fileID: 0}
-  rotation: {fileID: 0}
 --- !u!1 &1990810044960467258
 GameObject:
   m_ObjectHideFlags: 0
@@ -9900,8 +9867,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1990810044960467204}
-  - component: {fileID: 1990810044960467256}
-  - component: {fileID: 1990810044960467257}
   - component: {fileID: 1990810044960467206}
   - component: {fileID: 3208651824234284688}
   m_Layer: 0

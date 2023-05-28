@@ -161,7 +161,13 @@ public class Lasers : Items, IPunObservable
                 }
                 if (!AOE)
                 {
-                    monster.TakeDamage(damage, isMagic);
+                    if (PhotonNetwork.IsConnected)
+                    {
+                        photonView.RPC("RPCDamageToMonster", RpcTarget.All, monster.photonView.ViewID, damage, isMagic);
+                    }
+                    else {
+                        monster.TakeDamage(damage, isMagic);
+                    }
                     GameManager.Instance.monsterManager.despawnCheck(monster);
                 }
                 else
@@ -171,6 +177,17 @@ public class Lasers : Items, IPunObservable
                     explosion.Initialize(damageRange, damage, pen, isMagic);
                 }
             }
+        }
+    }
+
+    [PunRPC]
+    private void RPCDamageToMonster(int monsterViewID, float damage, bool isMagic)
+    {
+        Monsters monster = PhotonView.Find(monsterViewID)?.GetComponent<Monsters>();
+        if (monster != null)
+        {
+            monster.TakeDamage(damage, isMagic);
+            GameManager.Instance.monsterManager.despawnCheck(monster);
         }
     }
 

@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     private const float CLOSET_FIRERANGE = 10.0f;
     private float globalTime = 0.0f;
 
+    private bool isStarted = false;
+
     void Start()
     {
         player = GetComponent<Players>();
@@ -33,7 +35,21 @@ public class PlayerMovement : MonoBehaviour
             _camera.orthographicSize = newSize;
         }
 
-        if (globalTime < 6.0f || !Application.isFocused || GameManager.Instance.IsPaused || !player.IsAlive || !player.IsReady)
+        if (globalTime < 6.0f)
+        {
+            return;
+        }
+
+        if (!isStarted)
+        {
+            isStarted = true;
+            Debug.Log("Init");
+            UpgradeMenu.Instance.ToggleMenu();
+            UpgradeMenu.Instance.ShowHint();
+            GameManager.Instance.UnlockInput();
+        }
+
+        if (!Application.isFocused || GameManager.Instance.IsPaused || !player.IsAlive || !player.IsReady)
         {
             return;
         }

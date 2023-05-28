@@ -149,6 +149,7 @@ MonoBehaviour:
   damageRange: 0.1
   hitAnim: 0
   isMagic: 0
+  isNova: 0
 --- !u!65 &-1077699556697782236
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -202,6 +202,7 @@ public class Effects : MonoBehaviourPunCallbacks
         player.HitPoints *= 2;
         player.CurrentHitPoints = player.HitPoints;
         player.DefaultMagicDefence += 0.3f;
+        player.TimeForRevive = 30f;
         player.AddToEffectList(id);
     }
 

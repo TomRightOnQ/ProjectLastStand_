@@ -70,7 +70,6 @@ MonoBehaviour:
   DamageBase: 1
   WeaponDamageBase: 1
   DamageMod: 1
-  AoeEnhanced: 0
   exp: 1
   id: 1
   monsterAI: {fileID: -314787860534041130}

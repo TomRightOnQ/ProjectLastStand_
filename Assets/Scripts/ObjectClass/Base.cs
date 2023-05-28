@@ -5,6 +5,7 @@ using Photon.Pun;
 public class Base : Entities, IPunObservable
 {
     [SerializeField] GameObject gameOver;
+
     private static Base instance;
 
     public static Base Instance
@@ -26,10 +27,6 @@ public class Base : Entities, IPunObservable
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
         gameObject.tag = "Base";
     }
 

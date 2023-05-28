@@ -25,7 +25,15 @@ public class PlayerMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        if (globalTime < 1.0f || !Application.isFocused || GameManager.Instance.IsPaused)
+        if (globalTime >= 3.0f && globalTime <= 6.0f)
+        {
+            float t = (globalTime - 3.0f) / 3.0f;
+            float newSize = Mathf.Lerp(25.0f, 19.0f, t);
+
+            _camera.orthographicSize = newSize;
+        }
+
+        if (globalTime < 6.0f || !Application.isFocused || GameManager.Instance.IsPaused || !player.IsAlive)
         {
             return;
         }
@@ -106,6 +114,12 @@ public class PlayerMovement : MonoBehaviour
 
         // Move the objects
         transform.position += movement;
-        _camera.transform.position = new Vector3(transform.position.x, _camera.transform.position.y, transform.position.z - 51.9f);
+        if (player.IsAlive)
+        {
+            _camera.transform.position = new Vector3(transform.position.x, _camera.transform.position.y, transform.position.z - 51.9f);
+        }
+        else {
+            _camera.transform.position = new Vector3(0, _camera.transform.position.y, -51.9f);
+        }
     }
 }

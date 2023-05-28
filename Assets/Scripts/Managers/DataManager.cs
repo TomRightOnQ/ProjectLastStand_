@@ -51,7 +51,7 @@ public class DataManager : MonoBehaviourPunCallbacks
     private void initPoolLocal()
     {
         Vector3 dPpos = new Vector3(-10f, -20f, -20f);
-        Vector3 dMpos = new Vector3(10f, -20f, 20f);
+        Vector3 dMpos = new Vector3(-10f, -30f, 20f);
         if (prefabManager == null)
         {
             Debug.LogError("Prefab reference is null!");
@@ -74,7 +74,7 @@ public class DataManager : MonoBehaviourPunCallbacks
         // Initialize monster pool
         for (int i = 0; i < MONSTER_COUNT; i++)
         {
-            GameObject monsterObj = Instantiate(prefabManager.MonsterPrefab, dPpos, Quaternion.identity);
+            GameObject monsterObj = Instantiate(prefabManager.MonsterPrefab, dMpos, Quaternion.identity);
             monsterObj.SetActive(false);
             monsterPool.Add(monsterObj.GetComponent<Monsters>());
         }
@@ -116,7 +116,7 @@ public class DataManager : MonoBehaviourPunCallbacks
     private void initPool() 
     {
         Vector3 dPpos = new Vector3(-10f, -20f, -20f);
-        Vector3 dMpos = new Vector3(10f, -20f, 20f);
+        Vector3 dMpos = new Vector3(-10f, -30f, 20f);
         if (prefabManager == null)
         {
             Debug.LogError("Prefab reference is null");
@@ -142,7 +142,7 @@ public class DataManager : MonoBehaviourPunCallbacks
         // Initialize monster pool
         for (int i = 0; i < MONSTER_COUNT; i++)
         {
-            GameObject monsterObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.MonsterPrefab.name, dPpos, Quaternion.identity);
+            GameObject monsterObj = PhotonNetwork.Instantiate(PREFAB_LOC + prefabManager.MonsterPrefab.name, dMpos, Quaternion.identity);
             monsterObj.SetActive(false);
             monsterPool.Add(monsterObj.GetComponent<Monsters>());
         }

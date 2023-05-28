@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 using static WeaponConfigs;
 
 // All players are a Players object
@@ -11,6 +12,8 @@ public class Players : Entities, IPunObservable
     // Player 1 - 4
     [SerializeField] private int index = 0;
     [SerializeField] private float fortune = 1;
+    [SerializeField] private bool isAlive = true;
+    [SerializeField] private float timeForRevive = 15f;
 
     private bool armed = false;
     private const string PREFAB_LOC = "Prefabs/";
@@ -23,10 +26,18 @@ public class Players : Entities, IPunObservable
     private List<int> effectHeld = new List<int>();
     public int MeleeCounts = 0;
 
+    [SerializeField] private GameObject volObj;
+    [SerializeField] private GameObject playerUIObj;
+    [SerializeField] private TextMeshProUGUI countDown;
+    float reviveCount = 0;
+
     public List<Weapons> WeaponList { get { return weapons; } set { weapons = value; } }
     public int Index { get { return index; } set { index = value; } }
     public float Fortune { get { return fortune; } set { fortune = value; } }
     public bool Armed { get { return armed; } set { armed = value; } }
+    public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
+    public float TimeForRevive { get { return timeForRevive; } set { timeForRevive = value; } }
+
 
     // Locked effects
     private int[] IMMORTAL_C = new int[4] { 0, 100, 200, 300 };
@@ -40,10 +51,11 @@ public class Players : Entities, IPunObservable
     private int[] ASSASSI_C = new int[4] { 7, 107, 207, 307 };
     private bool asUnlocked = false;
 
-    void Start()
+    void Awake()
     {
         gameObject.tag = "Player";
         _effect = GetComponent<Effects>();
+        isAlive = true;
     }
 
     public void SetNova()
@@ -65,10 +77,14 @@ public class Players : Entities, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(index);
+            stream.SendNext(isAlive);
+            stream.SendNext(timeForRevive);
         }
         else
         {
             index = (int)stream.ReceiveNext();
+            isAlive = (bool)stream.ReceiveNext();
+            timeForRevive = (float)stream.ReceiveNext();
         }
     }
 
@@ -220,23 +236,57 @@ public class Players : Entities, IPunObservable
         }
     }
 
+    public void PlayerDead()
+    {
+        isAlive = false;
+        playerUIObj.SetActive(true);
+        volObj.SetActive(true);
+        reviveCount = 0;
+        transform.position = new Vector3(-20f, -40f, -20f);
+    }
+
+    public void PlayerAlive()
+    {
+        isAlive = true;
+        currentHitPoints = HitPoints;
+        playerUIObj.SetActive(false);
+        volObj.SetActive(false);
+        transform.position = new Vector3(Random.Range(-25f, 25f), 0.01f, (Random.Range(-25f, 25f)));
+        
+    }
+
     private void LateUpdate()
     {
-        checkFfect();
-        if (!armed && weapons.Count >= 2) {
-            addWeapon(0, -1, 0);
-            addWeapon(1, -2, 0);
-            armed = true;
-        }
-        if (currentHitPoints < hitPoints / 2)
+        if (isAlive)
         {
-            currentHitPoints += 0.001f;
+            checkFfect();
+            if (!armed && weapons.Count >= 2)
+            {
+                addWeapon(0, -1, 0);
+                addWeapon(1, -2, 0);
+                armed = true;
+            }
+            if (currentHitPoints < hitPoints / 2)
+            {
+                currentHitPoints += 0.001f;
+            }
+            UpdateHP();
+            criticalDamage = criticalMod * criticalBase;
+            defaultAttack = DamageBase * DamageMod;
+            defaultWeaponAttack = WeaponDamageBase * DamageMod;
+            speed = SpeedBase * SpeedMod;
+            if (currentHitPoints <= 0)
+            {
+                PlayerDead();
+            }
         }
-        UpdateHP();
-        criticalDamage = criticalMod * criticalBase;
-        defaultAttack = DamageBase * DamageMod;
-        defaultWeaponAttack = WeaponDamageBase * DamageMod;
-        speed = SpeedBase * SpeedMod;
+        else {
+            if (reviveCount >= timeForRevive) {
+                PlayerAlive();
+            }
+            reviveCount += Time.deltaTime;
+            countDown.text = Mathf.Ceil(timeForRevive - reviveCount).ToString();
+        }
     }
 
     private void checkFfect()

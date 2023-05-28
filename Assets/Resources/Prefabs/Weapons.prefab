@@ -62,6 +62,8 @@ MonoBehaviour:
   selfDet: 0
   projectileSpeed: 10
   damageRange: 0.1
+  damageRangeBase: 0.1
+  DamageRangeMod: 1
   aoe: 0
   info: 
   intro: 
@@ -69,6 +71,7 @@ MonoBehaviour:
   hitAnim: 0
   fireAnim: 0
   isMagic: 0
+  isNova: 0
 --- !u!33 &525003350
 MeshFilter:
   m_ObjectHideFlags: 0

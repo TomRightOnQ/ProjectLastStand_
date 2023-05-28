@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
             _camera.orthographicSize = newSize;
         }
 
-        if (globalTime < 6.0f || !Application.isFocused || GameManager.Instance.IsPaused || !player.IsAlive)
+        if (globalTime < 6.0f || !Application.isFocused || GameManager.Instance.IsPaused || !player.IsAlive || !player.IsReady)
         {
             return;
         }

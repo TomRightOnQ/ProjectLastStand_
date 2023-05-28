@@ -13,6 +13,7 @@ public class Players : Entities, IPunObservable
     [SerializeField] private int index = 0;
     [SerializeField] private float fortune = 1;
     [SerializeField] private bool isAlive = true;
+    [SerializeField] private bool isReady = false;
     [SerializeField] private float timeForRevive = 15f;
 
     private bool armed = false;
@@ -37,7 +38,7 @@ public class Players : Entities, IPunObservable
     public bool Armed { get { return armed; } set { armed = value; } }
     public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
     public float TimeForRevive { get { return timeForRevive; } set { timeForRevive = value; } }
-
+    public bool IsReady { get { return isReady; } set { isReady = value; } }
 
     // Locked effects
     private int[] IMMORTAL_C = new int[4] { 0, 100, 200, 300 };

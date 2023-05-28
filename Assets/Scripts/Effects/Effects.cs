@@ -17,6 +17,18 @@ public class Effects : MonoBehaviourPunCallbacks
     public void SetUp(int index, int level)
     {
         switch (index) {
+            case -1:
+                Human(index);
+                break;
+            case -2:
+                Mage(index);
+                break;
+            case -3:
+                Skeleton(index);
+                break;
+            case -4:
+                Soldier(index);
+                break;
             case 0:
                 Toughness(index, level);
                 break;
@@ -71,6 +83,34 @@ public class Effects : MonoBehaviourPunCallbacks
             default:
                 break;
         }
+    }
+
+    public void Human(int id)
+    {
+        player.HitPoints += 4;
+        player.CurrentHitPoints += 4;
+        player.IsReady = true;
+    }
+
+    public void Mage(int id)
+    {
+        player.WeaponDamageBase += 0.2f;
+        player.IsReady = true;
+    }
+
+    public void Skeleton(int id)
+    {
+        player.SpeedMod += 0.2f;
+        player.WeaponDamageBase += 0.1f;
+        player.DamageBase += 0.1f;
+        player.DefaultDefence -= 0.1f;
+        player.IsReady = true;
+    }
+
+    public void Soldier(int id)
+    {
+        player.WeaponDamageBase += 0.2f;
+        player.IsReady = true;
     }
 
     // Functions for buffs

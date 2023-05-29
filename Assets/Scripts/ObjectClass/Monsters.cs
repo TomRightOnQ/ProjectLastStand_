@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 using static MonsterConfigs;
 
 
@@ -11,6 +12,7 @@ public class Monsters : Entities
     [SerializeField] private int id = 1;
     [SerializeField] private MonsterAI monsterAI;
     [SerializeField] private MonsterBehaviorType behaviorType;
+    [SerializeField] private TextMeshProUGUI nameText;
     private float prevHP;
 
     public PrefabManager prefabManager;
@@ -56,6 +58,7 @@ public class Monsters : Entities
         prevHP = currentHitPoints;
         behaviorType = MonsterConfigs.behaviorType;
         monsterAI.SetUp();
+        nameText.text = name;
     }
 
     // Taking Damage
@@ -94,9 +97,7 @@ public class Monsters : Entities
             // Config the Projectile
             proj.transform.position = firePos;
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-
-            // proj.Damage = (!isMagic) ? atk * playerAttack : atk * weaponAttack;
-
+            proj.Damage = defaultAttack * 5;
             proj.Owner = -1;
             proj.Life = 2;
             proj.SelfDet = true;

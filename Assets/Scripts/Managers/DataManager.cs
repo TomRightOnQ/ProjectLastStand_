@@ -83,6 +83,14 @@ public class DataManager : MonoBehaviourPunCallbacks
             monsterPool.Add(monsterObj.GetComponent<Monsters>());
         }
 
+        // Initialize mosnter projectile pool
+        for (int i = 0; i < PROJ_COUNT; i++)
+        {
+            GameObject projObj = Instantiate(prefabManager.ProjPrefab, dPpos, Quaternion.identity);
+            projObj.SetActive(false);
+            monsterProjPool.Add(projObj.GetComponent<Projectiles>());
+        }
+
         // Initialize projectile pool
         for (int i = 0; i < PROJ_COUNT; i++)
         {
@@ -285,7 +293,7 @@ public class DataManager : MonoBehaviourPunCallbacks
 
     public Projectiles MonsterTakeProjPool()
     {
-        for (int i = 0; i < projPool.Count; i++)
+        for (int i = 0; i < monsterProjPool.Count; i++)
         {
             if (!monsterProjPool[i].gameObject.activeSelf)
             {

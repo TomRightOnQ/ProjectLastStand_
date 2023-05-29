@@ -4,6 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Configs/MonsterConfigs")]
 public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
 {
+    private int totalMonstersSpawned = 0;
+
     public enum MonsterBehaviorType
     {
         Walker,
@@ -52,6 +54,75 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         behaviorType = MonsterBehaviorType.Shooter
 };
 
+    public static MonsterConfig MageKiller = new MonsterConfig
+    {
+        _name = "Mage Killer",
+        id = 2,
+        hitPoints = 20,
+        speed = 1.3f,
+        defaultAttack = 12,
+        defaultWeaponAttack = 1,
+        defaultDefence = 8,
+        defaultMagicDefence = 15,
+        exp = 10,
+        behaviorType = MonsterBehaviorType.Shooter
+    };  
+
+    public static MonsterConfig SwarmMonster = new MonsterConfig
+    {
+        _name = "Swarm Monster",
+        id = 3,
+        hitPoints = 5,
+        speed = 2.0f,
+        defaultAttack = 2,
+        defaultWeaponAttack = 1,
+        defaultDefence = 3,
+        defaultMagicDefence = 2,
+        exp = 2,
+        behaviorType = MonsterBehaviorType.Walker
+    };
+
+    public static MonsterConfig Zealot = new MonsterConfig
+    {
+        _name = "Zealot",
+        id = 4,
+        hitPoints = 20,
+        speed = 2.5f,
+        defaultAttack = 20,
+        defaultWeaponAttack = 1,
+        defaultDefence = 10,
+        defaultMagicDefence = 10,
+        exp = 10,
+        behaviorType = MonsterBehaviorType.Walker
+    };
+
+    public static MonsterConfig TankBoss = new MonsterConfig
+    {
+        _name = "Tank Boss",
+        id = 5,
+        hitPoints = 80,
+        speed = 0.4f,
+        defaultAttack = 30,
+        defaultWeaponAttack = 1,
+        defaultDefence = 10,
+        defaultMagicDefence = 1,
+        exp = 30,
+        behaviorType = MonsterBehaviorType.Shooter
+    };
+    public static MonsterConfig DreadnoughtLeviathan = new MonsterConfig
+    {
+        _name = "DreadnoughtLeviathan",
+        id = 6,
+        hitPoints = 200,
+        speed = 0.5f,
+        defaultAttack = 50,
+        defaultWeaponAttack = 1,
+        defaultDefence = 30,
+        defaultMagicDefence = 20,
+        exp = 100,
+        behaviorType = MonsterBehaviorType.Walker
+    };
+     
     public MonsterConfig getMonsterConfig(int id)
     {
         MonsterConfig monsterData = SimpleMonster;
@@ -63,14 +134,54 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
             case 1:
                 monsterData = MonsterConfigs.MonsterShooter;
                 break;
+            case 2:
+                monsterData = MonsterConfigs.MageKiller;
+                break;
+            case 3:
+                monsterData = MonsterConfigs.SwarmMonster;
+                break;
+            case 4:
+                monsterData = MonsterConfigs.Zealot;
+                break;
+            case 5:
+                monsterData = MonsterConfigs.TankBoss;
+                break;
+            case 6:
+                monsterData = MonsterConfigs.DreadnoughtLeviathan;
+                break;
         }
         return monsterData;
     }
 
     public MonsterConfig getMonsterConfig()
     {
-        int id = Random.Range(0,2);
-        MonsterConfig monsterData = getMonsterConfig(id);
-        return monsterData;
+        // Array of monster IDs, where the index is the ID and the value is the weight
+        if (++totalMonstersSpawned % 60 == 0)
+        {
+            return getMonsterConfig(6);
+        }
+        int[] weights = { 40, 25, 15, 10, 8, 2 };
+        int totalWeight = 0;
+        foreach(int weight in weights) 
+        {
+            totalWeight += weight;
+        }
+
+        // Generate a random number between 0 and totalWeight
+        int randomNumber = Random.Range(0, totalWeight);
+        
+        // Determine which monster ID this random number corresponds to
+        int runningTotal = 0;
+        int chosenID = 0;
+        for (int i = 0; i < weights.Length; i++)
+        {
+            runningTotal += weights[i];
+            if (randomNumber < runningTotal)
+            {
+                chosenID = i;
+                break;
+            }
+        }
+        return getMonsterConfig(chosenID);
     }
 }

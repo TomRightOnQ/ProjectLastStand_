@@ -9,7 +9,8 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
     [SerializeField] private Mesh MageMesh;
     [SerializeField] private Mesh SkeletonMesh;
     [SerializeField] private Mesh SoldierMesh;
-
+    // Monster
+    [SerializeField] private Mesh DefualtMonsterMesh;
     // Weapon
     [SerializeField] private Mesh PistolMesh;
     [SerializeField] private Mesh RPGMesh;
@@ -23,6 +24,11 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
     [SerializeField] private Mesh DefaultMonsterProjMesh;
     [SerializeField] private Mesh KornetProjMesh;
 
+    // Materials
+    [SerializeField] private Material DefaultMaterial;
+    [SerializeField] private Material DefaultProjMaterial;
+    [SerializeField] private Material ProjMaterial;
+
     public enum Artconfig
     {
         // Player
@@ -30,6 +36,8 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
         MageMesh,
         SkeletonMesh,
         SoldierMesh,
+        // Momster
+        DefualtMonsterMesh,
         // Weapon
         PistolMesh,
         RPGMesh,
@@ -41,6 +49,70 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
         DefaultProj,
         DefaultMonsterProj,
         KornetProjMesh
+    }
+    public Material getMaterial(int id)
+    {
+        Material ret = null;
+        switch (id)
+        {
+            case 0:
+                ret = DefaultMaterial;
+                break;
+            case 1:
+                ret = DefaultProjMaterial;
+                break;
+        }
+        return ret;
+    }
+
+    public Material getMaterial(Artconfig type)
+    {
+        Material ret = null;
+        switch (type)
+        {
+            case Artconfig.HumanMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.MageMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.SkeletonMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.SoldierMesh:
+                ret = DefaultMaterial;
+                break;
+
+            case Artconfig.PistolMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.RPGMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.LMGMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.HeatLaserMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.LaserGunMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.KornetMesh:
+                ret = DefaultMaterial;
+                break;
+
+            case Artconfig.DefaultProj:
+                ret = DefaultProjMaterial;
+                break;
+            case Artconfig.DefaultMonsterProj:
+                ret = DefaultProjMaterial;
+                break;
+            case Artconfig.KornetProjMesh:
+                ret = ProjMaterial;
+                break;
+        }
+        return ret;
     }
 
     public Mesh getMesh(string type)

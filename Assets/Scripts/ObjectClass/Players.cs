@@ -224,6 +224,11 @@ public class Players : Entities, IPunObservable
         
     }
 
+    protected override void Update()
+    {
+        base.Update();
+    }
+
     private void LateUpdate()
     {
         if (isAlive)

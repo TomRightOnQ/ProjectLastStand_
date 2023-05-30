@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     private Players player;
     private const float CLOSET_FIRERANGE = 10.0f;
     private float globalTime = 0.0f;
-
     private bool isStarted = false;
 
     void Start()
@@ -43,8 +42,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isStarted)
         {
             isStarted = true;
-            Debug.Log("Init");
-            UpgradeMenu.Instance.ToggleMenu();
+            UpgradeMenu.Instance.OpenMenu();
             UpgradeMenu.Instance.ShowHint();
             GameManager.Instance.UnlockInput();
         }

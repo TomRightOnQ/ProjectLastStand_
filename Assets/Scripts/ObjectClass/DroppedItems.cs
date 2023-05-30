@@ -6,7 +6,7 @@ using Photon.Pun;
 using static WeaponConfigs;
 
 // Dropped weapons
-public class DroppedItems : Items
+public class DroppedItems : DefaultObjects
 {
     // Display
     [SerializeField] private Image icon;

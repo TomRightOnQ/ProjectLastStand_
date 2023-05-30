@@ -7,8 +7,6 @@ using static UpgradeConfigs;
 // Entities are all NPCs and player-controlled units
 public abstract class Entities : DefaultObjects, IPunObservable
 {
-
-    // Player Stats
     [SerializeField] protected float hitPoints = 20.0f;
     [SerializeField] protected float currentHitPoints = 20.0f;
     [SerializeField] protected float defaultAttack = 1.0f;
@@ -27,6 +25,10 @@ public abstract class Entities : DefaultObjects, IPunObservable
     [SerializeField] public float DamageBase = 1.0f;
     [SerializeField] public float WeaponDamageBase = 1.0f;
     [SerializeField] public float DamageMod = 1.0f;
+
+    protected const float DAMAGE_COLOR_DURATION = 0.5f;
+    protected float damageTimer = 0;
+    protected bool isDamaged = false;
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -76,6 +78,11 @@ public abstract class Entities : DefaultObjects, IPunObservable
     public float CriticalMod { get { return criticalMod; } set { criticalMod = value; } }
     public float CriticalBase { get { return criticalBase; } set { criticalBase = value; } }
 
+    void Awake()
+    {
+
+    }
+
     // Taking Damage
     public virtual void TakeDamage(float damage, bool isMagic) {
 
@@ -87,6 +94,7 @@ public abstract class Entities : DefaultObjects, IPunObservable
         if (rampage != null) {
             rampage.Invoke();
         }
+        damageTimer = 0.2f;
     }
 
     public void SwapMesh(int id) 
@@ -112,12 +120,39 @@ public abstract class Entities : DefaultObjects, IPunObservable
     public void RPCSwapMesh(int id)
     {
         MeshFilter meshFilter = GetComponent<MeshFilter>();
-        UpgradeConfig upgradeConfig = UpgradeConfigs.Instance._getUpgradeConfig(id);
-        Mesh mesh = ArtConfigs.Instance.getMesh(upgradeConfig.mesh);
-
         if (meshFilter != null)
         {
+            UpgradeConfig upgradeConfig = UpgradeConfigs.Instance._getUpgradeConfig(id);
+            Mesh mesh = ArtConfigs.Instance.getMesh(upgradeConfig.mesh);
             meshFilter.mesh = mesh;
+        }
+    }
+
+    public void SwapMaterial(int id)
+    {
+        Material material = ArtConfigs.Instance.getMaterial(id);
+        if (material != null)
+        {
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("RPCSwapMaterial", RpcTarget.All, id);
+            }
+            else
+            {
+                GetComponent<Renderer>().material = material;
+            }
+        }
+    }
+
+    [PunRPC]
+    public void RPCSwapMaterial(int id)
+    {
+        Material material = ArtConfigs.Instance.getMaterial(id);
+        if (material != null)
+        {
+            {
+                GetComponent<Renderer>().material = material;
+            }
         }
     }
 
@@ -157,5 +192,21 @@ public abstract class Entities : DefaultObjects, IPunObservable
     {
         gameObject.SetActive(false);
         transform.position = new Vector3(10f, -10f, -10f);
+    }
+
+    protected virtual void Update()
+    {
+        if (damageTimer <= 0 && isDamaged)
+        {
+            isDamaged = false;
+            SwapMaterial(0);
+        } else if (damageTimer > 0 && !isDamaged) {
+            isDamaged = true;
+            SwapMaterial(1);
+        }
+        if (damageTimer > 0) 
+        {
+            damageTimer -= Time.deltaTime;
+        }
     }
 }

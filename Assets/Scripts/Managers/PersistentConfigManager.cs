@@ -28,7 +28,7 @@ public class PersistentConfigManager : MonoBehaviour
         UpgradeConfigs.Instance.InitEffect();
         yield return new WaitForSeconds(1f);
         isLoaded = true;
-        Debug.Log("ready");
+        Debug.Log("Load Ready");
         SceneManager.LoadScene("MainMenu");
     }
 

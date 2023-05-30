@@ -7,6 +7,8 @@ using TMPro;
 // Only one copy per game
 public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
 {
+    public static ExpAndLevels Instance;
+
     [SerializeField] private float exp = 0;
     [SerializeField] private float expL = 10;
     [SerializeField] private int level = 1;
@@ -17,6 +19,11 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
     public float EXP { get { return exp; } set { exp = value; } }
     public float EXPL { get { return expL; } set { expL = value; } }
     public int Level { get { return level; } }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Update()
     {

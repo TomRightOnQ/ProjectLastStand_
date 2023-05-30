@@ -7,6 +7,7 @@ public class Base : Entities, IPunObservable
     [SerializeField] GameObject gameOver;
 
     private static Base instance;
+    private bool dead = false;
 
     public static Base Instance
     {
@@ -30,12 +31,16 @@ public class Base : Entities, IPunObservable
         gameObject.tag = "Base";
     }
 
-    void Update()
+    protected override void Update()
     {
+        if (dead) {
+            return;
+        }
         currentHitPoints += 0.01f;
         UpdateHP();
         if (CurrentHitPoints <= 0) {
-            gameOver.SetActive(true);
+            GameManager.Instance.GameOver();
+            dead = true;
         }
     }
 
@@ -44,5 +49,8 @@ public class Base : Entities, IPunObservable
     {
         hpS.maxValue = hitPoints;
         hpS.value = currentHitPoints;
+        if (currentHitPoints >= hitPoints) {
+            currentHitPoints = hitPoints;
+        }
     }
 }

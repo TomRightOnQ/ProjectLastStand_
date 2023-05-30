@@ -23,8 +23,7 @@ public class GameUI : MonoBehaviourPunCallbacks
     private List<WeaponInfo> weaponInfos = new List<WeaponInfo>();
     private List<DroppedItems> droppedList;
     private List<ItemListings> itemList;
-    private List<int> itemIDs;
-    private int chosenIndex;
+
     public List<DroppedItems> DroppedList { get { return droppedList; } set { droppedList = value; } }
     public List<ItemListings> ItemList { get { return itemList; } set { itemList = value; } }
     public GameObject Content { get { return content; } }

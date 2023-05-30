@@ -14,15 +14,15 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Projectiles
+  - Projectile
   - Water
   - UI
   - Base
   - Items
   - FX
   - Player
-  - 
-  - 
+  - Entity
+  - Persistent
   - 
   - 
   - 

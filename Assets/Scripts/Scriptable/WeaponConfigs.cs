@@ -47,7 +47,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         fireAnim = 0,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.PistolMesh,
-        projMesh = ArtConfigs.Artconfig.DefaultProj
+        projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
     public static WeaponConfig Sword = new WeaponConfig
@@ -70,7 +70,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         fireAnim = 1,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.PistolMesh,
-        projMesh = ArtConfigs.Artconfig.DefaultProj
+        projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
     public static WeaponConfig LMG = new WeaponConfig
@@ -93,7 +93,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         fireAnim = 0,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.LMGMesh,
-        projMesh = ArtConfigs.Artconfig.DefaultProj
+        projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
     public static WeaponConfig RPG = new WeaponConfig
@@ -116,7 +116,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         fireAnim = 0,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.RPGMesh,
-        projMesh = ArtConfigs.Artconfig.DefaultProj
+        projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
     public static WeaponConfig HeatLaser = new WeaponConfig
@@ -124,7 +124,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         _name = "HeatLaser",
         id = 101,
         rating = 2,
-        type = 2,
+        type = 1,
         attack = 2,
         pen = 0.5f,
         life = 0.1f,
@@ -139,7 +139,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         fireAnim = 0,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.HeatLaserMesh,
-        projMesh = ArtConfigs.Artconfig.DefaultProj
+        projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
     public static WeaponConfig RubyLaser = new WeaponConfig
@@ -162,7 +162,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         fireAnim = 0,
         isMagic = false,
         mesh = ArtConfigs.Artconfig.LaserGunMesh,
-        projMesh = ArtConfigs.Artconfig.DefaultProj
+        projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
     public static WeaponConfig Kornet = new WeaponConfig
@@ -185,7 +185,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         fireAnim = 0,
         isMagic = true,
         mesh = ArtConfigs.Artconfig.KornetMesh,
-        projMesh = ArtConfigs.Artconfig.KornetProjMesh
+        projMesh = ArtConfigs.Artconfig.KornetProjMesh,
     };
 
     // Getters and Setters

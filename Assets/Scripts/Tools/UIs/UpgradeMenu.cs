@@ -91,6 +91,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     public void ShowHint()
     {
         hintObj.SetActive(true);
+
     }
 
     // Fill with standard choices
@@ -111,6 +112,11 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     public void ToggleMenu()
     {
         isOpen = !isOpen;
+    }
+
+    public void OpenMenu()
+    {
+        isOpen = true;
     }
 
     // Methods on upgrades

@@ -1,9 +1,11 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using UnityEngine.UI;
 using static ConfigManager;
 using static MonsterConfigs;
-using System.Collections;
+
 
 // Main Game Manager
 public class GameManager : MonoBehaviourPunCallbacks
@@ -22,7 +24,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private Canvas loadingScreen;
     [SerializeField] private Canvas PauseCanvas;
     [SerializeField] private GameObject GameUI;
-
     [SerializeField] private GameObject blockingCanvas;
 
     private bool isPaused = false;
@@ -76,6 +77,95 @@ public class GameManager : MonoBehaviourPunCallbacks
             return;
         }
         Players[] players = dataManager.GetPlayers();
+    }
+
+    public void GameOver()
+    {
+        LockInput();
+        Players player = GetLocalPlayer();
+        Camera _camera = Camera.main;
+        _camera.transform.position = new Vector3(0, _camera.transform.position.y, -51.9f);
+        player.Deactivate();
+        GameUI.SetActive(false);
+        ExpAndLevels.Instance.gameObject.SetActive(false);
+
+        StartCoroutine(PlayDestroyAnim());
+        StartCoroutine(ScreenShakeRoutine());
+        StartCoroutine(LerpWhiteScreenRoutine());
+    }
+
+    private IEnumerator PlayDestroyAnim()
+    {
+        float delayBetweenAnims = 0.4f;
+        float totalTime = 4f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < totalTime)
+        {
+            GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(0), Vector3.zero, Quaternion.identity);
+            animObject.transform.position = GetRandomPositionAroundCenter();
+            animObject.transform.localRotation = Quaternion.Euler(45f, 0f, 0f);
+            animObject.transform.localScale = new Vector3(2f, 2f, 2f);
+
+            yield return new WaitForSeconds(delayBetweenAnims);
+
+            elapsedTime += delayBetweenAnims;
+        }
+    }
+
+    private Vector3 GetRandomPositionAroundCenter()
+    {
+        float radius = 10f; // Adjust the radius as desired
+        Vector2 randomCirclePoint = Random.insideUnitCircle * radius;
+        float randomY = Random.Range(0, 10);
+        Vector3 randomPosition = new Vector3(randomCirclePoint.x, randomY, randomCirclePoint.y);
+        return randomPosition;
+    }
+
+    private IEnumerator ScreenShakeRoutine()
+    {
+        Camera mainCamera = Camera.main;
+        float shakeDuration = 4f;
+        float shakeIntensity = 0.1f;
+        Vector3 originalCameraPosition = mainCamera.transform.localPosition;
+
+        float elapsedShakeTime = 0f;
+
+        while (elapsedShakeTime < shakeDuration)
+        {
+            float randomX = Random.Range(-1f, 1f) * shakeIntensity;
+            float randomY = Random.Range(-1f, 1f) * shakeIntensity;
+            float randomZ = Random.Range(-1f, 1f) * shakeIntensity;
+
+            mainCamera.transform.localPosition = originalCameraPosition + new Vector3(randomX, randomY, randomZ);
+
+            elapsedShakeTime += Time.deltaTime;
+            yield return null;
+        }
+
+        mainCamera.transform.localPosition = originalCameraPosition; // Reset camera position
+    }
+
+    private IEnumerator LerpWhiteScreenRoutine()
+    {
+        Image whiteScreen = blockingCanvas.GetComponentInChildren<Image>();
+        float lerpDuration = 4f;
+        float elapsedLerpTime = 0f;
+        Color targetColor = whiteScreen.color;
+
+        while (elapsedLerpTime < lerpDuration)
+        {
+            float alpha = Mathf.Lerp(0f, 1f, elapsedLerpTime / lerpDuration);
+            targetColor.a = alpha;
+            whiteScreen.color = targetColor;
+
+            elapsedLerpTime += Time.deltaTime;
+            yield return null;
+        }
+
+        targetColor.a = 1f;
+        whiteScreen.color = targetColor;
+        MainMenu();
     }
 
     // Add exp to players

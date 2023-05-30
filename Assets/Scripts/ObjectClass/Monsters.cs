@@ -68,17 +68,6 @@ public class Monsters : Entities
         GameObject damageNumberObj = Instantiate(prefabManager.DamageNumberPrefab, transform.position, Quaternion.identity);
         DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
         damageNumber.Init(damage, transform.position, isMagic);
-        if (PhotonNetwork.IsConnected) {
-            //photonView.RPC("takeDamageRPC", RpcTarget.Others, transform.position, damage, isMagic);
-        }
-    }
-
-    [PunRPC]
-    public void takeDamageRPC(Vector3 position, float damage, bool isMagic)
-    {
-        GameObject damageNumberObj = Instantiate(prefabManager.DamageNumberPrefab, position, Quaternion.identity);
-        DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
-        damageNumber.Init(damage, position, isMagic); 
     }
 
     // Fire
@@ -97,7 +86,7 @@ public class Monsters : Entities
             // Config the Projectile
             proj.transform.position = firePos;
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-            proj.Damage = defaultAttack * 5;
+            proj.Damage = defaultAttack;
             proj.Owner = -1;
             proj.Life = 2;
             proj.SelfDet = true;
@@ -155,8 +144,9 @@ public class Monsters : Entities
     }
 
     // Update
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         UpdateHP();
         GameManager.Instance.monsterManager.despawnCheck(this);
     }

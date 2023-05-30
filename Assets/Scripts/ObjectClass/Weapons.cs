@@ -142,9 +142,6 @@ public class Weapons : DefaultObjects
             case 1:
                 FireLaser(playerIdx, playerAttack, weaponAttack, localCritical);
                 break;
-            case 2:
-                FireLaser(playerIdx, playerAttack, weaponAttack, localCritical);
-                break;
         }
         timer = 0;
     }

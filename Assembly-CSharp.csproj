@@ -122,6 +122,7 @@
     <Compile Include="Assets\Scripts\Scriptable\MonsterConfigs.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items\Projectiles.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Items\FireRing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

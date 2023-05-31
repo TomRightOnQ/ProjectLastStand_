@@ -10,7 +10,12 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
     [SerializeField] private Mesh SkeletonMesh;
     [SerializeField] private Mesh SoldierMesh;
     // Monster
-    [SerializeField] private Mesh DefualtMonsterMesh;
+    [SerializeField] private Mesh DefaultMonsterMesh;
+    [SerializeField] private Mesh LightingMonsterMesh;
+    [SerializeField] private Mesh ZealotMonsterMesh;
+    [SerializeField] private Mesh SwarmMonsterMesh;
+    [SerializeField] private Mesh SlapMonsterMesh;
+    [SerializeField] private Mesh MageKillerMonsterMesh;
     // Weapon
     [SerializeField] private Mesh PistolMesh;
     [SerializeField] private Mesh RPGMesh;
@@ -37,7 +42,12 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
         SkeletonMesh,
         SoldierMesh,
         // Momster
-        DefualtMonsterMesh,
+        DefaultMonsterMesh,
+        LightingMonsterMesh,
+        ZealotMonsterMesh,
+        SwarmMonsterMesh,
+        SlapMonsterMesh,
+        MageKillerMonsterMesh,
         // Weapon
         PistolMesh,
         RPGMesh,
@@ -102,6 +112,25 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
                 ret = DefaultMaterial;
                 break;
 
+            case Artconfig.DefaultMonsterMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.LightingMonsterMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.ZealotMonsterMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.SwarmMonsterMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.SlapMonsterMesh:
+                ret = DefaultMaterial;
+                break;
+            case Artconfig.MageKillerMonsterMesh:
+                ret = DefaultMaterial;
+                break;
+
             case Artconfig.DefaultProj:
                 ret = DefaultProjMaterial;
                 break;
@@ -141,47 +170,70 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
         Mesh ret = null;
         switch (type)
         {
-        case Artconfig.HumanMesh:
-            ret = HumanMesh;
-            break;
-        case Artconfig.MageMesh:
-            ret = MageMesh;
-            break;
-        case Artconfig.SkeletonMesh:
-            ret = SkeletonMesh;
-            break;
-        case Artconfig.SoldierMesh:
-            ret = SoldierMesh;
-            break;
+            // Player Meshes
+            case Artconfig.HumanMesh:
+                ret = HumanMesh;
+                break;
+            case Artconfig.MageMesh:
+                ret = MageMesh;
+                break;
+            case Artconfig.SkeletonMesh:
+                ret = SkeletonMesh;
+                break;
+            case Artconfig.SoldierMesh:
+                ret = SoldierMesh;
+                break;
 
-        case Artconfig.PistolMesh:
-            ret = PistolMesh;
-            break;
-        case Artconfig.RPGMesh:
-            ret = RPGMesh;
-            break;
-        case Artconfig.LMGMesh:
-            ret = LMGMesh;
-            break;
-        case Artconfig.HeatLaserMesh:
-            ret = HeatLaserMesh;
-            break;
-        case Artconfig.LaserGunMesh:
-            ret = LaserGunMesh;
-            break;
-        case Artconfig.KornetMesh:
-            ret = KornetMesh;
-            break;
+            // Weapon Meshes
+            case Artconfig.PistolMesh:
+                ret = PistolMesh;
+                break;
+            case Artconfig.RPGMesh:
+                ret = RPGMesh;
+                break;
+            case Artconfig.LMGMesh:
+                ret = LMGMesh;
+                break;
+            case Artconfig.HeatLaserMesh:
+                ret = HeatLaserMesh;
+                break;
+            case Artconfig.LaserGunMesh:
+                ret = LaserGunMesh;
+                break;
+            case Artconfig.KornetMesh:
+                ret = KornetMesh;
+                break;
 
-        case Artconfig.DefaultProj:
-            ret = DefaultProjMesh;
-            break;
-        case Artconfig.DefaultMonsterProj:
-            ret = DefaultMonsterProjMesh;
-            break;
-        case Artconfig.KornetProjMesh:
-            ret = KornetProjMesh;
-            break;
+            // Projectile Meshes
+            case Artconfig.DefaultProj:
+                ret = DefaultProjMesh;
+                break;
+            case Artconfig.DefaultMonsterProj:
+                ret = DefaultMonsterProjMesh;
+                break;
+            case Artconfig.KornetProjMesh:
+                ret = KornetProjMesh;
+                break;
+
+            // Monster Meshes
+            case Artconfig.DefaultMonsterMesh:
+                ret = DefaultMonsterMesh;
+                break;
+            case Artconfig.LightingMonsterMesh:
+                ret = LightingMonsterMesh;
+                break;
+            case Artconfig.ZealotMonsterMesh:
+                ret = ZealotMonsterMesh;
+                break;
+            case Artconfig.SwarmMonsterMesh:
+                ret = SwarmMonsterMesh;
+                break;
+            case Artconfig.SlapMonsterMesh:
+                ret = SlapMonsterMesh;
+                break;
+            case Artconfig.MageKillerMonsterMesh:
+                ret = MageKillerMonsterMesh;
+                break;
         }
         return ret;
     }

@@ -237,7 +237,7 @@ public class Players : Entities, IPunObservable
             if (!armed && weapons.Count >= 2)
             {
                 addWeapon(0, -1, 0);
-                addWeapon(1, -2, 0);
+                addWeapon(1, -1, 0);
                 armed = true;
             }
             if (currentHitPoints < hitPoints / 2)

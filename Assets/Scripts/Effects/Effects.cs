@@ -7,7 +7,7 @@ using Photon.Pun;
 public class Effects : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Players player;
-
+    private const string PREFAB_LOC = "Prefabs/";
     private void Awake()
     {
         player = GetComponent<Players>();
@@ -53,11 +53,17 @@ public class Effects : MonoBehaviourPunCallbacks
             case 204:
                 RocketMaster(index);
                 break;
+            case 205:
+                Inferno(index);
+                break;
             case 303:
                 Rampage(index);
                 break;
             case 304:
                 RelentlessResent(index);
+                break;
+            case 305:
+                TacticalShield(index);
                 break;
             case 400:
                 Immortal(index);
@@ -73,6 +79,9 @@ public class Effects : MonoBehaviourPunCallbacks
                 break;
             case 404:
                 GuardianAngel(index);
+                break;
+            case 405:
+                Freezing(index);
                 break;
             case 406:
                 HolyNova(index);
@@ -256,6 +265,71 @@ public class Effects : MonoBehaviourPunCallbacks
     {
         player.gameObject.AddComponent<Assassination>();
         player.AddToEffectList(id);
+    }
+
+    public void Freezing(int id)
+    {
+        if (!PhotonNetwork.IsConnected)
+        {
+            GameObject ringObj = Instantiate(PrefabManager.Instance.IceRingPrefab);
+            ringObj.transform.SetParent(transform);
+            ringObj.transform.localPosition = Vector3.zero;
+        }
+        else {   
+           GameObject ringObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.IceRingPrefab.name, Vector3.zero, Quaternion.identity);
+            ringObj.transform.SetParent(transform);
+            ringObj.transform.localPosition = Vector3.zero;
+            PhotonView ringView = ringObj.GetComponent<PhotonView>();
+            int ringViewID = ringView.ViewID;
+            PhotonView playerView = GetComponent<PhotonView>();
+            int playerViewID = playerView.ViewID;
+            photonView.RPC("AddRingToPlayer", RpcTarget.AllBuffered, playerViewID, ringViewID);
+        }
+    }
+    public void Inferno(int id)
+    {
+        if (!PhotonNetwork.IsConnected)
+        {
+            GameObject ringObj = Instantiate(PrefabManager.Instance.FireRingPrefab);
+            ringObj.transform.SetParent(transform);
+            ringObj.transform.localPosition = Vector3.zero;
+        }
+        else
+        {
+            GameObject ringObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.FireRingPrefab.name, Vector3.zero, Quaternion.identity);
+            ringObj.transform.SetParent(transform);
+            ringObj.transform.localPosition = Vector3.zero;
+            PhotonView ringView = ringObj.GetComponent<PhotonView>();
+            int ringViewID = ringView.ViewID;
+            PhotonView playerView = GetComponent<PhotonView>();
+            int playerViewID = playerView.ViewID;
+            photonView.RPC("AddRingToPlayer", RpcTarget.AllBuffered, playerViewID, ringViewID);
+        }
+    }
+
+    [PunRPC]
+    public void AddRingToPlayer(int playerViewID, int ringViewID)
+    {
+        PhotonView playerView = PhotonView.Find(playerViewID);
+        PhotonView ringView = PhotonView.Find(ringViewID);
+
+        if (playerView != null && ringView != null)
+        {
+            Players player = playerView.GetComponent<Players>();
+            Items ring = ringView.GetComponent<Items>();
+
+            if (player != null && ring != null)
+            {
+                ring.transform.SetParent(player.transform);
+                ring.transform.localPosition = Vector3.zero;
+            }
+        }
+    }
+
+    public void TacticalShield(int id)
+    {
+        player.HitPoints += 14;
+        player.CurrentHitPoints += 14;
     }
 }
 

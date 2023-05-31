@@ -3,7 +3,24 @@ guid: cb94aa643c7424f4caea4864a57afe45
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - HumanMesh: {instanceID: 0}
+  - MageMesh: {instanceID: 0}
+  - SkeletonMesh: {instanceID: 0}
+  - SoldierMesh: {instanceID: 0}
+  - DefualtMonsterMesh: {instanceID: 0}
+  - PistolMesh: {instanceID: 0}
+  - RPGMesh: {instanceID: 0}
+  - LMGMesh: {instanceID: 0}
+  - HeatLaserMesh: {instanceID: 0}
+  - LaserGunMesh: {instanceID: 0}
+  - KornetMesh: {instanceID: 0}
+  - DefaultProjMesh: {instanceID: 0}
+  - DefaultMonsterProjMesh: {instanceID: 0}
+  - KornetProjMesh: {instanceID: 0}
+  - DefaultMaterial: {instanceID: 0}
+  - DefaultProjMaterial: {instanceID: 0}
+  - ProjMaterial: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

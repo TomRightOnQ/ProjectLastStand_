@@ -5956,7 +5956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3208651824234284690, guid: 838b736325ecb214284786f31a229410, type: 3}
       propertyPath: hitPoints
-      value: 800
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 3208651824234284690, guid: 838b736325ecb214284786f31a229410, type: 3}
       propertyPath: DamageBase
@@ -5988,7 +5988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3208651824234284690, guid: 838b736325ecb214284786f31a229410, type: 3}
       propertyPath: currentHitPoints
-      value: 800
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 3208651824234284690, guid: 838b736325ecb214284786f31a229410, type: 3}
       propertyPath: defaultWeaponAttack

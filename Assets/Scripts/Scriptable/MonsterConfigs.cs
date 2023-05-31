@@ -40,7 +40,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultMagicDefence = 2,
         exp = 4,
         behaviorType = MonsterBehaviorType.Walker,
-        mesh = ArtConfigs.Artconfig.DefualtMonsterMesh,
+        mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
@@ -56,7 +56,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultMagicDefence = 3,
         exp = 6,
         behaviorType = MonsterBehaviorType.Shooter,
-        mesh = ArtConfigs.Artconfig.DefualtMonsterMesh,
+        mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
@@ -72,7 +72,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultMagicDefence = 15,
         exp = 10,
         behaviorType = MonsterBehaviorType.Shooter,
-        mesh = ArtConfigs.Artconfig.DefualtMonsterMesh,
+        mesh = ArtConfigs.Artconfig.MageKillerMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };  
 
@@ -88,7 +88,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultMagicDefence = 2,
         exp = 2,
         behaviorType = MonsterBehaviorType.Walker,
-        mesh = ArtConfigs.Artconfig.DefualtMonsterMesh,
+        mesh = ArtConfigs.Artconfig.SwarmMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
@@ -104,7 +104,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultMagicDefence = 10,
         exp = 10,
         behaviorType = MonsterBehaviorType.Walker,
-        mesh = ArtConfigs.Artconfig.DefualtMonsterMesh,
+        mesh = ArtConfigs.Artconfig.ZealotMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
@@ -120,7 +120,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultMagicDefence = 1,
         exp = 30,
         behaviorType = MonsterBehaviorType.Shooter,
-        mesh = ArtConfigs.Artconfig.DefualtMonsterMesh,
+        mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
     public static MonsterConfig DreadnoughtLeviathan = new MonsterConfig
@@ -135,7 +135,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultMagicDefence = 20,
         exp = 100,
         behaviorType = MonsterBehaviorType.Walker,
-        mesh = ArtConfigs.Artconfig.DefualtMonsterMesh,
+        mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
      

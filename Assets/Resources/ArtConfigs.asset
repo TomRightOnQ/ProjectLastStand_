@@ -16,7 +16,12 @@ MonoBehaviour:
   MageMesh: {fileID: 6541337565203471981, guid: 019e64ec692c3c3409da5303c4ffaa41, type: 3}
   SkeletonMesh: {fileID: -5523277661179574252, guid: 8c0ca59d1a61b9f42b488031f0d17fde, type: 3}
   SoldierMesh: {fileID: 7948980272811208021, guid: 7cabe51dd8602ba48930e34f2f987fee, type: 3}
-  DefualtMonsterMesh: {fileID: -2432090755550338912, guid: 4bc01630c46f75f44b26521d2c127cd5, type: 3}
+  DefaultMonsterMesh: {fileID: -2432090755550338912, guid: 4bc01630c46f75f44b26521d2c127cd5, type: 3}
+  LightingMonsterMesh: {fileID: 4757964254865534957, guid: 2d955689bc4389b46a7163790a258ba4, type: 3}
+  ZealotMonsterMesh: {fileID: -6182266864700786111, guid: 6804f8746ddfeac4b96d474c37b2309c, type: 3}
+  SwarmMonsterMesh: {fileID: 7192687074134127471, guid: cf5d8c34e3c3b4a41a6136871061f1d4, type: 3}
+  SlapMonsterMesh: {fileID: 2820296182284205767, guid: ba8f0d1bef58f7f4a91b3131c3e69029, type: 3}
+  MageKillerMonsterMesh: {fileID: -7187175270063515553, guid: 7dbc2ca06a198f64e9be71406f079e60, type: 3}
   PistolMesh: {fileID: 8545472337109659444, guid: fd771ab2c84b73240b01972ca227ae7d, type: 3}
   RPGMesh: {fileID: -5824094307506378920, guid: 33bdc60e90ddd344e9955df4d7354045, type: 3}
   LMGMesh: {fileID: -706898683356029150, guid: 1aa9573988aeca146a2b5cc3778665f9, type: 3}

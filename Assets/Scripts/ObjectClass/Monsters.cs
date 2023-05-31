@@ -151,6 +151,27 @@ public class Monsters : Entities
         GameManager.Instance.monsterManager.despawnCheck(this);
     }
 
+    public void PlayHitAnim(Vector3 pos)
+    {
+        if (AnimConfigs.Instance.GetAnim(0) == null)
+            return;
+        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(0), Vector3.zero, Quaternion.identity);
+        animObject.transform.position = pos;
+        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+        animObject.transform.localScale = new Vector3(1f, 1f, 1f);
+    }
+
+    [PunRPC]
+    public void RPCPlayHitAnim(int id, Vector3 pos, float scale)
+    {
+        if (AnimConfigs.Instance.GetAnim(id) == null)
+            return;
+        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
+        animObject.transform.position = pos;
+        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+        animObject.transform.localScale = new Vector3(scale, scale, scale);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Base"))
@@ -164,6 +185,12 @@ public class Monsters : Entities
         else if (other.CompareTag("Player"))
         {
             Players _player = other.gameObject.GetComponent<Players>();
+            Vector3 pos = new Vector3(transform.position.x, transform.position.y + 4, transform.position.z - 1.5f);
+            PlayHitAnim(pos);
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, 0, pos, 1f);
+            }
             if (_player != null)
             {
                 _player.TakeDamage(defaultAttack * defaultWeaponAttack / 2, false);

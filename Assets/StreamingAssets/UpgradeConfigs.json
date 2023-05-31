@@ -207,6 +207,15 @@
         "level": 1
     },
     {
+        "_name": "Inferno",
+        "id": 205,
+        "rating": 3,
+        "specialEffectIndex": 205,
+        "unique": true,
+        "description": "Spawn a fire ring around you",
+        "level": 1
+    },
+    {
         "_name": "Rampage",
         "id": 303,
         "rating": 4,
@@ -231,6 +240,15 @@
         "specialEffectIndex": 304,
         "unique": true,
         "description": "The lower your HP is, the stronger you are",
+        "level": 1
+    },
+    {
+        "_name": "TacticalShield",
+        "id": 305,
+        "rating": 4,
+        "specialEffectIndex": 305,
+        "unique": true,
+        "description": "Spawn a shield",
         "level": 1
     },
     {
@@ -348,6 +366,15 @@
         "specialEffectIndex": 404,
         "unique": true,
         "description": "Double your HP. When you die, you take extra time to revive and all players level up. Magical defense increases 30%.",
+        "level": 1
+    },
+    {
+        "_name": "Freezing",
+        "id": 405,
+        "rating": 5,
+        "specialEffectIndex": 405,
+        "unique": true,
+        "description": "Spawn an ice ring around that damages and slows enemies per second",
         "level": 1
     },
     {

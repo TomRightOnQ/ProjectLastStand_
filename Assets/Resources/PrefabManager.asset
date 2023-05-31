@@ -23,3 +23,5 @@ MonoBehaviour:
   itemListing: {fileID: 6555111087248660811, guid: bf24a36fe7cad5241a3c87afbd8a9112, type: 3}
   explosionPrefab: {fileID: 2341705877739338234, guid: 9991f77020bf72d4e807f09403e2fcb4, type: 3}
   indicatorPrefab: {fileID: 7965540852787817605, guid: aaedb15d93468f84895413d52558b616, type: 3}
+  iceRingPrefab: {fileID: 4552045557497378247, guid: 8a1d14e794a029c4bbd041dfd0a16efd, type: 3}
+  fireRingPrefab: {fileID: 1310733359997841047, guid: b63da86087fc5a14ca85e23ff779b270, type: 3}

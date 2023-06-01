@@ -123,6 +123,7 @@
     <Compile Include="Assets\Scripts\ObjectClass\Items\Projectiles.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items\FireRing.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Items\TacticalShield.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

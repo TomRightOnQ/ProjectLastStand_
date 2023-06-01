@@ -46,9 +46,9 @@ public class MonsterManager : MonoBehaviour
                 spawn(pos, 0);
             }
             // Increase difficulty up to 4 over time
-            if (difficulty < 8)
+            if (difficulty < 40)
             {
-                difficulty = Mathf.FloorToInt(elapsed / 30) + 1;
+                difficulty = Mathf.FloorToInt(elapsed / 7.5f) + 1;
             }
             yield return null;
         }

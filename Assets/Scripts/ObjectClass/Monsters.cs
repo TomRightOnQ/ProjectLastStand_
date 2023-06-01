@@ -59,6 +59,58 @@ public class Monsters : Entities
         behaviorType = MonsterConfigs.behaviorType;
         monsterAI.SetUp();
         nameText.text = name;
+        SwapMonsterMesh(MonsterConfigs.id);
+    }
+
+    public void SetEliteMonsters(MonsterConfig MonsterConfigs)
+    {
+        transform.localScale = new Vector3(2, 2, 2);
+        id = MonsterConfigs.id;
+        name = MonsterConfigs._name;
+        hitPoints = MonsterConfigs.hitPoints * 2.5f;
+        currentHitPoints = hitPoints;
+        speed = MonsterConfigs.speed;
+        exp = MonsterConfigs.exp * 2;
+        defaultAttack = MonsterConfigs.defaultAttack * 1.5f;
+        defaultWeaponAttack = MonsterConfigs.defaultWeaponAttack * 1.5f;
+        defaultDefence = MonsterConfigs.defaultDefence;
+        defaultMagicDefence = MonsterConfigs.defaultMagicDefence;
+        prevHP = currentHitPoints;
+        behaviorType = MonsterConfigs.behaviorType;
+        monsterAI.SetUp();
+        nameText.text = name;
+        SwapMonsterMesh(MonsterConfigs.id);
+    }
+
+    public void SwapMonsterMesh(int id)
+    {
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        if (meshFilter != null)
+        {
+            MonsterConfig monsterConfig = MonsterConfigs.Instance.getMonsterConfig(id);
+            Mesh mesh = ArtConfigs.Instance.getMesh(monsterConfig.mesh);
+            // Call the RPC to synchronize the mesh change across the network
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("RPCSwapMonsterMesh", RpcTarget.All, id);
+            }
+            else
+            {
+                meshFilter.mesh = mesh;
+            }
+        }
+    }
+
+    [PunRPC]
+    public void RPCSwapMonsterMesh(int id)
+    {
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        if (meshFilter != null)
+        {
+            MonsterConfig monsterConfig = MonsterConfigs.Instance.getMonsterConfig(id);
+            Mesh mesh = ArtConfigs.Instance.getMesh(monsterConfig.mesh);
+            meshFilter.mesh = mesh;
+        }
     }
 
     // Taking Damage
@@ -202,6 +254,8 @@ public class Monsters : Entities
     // Remove AI
     public override void Deactivate()
     {
+        transform.position = new Vector3(-10f, -30f, 20f);
+        transform.localScale = new Vector3(1, 1, 1);
         monsterAI.RemoveAI();
         base.Deactivate();
     }

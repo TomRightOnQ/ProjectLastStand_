@@ -25,3 +25,4 @@ MonoBehaviour:
   indicatorPrefab: {fileID: 7965540852787817605, guid: aaedb15d93468f84895413d52558b616, type: 3}
   iceRingPrefab: {fileID: 4552045557497378247, guid: 8a1d14e794a029c4bbd041dfd0a16efd, type: 3}
   fireRingPrefab: {fileID: 1310733359997841047, guid: b63da86087fc5a14ca85e23ff779b270, type: 3}
+  tacticalShieldRingPrefab: {fileID: 1004943851206209978, guid: 56b86fb7518d73243bf25e6d73a5f2ae, type: 3}

@@ -120,7 +120,7 @@ public class MonsterAI : MonoBehaviour
     protected void AIFireAtPlayer()
     {
         // Fire a bullet
-        AIFireBullet();
+        StartCoroutine(AIFireBullet());
     }
 
     protected void AISearchForPlayer()
@@ -145,22 +145,25 @@ public class MonsterAI : MonoBehaviour
         transform.LookAt(new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
     }
 
-    protected void AIFireBullet()
+    protected IEnumerator AIFireBullet()
     {
-        if (currentFireCount <= 0) {
-            return;
-        }
-        for (int i = currentFireCount; i > 0; i--)
+        if (currentFireCount <= 0)
         {
-            currentFireCount--;
-            monster.FireBullet();
-            StartCoroutine(Reload());
+            yield break;
         }
-    }
 
-    protected IEnumerator Reload()
-    {
-        yield return new WaitForSeconds(0.2f);
+        for (int i = 0; i < currentFireCount; i++)
+        {
+            monster.FireBullet();
+            currentFireCount--;
+
+            yield return new WaitForSeconds(0.5f); // Adjust the delay between each bullet firing
+
+            if (currentFireCount <= 0)
+            {
+                yield break;
+            }
+        }
     }
 }
 
@@ -178,6 +181,7 @@ public class MonsterShooter : MonsterAI
     {
         searchRadius = 25f;
         fireCount = 2;
+        currentFireCount = 0;
     }
 
     // Transitions

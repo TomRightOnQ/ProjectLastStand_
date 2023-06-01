@@ -17,8 +17,8 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     [SerializeField] private GameObject indicatorPrefab; // Player Indicator
 
     [SerializeField] private GameObject iceRingPrefab; // Rings
-    [SerializeField] private GameObject fireRingPrefab; //
-
+    [SerializeField] private GameObject fireRingPrefab;
+    [SerializeField] private GameObject tacticalShieldRingPrefab;
     public GameObject MonsterPrefab { get { return monsterPrefab; } }
     public GameObject ProjPrefab { get { return projPrefab; } }
     public GameObject LaserPrefab { get { return laserPrefab; } }
@@ -32,4 +32,5 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     public GameObject IndicatorPrefab { get { return indicatorPrefab; } }
     public GameObject IceRingPrefab { get { return iceRingPrefab; } }
     public GameObject FireRingPrefab { get { return fireRingPrefab; } }
+    public GameObject TacticalShieldRingPrefab { get { return tacticalShieldRingPrefab; } }
 }

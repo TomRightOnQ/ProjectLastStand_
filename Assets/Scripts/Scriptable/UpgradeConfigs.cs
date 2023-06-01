@@ -29,8 +29,9 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
     private int ORANGE_COUNT = 0;
 
     public List<int> Locked = new List<int>();
-    public List<int> AwaitUnlocked = new List<int>() {400, 401, 402, 406, 407};
-
+    // public List<int> AwaitUnlocked = new List<int>() {400, 401, 402, 406, 407};
+    public List<int> AwaitUnlocked = new List<int>();
+    
     public struct UpgradeConfig
     {
         public string _name; // Name of the buff

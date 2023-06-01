@@ -40,7 +40,7 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
         UpgradeMenu upgradeMenu = FindObjectOfType<UpgradeMenu>();
         level += 1;
         exp = exp - expL;
-        expL = 10 * (float)System.Math.Pow(1.1, level);
+        expL = 10 * (float)System.Math.Pow(1.01, level);
         if (!PhotonNetwork.IsConnected)
         {
             upgradeMenu.addPoints(1);

@@ -42,7 +42,6 @@ public class Explosions : MonoBehaviour
     {
         if (other.CompareTag("Monster"))
         {
-            Debug.Log("Area Damage");
             Monsters monster = other.GetComponent<Monsters>();
             if (monster != null && monster.gameObject.activeSelf)
             {

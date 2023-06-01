@@ -17,8 +17,8 @@ public class DamageNumber : MonoBehaviour
         screenPos.z = 0f;
 
         // Apply offset
-        float offsetX = Random.Range(-2f, 2f); // Adjust the range as needed
-        float offsetY = Random.Range(-2f, 2f); // Adjust the range as needed
+        float offsetX = Random.Range(-5f, 15f); // Adjust the range as needed
+        float offsetY = Random.Range(-5f, 15f); // Adjust the range as needed
         screenPos.x += offsetX;
         screenPos.y += offsetY;
 

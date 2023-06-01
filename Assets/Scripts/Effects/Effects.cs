@@ -328,8 +328,23 @@ public class Effects : MonoBehaviourPunCallbacks
 
     public void TacticalShield(int id)
     {
-        player.HitPoints += 14;
-        player.CurrentHitPoints += 14;
+        if (!PhotonNetwork.IsConnected)
+        {
+            GameObject ringObj = Instantiate(PrefabManager.Instance.TacticalShieldRingPrefab);
+            ringObj.transform.SetParent(transform);
+            ringObj.transform.localPosition = Vector3.zero;
+        }
+        else
+        {
+            GameObject ringObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.TacticalShieldRingPrefab.name, Vector3.zero, Quaternion.identity);
+            ringObj.transform.SetParent(transform);
+            ringObj.transform.localPosition = Vector3.zero;
+            PhotonView ringView = ringObj.GetComponent<PhotonView>();
+            int ringViewID = ringView.ViewID;
+            PhotonView playerView = GetComponent<PhotonView>();
+            int playerViewID = playerView.ViewID;
+            photonView.RPC("AddRingToPlayer", RpcTarget.AllBuffered, playerViewID, ringViewID);
+        }
     }
 }
 

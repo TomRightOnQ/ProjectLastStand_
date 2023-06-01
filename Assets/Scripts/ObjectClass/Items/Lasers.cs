@@ -133,7 +133,7 @@ public class Lasers : Items, IPunObservable
     [PunRPC]
     private void _deactivate()
     {
-        transform.position = new Vector3(-10f, -20f, -20f);
+        transform.position = new Vector3(-10f, -60f, -20f);
         gameObject.SetActive(false);
     }
 }

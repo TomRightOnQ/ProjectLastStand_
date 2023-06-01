@@ -33,7 +33,7 @@ public class Projectiles : Items
                 if (isNova)
                 {
                     Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(0.5f, damage / 3, pen, isMagic);
+                    explosion.Initialize(0.5f, damage / 3, pen, true);
                 }
                 if (!AOE)
                 {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7013197233816008891}
   - component: {fileID: 7013197233816008890}
   - component: {fileID: 7013197233816008889}
+  - component: {fileID: 2950590862543777428}
   m_Layer: 5
   m_Name: SettingsCanvas
   m_TagString: Untagged
@@ -102,6 +103,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2950590862543777428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7013197233816008888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604dcce83fd78584ebaef6cc3cc50d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: escape
+  button: {fileID: 5055785996775059354}
 --- !u!1 &7013197235527840473
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,6 +370,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfacaf2379e2d9540ac610b586f75b30, type: 3}
+--- !u!114 &5055785996775059354 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2844624777426110724, guid: dfacaf2379e2d9540ac610b586f75b30, type: 3}
+  m_PrefabInstance: {fileID: 7013197234530018974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5055785996775059355 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2844624777426110725, guid: dfacaf2379e2d9540ac610b586f75b30, type: 3}

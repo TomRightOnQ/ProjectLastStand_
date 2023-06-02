@@ -87,7 +87,7 @@ public class IceRing : Items
     [PunRPC]
     private void RPCDamageToMonster(int monsterViewID, float damage, bool isMagic)
     {
-        Monsters monster = PhotonView.Find(monsterViewID)?.GetComponent<Monsters>();
+        Monsters monster = PhotonView.Find(monsterViewID).GetComponent<Monsters>();
         if (monster != null)
         {
             monster.TakeDamage(damage, isMagic);
@@ -98,7 +98,7 @@ public class IceRing : Items
     [PunRPC]
     private void RPCSlowMonster(int monsterViewID, float value)
     {
-        Monsters monster = PhotonView.Find(monsterViewID)?.GetComponent<Monsters>();
+        Monsters monster = PhotonView.Find(monsterViewID).GetComponent<Monsters>();
         if (monster != null)
         {
             monster.Speed -= value;

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using static ConfigManager;
 using static MonsterConfigs;
 
-
 // Main Game Manager
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -15,6 +14,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private static GameManager instance;
     public DataManager dataManager;
     public MonsterManager monsterManager;
+
+    [SerializeField] private float gameTime = 0f;
 
     // Data
     private MonsterConfig[] monsterData;
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (monsterManager && dataManager)
             {
                 Debug.Log("All managers loaded");
-                monsterManager.begin();
+                monsterManager.Begin();
                 isLoaded = true;
             }
         }
@@ -71,6 +72,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        gameTime += Time.deltaTime;
+        PlayerListener.Instance.UpdateTime(gameTime);
         if (!isLoaded)
         {
             Debug.Log("Loading...");
@@ -275,7 +278,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
         }
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Scoreboard");
         Time.timeScale = 1f;
     }
 

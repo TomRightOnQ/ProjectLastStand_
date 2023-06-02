@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e19d85b6c7529c448147d7eab87eaf4, type: 3}
-  m_Name: GameSettings
+  m_Script: {fileID: 11500000, guid: 3899e7583e644d4449d27795ceb74a7f, type: 3}
+  m_Name: PlayerListener
   m_EditorClassIdentifier: 
-  gameVersion: Pre-Release R1
-  nickName: Defender

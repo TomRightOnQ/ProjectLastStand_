@@ -99,12 +99,14 @@ public class Effects : MonoBehaviourPunCallbacks
         player.HitPoints += 4;
         player.CurrentHitPoints += 4;
         player.IsReady = true;
+        player.UpdateStats();
     }
 
     public void Mage(int id)
     {
         player.WeaponDamageBase += 0.2f;
         player.IsReady = true;
+        player.UpdateStats();
     }
 
     public void Skeleton(int id)
@@ -114,12 +116,14 @@ public class Effects : MonoBehaviourPunCallbacks
         player.DamageBase += 0.1f;
         player.DefaultDefence -= 0.1f;
         player.IsReady = true;
+        player.UpdateStats();
     }
 
     public void Soldier(int id)
     {
         player.WeaponDamageBase += 0.2f;
         player.IsReady = true;
+        player.UpdateStats();
     }
 
     // Functions for buffs

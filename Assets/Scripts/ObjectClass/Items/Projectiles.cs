@@ -1,7 +1,5 @@
 using UnityEngine;
 using Photon.Pun;
-using static WeaponConfigs;
-using static ArtConfigs;
 
 // Bullets
 [RequireComponent(typeof(PhotonView))]
@@ -33,7 +31,7 @@ public class Projectiles : Items
                 if (isNova)
                 {
                     Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(0.5f, damage / 3, pen, true);
+                    explosion.Initialize(0.5f, damage / 3, pen, true, 0, hitAnim);
                 }
                 if (!AOE)
                 {
@@ -53,7 +51,7 @@ public class Projectiles : Items
                 {
                     // AOE
                     Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(damageRange, damage, pen, isMagic);
+                    explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
                     gameObject.SetActive(false);
                     Deactivate();
                 }
@@ -133,7 +131,7 @@ public class Projectiles : Items
             Debug.Log("Area Damage");
             // AOE
             Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-            explosion.Initialize(damageRange, damage, pen, isMagic);
+            explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
             Vector3 pos = new Vector3(transform.position.x, transform.position.y + 4, transform.position.z - 1.5f);
             PlayHitAnim(pos);
             if (PhotonNetwork.IsConnected)

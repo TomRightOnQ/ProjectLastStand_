@@ -64,7 +64,7 @@ public class Monsters : Entities
 
     public void SetEliteMonsters(MonsterConfig MonsterConfigs)
     {
-        transform.localScale = new Vector3(2, 2, 2);
+        transform.localScale = new Vector3(1, 1, 1);
         id = MonsterConfigs.id;
         name = MonsterConfigs._name;
         hitPoints = MonsterConfigs.hitPoints * 2.5f;
@@ -255,7 +255,7 @@ public class Monsters : Entities
     public override void Deactivate()
     {
         transform.position = new Vector3(-10f, -30f, 20f);
-        transform.localScale = new Vector3(1, 1, 1);
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         monsterAI.RemoveAI();
         base.Deactivate();
     }

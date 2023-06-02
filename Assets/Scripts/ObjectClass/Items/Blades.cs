@@ -51,7 +51,7 @@ public class Blades : Items, IPunObservable
                 {
                     // AOE
                     Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(damageRange, damage, pen, isMagic);
+                    explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
                 }
             }
         }

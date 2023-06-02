@@ -49,6 +49,24 @@ public class Players : Entities, IPunObservable
     private int[] ASSASSI_C = new int[4] { 7, 107, 207, 307 };
     private bool asUnlocked = false;
 
+    // Sync
+    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        base.OnPhotonSerializeView(stream, info);
+        if (stream.IsWriting)
+        {
+            stream.SendNext(index);
+            stream.SendNext(isAlive);
+            stream.SendNext(timeForRevive);
+        }
+        else
+        {
+            index = (int)stream.ReceiveNext();
+            isAlive = (bool)stream.ReceiveNext();
+            timeForRevive = (float)stream.ReceiveNext();
+        }
+    }
+
     void Awake()
     {
         gameObject.tag = "Player";
@@ -68,30 +86,30 @@ public class Players : Entities, IPunObservable
         WeaponList[1].DamageRangeMod += 0.25f;
     }
 
-    // Sync
-    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public void UpdateStats()
     {
-        base.OnPhotonSerializeView(stream, info);
-        if (stream.IsWriting)
-        {
-            stream.SendNext(index);
-            stream.SendNext(isAlive);
-            stream.SendNext(timeForRevive);
+        if (PhotonNetwork.IsConnected && !photonView.IsMine) {
+            return;
         }
-        else
-        {
-            index = (int)stream.ReceiveNext();
-            isAlive = (bool)stream.ReceiveNext();
-            timeForRevive = (float)stream.ReceiveNext();
-        }
+        PlayerListener.Instance.UpdatePlayerStats(this);
     }
 
-    // Bars
-    public void UpdateHP()
+    public void UpdateEffects()
     {
-        if (currentHitPoints >= hitPoints) {
-            currentHitPoints = hitPoints;
+        if (PhotonNetwork.IsConnected && !photonView.IsMine)
+        {
+            return;
         }
+        PlayerListener.Instance.UpdatePlayerEffects(index);
+    }
+
+    public void UpdateHitPoints() 
+    {
+        if (PhotonNetwork.IsConnected && !photonView.IsMine)
+        {
+            return;
+        }
+        PlayerListener.Instance.UpdatePlayerHP(currentHitPoints, hitPoints);
     }
 
     // Add effects
@@ -103,9 +121,11 @@ public class Players : Entities, IPunObservable
     // Effect check
     public virtual void AddToEffectList(int index)
     {
+        UpdateStats();
         if (!effectHeld.Contains(index))
         {
             effectHeld.Add(index);
+            UpdateEffects();
         }
     }
 
@@ -224,6 +244,16 @@ public class Players : Entities, IPunObservable
         
     }
 
+    // Bars
+    public void UpdateHP()
+    {
+        if (currentHitPoints >= hitPoints)
+        {
+            currentHitPoints = hitPoints;
+        }
+        UpdateHitPoints();
+    }
+
     protected override void Update()
     {
         base.Update();
@@ -244,11 +274,15 @@ public class Players : Entities, IPunObservable
             {
                 currentHitPoints += 0.001f;
             }
+            if (criticalRate > 1) {
+                criticalRate = 1;
+            }
             UpdateHP();
             criticalDamage = criticalMod * criticalBase;
             defaultAttack = DamageBase * DamageMod;
             defaultWeaponAttack = WeaponDamageBase * DamageMod;
             speed = SpeedBase * SpeedMod;
+            UpdateStats();
             if (currentHitPoints <= 0)
             {
                 if (PhotonNetwork.IsConnected && !photonView.IsMine) {

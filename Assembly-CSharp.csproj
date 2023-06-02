@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\ObjectClass\Anim.cs" />
     <Compile Include="Assets\Scripts\Tools\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\Scriptable\UpgradeConfigs.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Items\FireRing.cs" />
     <Compile Include="Assets\Scripts\Managers\Online\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\UpgradeMenu.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\DroppedItems.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Assets\Scripts\ObjectClass\DefaultObjects.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RoomListingsMenu.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Weapons.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Items\TacticalShield.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\LeaveRoomMenu.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RoomsCanvases.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\keyBinding.cs" />
@@ -122,8 +124,8 @@
     <Compile Include="Assets\Scripts\Scriptable\MonsterConfigs.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items\Projectiles.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
-    <Compile Include="Assets\Scripts\ObjectClass\Items\FireRing.cs" />
-    <Compile Include="Assets\Scripts\ObjectClass\Items\TacticalShield.cs" />
+    <Compile Include="Assets\Scripts\Scriptable\Listeners\PlayerListener.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Items\Bombarding.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

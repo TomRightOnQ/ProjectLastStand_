@@ -14,7 +14,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     private Vector3 originalPosition;
     private Vector3 closedPosition;
     private bool isOpen = false;
-    private float panelWidth;
+    private float panelHeight;
     [SerializeField] private float speed = 10;
     [SerializeField] private TextMeshProUGUI availablePoints;
 
@@ -49,8 +49,8 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     {
         // For Display
         originalPosition = panelTransform.anchoredPosition;
-        panelWidth = panelTransform.rect.width;
-        closedPosition = new Vector3(-(panelWidth / 2), originalPosition.y, originalPosition.z);
+        panelHeight = panelTransform.rect.height;
+        closedPosition = new Vector3(originalPosition.x, -(panelHeight), originalPosition.z);
         choiceArr[0] = choiceA;
         choiceArr[1] = choiceB;
         choiceArr[2] = choiceC;
@@ -63,7 +63,7 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
     {
         // For Display
         Vector3 targetPosition = isOpen ? originalPosition : closedPosition;
-        float arrowZ = isOpen ? 0f : -180f;
+        float arrowZ = isOpen ? 90f : -90f;
         arrow.transform.rotation = Quaternion.Euler(arrow.transform.rotation.x, arrow.transform.rotation.y, arrowZ);
         panelTransform.anchoredPosition = Vector3.Lerp(panelTransform.anchoredPosition, targetPosition, speed * Time.deltaTime);
         if (points <= 0) {

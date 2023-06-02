@@ -52,6 +52,7 @@ public class Rampage : EffectComponents
             Invoke();
             currentHP = prevHP;
         }
+        player.UpdateStats();
     }
 
     public void Invoke() 
@@ -75,6 +76,7 @@ public class RampageEffect : EffectComponents
     protected override void Update()
     {
         base.Update();
+        player.UpdateStats();
     }
 
     protected override void RemoveEffect()
@@ -127,6 +129,7 @@ public class RelentlessResent : EffectComponents
         {
             player.CriticalMod = 1f;
         }
+        player.UpdateStats();
     }
 }
 
@@ -154,6 +157,7 @@ public class Immortal : EffectComponents
                 healTimer = 0f;
             }
         }
+        player.UpdateStats();
     }
 }
 
@@ -211,6 +215,7 @@ public class MeleeGrandMaster : EffectComponents
                 break;
         }
         prevCount = player.MeleeCounts;
+        player.UpdateStats();
     }
 }
 
@@ -242,5 +247,6 @@ public class Assassination : EffectComponents
         {
             player.CriticalMod = 1;
         }
+        player.UpdateStats();
     }
 }

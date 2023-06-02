@@ -37,7 +37,7 @@ public class Lasers : Items, IPunObservable
                 if (isNova)
                 {
                     Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(0.5f, damage / 3, pen, isMagic);
+                    explosion.Initialize(0.5f, damage / 3, pen, isMagic, 0, hitAnim);
                 }
                 if (!AOE)
                 {
@@ -54,7 +54,7 @@ public class Lasers : Items, IPunObservable
                 {
                     // AOE
                     Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(damageRange, damage, pen, isMagic);
+                    explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
                 }
             }
         }

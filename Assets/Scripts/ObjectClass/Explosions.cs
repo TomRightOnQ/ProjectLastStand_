@@ -1,7 +1,8 @@
 using UnityEngine;
+using Photon.Pun;
 
 // Explosion
-public class Explosions : MonoBehaviour
+public class Explosions : MonoBehaviourPun
 {
     [SerializeField] private float damageRange;
     [SerializeField] private float damage;
@@ -13,13 +14,17 @@ public class Explosions : MonoBehaviour
     
     private bool initialized = false;
     private bool isMagic = false;
+    private int hitAnim;
+    private int owner = 0;
 
-    public void Initialize(float damageRange, float damage, float pen, bool isMagic)
+    public void Initialize(float _damageRange, float _damage, float _pen, bool _isMagic, int _owner, int _hitAnim)
     {
-        this.damageRange = damageRange;
-        this.damage = Mathf.Ceil(damage);
-        this.pen = pen;
-        this.isMagic = isMagic;
+        damageRange = _damageRange;
+        damage = Mathf.Ceil(_damage);
+        pen = _pen;
+        isMagic = _isMagic;
+        owner = _owner;
+        hitAnim = _hitAnim;
         GetComponent<SphereCollider>().enabled = true;
         initialized = true;
     }
@@ -40,13 +45,60 @@ public class Explosions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Monster"))
+        if (other.CompareTag("Monster") && owner >= 0)
         {
             Monsters monster = other.GetComponent<Monsters>();
             if (monster != null && monster.gameObject.activeSelf)
             {
-                monster.TakeDamage(damage, isMagic);
+                if (PhotonNetwork.IsConnected)
+                {
+                    photonView.RPC("RPCDamageToMonster", RpcTarget.All, monster.photonView.ViewID, damage, isMagic);
+                }
+                else 
+                {
+                    monster.TakeDamage(damage, isMagic);
+                }
             }
         }
+        if (other.CompareTag("Player") && owner == -1)
+        {
+            Players player = other.gameObject.GetComponent<Players>();
+            if (player != null)
+            {
+                player.TakeDamage(damage, false);
+            }
+        }
+    }
+
+    [PunRPC]
+    private void RPCDamageToMonster(int monsterViewID, float damage, bool isMagic)
+    {
+        Monsters monster = PhotonView.Find(monsterViewID)?.GetComponent<Monsters>();
+        if (monster != null)
+        {
+            monster.TakeDamage(damage, isMagic);
+            GameManager.Instance.monsterManager.despawnCheck(monster);
+        }
+    }
+
+    public void PlayHitAnim(Vector3 pos)
+    {
+        if (AnimConfigs.Instance.GetAnim(hitAnim) == null)
+            return;
+        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(hitAnim), Vector3.zero, Quaternion.identity);
+        animObject.transform.position = pos;
+        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+        animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
+    }
+
+    [PunRPC]
+    public void RPCPlayHitAnim(int id, Vector3 pos, float scale)
+    {
+        if (AnimConfigs.Instance.GetAnim(id) == null)
+            return;
+        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
+        animObject.transform.position = pos;
+        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+        animObject.transform.localScale = new Vector3(scale, scale, scale);
     }
 }

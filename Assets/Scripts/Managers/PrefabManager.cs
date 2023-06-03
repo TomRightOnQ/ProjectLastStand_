@@ -19,18 +19,24 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     [SerializeField] private GameObject iceRingPrefab; // Rings
     [SerializeField] private GameObject fireRingPrefab;
     [SerializeField] private GameObject tacticalShieldRingPrefab;
-    public GameObject MonsterPrefab { get { return monsterPrefab; } }
-    public GameObject ProjPrefab { get { return projPrefab; } }
-    public GameObject LaserPrefab { get { return laserPrefab; } }
-    public GameObject PlayerPrefab { get { return playerPrefab; } }
-    public GameObject WeaponPrefab { get { return weaponPrefab; } }
-    public GameObject DamageNumberPrefab { get { return damageNumberPrefab; } }
-    public GameObject ExpAndLevels { get { return expAndLevels; } }
-    public GameObject DroppedWeapon { get { return droppedWeapon; } }
-    public GameObject ItemListing { get { return itemListing; } }
-    public GameObject ExplosionPrefab { get { return explosionPrefab; } }
-    public GameObject IndicatorPrefab { get { return indicatorPrefab; } }
-    public GameObject IceRingPrefab { get { return iceRingPrefab; } }
-    public GameObject FireRingPrefab { get { return fireRingPrefab; } }
-    public GameObject TacticalShieldRingPrefab { get { return tacticalShieldRingPrefab; } }
+
+    [SerializeField] private GameObject buffIcon; // Buff listing
+    [SerializeField] private GameObject monsterResult; // Monster listing
+
+    public GameObject MonsterPrefab => monsterPrefab;
+    public GameObject ProjPrefab => projPrefab;
+    public GameObject LaserPrefab => laserPrefab;
+    public GameObject PlayerPrefab => playerPrefab;
+    public GameObject WeaponPrefab => weaponPrefab;
+    public GameObject DamageNumberPrefab => damageNumberPrefab;
+    public GameObject ExpAndLevels => expAndLevels;
+    public GameObject DroppedWeapon => droppedWeapon;
+    public GameObject ItemListing => itemListing;
+    public GameObject ExplosionPrefab => explosionPrefab;
+    public GameObject IndicatorPrefab => indicatorPrefab;
+    public GameObject IceRingPrefab => iceRingPrefab;
+    public GameObject FireRingPrefab => fireRingPrefab;
+    public GameObject TacticalShieldRingPrefab => tacticalShieldRingPrefab;
+    public GameObject BuffIcon => buffIcon;
+    public GameObject MonsterResult => monsterResult;
 }

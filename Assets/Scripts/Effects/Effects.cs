@@ -145,7 +145,6 @@ public class Effects : MonoBehaviourPunCallbacks
     public void Damage(int id, int level)
     {
         float amount = (float)level * 0.02f + 0.04f;
-        Debug.Log(amount);
         player.DamageBase += amount;
         player.AddToEffectList((level - 1) * 100 + id);
     }

@@ -184,6 +184,24 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public void UpdateMonster(int id) 
+    {
+        if (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("RPOUpdateMonster", RpcTarget.All, id);
+        }
+        else if (!PhotonNetwork.IsConnected)
+        {
+            PlayerListener.Instance.UpdateDict(id);
+        }
+    }
+
+    [PunRPC]
+    public void RPCUpdateMonster(int id)
+    {
+        PlayerListener.Instance.UpdateDict(id);
+    }
+
     // Looking for a player
     public Players GetLocalPlayer()
     {

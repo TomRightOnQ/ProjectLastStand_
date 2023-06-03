@@ -26,14 +26,13 @@ public class MonsterManager : MonoBehaviour
             while (elapsed < spawning)
             {
                 elapsed += Time.deltaTime;
-
-                // Increase difficulty up to 4 over time
-                if (difficulty < 400)
-                {
-                    difficulty = Mathf.FloorToInt(elapsed / 2.5f) + 1;
-                }
-
                 yield return null;
+            }
+
+            // Increase difficulty up to 4 over time
+            if (difficulty < 400)
+            {
+                difficulty++;
             }
 
             Vector3 pos = Vector3.zero;
@@ -52,6 +51,7 @@ public class MonsterManager : MonoBehaviour
             spawn(pos, 0);
         }
     }
+
 
     // Spawning
     public void spawn(Vector3 pos, int id)
@@ -76,6 +76,7 @@ public class MonsterManager : MonoBehaviour
         {
             // Add experience points to players
             GameManager.Instance.AddExp(monster.EXP);
+            GameManager.Instance.UpdateMonster(monster.ID);
             monster.Deactivate();
         }
     }

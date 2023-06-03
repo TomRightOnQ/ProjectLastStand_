@@ -24,27 +24,74 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
     [SerializeField] private Sprite guardianAngelIcon;
     [SerializeField] private Sprite holyNovaIcon;
     [SerializeField] private Sprite assassinationIcon;
+    [SerializeField] private Sprite iceRingIcon;
+    [SerializeField] private Sprite fireRingIcon;
+    [SerializeField] private Sprite tacticalShieldIcon;
+    [SerializeField] private Sprite defenderII;
+    [SerializeField] private Sprite counterII;
+    [SerializeField] private Sprite damageII;
+    [SerializeField] private Sprite damageIII;
+    [SerializeField] private Sprite damageIV;
+    [SerializeField] private Sprite magicianII;
+    [SerializeField] private Sprite magicianIII;
+    [SerializeField] private Sprite magicianIV;
+    [SerializeField] private Sprite speedII;
+    [SerializeField] private Sprite speedIII;
+    [SerializeField] private Sprite speedIV;
+    [SerializeField] private Sprite toughnessII;
+    [SerializeField] private Sprite toughnessIII;
+    [SerializeField] private Sprite toughnessIV;
+    [SerializeField] private Sprite swiftII;
+    [SerializeField] private Sprite swiftIII;
+    [SerializeField] private Sprite swiftIV;
+    [SerializeField] private Sprite preciscionII;
+    [SerializeField] private Sprite preciscionIII;
+    [SerializeField] private Sprite preciscionIV;
 
-    [SerializeField] private Sprite DefaultIcon;
-    public Sprite ToughnessIcon { get { return toughnessIcon; } }
-    public Sprite SwiftIcon { get { return swiftIcon; } }
-    public Sprite DamageIcon { get { return damageIcon; } }
-    public Sprite DefenderIcon { get { return defenderIcon; } }
-    public Sprite CounterIcon { get { return counterIcon; } }
-    public Sprite MagicianIcon { get { return magicianIcon; } }
-    public Sprite PrecisionIcon { get { return precisionIcon; } }
-    public Sprite BloodSacrificeIcon { get { return bloodSacrificeIcon; } }
-    public Sprite SavageStrikerIcon { get { return savageStrikerIcon; } }
-    public Sprite RocketMasterIcon { get { return rocketMasterIcon; } }
-    public Sprite RampageIcon { get { return rampageIcon; } }
-    public Sprite RelentlessResentIcon { get { return relentlessResentIcon; } }
-    public Sprite ImmortalIcon { get { return immortalIcon; } }
-    public Sprite FlightIcon { get { return flightIcon; } }
-    public Sprite DamageMaxIcon { get { return damageMaxIcon; } }
-    public Sprite MeleeGrandMasterIcon { get { return meleeGrandMasterIcon; } }
-    public Sprite GuardianAngelIcon { get { return guardianAngelIcon; } }
-    public Sprite HolyNovaIcon { get { return holyNovaIcon; } }
-    public Sprite AssassinationIcon { get { return assassinationIcon; } }
+    [SerializeField] private Sprite defaultIcon;
+    public Sprite ToughnessIcon => toughnessIcon;
+    public Sprite SwiftIcon => swiftIcon;
+    public Sprite DamageIcon => damageIcon;
+    public Sprite DefenderIcon => defenderIcon;
+    public Sprite CounterIcon => counterIcon;
+    public Sprite MagicianIcon => magicianIcon;
+    public Sprite PrecisionIcon => precisionIcon;
+    public Sprite BloodSacrificeIcon => bloodSacrificeIcon;
+    public Sprite SavageStrikerIcon => savageStrikerIcon;
+    public Sprite RocketMasterIcon => rocketMasterIcon;
+    public Sprite RampageIcon => rampageIcon;
+    public Sprite RelentlessResentIcon => relentlessResentIcon;
+    public Sprite ImmortalIcon => immortalIcon;
+    public Sprite FlightIcon => flightIcon;
+    public Sprite DamageMaxIcon => damageMaxIcon;
+    public Sprite MeleeGrandMasterIcon => meleeGrandMasterIcon;
+    public Sprite GuardianAngelIcon => guardianAngelIcon;
+    public Sprite HolyNovaIcon => holyNovaIcon;
+    public Sprite AssassinationIcon => assassinationIcon;
+    public Sprite IceRingIcon => iceRingIcon;
+    public Sprite FireRingIcon => fireRingIcon;
+    public Sprite TacticalShieldIcon => tacticalShieldIcon;
+    public Sprite DefenderII => defenderII;
+    public Sprite CounterII => counterII;
+    public Sprite DamageII => damageII;
+    public Sprite DamageIII => damageIII;
+    public Sprite DamageIV => damageIV;
+    public Sprite MagicianII => magicianII;
+    public Sprite MagicianIII => magicianIII;
+    public Sprite MagicianIV => magicianIV;
+    public Sprite SpeedII => speedII;
+    public Sprite SpeedIII => speedIII;
+    public Sprite SpeedIV => speedIV;
+    public Sprite DefaultIcon => defaultIcon;
+    public Sprite ToughnessII => toughnessII;
+    public Sprite ToughnessIII => toughnessIII;
+    public Sprite ToughnessIV => toughnessIV;
+    public Sprite SwiftII => swiftII;
+    public Sprite SwiftIII => swiftIII;
+    public Sprite SwiftIV => swiftIV;
+    public Sprite PrecisionII => preciscionII;
+    public Sprite PrecisionIII => preciscionIII;
+    public Sprite PrecisionIV => preciscionIV;
 
     public Sprite GetEffectImage(int id)
     {
@@ -64,16 +111,54 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
                 return MagicianIcon;
             case 7:
                 return PrecisionIcon;
+            case 100:
+                return ToughnessII;
+            case 101:
+                return SwiftII;
+            case 102:
+                return DamageII;
+            case 103:
+                return DefenderII;
+            case 104:
+                return CounterII;
             case 105:
                 return BloodSacrificeIcon;
+            case 106:
+                return MagicianII;
+            case 107:
+                return PrecisionII;
+            case 200:
+                return ToughnessIII;
+            case 201:
+                return SwiftIII;
+            case 202:
+                return DamageIII;
             case 203:
                 return SavageStrikerIcon;
             case 204:
                 return RocketMasterIcon;
+            case 205:
+                return FireRingIcon;
+            case 206:
+                return MagicianIII;
+            case 207:
+                return PrecisionIII;
+            case 300:
+                return ToughnessIV;
+            case 301:
+                return SwiftIV;
+            case 302:
+                return DamageIV;
             case 303:
                 return RampageIcon;
             case 304:
                 return RelentlessResentIcon;
+            case 305:
+                return TacticalShieldIcon;
+            case 306:
+                return MagicianIV;
+            case 307:
+                return PrecisionIV;
             case 400:
                 return ImmortalIcon;
             case 401:
@@ -84,6 +169,8 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
                 return MeleeGrandMasterIcon;
             case 404:
                 return GuardianAngelIcon;
+            case 405:
+                return IceRingIcon;
             case 406:
                 return HolyNovaIcon;
             case 407:

@@ -94,7 +94,7 @@ public class Players : Entities, IPunObservable
         PlayerListener.Instance.UpdatePlayerStats(this);
     }
 
-    public void UpdateEffects()
+    public void UpdateEffects(int index)
     {
         if (PhotonNetwork.IsConnected && !photonView.IsMine)
         {
@@ -125,7 +125,7 @@ public class Players : Entities, IPunObservable
         if (!effectHeld.Contains(index))
         {
             effectHeld.Add(index);
-            UpdateEffects();
+            UpdateEffects(index);
         }
     }
 

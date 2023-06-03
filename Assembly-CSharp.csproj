@@ -126,6 +126,9 @@
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
     <Compile Include="Assets\Scripts\Scriptable\Listeners\PlayerListener.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items\Bombarding.cs" />
+    <Compile Include="Assets\Scripts\Managers\ScoreboardManager.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\BuffIcons.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\MonsterResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

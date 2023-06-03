@@ -171,6 +171,15 @@
         "level": 1
     },
     {
+        "_name": "Counter I",
+        "id": 5,
+        "rating": 1,
+        "specialEffectIndex": 4,
+        "unique": false,
+        "description": "Increase 10% damage to player-targeted enemies",
+        "level": 1
+    },
+    {
         "_name": "Counter II",
         "id": 104,
         "rating": 2,

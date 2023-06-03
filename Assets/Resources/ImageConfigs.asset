@@ -31,4 +31,27 @@ MonoBehaviour:
   guardianAngelIcon: {fileID: 21300000, guid: 812a90c0c0696f240905ab96c30e6e05, type: 3}
   holyNovaIcon: {fileID: 21300000, guid: 4a10daa02b741374caa93e5601b49afa, type: 3}
   assassinationIcon: {fileID: 21300000, guid: 495439248a77d654e972b6fdc71c35d9, type: 3}
-  DefaultIcon: {fileID: 21300000, guid: 2a01a5a231dc43645a923310189f2e14, type: 3}
+  iceRingIcon: {fileID: 21300000, guid: 6f7dfc681d271e94e84e562cd6445e88, type: 3}
+  fireRingIcon: {fileID: 21300000, guid: 967cc230a4227184797f44b15621d94d, type: 3}
+  tacticalShieldIcon: {fileID: 21300000, guid: 1695221dc9a8caf43881d8c0662bf7c3, type: 3}
+  defenderII: {fileID: 21300000, guid: b7903da5223b8b340ad12a6191c590b8, type: 3}
+  counterII: {fileID: 21300000, guid: 3cbe7a7ed3e300046976612d9c3a8a89, type: 3}
+  damageII: {fileID: 21300000, guid: d00040c906bbf2a4f95e0d5bd11fd302, type: 3}
+  damageIII: {fileID: 21300000, guid: 7595da7a391c0c2449216a294fe5791d, type: 3}
+  damageIV: {fileID: 21300000, guid: e4b4d7cff1a254149b50a74e92a8d38c, type: 3}
+  magicianII: {fileID: 21300000, guid: a2b9119a3e3195448bc95766b26866c5, type: 3}
+  magicianIII: {fileID: 21300000, guid: 93a0fd451ad08864a956bfa691175b41, type: 3}
+  magicianIV: {fileID: 21300000, guid: 4aed15f4e0511d44a890b22e61e0e0e1, type: 3}
+  speedII: {fileID: 21300000, guid: b472027c97b9e5c46b6f47c3a8735316, type: 3}
+  speedIII: {fileID: 21300000, guid: 90b8b40e0f9c80a4084276c5a388ca67, type: 3}
+  speedIV: {fileID: 21300000, guid: 9eef8fbec50c20d4ea1391cb99ffe4aa, type: 3}
+  toughnessII: {fileID: 21300000, guid: 5035988473499dc4e974ea47fd474a5b, type: 3}
+  toughnessIII: {fileID: 21300000, guid: 5c52f6d9d6c222a4897edffedd769385, type: 3}
+  toughnessIV: {fileID: 21300000, guid: e0d8642b4b2d552419c964fc346ea272, type: 3}
+  swiftII: {fileID: 21300000, guid: b472027c97b9e5c46b6f47c3a8735316, type: 3}
+  swiftIII: {fileID: 21300000, guid: 90b8b40e0f9c80a4084276c5a388ca67, type: 3}
+  swiftIV: {fileID: 21300000, guid: 9eef8fbec50c20d4ea1391cb99ffe4aa, type: 3}
+  preciscionII: {fileID: 21300000, guid: b8ebae2218c49714c8cd3aeea869a599, type: 3}
+  preciscionIII: {fileID: 21300000, guid: 58a0fa1cfa279a94882b4353b5991293, type: 3}
+  preciscionIV: {fileID: 21300000, guid: 2d49adbd7c7c5234686a099b0ddc14c6, type: 3}
+  defaultIcon: {fileID: 21300000, guid: 2a01a5a231dc43645a923310189f2e14, type: 3}

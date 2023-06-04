@@ -17,6 +17,8 @@ public class PlayerListener : ScriptableSingleton<PlayerListener>
     private float globalTime = 0f;
     private List<int> effectHeld = new List<int>();
     private Dictionary<int, int> monsterList = new Dictionary<int, int>();
+    private int[] weapon1 = new int[2];
+    private int[] weapon2 = new int[2];
 
     public float HitPoints => hitPoints;
     public float CurrentHitPoints => currentHitPoints;
@@ -27,8 +29,10 @@ public class PlayerListener : ScriptableSingleton<PlayerListener>
     public float Speed => speed;
     public float CriticalRate => criticalRate;
     public float CriticalDamage => criticalDamage;
-
     public float GlobalTime => globalTime;
+
+    public int[] Weapon1 => weapon1;
+    public int[] Weapon2 => weapon2;
 
     public IReadOnlyList<int> EffectHeld => effectHeld;
     public IReadOnlyDictionary<int, int> MonsterList => monsterList;
@@ -38,11 +42,19 @@ public class PlayerListener : ScriptableSingleton<PlayerListener>
         globalTime = _time;
     }
 
+    public void UpdateWeapons(int weapon1Index, int weapon1Level, int weapon2Index, int weapon2Level)
+    {
+        weapon1[0] = weapon1Index;
+        weapon1[1] = weapon1Level;
+        weapon2[0] = weapon2Index;
+        weapon2[1] = weapon2Level;
+    }
+
     public void UpdateDict(int key)
     {
-        if (monsterList.TryGetValue(key, out int currentValue))
+        if (monsterList.ContainsKey(key))
         {
-            monsterList[key] = currentValue + 1;
+            monsterList[key] += 1;
         }
         else
         {

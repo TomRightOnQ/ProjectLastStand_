@@ -83,6 +83,7 @@ public class UpgradeConfigs : ScriptableSingleton<UpgradeConfigs>
         Debug.Log("Blue Count: " + BLUE_COUNT);
         Debug.Log("Purple Count: " + PURPLE_COUNT);
         Debug.Log("Orange Count: " + ORANGE_COUNT);
+        Debug.Log("Upgrades and effects Load Ready");
     }
 
     public void AddUpgradeConfig(UpgradeConfig config)

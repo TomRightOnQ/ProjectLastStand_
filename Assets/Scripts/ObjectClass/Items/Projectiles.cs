@@ -50,8 +50,11 @@ public class Projectiles : Items
                 else
                 {
                     // AOE
-                    Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
+                    if (!SelfDet) 
+                    {
+                        Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                        explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
+                    }
                     gameObject.SetActive(false);
                     Deactivate();
                 }
@@ -128,7 +131,6 @@ public class Projectiles : Items
         CancelInvoke("Deactivate");
         if (selfDet && aoe)
         {
-            Debug.Log("Area Damage");
             // AOE
             Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
             explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);

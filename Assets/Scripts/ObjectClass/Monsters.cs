@@ -257,6 +257,20 @@ public class Monsters : Entities
         transform.position = new Vector3(-10f, -30f, 20f);
         transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         monsterAI.RemoveAI();
+        if (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("RPCUpdateMonster", RpcTarget.All, id);
+        }
+        else if (!PhotonNetwork.IsConnected)
+        {
+            PlayerListener.Instance.UpdateDict(id);
+        }
         base.Deactivate();
+    }
+
+    [PunRPC]
+    public void RPCUpdateMonster(int id)
+    {
+        PlayerListener.Instance.UpdateDict(id);
     }
 }

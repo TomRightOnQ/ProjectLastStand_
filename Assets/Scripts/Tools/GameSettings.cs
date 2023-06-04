@@ -2,19 +2,27 @@ using UnityEngine;
 
 // Online game settings
 [CreateAssetMenu(menuName = "Manager/GameSettings")]
-public class GameSettings : ScriptableObject
+public class GameSettings : ScriptableSingleton<GameSettings>
 {
     [SerializeField] private string gameVersion = "Dev 0.1";
     [SerializeField] private string nickName = "Player";
 
-    public string GameVersion {
-        get { return gameVersion; }
-        set { gameVersion = value; }
-    }
+    // Audio Settings
+    [SerializeField] private float masterVol = 25f;
+    [SerializeField] private float musicVol = 25f;
+    [SerializeField] private float fxVol = 25f;
 
-    public string NickName
+    public string GameVersion { get { return gameVersion; } set { gameVersion = value; } }
+    public string NickName { get { return nickName + Random.Range(0, 9999); } set { nickName = value.ToString(); }}
+
+    public float MasterVol => masterVol;
+    public float MusicVol => musicVol;
+    public float FxVol => fxVol;
+
+    public void UpdateVol(float master, float music, float fx)
     {
-        get { return nickName + Random.Range(0, 9999); }
-        set { nickName = value.ToString(); }
+        masterVol = master;
+        musicVol = music;
+        fxVol = fx;
     }
 }

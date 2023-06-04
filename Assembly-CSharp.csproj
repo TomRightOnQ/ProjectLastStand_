@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Scriptable\AnimConfigs.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\PlayerListing.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\MonsterResult.cs" />
     <Compile Include="Assets\Scripts\Managers\MasterManager.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\TestConnect.cs" />
     <Compile Include="Assets\Scripts\Managers\PrefabManager.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Assets\Scripts\Scriptable\UpgradeConfigs.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items\FireRing.cs" />
     <Compile Include="Assets\Scripts\Managers\Online\NetworkManager.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Items\Bombarding.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\UpgradeMenu.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\DroppedItems.cs" />
     <Compile Include="Assets\Scripts\Managers\PersistentConfigManager.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Assets\Scripts\ObjectClass\Items\Items.cs" />
     <Compile Include="Assets\Scripts\Tools\AimmingRay.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\DamageNumber.cs" />
+    <Compile Include="Assets\Scripts\Scriptable\AudioConfigs.cs" />
     <Compile Include="Assets\Scripts\AI\MonsterAI.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CreateRoom.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\BaseIndicator.cs" />
@@ -106,9 +109,13 @@
     <Compile Include="Assets\Scripts\Tools\ExtTransforms.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Explosions.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items\Blades.cs" />
+    <Compile Include="Assets\Scripts\Scriptable\Listeners\PlayerListener.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\Settings\SettingsCanvas.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\BuffIcons.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\DefaultObjects.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RoomListingsMenu.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Weapons.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\Settings\SliderBar.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items\TacticalShield.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\LeaveRoomMenu.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RoomsCanvases.cs" />
@@ -119,16 +126,13 @@
     <Compile Include="Assets\Scripts\Tools\GameSettings.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Entities.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\InteractionScrollView.cs" />
+    <Compile Include="Assets\Scripts\Managers\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Tools\Automation\WeaponConfigEditor.cs" />
     <Compile Include="Assets\Scripts\Tools\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\Managers\ScoreboardManager.cs" />
     <Compile Include="Assets\Scripts\Scriptable\MonsterConfigs.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items\Projectiles.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
-    <Compile Include="Assets\Scripts\Scriptable\Listeners\PlayerListener.cs" />
-    <Compile Include="Assets\Scripts\ObjectClass\Items\Bombarding.cs" />
-    <Compile Include="Assets\Scripts\Managers\ScoreboardManager.cs" />
-    <Compile Include="Assets\Scripts\Tools\UIs\BuffIcons.cs" />
-    <Compile Include="Assets\Scripts\Tools\UIs\MonsterResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

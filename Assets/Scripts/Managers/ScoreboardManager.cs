@@ -29,6 +29,9 @@ public class ScoreboardManager : MonoBehaviour
         Instance = this;
         effectList = PlayerListener.Instance.EffectHeld;
         monsterList = PlayerListener.Instance.MonsterList;
+        weapon1 = PlayerListener.Instance.Weapon1;
+        weapon2 = PlayerListener.Instance.Weapon2;
+
         showEffects();
         UpdateTime();
         showWeapons();

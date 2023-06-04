@@ -63,7 +63,6 @@ public class InteractionScrollView : MonoBehaviour
         if (selectedItemIndex >= 0 && selectedItemIndex < content.transform.childCount)
         {
             ItemListings listing = content.transform.GetChild(selectedItemIndex).GetComponent<ItemListings>();
-            Debug.Log("Selected item: " + listing.name);
             // Get Weapons
             WeaponConfig weaponData = WeaponConfigs.Instance._getWeaponConfig(listing.WeaponIndex);
             // Show the WeaponChpice page

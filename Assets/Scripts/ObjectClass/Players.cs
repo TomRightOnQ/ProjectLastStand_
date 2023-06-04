@@ -244,6 +244,19 @@ public class Players : Entities, IPunObservable
         
     }
 
+    public override void Deactivate()
+    {
+        if (!PhotonNetwork.IsConnected)
+        {
+            PlayerListener.Instance.UpdateWeapons(weapons[0].ID, weapons[0].Level, weapons[1].ID, weapons[1].Level);
+        }
+        else if (PhotonNetwork.IsConnected && photonView.IsMine)
+        {
+            PlayerListener.Instance.UpdateWeapons(weapons[0].ID, weapons[0].Level, weapons[1].ID, weapons[1].Level);
+        }
+        base.Deactivate();
+    }
+
     // Bars
     public void UpdateHP()
     {

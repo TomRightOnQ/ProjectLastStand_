@@ -76,7 +76,6 @@ public class MonsterManager : MonoBehaviour
         {
             // Add experience points to players
             GameManager.Instance.AddExp(monster.EXP);
-            GameManager.Instance.UpdateMonster(monster.ID);
             monster.Deactivate();
         }
     }

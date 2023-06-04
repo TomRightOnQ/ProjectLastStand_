@@ -13,7 +13,9 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
     [SerializeField] private WeaponInfo weapon1Info;
     [SerializeField] private WeaponInfo weapon2Info;
     [SerializeField] private WeaponInfo weapon3Info;
-    [SerializeField] private Button confirmButton;
+    [SerializeField] private Button confirmButton1;
+    [SerializeField] private Button confirmButton2;
+
     [SerializeField] private TextMeshProUGUI weapon1Hint;
     [SerializeField] private TextMeshProUGUI weapon2Hint;
     private List<WeaponInfo> weaponInfos = new List<WeaponInfo>();
@@ -40,7 +42,8 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
     {
         if (chosenWeapon == -1)
         {
-            confirmButton.gameObject.SetActive(false);
+            confirmButton1.gameObject.SetActive(false);
+            confirmButton2.gameObject.SetActive(false);
         }
         if (isOpend && Input.GetKeyDown(KeyCode.F)) 
         {
@@ -163,7 +166,8 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
             {
                 levelAdder = -1;
             }
-            confirmButton.gameObject.SetActive(true);
+            confirmButton1.gameObject.SetActive(true);
+            confirmButton2.gameObject.SetActive(false);
         }
     }
 
@@ -184,7 +188,8 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
             else {
                 levelAdder = -1;
             }
-            confirmButton.gameObject.SetActive(true);
+            confirmButton1.gameObject.SetActive(false);
+            confirmButton2.gameObject.SetActive(true);
         }
     }
 }

@@ -288,7 +288,9 @@ public class Effects : MonoBehaviourPunCallbacks
             int playerViewID = playerView.ViewID;
             photonView.RPC("AddRingToPlayer", RpcTarget.AllBuffered, playerViewID, ringViewID);
         }
+        player.AddToEffectList(id);
     }
+
     public void Inferno(int id)
     {
         if (!PhotonNetwork.IsConnected)
@@ -308,6 +310,7 @@ public class Effects : MonoBehaviourPunCallbacks
             int playerViewID = playerView.ViewID;
             photonView.RPC("AddRingToPlayer", RpcTarget.AllBuffered, playerViewID, ringViewID);
         }
+        player.AddToEffectList(id);
     }
 
     [PunRPC]
@@ -348,6 +351,7 @@ public class Effects : MonoBehaviourPunCallbacks
             int playerViewID = playerView.ViewID;
             photonView.RPC("AddRingToPlayer", RpcTarget.AllBuffered, playerViewID, ringViewID);
         }
+        player.AddToEffectList(id);
     }
 }
 

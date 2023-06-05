@@ -9,6 +9,8 @@ using static MonsterConfigs;
 // Main Game Manager
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] bool tutorialMode = false;
+
     private bool isLoaded = false;
 
     private static GameManager instance;
@@ -63,7 +65,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (monsterManager && dataManager)
             {
                 Debug.Log("All managers loaded");
-                monsterManager.Begin();
+                if (!tutorialMode) {
+                    monsterManager.Begin();
+                }
                 isLoaded = true;
             }
         }

@@ -193,6 +193,7 @@ MonoBehaviour:
   hitAnim: 0
   isMagic: 0
   isNova: 0
+  hitSFX: -1
 --- !u!33 &1650229930
 MeshFilter:
   m_ObjectHideFlags: 0

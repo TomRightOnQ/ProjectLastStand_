@@ -37,6 +37,12 @@ public class PlayerListener : ScriptableSingleton<PlayerListener>
     public IReadOnlyList<int> EffectHeld => effectHeld;
     public IReadOnlyDictionary<int, int> MonsterList => monsterList;
 
+    public void Reset()
+    {
+        effectHeld.Clear();
+        monsterList.Clear();
+    }
+
     public void UpdateTime(float _time)
     {
         globalTime = _time;

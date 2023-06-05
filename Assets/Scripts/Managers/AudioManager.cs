@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 using static AudioConfigs;
+using System.Collections.Generic;
 
 // Control the audio
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoBehaviourPun
 {
     [SerializeField] private AudioSource musicAudioSource;
-    private AudioClip currentAudio;
-    private AudioClip nextAudio;
 
     // Mixer groups
     [SerializeField] private AudioMixer masterMixer;
@@ -37,7 +37,6 @@ public class AudioManager : MonoBehaviour
         isChangingMusic = true;
         musicAudioSource.Stop();
         MusicConfig config = AudioConfigs.Instance.GetMusic(currentSceneType);
-        Debug.Log(config.clip);
         musicAudioSource.clip = config.clip;
         musicAudioSource.Play();
         isChangingMusic = false;
@@ -71,6 +70,8 @@ public class AudioManager : MonoBehaviour
                 return 0;
             case "MultiplayerLobby":
                 return 0;
+            case "Tutorial":
+                return 2;
             default:
                 return 0;
         }
@@ -88,5 +89,39 @@ public class AudioManager : MonoBehaviour
     private void SetVolume(string mixerParam, float volume)
     {
         masterMixer.SetFloat(mixerParam, Mathf.Log10(volume) * 20f);
+    }
+
+    public void PlaySound(int id, Vector3 pos)
+    {
+        if (id < 0) {
+            return;
+        }
+        SFXObjects sfx = GameManager.Instance.dataManager.TakeSfxPool();
+        if (sfx == null)
+        {
+            return;
+        }
+        sfx.transform.position = pos;
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("RPCPlaySound", RpcTarget.Others, id, pos);
+        }
+        sfx.SetUp(id);
+    }
+
+    [PunRPC]
+    public void RPCPlaySound(int id, Vector3 pos)
+    {
+        if (id < 0)
+        {
+            return;
+        }
+        SFXObjects sfx = GameManager.Instance.dataManager.TakeSfxPool();
+        if (sfx == null)
+        {
+            return;
+        }
+        sfx.transform.localPosition = pos;
+        sfx.SetUp(id);
     }
 }

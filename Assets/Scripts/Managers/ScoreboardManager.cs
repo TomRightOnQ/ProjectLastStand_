@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using TMPro;
 
 // Control the behavior of the Scoreboard
@@ -11,6 +10,7 @@ public class ScoreboardManager : MonoBehaviour
     public static ScoreboardManager Instance;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject content;
+    [SerializeField] private GameObject homeBtn;
     private IReadOnlyList<int> effectList;
     private IReadOnlyDictionary<int, int> monsterList;
     private float globalTime = 0f;
@@ -31,7 +31,7 @@ public class ScoreboardManager : MonoBehaviour
         monsterList = PlayerListener.Instance.MonsterList;
         weapon1 = PlayerListener.Instance.Weapon1;
         weapon2 = PlayerListener.Instance.Weapon2;
-
+        homeBtn.SetActive(false);
         showEffects();
         UpdateTime();
         showWeapons();
@@ -43,6 +43,8 @@ public class ScoreboardManager : MonoBehaviour
         for (int i = 0; i < effectList.Count; i++) 
         {
             GameObject effectObj = Instantiate(PrefabManager.Instance.BuffIcon);
+            effectObj.transform.SetParent(content.transform);
+            effectObj.transform.localScale = Vector3.one;
             effectObj.GetComponent<BuffIcons>().SetUp(effectList[i]);
         }
     }
@@ -57,6 +59,7 @@ public class ScoreboardManager : MonoBehaviour
             zCurrent -= 3f;
             yield return new WaitForSeconds(0.5f);
         }
+        homeBtn.SetActive(true);
     }
 
     private void showWeapons()

@@ -18,7 +18,7 @@ public class Items : DefaultObjects, IPunObservable
     [SerializeField] protected bool isMagic = false;
     [SerializeField] protected bool isNova = false;
     protected float creationTime;
-
+    public int hitSFX = -1;
     // Sync
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

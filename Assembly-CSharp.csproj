@@ -78,7 +78,7 @@
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CreateOrJoinCanvas.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\WeaponInfo.cs" />
     <Compile Include="Assets\Scripts\Managers\ScriptableSingleton.cs" />
-    <Compile Include="Assets\Scripts\Effects\Effects.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Effects\Effects.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\PlayerListingsMenu.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Base.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\RandomProperty.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="Assets\Scripts\Tools\SingletonReferences.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\WeaponChoice.cs" />
     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
-    <Compile Include="Assets\Scripts\Effects\EffectComponents.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\Effects\EffectComponents.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items\IceRing.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\CurrentRoomCanvas.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Players.cs" />
@@ -133,6 +133,11 @@
     <Compile Include="Assets\Scripts\Scriptable\MonsterConfigs.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\Items\Projectiles.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
+    <Compile Include="Assets\Scripts\ObjectClass\SFXObjects.cs" />
+    <Compile Include="Assets\Scripts\Tools\PlaySound.cs" />
+    <Compile Include="Assets\Scripts\Tutorial\BaseTR.cs" />
+    <Compile Include="Assets\Scripts\Tutorial\TriggerWall.cs" />
+    <Compile Include="Assets\Scripts\Tools\UIs\PauseMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

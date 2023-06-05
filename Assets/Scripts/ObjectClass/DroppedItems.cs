@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
@@ -26,7 +27,7 @@ public class DroppedItems : DefaultObjects
 
     public int WeaponIndex { get { return weaponIndex; } set { weaponIndex = value; } }
     public int ViewID { get { return viewID; } }
-    public long DroppedId { get { return droppedId; } }
+    public long DroppedId { get { return droppedId; } set { droppedId = value; } }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -65,6 +66,10 @@ public class DroppedItems : DefaultObjects
         // Generate a unique id
         long ticks = DateTime.UtcNow.Ticks - epochTicks;
         droppedId = (ticks << 8) | typeIndicator;
+        int randomNumber = Random.Range(0, 1000);
+
+        // Combine the random number with the id
+        droppedId = (uint)((droppedId << 16) | ((uint)randomNumber << 8));
     }
 
     private void Update()

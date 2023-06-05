@@ -29,7 +29,8 @@ public class Weapons : DefaultObjects
     [SerializeField] private int fireAnim = 0;
     [SerializeField] private bool isMagic = false;
     [SerializeField] private bool isNova = false;
-
+    [SerializeField] private int fireSFX = -1;
+    [SerializeField] private int hitSFX = -1;
     private const float LASER_LENGTH = 200f;
     private const float PROJ_YOFFSET = 1.1f;
     private const float LASER_YOFFSET = 1.6f;
@@ -58,6 +59,8 @@ public class Weapons : DefaultObjects
         fireAnim = weaponConfig.fireAnim;
         damageRangeBase = weaponConfig.damageRange;
         isMagic = weaponConfig.isMagic;
+        fireSFX = weaponConfig.fireSFX;
+        hitSFX = weaponConfig.hitSFX;
         atk = attack;
         SwapMesh(weaponConfig.id);
         level = 1;
@@ -123,7 +126,7 @@ public class Weapons : DefaultObjects
         }
         Vector3 firePos = transform.position + transform.TransformDirection(Vector3.forward) * 1f;
         PlayFireAnim(firePos);
-
+        AudioManager.Instance.PlaySound(fireSFX, transform.position);
         float localCritical = 1;
         if (RollCriticalDamage(criticalRate))
         {
@@ -179,6 +182,7 @@ public class Weapons : DefaultObjects
             proj.HitAnim = hitAnim;
             proj.DamageRange = damageRange;
             proj.IsMagic = isMagic;
+            proj.hitSFX = hitSFX;
             proj.GetComponent<Rigidbody>().velocity = direction * projectileSpeed * 10;
             proj.SwapMesh(id);
             proj.Activate();
@@ -220,6 +224,7 @@ public class Weapons : DefaultObjects
             laser.HitAnim = hitAnim;
             laser.DamageRange = damageRange;
             laser.IsMagic = isMagic;
+            laser.hitSFX = hitSFX;
             laser.Activate();
 
             if (PhotonNetwork.IsConnected)

@@ -5028,6 +5028,7 @@ MonoBehaviour:
   hitAnim: 0
   isMagic: 1
   isNova: 0
+  hitSFX: 0
 --- !u!54 &2220193792548847129
 Rigidbody:
   m_ObjectHideFlags: 0

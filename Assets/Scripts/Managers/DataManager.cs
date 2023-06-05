@@ -21,7 +21,9 @@ public class DataManager : MonoBehaviourPunCallbacks
     private List<Lasers> laserPool = new List<Lasers>();
     public const int LASER_COUNT = 50;
     private List<Projectiles> monsterProjPool = new List<Projectiles>();
-
+    // SFXs
+    private List<SFXObjects> sfxPool = new List<SFXObjects>();
+    public const int SFX_COUNT = 100;
     // Weapons
     private List<Weapons> weaponsPool = new List<Weapons>();
     // Indicators
@@ -39,7 +41,7 @@ public class DataManager : MonoBehaviourPunCallbacks
     public void initData()
     {
         prefabManager = PrefabManager.Instance;
-        // aimPlane = new Plane(Vector3.up, new Vector3(0f, 0.5f, 0f));
+        initSFXPool();
         if (!PhotonNetwork.IsConnected)
         {
             initPoolLocal();
@@ -49,7 +51,19 @@ public class DataManager : MonoBehaviourPunCallbacks
         {
             initPool();
         }
+        // Prepare individual poolings
         initProjPool();
+    }
+
+    // Prepare local SFXs
+    private void initSFXPool()
+    {
+        for (int i = 0; i < SFX_COUNT; i++)
+        {
+            GameObject sfxObj = Instantiate(PrefabManager.Instance.SfxPrefab);
+            sfxObj.SetActive(false);
+            sfxPool.Add(sfxObj.GetComponent<SFXObjects>());
+        }
     }
 
     private void initPoolLocal()
@@ -291,6 +305,19 @@ public class DataManager : MonoBehaviourPunCallbacks
         return null;
     }
 
+    public SFXObjects TakeSfxPool()
+    {
+        for (int i = 0; i < sfxPool.Count; i++)
+        {
+            if (!sfxPool[i].gameObject.activeSelf)
+            {
+                sfxPool[i].Activate();
+                return sfxPool[i];
+            }
+        }
+        return null;
+    }
+
     public Projectiles MonsterTakeProjPool()
     {
         for (int i = 0; i < monsterProjPool.Count; i++)
@@ -327,7 +354,6 @@ public class DataManager : MonoBehaviourPunCallbacks
         }
         return null;
     }
-
 
     // Getters for the pools
     public Players[] GetPlayers()

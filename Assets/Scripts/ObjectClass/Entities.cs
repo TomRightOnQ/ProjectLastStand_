@@ -84,8 +84,9 @@ public abstract class Entities : DefaultObjects, IPunObservable
     }
 
     // Taking Damage
-    public virtual void TakeDamage(float damage, bool isMagic) {
-
+    public virtual void TakeDamage(float damage, bool isMagic) 
+    {
+        AudioManager.Instance.PlaySound(12, transform.position);
         currentHitPoints -= damage;
         if (currentHitPoints > hitPoints) {
             currentHitPoints = hitPoints;

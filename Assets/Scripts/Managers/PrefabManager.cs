@@ -23,6 +23,8 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     [SerializeField] private GameObject buffIcon; // Buff listing
     [SerializeField] private GameObject monsterResult; // Monster listing
 
+    [SerializeField] private GameObject sfxPrefab;
+
     public GameObject MonsterPrefab => monsterPrefab;
     public GameObject ProjPrefab => projPrefab;
     public GameObject LaserPrefab => laserPrefab;
@@ -39,4 +41,5 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     public GameObject TacticalShieldRingPrefab => tacticalShieldRingPrefab;
     public GameObject BuffIcon => buffIcon;
     public GameObject MonsterResult => monsterResult;
+    public GameObject SfxPrefab => sfxPrefab;
 }

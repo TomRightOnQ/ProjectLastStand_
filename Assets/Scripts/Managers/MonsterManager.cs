@@ -8,12 +8,20 @@ public class MonsterManager : MonoBehaviour
     public static MonsterManager Instance;
     [SerializeField] private int difficulty = 1;
     private float spawning = 2.8f;
-
+    
     public void Begin()
     {
         if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
         {
             StartCoroutine(SpawnCoroutine());
+        }
+    }
+
+    public void End()
+    {
+        if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
+        {
+            StopCoroutine(SpawnCoroutine());
         }
     }
 

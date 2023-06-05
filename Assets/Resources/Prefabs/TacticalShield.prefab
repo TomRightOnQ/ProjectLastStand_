@@ -70,6 +70,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 2674670434080865125}
+  - {fileID: -5324800830916307919}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -128,6 +129,7 @@ MonoBehaviour:
   hitAnim: 0
   isMagic: 0
   isNova: 0
+  hitSFX: -1
 --- !u!1 &7148375324306655554
 GameObject:
   m_ObjectHideFlags: 0

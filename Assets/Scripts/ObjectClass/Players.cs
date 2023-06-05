@@ -189,7 +189,6 @@ public class Players : Entities, IPunObservable
     // Set Weapon Info
     private void setWeaponPreview(int slot)
     {
-
         GameUI.Instance.SetWeaponInfo(slot, weapons[slot]);
         WeaponChoice.Instance.SetWeaponInfo(slot, weapons[slot]);
     }
@@ -227,6 +226,7 @@ public class Players : Entities, IPunObservable
 
     public void PlayerDead()
     {
+        AudioManager.Instance.PlaySound(13, transform.position);
         isAlive = false;
         GameUI.Instance.playerUIObj.SetActive(true);
         GameUI.Instance.volObj.SetActive(true);

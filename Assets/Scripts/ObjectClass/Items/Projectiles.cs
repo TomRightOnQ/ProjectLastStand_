@@ -91,7 +91,7 @@ public class Projectiles : Items
     [PunRPC]
     private void RPCDamageToMonster(int monsterViewID, float damage, bool isMagic)
     {
-        Monsters monster = PhotonView.Find(monsterViewID)?.GetComponent<Monsters>();
+        Monsters monster = PhotonView.Find(monsterViewID).GetComponent<Monsters>();
         if (monster != null)
         {
             monster.TakeDamage(damage, isMagic);
@@ -166,6 +166,7 @@ public class Projectiles : Items
 
     public void Deactivate()
     {
+        AudioManager.Instance.PlaySound(hitSFX, transform.position);
         if (!PhotonNetwork.IsConnected)
         {
             _deactivate();

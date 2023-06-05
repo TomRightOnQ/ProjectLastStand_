@@ -28,3 +28,4 @@ MonoBehaviour:
   tacticalShieldRingPrefab: {fileID: 1004943851206209978, guid: 56b86fb7518d73243bf25e6d73a5f2ae, type: 3}
   buffIcon: {fileID: 6358004454319703840, guid: 0e377b12683ac5245a7733ff92e7b84e, type: 3}
   monsterResult: {fileID: 8693155725875275346, guid: bd7de3c7ed2eafc4a8d4e90276eb7fda, type: 3}
+  sfxPrefab: {fileID: 1446216797182310755, guid: 6a82bfb1a3de96747bd2baf3b07fdc4d, type: 3}

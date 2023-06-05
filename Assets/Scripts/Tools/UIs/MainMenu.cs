@@ -18,4 +18,9 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("MultiplayerLobby");
     }
+
+    public void Tutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
 }

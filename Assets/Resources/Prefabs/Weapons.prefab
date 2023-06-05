@@ -72,6 +72,8 @@ MonoBehaviour:
   fireAnim: 0
   isMagic: 0
   isNova: 0
+  fireSFX: 0
+  hitSFX: -1
 --- !u!33 &525003350
 MeshFilter:
   m_ObjectHideFlags: 0

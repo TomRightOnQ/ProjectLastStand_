@@ -177,6 +177,7 @@ public class Monsters : Entities
             proj.Life = 2f;
             proj.SelfDet = true;
             proj.Player = true;
+            proj.hitSFX = -1;
             // proj.AOE = aoe;
             proj.SwapMesh(ArtConfigs.Artconfig.DefaultMonsterProj);
             proj.GetComponent<Rigidbody>().velocity = direction * speed * 4;

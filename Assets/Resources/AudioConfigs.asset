@@ -12,3 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3c304f96bac2b4190237af4710c6ba, type: 3}
   m_Name: AudioConfigs
   m_EditorClassIdentifier: 
+  buttonSFX: {fileID: 8300000, guid: 59180c92b69d0904c8d0913aa40ebefa, type: 3}
+  gunFireSFX: {fileID: 8300000, guid: b5281cc12946c9345a05880685d0a14d, type: 3}
+  gunFire2SFX: {fileID: 8300000, guid: ee3061a19caceb54eb68c383e1006711, type: 3}
+  gunFire3SFX: {fileID: 8300000, guid: 79d2b7561526a674f8e82befe337a552, type: 3}
+  gunSelect: {fileID: 8300000, guid: c12cf4225fe29d4448c7bbfe35fc4bae, type: 3}
+  magicFireSFX: {fileID: 8300000, guid: 648b0ab4e6174ce499b7823bb5c55401, type: 3}
+  magicFire2SFX: {fileID: 8300000, guid: c71146f3d79d8af4fb093e57d1768f96, type: 3}
+  missileFireSFX: {fileID: 8300000, guid: 8c77fea020cfa724f9467546689aa0dd, type: 3}
+  missileFire2SFX: {fileID: 8300000, guid: 2064e054fb7f7494d8d2dd3ae1df2049, type: 3}
+  explosionSFX: {fileID: 8300000, guid: 6e27809392aa053448ce1dde934e50db, type: 3}
+  explosion2SFX: {fileID: 8300000, guid: 89b29816b878f4444ad2982866f655e2, type: 3}
+  explosion3SFX: {fileID: 8300000, guid: d377946715f2d3f43b1e86c136c3f9a3, type: 3}
+  hitSFX: {fileID: 8300000, guid: 4fa49568692c57849a2add4bfe812568, type: 3}
+  deathSFX: {fileID: 8300000, guid: bc2f476094ddad047956e4b5e855446e, type: 3}
+  death2SFX: {fileID: 8300000, guid: fabf67b6a06aec344b2c95eead427a99, type: 3}
+  laserSFX: {fileID: 8300000, guid: 884abbd60682a2d4bb0daf79d3bb06c7, type: 3}
+  burningSFX: {fileID: 8300000, guid: d37581e2d2db38145a7a03ddb696cb7a, type: 3}
+  burning2SFX: {fileID: 8300000, guid: 4e58e2fc140ed3a4782857dacd5faf23, type: 3}

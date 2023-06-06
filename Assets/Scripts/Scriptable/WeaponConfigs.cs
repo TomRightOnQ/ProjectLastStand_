@@ -289,45 +289,36 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     private const int PURPLE_BEGIN = 300;
     private const int PURPLE_COUNT = 2;
     private const int ORANGE_BEGIN = 400;
-    private const int ORANGE_COUNT = 0;
+    private const int ORANGE_COUNT = 1;
 
     public WeaponConfig _getWeaponConfig(int id)
 	{
-        WeaponConfig weaponData = Pistol;
         switch (id)
         {
             case -2:
-                weaponData = WeaponConfigs.Fork;
-                break;
+                return WeaponConfigs.Fork;
             case -1:
-                weaponData = WeaponConfigs.Pistol;
-                break;
+                return WeaponConfigs.Pistol;
             case 0:
-                weaponData = WeaponConfigs.LMG;
-                break;
+                return WeaponConfigs.LMG;
             case 100:
-                weaponData = WeaponConfigs.RPG;
-                break;
+                return WeaponConfigs.RPG;
 			case 200:
-				weaponData = WeaponConfigs.RubyLaser;
-				break;
+                return WeaponConfigs.RubyLaser;
 			case 101:
-                weaponData = WeaponConfigs.HeatLaser;
-                break;
+                return WeaponConfigs.HeatLaser;
             case 300:
-                weaponData = WeaponConfigs.Kornet;
-                break;
+                return WeaponConfigs.Kornet;
             case 301:
-                weaponData = WeaponConfigs.EvilDagger;
-                break;
+                return WeaponConfigs.EvilDagger;
             case 102:
-                weaponData = WeaponConfigs.BloodSword;
-                break;
+                return WeaponConfigs.BloodSword;
             case 201:
-                weaponData = WeaponConfigs.Keris;
-                break;
+                return WeaponConfigs.Keris;
+            default:
+   
+                return WeaponConfigs.Pistol;
         }
-        return weaponData;
     }
 
     public WeaponConfig getWeaponConfig()

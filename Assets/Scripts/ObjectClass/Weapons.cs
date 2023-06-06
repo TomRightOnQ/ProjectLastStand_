@@ -160,7 +160,6 @@ public class Weapons : DefaultObjects
                 }
                 break;
         }
-        Debug.Log(isFiring);
         timer = 0;
     }
 
@@ -396,7 +395,7 @@ public class Weapons : DefaultObjects
         else if (other.CompareTag("Proj"))
         {
             Projectiles proj = other.gameObject.GetComponent<Projectiles>();
-            if (proj.Owner == -1)
+            if (proj != null && proj.Owner == -1)
             {
                 proj.Deactivate();
             }

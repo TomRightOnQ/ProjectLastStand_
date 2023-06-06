@@ -4559,7 +4559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604dcce83fd78584ebaef6cc3cc50d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 1
+  key: 3
   button: {fileID: 1259679416}
 --- !u!1 &1263798382
 GameObject:
@@ -5021,7 +5021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604dcce83fd78584ebaef6cc3cc50d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: 3
+  key: 1
   button: {fileID: 1307660122}
 --- !u!1 &1312097016 stripped
 GameObject:
@@ -8907,7 +8907,7 @@ PrefabInstance:
       objectReference: {fileID: 4808495918488823105}
     - target: {fileID: 3097599430115513223, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1563212230420698920, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
@@ -9155,7 +9155,7 @@ PrefabInstance:
       objectReference: {fileID: 6653790809661672108}
     - target: {fileID: 3097599430115513223, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1563212230420698920, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}

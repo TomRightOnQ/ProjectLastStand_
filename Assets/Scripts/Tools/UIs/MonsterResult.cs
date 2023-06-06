@@ -25,7 +25,7 @@ public class MonsterResult : MonoBehaviour
         WeaponConfigs.WeaponConfig weaponConfig = WeaponConfigs.Instance._getWeaponConfig(id);
         Mesh newMesh = ArtConfigs.Instance.getMesh(weaponConfig.mesh);
         meshFilter.mesh = newMesh;
-        number.text = "Level: " + level.ToString();
+        number.text = "Level: " + (level + 1).ToString();
         monsterDummy.transform.localScale = new Vector3(2, 2, 2);
         isWeapon = true;
     }

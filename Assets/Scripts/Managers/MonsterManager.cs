@@ -62,18 +62,35 @@ public class MonsterManager : MonoBehaviour
 
 
     // Spawning
-    public void spawn(Vector3 pos, int id)
+    public void spawn(Vector3 pos, int id, int swarm = -1)
     {
         // Get monster from pool
         Monsters monster = GameManager.Instance.dataManager.TakeMonsterPool();
 
         if (monster != null)
         {
-            // Config the monster
-            MonsterConfig monsterData = MonsterConfigs.Instance.getMonsterConfig();
-            monster.transform.position = pos;
-            monster.SetMonsters(monsterData);
-            monster.UpdateHP();
+            if (swarm != -1) // check if it is a swarm monster, iterate if yes.
+            {
+                MonsterConfig monsterData = MonsterConfigs.Instance.getMonsterConfig(3);
+                monster.transform.position = pos;
+                monster.SetMonsters(monsterData);
+                monster.UpdateHP();
+                swarm += -1;
+                Vector3 posToRight = pos + new Vector3(1.5f, 0f, 1f);
+                if (swarm>-1){spawn(posToRight, id, swarm);}
+            }
+            
+            else // normally Config the monster
+            {
+                MonsterConfig monsterData = MonsterConfigs.Instance.getMonsterConfig();
+                monster.transform.position = pos;
+                monster.SetMonsters(monsterData);
+                monster.UpdateHP();
+                if (monsterData.id == 3)
+                {
+                    spawn(pos, id, 4);
+                }
+            }
         }
     }
 

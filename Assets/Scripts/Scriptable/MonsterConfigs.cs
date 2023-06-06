@@ -38,7 +38,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultWeaponAttack = 1,
         defaultDefence = 5,
         defaultMagicDefence = 2,
-        exp = 4,
+        exp = 3,
         behaviorType = MonsterBehaviorType.Walker,
         mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
@@ -54,7 +54,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultWeaponAttack = 1,
         defaultDefence = 4,
         defaultMagicDefence = 3,
-        exp = 6,
+        exp = 5,
         behaviorType = MonsterBehaviorType.Shooter,
         mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
@@ -70,7 +70,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultWeaponAttack = 1,
         defaultDefence = 8,
         defaultMagicDefence = 15,
-        exp = 10,
+        exp = 8,
         behaviorType = MonsterBehaviorType.Shooter,
         mesh = ArtConfigs.Artconfig.MageKillerMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
@@ -102,7 +102,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultWeaponAttack = 1,
         defaultDefence = 10,
         defaultMagicDefence = 10,
-        exp = 10,
+        exp = 8,
         behaviorType = MonsterBehaviorType.Walker,
         mesh = ArtConfigs.Artconfig.ZealotMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
@@ -118,7 +118,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultWeaponAttack = 1,
         defaultDefence = 10,
         defaultMagicDefence = 1,
-        exp = 30,
+        exp = 26,
         behaviorType = MonsterBehaviorType.Shooter,
         mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
@@ -133,7 +133,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultWeaponAttack = 1,
         defaultDefence = 30,
         defaultMagicDefence = 20,
-        exp = 100,
+        exp = 90,
         behaviorType = MonsterBehaviorType.Walker,
         mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
@@ -176,7 +176,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         {
             return getMonsterConfig(6);
         }
-        int[] weights = { 40, 25, 15, 10, 8, 2 };
+        int[] weights = { 37, 25, 15, 10, 8, 5 };
         int totalWeight = 0;
         foreach(int weight in weights) 
         {
@@ -197,6 +197,9 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
                 chosenID = i;
                 break;
             }
+        }
+        if (chosenID==3){
+            Monsters monster = GameManager.Instance.dataManager.TakeMonsterPool();
         }
         return getMonsterConfig(chosenID);
     }

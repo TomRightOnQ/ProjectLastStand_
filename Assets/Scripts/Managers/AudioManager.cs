@@ -3,7 +3,6 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using static AudioConfigs;
-using System.Collections.Generic;
 
 // Control the audio
 public class AudioManager : MonoBehaviourPun

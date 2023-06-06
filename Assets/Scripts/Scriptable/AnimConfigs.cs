@@ -12,8 +12,7 @@ public class AnimConfigs : ScriptableSingleton<AnimConfigs>
 
     public GameObject GetAnim(int id) 
     {
-        GameObject animation = null;
-
+        GameObject animation;
         switch (id)
         {
             case 0:
@@ -23,7 +22,7 @@ public class AnimConfigs : ScriptableSingleton<AnimConfigs>
                 animation = BladeAnim;
                 break;
             default:
-                break;
+                return null;
         }
         return animation;
     }
@@ -42,7 +41,6 @@ public class AnimConfigs : ScriptableSingleton<AnimConfigs>
             case 2:
                 animation = EXPAnim3;
                 break;
-
             default:
                 break;
         }

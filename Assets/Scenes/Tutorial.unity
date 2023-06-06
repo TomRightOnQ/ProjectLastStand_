@@ -10560,6 +10560,14 @@ PrefabInstance:
       propertyPath: SpeedBase
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2668866916221753457, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
+      propertyPath: hitPoints
+      value: 200000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2668866916221753457, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
+      propertyPath: currentHitPoints
+      value: 200000
+      objectReference: {fileID: 0}
     - target: {fileID: 2668866916221753463, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
       propertyPath: m_Name
       value: Monsters (1)

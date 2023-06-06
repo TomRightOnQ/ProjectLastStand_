@@ -51,31 +51,31 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         mesh = ArtConfigs.Artconfig.PistolMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
         fireSFX = 1,
-        hitSFX = -1,
+        hitSFX = 0,
     };
 
-    public static WeaponConfig Sword = new WeaponConfig
+    public static WeaponConfig Fork = new WeaponConfig
     {
-        _name = "Sword",
+        _name = "Fork",
         id = -2,
         rating = 1,
-        type = 0,
-        attack = 2,
+        type = 2,
+        attack = 5,
         pen = 0.1f,
         life = 0.05f,
         cd = 0.5f,
         selfDet = false,
         projectileSpeed = 5,
         aoe = false,
-        damageRange = 0.4f,
+        damageRange = 1f,
         info = "In theory, you can slain a dragon with it",
-        intro = "A default melee",
+        intro = "A fork from Brandywine",
         hitAnim = 0,
-        fireAnim = 1,
+        fireAnim = -1,
         isMagic = false,
-        mesh = ArtConfigs.Artconfig.PistolMesh,
+        mesh = ArtConfigs.Artconfig.ForkMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
-        fireSFX = 0,
+        fireSFX = 18,
         hitSFX = -1,
     };
 
@@ -204,15 +204,90 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         hitSFX = 9,
     };
 
+    public static WeaponConfig BloodSword = new WeaponConfig
+    {
+        _name = "Blood Sword",
+        id = 102,
+        rating = 2,
+        type = 2,
+        attack = 16,
+        pen = 0.5f,
+        life = 3f,
+        cd = 2f,
+        selfDet = true,
+        projectileSpeed = 6,
+        aoe = true,
+        damageRange = 0.75f,
+        info = "A sword formed by blood chunks",
+        intro = "A strong melee weapon",
+        hitAnim = 0,
+        fireAnim = 0,
+        isMagic = true,
+        mesh = ArtConfigs.Artconfig.BloodSwordMesh,
+        projMesh = ArtConfigs.Artconfig.BloodSwordMesh,
+        fireSFX = 18,
+        hitSFX = 9,
+    };
+
+    public static WeaponConfig EvilDagger = new WeaponConfig
+    {
+        _name = "Evil Dagger",
+        id = 301,
+        rating = 4,
+        type = 2,
+        attack = 16,
+        pen = 0.5f,
+        life = 3f,
+        cd = 2f,
+        selfDet = true,
+        projectileSpeed = 6,
+        aoe = true,
+        damageRange = 0.75f,
+        info = "And what must we give it return?",
+        intro = "Fast and lethal",
+        hitAnim = 0,
+        fireAnim = 0,
+        isMagic = true,
+        mesh = ArtConfigs.Artconfig.EvilDaggerMesh,
+        projMesh = ArtConfigs.Artconfig.EvilDaggerMesh,
+        fireSFX = 18,
+        hitSFX = 9,
+    };
+
+    public static WeaponConfig Keris = new WeaponConfig
+    {
+        _name = "Keris",
+        id = 201,
+        rating = 3,
+        type = 2,
+        attack = 16,
+        pen = 0.5f,
+        life = 3f,
+        cd = 2f,
+        selfDet = true,
+        projectileSpeed = 6,
+        aoe = true,
+        damageRange = 0.75f,
+        info = "Hold your mouse button and enjoy",
+        intro = "A ",
+        hitAnim = 0,
+        fireAnim = 0,
+        isMagic = true,
+        mesh = ArtConfigs.Artconfig.KerisMesh,
+        projMesh = ArtConfigs.Artconfig.KerisMesh,
+        fireSFX = 18,
+        hitSFX = 9,
+    };
+
     // Getters and Setters
     private const int WHITE_BEGIN = 0;
     private const int WHITE_COUNT = 1;
     private const int GREEN_BEGIN = 100;
-    private const int GREEN_COUNT = 2;
+    private const int GREEN_COUNT = 3;
     private const int BLUE_BEGIN = 200;
-    private const int BLUE_COUNT = 1;
+    private const int BLUE_COUNT = 2;
     private const int PURPLE_BEGIN = 300;
-    private const int PURPLE_COUNT = 1;
+    private const int PURPLE_COUNT = 2;
     private const int ORANGE_BEGIN = 400;
     private const int ORANGE_COUNT = 0;
 
@@ -222,7 +297,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         switch (id)
         {
             case -2:
-                weaponData = WeaponConfigs.Sword;
+                weaponData = WeaponConfigs.Fork;
                 break;
             case -1:
                 weaponData = WeaponConfigs.Pistol;
@@ -241,6 +316,15 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
                 break;
             case 300:
                 weaponData = WeaponConfigs.Kornet;
+                break;
+            case 301:
+                weaponData = WeaponConfigs.EvilDagger;
+                break;
+            case 102:
+                weaponData = WeaponConfigs.BloodSword;
+                break;
+            case 201:
+                weaponData = WeaponConfigs.Keris;
                 break;
         }
         return weaponData;

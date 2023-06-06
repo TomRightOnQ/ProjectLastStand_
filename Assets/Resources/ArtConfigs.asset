@@ -22,6 +22,10 @@ MonoBehaviour:
   SwarmMonsterMesh: {fileID: 7192687074134127471, guid: cf5d8c34e3c3b4a41a6136871061f1d4, type: 3}
   SlapMonsterMesh: {fileID: 2820296182284205767, guid: ba8f0d1bef58f7f4a91b3131c3e69029, type: 3}
   MageKillerMonsterMesh: {fileID: -7187175270063515553, guid: 7dbc2ca06a198f64e9be71406f079e60, type: 3}
+  ForkMesh: {fileID: 6667962868559370205, guid: 2ed2bb5e119f3804f9d2b9eaff0496c7, type: 3}
+  EvilDaggerMesh: {fileID: 7915027602452104627, guid: fe86cd6dacb3139479e2e6726d5d57da, type: 3}
+  BloodSwordMesh: {fileID: -3086265022974558044, guid: e1233d865870fa14ca258ac059e8daeb, type: 3}
+  KerisMesh: {fileID: 3078843512029630687, guid: 49aa25f6dab505a488b22e951f076d81, type: 3}
   PistolMesh: {fileID: 8545472337109659444, guid: fd771ab2c84b73240b01972ca227ae7d, type: 3}
   RPGMesh: {fileID: -5824094307506378920, guid: 33bdc60e90ddd344e9955df4d7354045, type: 3}
   LMGMesh: {fileID: -706898683356029150, guid: 1aa9573988aeca146a2b5cc3778665f9, type: 3}

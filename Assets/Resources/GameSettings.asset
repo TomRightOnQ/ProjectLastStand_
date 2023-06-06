@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e19d85b6c7529c448147d7eab87eaf4, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  gameVersion: Pre-Release R3
+  gameVersion: Pre-Release R5
   nickName: Defender
-  masterVol: 0.57414997
-  musicVol: 0.46487075
-  fxVol: 25
+  masterVol: 0.29598734
+  musicVol: 1e-17
+  fxVol: 0.2

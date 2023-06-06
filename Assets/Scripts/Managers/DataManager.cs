@@ -133,6 +133,7 @@ public class DataManager : MonoBehaviourPunCallbacks
             playerList[0].WeaponList.Add(weapon);
             weapon.transform.SetParent(playerList[0].transform);
             weapon.transform.localPosition = new Vector3(onLeft * -0.625f, WEAPON_Y_OFFSET, 0.6f);
+            weapon.DefaultPosition = new Vector3(onLeft * -0.625f, WEAPON_Y_OFFSET, 0.6f);
             onLeft *= -1;
         }
         Debug.Log("DataManager is Ready");
@@ -262,6 +263,7 @@ public class DataManager : MonoBehaviourPunCallbacks
                 player.WeaponList.Add(weapon);
                 weapon.transform.SetParent(player.transform);
                 weapon.transform.localPosition = new Vector3(onLeft * -0.625f, WEAPON_Y_OFFSET, 0.6f);
+                weapon.DefaultPosition = new Vector3(onLeft * -0.625f, WEAPON_Y_OFFSET, 0.6f);
             }
         }
     }

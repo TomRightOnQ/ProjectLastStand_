@@ -30,3 +30,4 @@ MonoBehaviour:
   laserSFX: {fileID: 8300000, guid: 884abbd60682a2d4bb0daf79d3bb06c7, type: 3}
   burningSFX: {fileID: 8300000, guid: d37581e2d2db38145a7a03ddb696cb7a, type: 3}
   burning2SFX: {fileID: 8300000, guid: 4e58e2fc140ed3a4782857dacd5faf23, type: 3}
+  meleeSFX: {fileID: 8300000, guid: df304594ed068ba40bb1298e9b2dce95, type: 3}

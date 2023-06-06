@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 using static WeaponConfigs;
@@ -34,11 +35,14 @@ public class Weapons : DefaultObjects
     private const float LASER_LENGTH = 200f;
     private const float PROJ_YOFFSET = 1.1f;
     private const float LASER_YOFFSET = 1.6f;
-
+    private float damage = 0;
     private float atk = 2;
     private float timer = 0;
 
+    private bool isFiring = false;
 
+    [SerializeField] private MeshCollider wCollider;
+    public Vector3 DefaultPosition = Vector3.zero;
     // Morph the weapon
     public void SetWeapons(WeaponConfig weaponConfig)
     {
@@ -80,6 +84,7 @@ public class Weapons : DefaultObjects
             }
             else
             {
+                wCollider.sharedMesh = mesh;
                 meshFilter.mesh = mesh;
             }
         }
@@ -94,6 +99,7 @@ public class Weapons : DefaultObjects
 
         if (meshFilter != null)
         {
+            wCollider.sharedMesh = mesh;
             meshFilter.mesh = mesh;
         }
     }
@@ -124,30 +130,40 @@ public class Weapons : DefaultObjects
         {
             return;
         }
+        damage = (!isMagic) ? atk * playerAttack : atk * weaponAttack;
         Vector3 firePos = transform.position + transform.TransformDirection(Vector3.forward) * 1f;
-        PlayFireAnim(firePos);
-        AudioManager.Instance.PlaySound(fireSFX, transform.position);
+
         float localCritical = 1;
         if (RollCriticalDamage(criticalRate))
         {
             localCritical *= criticalDamage;
         }
 
-        if (PhotonNetwork.IsConnected)
-        {
-            photonView.RPC("RPCPlayFireAnim", RpcTarget.Others, hitAnim, firePos, damageRange);
-        }
         switch (type)
         {
             case 0:
                 FireBullet(playerIdx, playerAttack, weaponAttack, localCritical);
+                AnimManager.Instance.PlayAnim(fireAnim, firePos, new Vector3(damageRange, damageRange, damageRange));
+                AudioManager.Instance.PlaySound(fireSFX, transform.position);
                 break;
             case 1:
                 FireLaser(playerIdx, playerAttack, weaponAttack, localCritical);
+                AnimManager.Instance.PlayAnim(fireAnim, firePos, new Vector3(damageRange, damageRange, damageRange));
+                AudioManager.Instance.PlaySound(fireSFX, transform.position);
+                break;
+            case 2:
+                if (!isFiring)
+                {
+                    AnimManager.Instance.PlayAnim(fireAnim, firePos, new Vector3(damageRange, damageRange, damageRange));
+                    AudioManager.Instance.PlaySound(fireSFX, transform.position);
+                    StartCoroutine(FireMelee(playerIdx, playerAttack, weaponAttack, localCritical));
+                }
                 break;
         }
+        Debug.Log(isFiring);
         timer = 0;
     }
+
     private bool RollCriticalDamage(float criticalRate)
     {
         if (UnityEngine.Random.value < criticalRate)
@@ -172,7 +188,7 @@ public class Weapons : DefaultObjects
             proj.transform.position = firePos;
             proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             proj.IsNova = isNova;
-            proj.Damage = (!isMagic) ? atk * playerAttack : atk * weaponAttack;
+            proj.Damage = damage;
             proj.Damage *= localCritical;
             proj.Owner = playerIdx;
             proj.Life = life;
@@ -194,7 +210,7 @@ public class Weapons : DefaultObjects
         }
     }
 
-    // Type 1/2: Laser
+    // Type 1: Laser
     private void FireLaser(int playerIdx, float playerAttack, float weaponAttack, float localCritical)
     {
         // Get laser from pool
@@ -214,7 +230,7 @@ public class Weapons : DefaultObjects
             laser.transform.localPosition = new Vector3(firePos.x, LASER_YOFFSET, firePos.z);
             laser.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
             laser.IsNova = isNova;
-            laser.Damage = (!isMagic) ? atk * playerAttack : atk * weaponAttack;
+            laser.Damage = damage;
             laser.Damage *= localCritical;
             laser.Owner = playerIdx;
             laser.Life = life;
@@ -235,10 +251,62 @@ public class Weapons : DefaultObjects
         }
     }
 
+    // Type 2: Melee
+    private IEnumerator FireMelee(int playerIdx, float playerAttack, float weaponAttack, float localCritical)
+    {
+        isFiring = true;
+        wCollider.enabled = true;
+        // Simulating a melee
+        if (PhotonNetwork.IsConnected) 
+        {
+            photonView.RPC("RPCSimulateMelee", RpcTarget.Others, photonView.ViewID);
+        }
+        Vector3 targetLocalPosition = new Vector3(DefaultPosition.x, DefaultPosition.y, DefaultPosition.z + damageRange);
+        float elapsedTime = 0f;
+        transform.localPosition = targetLocalPosition;
+        yield return new WaitForSeconds(cd);
+
+        // Disable collider again
+        wCollider.enabled = false;
+        elapsedTime = 0f;
+        while (elapsedTime < cd)
+        {
+            transform.localPosition = Vector3.Lerp(targetLocalPosition, DefaultPosition, elapsedTime / cd);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        isFiring = false;
+    }
+
     private void SimulateLaser(LineRenderer lineRenderer, Vector3 start, Vector3 end)
     {
         lineRenderer.SetPosition(0, start);
         lineRenderer.SetPosition(1, end);
+    }
+
+    // Simulating a projectile
+    [PunRPC]
+    private void RPCSimulateProjectile(int projectileID, int weaponViewID, Vector3 direction, float speed)
+    {
+        // Get projectile from pool
+        Projectiles proj = PhotonView.Find(projectileID).GetComponent<Projectiles>();
+
+        if (proj != null)
+        {
+            Vector3 weaponForward = transform.TransformDirection(Vector3.forward);
+            Vector3 localFirePos = transform.position + weaponForward * 0.5f;
+            // Config the Projectile
+            proj.transform.position = localFirePos;
+            proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            proj.Damage = damage;
+            proj.Owner = photonView.ViewID;
+            proj.Life = life;
+            proj.SelfDet = true;
+            proj.Player = true;
+            proj.AOE = aoe;
+            proj.SwapMesh(id);
+            proj.GetComponent<Rigidbody>().velocity = direction * speed * 10;
+        }
     }
 
     // Simulating a laser
@@ -256,50 +324,33 @@ public class Weapons : DefaultObjects
         }
     }
 
-    // Simulating a projectile
+    // Simulating a melee
     [PunRPC]
-    private void RPCSimulateProjectile(int projectileID, int weaponViewID, Vector3 direction, float speed)
+    private void RPCSimulateMelee(int weaponViewID)
     {
-        // Get projectile from pool
-        Projectiles proj = PhotonView.Find(projectileID).GetComponent<Projectiles>();
+        Weapons weapon = PhotonView.Find(weaponViewID).GetComponent<Weapons>();
 
-        if (proj != null)
+        if (weapon != null)
         {
-            Vector3 weaponForward = transform.TransformDirection(Vector3.forward);
-            Vector3 localFirePos = transform.position + weaponForward * 0.5f;
-            // Config the Projectile
-            proj.transform.position = localFirePos;
-            proj.transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
-            proj.Damage = attack;
-            proj.Owner = photonView.ViewID;
-            proj.Life = life;
-            proj.SelfDet = true;
-            proj.Player = true;
-            proj.AOE = aoe;
-            proj.SwapMesh(id);
-            proj.GetComponent<Rigidbody>().velocity = direction * speed * 10;
+            weapon.StartCoroutine(SimulateMelee());
         }
     }
 
-    public void PlayFireAnim(Vector3 pos)
+    // Type 2: Melee
+    private IEnumerator SimulateMelee()
     {
-        if (AnimConfigs.Instance.GetAnim(fireAnim) == null)
-            return;
-        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(fireAnim), Vector3.zero, Quaternion.identity);
-        animObject.transform.position = pos;
-        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-        animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
-    }
-
-    [PunRPC]
-    public void RPCPlayFireAnim(int id, Vector3 pos, float scale)
-    {
-        if (AnimConfigs.Instance.GetAnim(id) == null)
-            return;
-        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
-        animObject.transform.position = pos;
-        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-        animObject.transform.localScale = new Vector3(scale, scale, scale);
+        Vector3 targetLocalPosition = new Vector3(DefaultPosition.x, DefaultPosition.y, DefaultPosition.z + damageRange);
+        float elapsedTime = 0f;
+        transform.localPosition = targetLocalPosition;
+        yield return new WaitForSeconds(cd);
+        elapsedTime = 0f;
+        while (elapsedTime < cd)
+        {
+            transform.localPosition = Vector3.Lerp(targetLocalPosition, DefaultPosition, elapsedTime / cd);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        timer = 0f;
     }
 
     public void SetRotation(Quaternion rotation)
@@ -312,6 +363,56 @@ public class Weapons : DefaultObjects
         timer += Time.deltaTime;
         atk = attack + extraAttack;
         damageRange = damageRangeBase * DamageRangeMod;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Monster"))
+        {
+            Monsters monster = other.gameObject.GetComponent<Monsters>();
+            if (monster != null && monster.gameObject.activeSelf)
+            {
+                Vector3 pos = new Vector3(monster.transform.position.x, monster.transform.position.y + 4, monster.transform.position.z - 1.5f);
+                if (PhotonNetwork.IsConnected)
+                {
+                    photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
+                }
+                if (isNova)
+                {
+                    Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                    explosion.Initialize(0.5f, damage / 3, pen, true, 0, hitAnim);
+                }
+                if (PhotonNetwork.IsConnected)
+                {
+                    photonView.RPC("RPCDamageToMonster", RpcTarget.All, monster.photonView.ViewID, damage, isMagic);
+                }
+                else
+                {
+                    monster.TakeDamage(damage, isMagic);
+                }
+                GameManager.Instance.monsterManager.despawnCheck(monster);
+            }
+        }
+        else if (other.CompareTag("Proj"))
+        {
+            Projectiles proj = other.gameObject.GetComponent<Projectiles>();
+            if (proj.Owner == -1)
+            {
+                proj.Deactivate();
+            }
+        }
+    }
+
+    [PunRPC]
+    private void RPCDamageToMonster(int monsterViewID, float damage, bool isMagic)
+    {
+        Monsters monster = PhotonView.Find(monsterViewID).GetComponent<Monsters>();
+        if (monster != null)
+        {
+            Debug.Log(damage);
+            monster.TakeDamage(damage, isMagic);
+            GameManager.Instance.monsterManager.despawnCheck(monster);
+        }
     }
 
     // Class properties

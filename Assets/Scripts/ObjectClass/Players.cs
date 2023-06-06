@@ -181,7 +181,13 @@ public class Players : Entities, IPunObservable
             if (weapon == null) {
                 return;
             }
-            weapon.transform.LookAt(new Vector3(targetPosition.x, weapon.transform.position.y, targetPosition.z));
+            if (weapon.Type != 2)
+            {
+                weapon.transform.LookAt(new Vector3(targetPosition.x, weapon.transform.position.y, targetPosition.z));
+            }
+            else {
+                weapon.transform.localRotation = Quaternion.Euler(0, transform.rotation.y, 0);
+            }
             weapon.Fire(index, targetPosition, defaultAttack, defaultWeaponAttack, criticalRate, criticalDamage);
         }
     }
@@ -280,7 +286,7 @@ public class Players : Entities, IPunObservable
             if (!armed && weapons.Count >= 2)
             {
                 addWeapon(0, -1, 0);
-                addWeapon(1, -1, 0);
+                addWeapon(1, -2, 0);
                 armed = true;
             }
             if (currentHitPoints < hitPoints / 2)

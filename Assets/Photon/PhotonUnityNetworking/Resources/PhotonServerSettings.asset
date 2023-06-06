@@ -79,6 +79,9 @@ MonoBehaviour:
   - UpdateMonster
   - RPCUpdateMonster
   - RPCPlaySound
+  - RPCPlayAnim
+  - SetRotation
+  - RPCSimulateMelee
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

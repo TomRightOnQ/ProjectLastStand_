@@ -93,6 +93,7 @@ public class AudioConfigs : ScriptableSingleton<AudioConfigs>
     [SerializeField] private AudioClip laserSFX;
     [SerializeField] private AudioClip burningSFX;
     [SerializeField] private AudioClip burning2SFX;
+    [SerializeField] private AudioClip meleeSFX;
 
     public AudioClip ButtonSFX => buttonSFX;
     public AudioClip GunFireSFX => gunFireSFX;
@@ -112,6 +113,7 @@ public class AudioConfigs : ScriptableSingleton<AudioConfigs>
     public AudioClip LaserSFX => laserSFX;
     public AudioClip BurningSFX => burningSFX;
     public AudioClip Burning2SFX => burning2SFX;
+    public AudioClip MeleeSFX => meleeSFX;
 
     public AudioClip GetAudio(int id)
     {
@@ -153,6 +155,8 @@ public class AudioConfigs : ScriptableSingleton<AudioConfigs>
                 return BurningSFX;
             case 17:
                 return Burning2SFX;
+            case 18:
+                return MeleeSFX;
             default:
                 return null;
         }

@@ -17,6 +17,10 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
     [SerializeField] private Mesh SlapMonsterMesh;
     [SerializeField] private Mesh MageKillerMonsterMesh;
     // Weapon
+    [SerializeField] private Mesh ForkMesh;
+    [SerializeField] private Mesh EvilDaggerMesh;
+    [SerializeField] private Mesh BloodSwordMesh;
+    [SerializeField] private Mesh KerisMesh;
     [SerializeField] private Mesh PistolMesh;
     [SerializeField] private Mesh RPGMesh;
     [SerializeField] private Mesh LMGMesh;
@@ -49,6 +53,10 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
         SlapMonsterMesh,
         MageKillerMonsterMesh,
         // Weapon
+        ForkMesh,
+        EvilDaggerMesh,
+        BloodSwordMesh,
+        KerisMesh,
         PistolMesh,
         RPGMesh,
         LMGMesh,
@@ -81,64 +89,33 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
         switch (type)
         {
             case Artconfig.HumanMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.MageMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.SkeletonMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.SoldierMesh:
-                ret = DefaultMaterial;
-                break;
-
             case Artconfig.PistolMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.RPGMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.LMGMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.HeatLaserMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.LaserGunMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.KornetMesh:
-                ret = DefaultMaterial;
-                break;
-
             case Artconfig.DefaultMonsterMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.LightingMonsterMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.ZealotMonsterMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.SwarmMonsterMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.SlapMonsterMesh:
-                ret = DefaultMaterial;
-                break;
             case Artconfig.MageKillerMonsterMesh:
                 ret = DefaultMaterial;
                 break;
-
             case Artconfig.DefaultProj:
-                ret = DefaultProjMaterial;
-                break;
             case Artconfig.DefaultMonsterProj:
+            case Artconfig.KornetProjMesh:
                 ret = DefaultProjMaterial;
                 break;
-            case Artconfig.KornetProjMesh:
-                ret = ProjMaterial;
+            case Artconfig.ForkMesh:
+            case Artconfig.EvilDaggerMesh:
+            case Artconfig.BloodSwordMesh:
+            case Artconfig.KerisMesh:
+                ret = DefaultMaterial;
                 break;
         }
         return ret;
@@ -202,6 +179,18 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
                 break;
             case Artconfig.KornetMesh:
                 ret = KornetMesh;
+                break;
+            case Artconfig.ForkMesh:
+                ret = ForkMesh;
+                break;
+            case Artconfig.EvilDaggerMesh:
+                ret = EvilDaggerMesh;
+                break;
+            case Artconfig.BloodSwordMesh:
+                ret = BloodSwordMesh;
+                break;
+            case Artconfig.KerisMesh:
+                ret = KerisMesh;
                 break;
 
             // Projectile Meshes

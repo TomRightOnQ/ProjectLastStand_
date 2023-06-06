@@ -29,6 +29,9 @@ public class Effects : MonoBehaviourPunCallbacks
             case -4:
                 Soldier(index);
                 break;
+            case -5:
+                RampageEffect(index);
+                break;
             case 0:
                 Toughness(index, level);
                 break;

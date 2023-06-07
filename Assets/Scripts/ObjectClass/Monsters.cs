@@ -8,13 +8,12 @@ using static MonsterConfigs;
 public class Monsters : Entities
 {
     // Monster Stats
-    [SerializeField] private float exp = 1;
-    [SerializeField] private int id = 1;
-    [SerializeField] private MonsterAI monsterAI;
-    [SerializeField] private MonsterBehaviorType behaviorType;
-    [SerializeField] private TextMeshProUGUI nameText;
-    private float prevHP;
-
+    [SerializeField] protected float exp = 1;
+    [SerializeField] protected int id = 1;
+    [SerializeField] protected MonsterAI monsterAI;
+    [SerializeField] protected MonsterBehaviorType behaviorType;
+    protected float prevHP;
+    protected bool IsBoss = false;
     public PrefabManager prefabManager;
 
     void Awake()
@@ -31,15 +30,6 @@ public class Monsters : Entities
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         base.OnPhotonSerializeView(stream, info);
-
-        if (stream.IsWriting)
-        {
-
-        }
-        else
-        {
-            UpdateHP();
-        }
     }
 
     // Morph the Monster
@@ -58,7 +48,6 @@ public class Monsters : Entities
         prevHP = currentHitPoints;
         behaviorType = MonsterConfigs.behaviorType;
         monsterAI.SetUp();
-        nameText.text = name;
         SwapMonsterMesh(MonsterConfigs.id);
     }
 
@@ -71,16 +60,16 @@ public class Monsters : Entities
         currentHitPoints = hitPoints;
         speed = MonsterConfigs.speed;
         exp = MonsterConfigs.exp * 2.5f;
-        defaultAttack = MonsterConfigs.defaultAttack * 1.5f;
-        defaultWeaponAttack = MonsterConfigs.defaultWeaponAttack * 1.5f;
-        defaultDefence = MonsterConfigs.defaultDefence;
-        defaultMagicDefence = MonsterConfigs.defaultMagicDefence;
+        defaultAttack = MonsterConfigs.defaultAttack * 50f;
+        defaultWeaponAttack = MonsterConfigs.defaultWeaponAttack * 1f;
+        defaultDefence = 30f;
+        defaultMagicDefence = 20f;
         prevHP = currentHitPoints;
         behaviorType = MonsterConfigs.behaviorType;
         monsterAI.SetUp();
-        nameText.text = name;
         SwapMonsterMesh(MonsterConfigs.id);
     }
+
     public void SetLeviathan(MonsterConfig MonsterConfigs)
     {
         transform.localScale = new Vector3(5, 5, 5);
@@ -97,9 +86,9 @@ public class Monsters : Entities
         prevHP = currentHitPoints;
         behaviorType = MonsterConfigs.behaviorType;
         monsterAI.SetUp();
-        nameText.text = name;
         SwapMonsterMesh(MonsterConfigs.id);
     }
+
     public void SwapMonsterMesh(int id)
     {
         MeshFilter meshFilter = GetComponent<MeshFilter>();
@@ -243,7 +232,7 @@ public class Monsters : Entities
         animObject.transform.localScale = new Vector3(scale, scale, scale);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Base"))
         {

@@ -118,7 +118,6 @@ GameObject:
   - component: {fileID: 3507517754271479845}
   - component: {fileID: 3430678138311652171}
   - component: {fileID: -314787860534041130}
-  - component: {fileID: 8619025673127021484}
   m_Layer: 10
   m_Name: Monsters
   m_TagString: Untagged
@@ -313,28 +312,6 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   monster: {fileID: 2668866916221753457}
   currentState: 0
---- !u!195 &8619025673127021484
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2668866916221753463}
-  m_Enabled: 0
-  m_AgentTypeID: -1372625422
-  m_Radius: 1.6
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 7.2
-  m_BaseOffset: 3.6
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &3283836666427919201
 GameObject:
   m_ObjectHideFlags: 0

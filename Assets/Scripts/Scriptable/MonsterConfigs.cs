@@ -108,37 +108,54 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
 
-    public static MonsterConfig TankBoss = new MonsterConfig
+    public static MonsterConfig Leviathan = new MonsterConfig
     {
-        _name = "Tank Boss",
+        _name = "Leviathan",
         id = 5,
-        hitPoints = 100,
-        speed = 0.4f,
-        defaultAttack = 30,
-        defaultWeaponAttack = 1,
-        defaultDefence = 10,
-        defaultMagicDefence = 1,
-        exp = 26,
-        behaviorType = MonsterBehaviorType.Shooter,
-        mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
-        projMesh = ArtConfigs.Artconfig.DefaultProj,
-    };
-    public static MonsterConfig DreadnoughtLeviathan = new MonsterConfig
-    {
-        _name = "DreadnoughtLeviathan",
-        id = 6,
-        hitPoints = 400,
+        hitPoints = 285,
         speed = 0.5f,
         defaultAttack = 50,
         defaultWeaponAttack = 1,
         defaultDefence = 30,
         defaultMagicDefence = 20,
-        exp = 90,
+        exp = 26,
         behaviorType = MonsterBehaviorType.Walker,
         mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
-     
+
+    public static MonsterConfig Hyperion = new MonsterConfig
+    {
+        _name = "Hyperion",
+        id = 6,
+        hitPoints = 625,
+        speed = 0.4f,
+        defaultAttack = 30,
+        defaultWeaponAttack = 1,
+        defaultDefence = 10,
+        defaultMagicDefence = 1,
+        exp = 90,
+        behaviorType = MonsterBehaviorType.Shooter,
+        mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
+        projMesh = ArtConfigs.Artconfig.DefaultProj,
+    };
+
+    public static MonsterConfig Anteater = new MonsterConfig
+    {
+        _name = "Anteater",
+        id = 7,
+        hitPoints = 625,
+        speed = 0.4f,
+        defaultAttack = 30,
+        defaultWeaponAttack = 1,
+        defaultDefence = 10,
+        defaultMagicDefence = 1,
+        exp = 90,
+        behaviorType = MonsterBehaviorType.Shooter,
+        mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
+        projMesh = ArtConfigs.Artconfig.DefaultProj,
+    };
+
     public MonsterConfig getMonsterConfig(int id)
     {
         MonsterConfig monsterData = SimpleMonster;
@@ -160,10 +177,13 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
                 monsterData = MonsterConfigs.Zealot;
                 break;
             case 5:
-                monsterData = MonsterConfigs.TankBoss;
+                monsterData = MonsterConfigs.Leviathan;
                 break;
             case 6:
-                monsterData = MonsterConfigs.DreadnoughtLeviathan;
+                monsterData = MonsterConfigs.Hyperion;
+                break;
+            case 7:
+                monsterData = MonsterConfigs.Anteater;
                 break;
         }
         return monsterData;
@@ -199,6 +219,38 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
             }
         }
         if (chosenID==3){
+            Monsters monster = GameManager.Instance.dataManager.TakeMonsterPool();
+        }
+        return getMonsterConfig(chosenID);
+    }
+
+    public MonsterConfig _getMonsterConfig()
+    {
+        // Array of monster IDs, where the index is the ID and the value is the weight
+        int[] weights = { 37, 25, 15, 10, 8, 5 };
+        int totalWeight = 0;
+        foreach (int weight in weights)
+        {
+            totalWeight += weight;
+        }
+
+        // Generate a random number between 0 and totalWeight
+        int randomNumber = Random.Range(0, totalWeight);
+
+        // Determine which monster ID this random number corresponds to
+        int runningTotal = 0;
+        int chosenID = 0;
+        for (int i = 0; i < weights.Length; i++)
+        {
+            runningTotal += weights[i];
+            if (randomNumber < runningTotal)
+            {
+                chosenID = i;
+                break;
+            }
+        }
+        if (chosenID == 3)
+        {
             Monsters monster = GameManager.Instance.dataManager.TakeMonsterPool();
         }
         return getMonsterConfig(chosenID);

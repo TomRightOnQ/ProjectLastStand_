@@ -181,9 +181,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient) {
 
             ExpAndLevels expObj = GameObject.FindObjectOfType<ExpAndLevels>();
-            if (expObj != null)
+            if (expObj != null && !PhotonNetwork.IsConnected)
             {
                 expObj.EXP += amount;
+            } else if (expObj != null && PhotonNetwork.IsConnected) 
+            {
+                expObj.EXP += amount/PhotonNetwork.PlayerList.Length;
             }
         }
     }

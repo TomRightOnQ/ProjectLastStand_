@@ -4866,8 +4866,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7c82d56ace9c84792e566de8c2c06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 20
-  currentHitPoints: 20
+  hitPoints: 32
+  currentHitPoints: 32
   defaultAttack: 1
   defaultWeaponAttack: 1
   defaultDefence: 5

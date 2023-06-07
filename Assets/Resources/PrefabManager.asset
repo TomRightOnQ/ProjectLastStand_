@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: PrefabManager
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 2668866916221753463, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
+  leviathanPrefab: {fileID: 8348774751535348757, guid: 9ee8cb8823930c444abcfddf3fd07b1c, type: 3}
+  hyperionfab: {fileID: 2734046669547638885, guid: c30cc5f5483cfff40a8ec23d84b79372, type: 3}
+  anteaterPrefab: {fileID: 7975361719251554552, guid: cd80ec3bd7d741340a897bdeeb36eadc, type: 3}
   projPrefab: {fileID: 7790031011691829733, guid: fb40bd19a05b60b42b93a4d878866fa2, type: 3}
   laserPrefab: {fileID: 429702960988942824, guid: 669aafcba1aa42941b652a9b2882cca2, type: 3}
   playerPrefab: {fileID: 927813109376346250, guid: 0876b712f50bf7d428bc21aa2804b1f8, type: 3}

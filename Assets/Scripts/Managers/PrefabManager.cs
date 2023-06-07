@@ -5,8 +5,13 @@ using UnityEngine;
 public class PrefabManager : ScriptableSingleton<PrefabManager>
 {
     [SerializeField] private GameObject monsterPrefab; // Monsters
+
+    [SerializeField] private GameObject leviathanPrefab; // Boss
+    [SerializeField] private GameObject hyperionfab;
+    [SerializeField] private GameObject anteaterPrefab;
+
     [SerializeField] private GameObject projPrefab; // Projectiles
-    [SerializeField] private GameObject laserPrefab;
+    [SerializeField] private GameObject laserPrefab; // Lasers
     [SerializeField] private GameObject playerPrefab; // Players
     [SerializeField] private GameObject weaponPrefab; // Weapons
     [SerializeField] private GameObject damageNumberPrefab; // Damage Number system
@@ -26,6 +31,11 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     [SerializeField] private GameObject sfxPrefab;
 
     public GameObject MonsterPrefab => monsterPrefab;
+
+    public GameObject LeviathanPrefab => leviathanPrefab;
+    public GameObject HyperionPrefab => hyperionfab;
+    public GameObject AnteaterPrefab => anteaterPrefab;
+
     public GameObject ProjPrefab => projPrefab;
     public GameObject LaserPrefab => laserPrefab;
     public GameObject PlayerPrefab => playerPrefab;

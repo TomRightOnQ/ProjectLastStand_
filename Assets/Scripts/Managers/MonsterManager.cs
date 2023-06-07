@@ -101,11 +101,7 @@ public class MonsterManager : MonoBehaviour
                 MonsterConfig monsterData = MonsterConfigs.Instance.getMonsterConfig();
                 monster.transform.position = pos;
                 int eliterandom = UnityEngine.Random.Range(1, 101);
-                if (monsterData.id == 6)
-                {
-                    monster.SetLeviathan(monsterData);
-                }
-                else if (eliterandom>85)
+                if (eliterandom>85)
                 {
                     monster.SetEliteMonsters(monsterData);
                 }
@@ -121,6 +117,22 @@ public class MonsterManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void spawnLeviathan(Vector3 pos)
+    {
+        GameObject LeviathanObj = PrefabManager.Instantiate(PrefabManager.Instance.LeviathanPrefab, pos, Quaternion.identity);
+    }
+
+    public void spawnHyperion(Vector3 pos)
+    {
+        GameObject HyperionObj = PrefabManager.Instantiate(PrefabManager.Instance.HyperionPrefab);
+        HyperionObj.transform.position = new Vector3(pos.x, 10f, pos.y);
+    }
+
+    public void spawnAnteater(Vector3 pos)
+    {
+        GameObject AnteaterObj = PrefabManager.Instantiate(PrefabManager.Instance.LeviathanPrefab, pos, Quaternion.identity);
     }
 
     // Check if a monster should get despawn

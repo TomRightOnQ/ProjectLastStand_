@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: cf5d8c34e3c3b4a41a6136871061f1d4
+guid: 0565d03c341981e4eb0898891b07c733
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: anteater_palette1
+    second: {fileID: 2100000, guid: e9cc39773271ee34fa309d1c9573a86e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -66,7 +71,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0

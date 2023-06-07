@@ -112,7 +112,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
     {
         _name = "Tank Boss",
         id = 5,
-        hitPoints = 80,
+        hitPoints = 100,
         speed = 0.4f,
         defaultAttack = 30,
         defaultWeaponAttack = 1,
@@ -127,7 +127,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
     {
         _name = "DreadnoughtLeviathan",
         id = 6,
-        hitPoints = 200,
+        hitPoints = 400,
         speed = 0.5f,
         defaultAttack = 50,
         defaultWeaponAttack = 1,

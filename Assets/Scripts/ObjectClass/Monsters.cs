@@ -81,7 +81,25 @@ public class Monsters : Entities
         nameText.text = name;
         SwapMonsterMesh(MonsterConfigs.id);
     }
-
+    public void SetLeviathan(MonsterConfig MonsterConfigs)
+    {
+        transform.localScale = new Vector3(5, 5, 5);
+        id = MonsterConfigs.id;
+        name = MonsterConfigs._name;
+        hitPoints = MonsterConfigs.hitPoints;
+        currentHitPoints = hitPoints;
+        speed = MonsterConfigs.speed;
+        exp = MonsterConfigs.exp;
+        defaultAttack = MonsterConfigs.defaultAttack;
+        defaultWeaponAttack = MonsterConfigs.defaultWeaponAttack;
+        defaultDefence = MonsterConfigs.defaultDefence;
+        defaultMagicDefence = MonsterConfigs.defaultMagicDefence;
+        prevHP = currentHitPoints;
+        behaviorType = MonsterConfigs.behaviorType;
+        monsterAI.SetUp();
+        nameText.text = name;
+        SwapMonsterMesh(MonsterConfigs.id);
+    }
     public void SwapMonsterMesh(int id)
     {
         MeshFilter meshFilter = GetComponent<MeshFilter>();

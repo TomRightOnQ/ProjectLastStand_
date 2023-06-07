@@ -2,20 +2,22 @@ using System.Collections;
 using UnityEngine;
 using Photon.Pun;
 using static MonsterConfigs;
-
 public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
-    [SerializeField] private int difficulty = 1;
-    private float spawning = 2.8f;
+    private float secondspassed = 1f;
+    [SerializeField] private float difficulty = 1f;
+    //we used to spawn 1 every 2.8 seconds
     private int playerCount = 1;
-    private int spawncounter = 0;
+    private float spawncounter = 0f;
+    [SerializeField] private float difficultyratio = 1f;
     private void Awake()
     {
         if (PhotonNetwork.IsConnected) {
             playerCount = PhotonNetwork.PlayerList.Length;
         }
-        difficulty = 1;
+        difficulty = 140;
+        difficultyratio += (float)((playerCount - 1) * 0.8);
     }
 
 
@@ -37,15 +39,13 @@ public class MonsterManager : MonoBehaviour
         }
     }
 
-    private IEnumerator diffUp()
+    private IEnumerator diffUp() 
     {
         while (true)
         {
-            yield return new WaitForSeconds(2.5f);
-            if (difficulty < 400)
-            {
-                difficulty++;
-            }
+            yield return new WaitForSeconds(1f);
+            secondspassed++;
+            difficulty = 140f + (float)(System.Math.Pow(secondspassed, 1.2) / 4);
         }
     }
 
@@ -53,15 +53,9 @@ public class MonsterManager : MonoBehaviour
     {
         while (true)
         {
-            float elapsed = 0f;
 
-            while (elapsed < spawning / difficulty)
-            {
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-            yield return new WaitForSeconds(1f);
-            spawncounter += difficulty;
+            yield return new WaitForSeconds(0.2f);
+            spawncounter += (difficulty/5)*difficultyratio;
 
             Vector3 pos = Vector3.zero;
             float distance = 100.0f;
@@ -75,8 +69,10 @@ public class MonsterManager : MonoBehaviour
                     break;
                 }
             }
-
-            spawn(pos, 0);
+            if (spawncounter>=400){
+                spawn(pos, 0);
+                spawncounter -= 400;
+            }
         }
     }
 
@@ -104,8 +100,21 @@ public class MonsterManager : MonoBehaviour
             {
                 MonsterConfig monsterData = MonsterConfigs.Instance.getMonsterConfig();
                 monster.transform.position = pos;
-                monster.SetMonsters(monsterData);
-                monster.UpdateHP();
+                int eliterandom = UnityEngine.Random.Range(1, 101);
+                if (monsterData.id == 6)
+                {
+                    monster.SetLeviathan(monsterData);
+                }
+                else if (eliterandom>85)
+                {
+                    monster.SetEliteMonsters(monsterData);
+                }
+                else
+                {
+                    monster.SetMonsters(monsterData);
+                    monster.UpdateHP();
+                }
+                
                 if (monsterData.id == 3)
                 {
                     spawn(pos, id, 4);

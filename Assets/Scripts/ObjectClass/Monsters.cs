@@ -70,7 +70,7 @@ public class Monsters : Entities
         hitPoints = MonsterConfigs.hitPoints * 2.5f;
         currentHitPoints = hitPoints;
         speed = MonsterConfigs.speed;
-        exp = MonsterConfigs.exp * 2;
+        exp = MonsterConfigs.exp * 2.5f;
         defaultAttack = MonsterConfigs.defaultAttack * 1.5f;
         defaultWeaponAttack = MonsterConfigs.defaultWeaponAttack * 1.5f;
         defaultDefence = MonsterConfigs.defaultDefence;

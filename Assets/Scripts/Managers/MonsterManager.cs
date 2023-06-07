@@ -8,12 +8,23 @@ public class MonsterManager : MonoBehaviour
     public static MonsterManager Instance;
     [SerializeField] private int difficulty = 1;
     private float spawning = 2.8f;
-    
+    private int playerCount = 1;
+    private int spawncounter = 0;
+    private void Awake()
+    {
+        if (PhotonNetwork.IsConnected) {
+            playerCount = PhotonNetwork.PlayerList.Length;
+        }
+        difficulty = 1;
+    }
+
+
     public void Begin()
     {
         if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
         {
             StartCoroutine(SpawnCoroutine());
+            StartCoroutine(diffUp());
         }
     }
 
@@ -22,6 +33,19 @@ public class MonsterManager : MonoBehaviour
         if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
         {
             StopCoroutine(SpawnCoroutine());
+            StopCoroutine(diffUp());
+        }
+    }
+
+    private IEnumerator diffUp()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2.5f);
+            if (difficulty < 400)
+            {
+                difficulty++;
+            }
         }
     }
 
@@ -31,17 +55,13 @@ public class MonsterManager : MonoBehaviour
         {
             float elapsed = 0f;
 
-            while (elapsed < spawning)
+            while (elapsed < spawning / difficulty)
             {
                 elapsed += Time.deltaTime;
                 yield return null;
             }
-
-            // Increase difficulty up to 4 over time
-            if (difficulty < 400)
-            {
-                difficulty++;
-            }
+            yield return new WaitForSeconds(1f);
+            spawncounter += difficulty;
 
             Vector3 pos = Vector3.zero;
             float distance = 100.0f;

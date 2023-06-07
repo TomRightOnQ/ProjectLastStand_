@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Portal1_palette1
-    second: {fileID: -8469494145858465668, guid: 8c0ca59d1a61b9f42b488031f0d17fde, type: 3}
+    second: {fileID: 2100000, guid: e9cc39773271ee34fa309d1c9573a86e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

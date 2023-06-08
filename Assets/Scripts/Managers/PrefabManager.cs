@@ -24,7 +24,7 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     [SerializeField] private GameObject iceRingPrefab; // Rings
     [SerializeField] private GameObject fireRingPrefab;
     [SerializeField] private GameObject tacticalShieldRingPrefab;
-
+    [SerializeField] private GameObject bombardingPrefab; // Boss attack
     [SerializeField] private GameObject buffIcon; // Buff listing
     [SerializeField] private GameObject monsterResult; // Monster listing
 
@@ -46,6 +46,7 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     public GameObject ItemListing => itemListing;
     public GameObject ExplosionPrefab => explosionPrefab;
     public GameObject IndicatorPrefab => indicatorPrefab;
+    public GameObject BombardingPrefab => bombardingPrefab;
     public GameObject IceRingPrefab => iceRingPrefab;
     public GameObject FireRingPrefab => fireRingPrefab;
     public GameObject TacticalShieldRingPrefab => tacticalShieldRingPrefab;

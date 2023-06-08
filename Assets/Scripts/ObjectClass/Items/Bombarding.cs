@@ -86,6 +86,7 @@ public class Bombarding : Items
         Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
         explosion.Initialize(damageRange, damage, 0, isMagic, owner, hitAnim);
     }
+
     public void PlayHitAnim(Vector3 pos)
     {
         if (AnimConfigs.Instance.GetAnim(hitAnim) == null)

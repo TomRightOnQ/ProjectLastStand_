@@ -119,6 +119,7 @@ public class DroppedItems : DefaultObjects
         if (PhotonNetwork.IsConnected) {
             photonView.RPC("RPCSetUP", RpcTarget.Others, viewID, weaponData._name, weaponIndex);
         }
+        icon.sprite = ImageConfigs.Instance.GetWeaponImage(weaponData.id);
     }
 
     [PunRPC]
@@ -128,7 +129,9 @@ public class DroppedItems : DefaultObjects
         DroppedItems dropped = GameManager.Instance.GetDroppedItems(viewID);
         dropped.WeaponIndex = _weaponIndex;
         dropped.SetWeaponName(weaponName);
+        icon.sprite = ImageConfigs.Instance.GetWeaponImage(weaponData.id);
     }
+
     public void SetWeaponName(string weaponName)
     {
         nameText.text = weaponName;

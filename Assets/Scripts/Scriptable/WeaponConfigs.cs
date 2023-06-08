@@ -316,7 +316,6 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
             case 201:
                 return WeaponConfigs.Keris;
             default:
-   
                 return WeaponConfigs.Pistol;
         }
     }

@@ -4,12 +4,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Configs/MonsterConfigs")]
 public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
 {
-    private int totalMonstersSpawned = 0;
+    //private int totalMonstersSpawned = 0;
 
     public enum MonsterBehaviorType
     {
         Walker,
-        Shooter
+        Shooter,
+        Hyperion,
+        Anteater
     }
 
     public struct MonsterConfig
@@ -135,7 +137,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultDefence = 10,
         defaultMagicDefence = 1,
         exp = 90,
-        behaviorType = MonsterBehaviorType.Shooter,
+        behaviorType = MonsterBehaviorType.Hyperion,
         mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
@@ -151,7 +153,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         defaultDefence = 10,
         defaultMagicDefence = 1,
         exp = 90,
-        behaviorType = MonsterBehaviorType.Shooter,
+        behaviorType = MonsterBehaviorType.Anteater,
         mesh = ArtConfigs.Artconfig.DefaultMonsterMesh,
         projMesh = ArtConfigs.Artconfig.DefaultProj,
     };
@@ -192,11 +194,11 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
     public MonsterConfig getMonsterConfig()
     {
         // Array of monster IDs, where the index is the ID and the value is the weight
-        if (++totalMonstersSpawned % 60 == 0)
-        {
-            return getMonsterConfig(6);
-        }
-        int[] weights = { 37, 25, 15, 10, 8, 5 };
+        // if (++totalMonstersSpawned % 60 == 0)
+        // {
+        //     return getMonsterConfig(6);
+        // }
+        int[] weights = { 37, 25, 15, 10, 8};
         int totalWeight = 0;
         foreach(int weight in weights) 
         {

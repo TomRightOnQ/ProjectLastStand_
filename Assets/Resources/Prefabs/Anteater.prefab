@@ -965,7 +965,7 @@ MonoBehaviour:
   DamageMod: 1
   exp: 1
   id: 1
-  monsterAI: {fileID: 0}
+  monsterAI: {fileID: 3460509921023307097}
   behaviorType: 0
   prefabManager: {fileID: 0}
 --- !u!65 &880182030

@@ -12,7 +12,7 @@ public class Monsters : Entities
     [SerializeField] protected int id = 1;
     [SerializeField] protected MonsterAI monsterAI;
     [SerializeField] protected MonsterBehaviorType behaviorType;
-    protected float prevHP;
+    public float prevHP;
     protected bool IsBoss = false;
     public PrefabManager prefabManager;
 
@@ -56,11 +56,11 @@ public class Monsters : Entities
         transform.localScale = new Vector3(1, 1, 1);
         id = MonsterConfigs.id;
         name = MonsterConfigs._name;
-        hitPoints = MonsterConfigs.hitPoints * 2.5f;
+        hitPoints = MonsterConfigs.hitPoints * 5f;
         currentHitPoints = hitPoints;
         speed = MonsterConfigs.speed;
         exp = MonsterConfigs.exp * 2.5f;
-        defaultAttack = MonsterConfigs.defaultAttack * 50f;
+        defaultAttack = MonsterConfigs.defaultAttack * 5f;
         defaultWeaponAttack = MonsterConfigs.defaultWeaponAttack * 1f;
         defaultDefence = 30f;
         defaultMagicDefence = 20f;

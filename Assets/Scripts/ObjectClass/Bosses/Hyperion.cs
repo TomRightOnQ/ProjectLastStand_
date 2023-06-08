@@ -28,6 +28,7 @@ public class Hyperion : Monsters
         prevHP = currentHitPoints;
         behaviorType = MonsterConfigs.behaviorType;
         monsterAI.SetUp();
+        
     }
 
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

@@ -10,13 +10,23 @@ public class MonsterManager : MonoBehaviour
     //we used to spawn 1 every 2.8 seconds
     private int playerCount = 1;
     private float spawncounter = 0f;
+    private float bosscounter = 0f;
+    private int bosscycle = 0;
     [SerializeField] private float difficultyratio = 1f;
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         if (PhotonNetwork.IsConnected) {
             playerCount = PhotonNetwork.PlayerList.Length;
         }
-        difficulty = 140;
         difficultyratio += (float)((playerCount - 1) * 0.8);
     }
 
@@ -56,7 +66,6 @@ public class MonsterManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.2f);
             spawncounter += (difficulty/5)*difficultyratio;
-
             Vector3 pos = Vector3.zero;
             float distance = 100.0f;
             float distanceSqr = distance * distance;
@@ -72,6 +81,25 @@ public class MonsterManager : MonoBehaviour
             if (spawncounter>=400){
                 spawn(pos, 0);
                 spawncounter -= 400;
+            }
+            if (bosscounter>=40000)
+            {
+                if (bosscycle == 0)
+                {
+                    spawnHyperion(pos);
+                    bosscycle = 1;
+                }
+                if (bosscycle == 1)
+                {
+                    spawnAnteater(pos);
+                    bosscycle = 2;
+                }
+                if (bosscycle == 2)
+                {
+                    spawnLeviathan(pos);
+                    bosscycle = 0;
+                }
+                bosscounter -= 50000;
             }
         }
     }
@@ -127,12 +155,12 @@ public class MonsterManager : MonoBehaviour
     public void spawnHyperion(Vector3 pos)
     {
         GameObject HyperionObj = PrefabManager.Instantiate(PrefabManager.Instance.HyperionPrefab);
-        HyperionObj.transform.position = new Vector3(pos.x, 10f, pos.y);
+        HyperionObj.transform.position = new Vector3(pos.x, 10f, pos.z);
     }
 
     public void spawnAnteater(Vector3 pos)
     {
-        GameObject AnteaterObj = PrefabManager.Instantiate(PrefabManager.Instance.LeviathanPrefab, pos, Quaternion.identity);
+        GameObject AnteaterObj = PrefabManager.Instantiate(PrefabManager.Instance.AnteaterPrefab, pos, Quaternion.identity);
     }
 
     // Check if a monster should get despawn

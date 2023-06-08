@@ -1109,7 +1109,7 @@ MonoBehaviour:
   DamageMod: 1
   exp: 1
   id: 1
-  monsterAI: {fileID: 0}
+  monsterAI: {fileID: 3275471721241526708}
   behaviorType: 0
   prefabManager: {fileID: 0}
   wCollider: {fileID: 0}

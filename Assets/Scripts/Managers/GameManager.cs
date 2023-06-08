@@ -285,6 +285,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
         }
+        GetLocalPlayer().Deactivate();
         SceneManager.LoadScene("Scoreboard");
         Time.timeScale = 1f;
     }

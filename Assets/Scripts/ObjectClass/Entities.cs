@@ -129,7 +129,7 @@ public abstract class Entities : DefaultObjects, IPunObservable
         }
     }
 
-    public void SwapMaterial(int id)
+    public virtual void SwapMaterial(int id)
     {
         Material material = ArtConfigs.Instance.getMaterial(id);
         if (material != null)

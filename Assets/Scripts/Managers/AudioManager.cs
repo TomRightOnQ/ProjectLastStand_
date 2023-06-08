@@ -92,7 +92,7 @@ public class AudioManager : MonoBehaviourPun
 
     public void PlaySound(int id, Vector3 pos)
     {
-        if (id < 0) {
+        if (id < 0 || GameManager.Instance == null) {
             return;
         }
         SFXObjects sfx = GameManager.Instance.dataManager.TakeSfxPool();

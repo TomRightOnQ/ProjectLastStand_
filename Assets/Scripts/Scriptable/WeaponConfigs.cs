@@ -85,7 +85,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         id = 0,
         rating = 1,
         type = 0,
-        attack = 1,
+        attack = 0.5f,
         pen = 0.1f,
         life = 1,
         cd = 0.1f,

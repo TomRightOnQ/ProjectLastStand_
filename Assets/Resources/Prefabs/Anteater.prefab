@@ -855,7 +855,7 @@ GameObject:
   - component: {fileID: 880182030}
   m_Layer: 10
   m_Name: Anteater
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -934,6 +934,15 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   monster: {fileID: 0}
   currentState: 0
+  spawnCount: 0
+  currentSpawnCount: 0
+  bombardCount: 0
+  currentBombardCount: 0
+  extraSpawnCount: 0
+  extraCounter: 0
+  halfhprage: 0
+  wonder: 0
+  wonderdirection: {x: 0, y: 0, z: 0}
 --- !u!114 &7222545632879180741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,7 +976,10 @@ MonoBehaviour:
   id: 1
   monsterAI: {fileID: 3460509921023307097}
   behaviorType: 0
+  prevHP: 0
+  IsBoss: 1
   prefabManager: {fileID: 0}
+  _renderer: {fileID: 1711813854589024313}
 --- !u!65 &880182030
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1133,5 +1145,10 @@ PrefabInstance:
 --- !u!4 &543450652517401430 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0565d03c341981e4eb0898891b07c733, type: 3}
+  m_PrefabInstance: {fileID: 1190945981}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1711813854589024313 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 0565d03c341981e4eb0898891b07c733, type: 3}
   m_PrefabInstance: {fileID: 1190945981}
   m_PrefabAsset: {fileID: 0}

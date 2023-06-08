@@ -175,6 +175,8 @@ MonoBehaviour:
   id: 1
   monsterAI: {fileID: -314787860534041130}
   behaviorType: 0
+  prevHP: 0
+  IsBoss: 0
   prefabManager: {fileID: 0}
 --- !u!33 &765353968
 MeshFilter:
@@ -241,7 +243,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 2
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
@@ -311,6 +313,15 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   monster: {fileID: 2668866916221753457}
   currentState: 0
+  spawnCount: 0
+  currentSpawnCount: 0
+  bombardCount: 0
+  currentBombardCount: 0
+  extraSpawnCount: 0
+  extraCounter: 0
+  halfhprage: 0
+  wonder: 0
+  wonderdirection: {x: 0, y: 0, z: 0}
 --- !u!1 &3283836666427919201
 GameObject:
   m_ObjectHideFlags: 0

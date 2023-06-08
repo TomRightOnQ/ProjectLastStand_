@@ -18,7 +18,6 @@ public class MonsterManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -28,6 +27,7 @@ public class MonsterManager : MonoBehaviour
             playerCount = PhotonNetwork.PlayerList.Length;
         }
         difficultyratio += (float)((playerCount - 1) * 0.8);
+        bosscounter += (difficulty / 5) * difficultyratio;
     }
 
 

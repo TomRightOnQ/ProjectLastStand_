@@ -13,6 +13,7 @@ public class Leviathan : Monsters
     {
         IsBoss = true;
         MonsterConfig config = MonsterConfigs.Instance._getMonsterConfig();
+        prefabManager = Resources.Load<PrefabManager>("PrefabManager");
         SetMonsters(config);
         SetLe(config);
     }
@@ -92,6 +93,33 @@ public class Leviathan : Monsters
     // Update is called once per frame
     protected override void Update()
     {
-        
+        base.Update();
+    }
+
+    // Taking Damage
+    public override void TakeDamage(float damage, bool isMagic)
+    {
+        base.TakeDamage(damage, isMagic);
+    }
+
+    public override void PlayHitAnim(Vector3 pos)
+    {
+        if (AnimConfigs.Instance.GetAnim(0) == null)
+            return;
+        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(0), Vector3.zero, Quaternion.identity);
+        animObject.transform.position = pos;
+        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+        animObject.transform.localScale = new Vector3(1f, 1f, 1f);
+    }
+
+    [PunRPC]
+    public override void RPCPlayHitAnim(int id, Vector3 pos, float scale)
+    {
+        if (AnimConfigs.Instance.GetAnim(id) == null)
+            return;
+        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
+        animObject.transform.position = pos;
+        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
+        animObject.transform.localScale = new Vector3(scale, scale, scale);
     }
 }

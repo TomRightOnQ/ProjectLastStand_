@@ -12,6 +12,7 @@ public class MonsterAI : MonoBehaviour
         MoveTowardBase,
         Aiming,
         FireAtPlayer,
+        BossLock,
         Lock,
         Wondering
         //Spawning
@@ -61,6 +62,7 @@ public class MonsterAI : MonoBehaviour
         // Map state to behavior methods
         stateBehaviors[MonsterState.MoveTowardBase] = AIWalkTowardBase;
         stateBehaviors[MonsterState.Aiming] = AISearchForPlayer;
+        stateBehaviors[MonsterState.BossLock] = AIVirtualLookingAt;
         stateBehaviors[MonsterState.Lock] = AILookingAt;
         stateBehaviors[MonsterState.FireAtPlayer] = AIFireAtPlayer;
         stateBehaviors[MonsterState.Wondering] = AIWondering;
@@ -69,6 +71,7 @@ public class MonsterAI : MonoBehaviour
         // Set waiting times for state transitions
         stateWaitingTimes[MonsterState.MoveTowardBase] = WALKING_TIME;
         stateWaitingTimes[MonsterState.Aiming] = AIMMING_TIME;
+        stateWaitingTimes[MonsterState.BossLock] = LOCKING_TIME;
         stateWaitingTimes[MonsterState.Lock] = LOCKING_TIME;
         stateWaitingTimes[MonsterState.FireAtPlayer] = FIRING_TIME;
         stateWaitingTimes[MonsterState.Wondering] = 4f;
@@ -177,6 +180,11 @@ public class MonsterAI : MonoBehaviour
         transform.LookAt(new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
     }
 
+    protected void AIVirtualLookingAt()
+    {
+
+    }
+
     protected IEnumerator AIFireBullet()//for both fire and spawn
     {
         // if (currentFireCount <= 0)
@@ -218,11 +226,16 @@ public class MonsterAI : MonoBehaviour
             Vector3 targetPosition = targetPlayer.transform.position;
             float changeX = (Random.value < 0.5f) ? Random.Range(-8f, -3f) : Random.Range(3f, 8f);
             float changeZ = (Random.value < 0.5f) ? Random.Range(-8f, -3f) : Random.Range(3f, 8f);
+
             Vector3 newtargetPosition = new Vector3(
                 targetPosition.x + changeX,
                 targetPosition.y,
                 targetPosition.z + changeZ
             );
+
+            // Clamp the new target position to stay within the range of +-100
+            newtargetPosition.x = Mathf.Clamp(newtargetPosition.x, -100f, 100f);
+            newtargetPosition.z = Mathf.Clamp(newtargetPosition.z, -100f, 100f);
             bombardingAttack(newtargetPosition);
 
             if (currentBombardCount <= 0)
@@ -321,14 +334,14 @@ public class MonsterHyperion : MonsterAI
             case MonsterState.Aiming:
                 if (hasTarget)
                 {
-                    currentState = MonsterState.Lock;
+                    currentState = MonsterState.BossLock;
                 }
                 else
                 {
                     currentState = MonsterState.MoveTowardBase;
                 }
                 break;
-            case MonsterState.Lock:
+            case MonsterState.BossLock:
                 currentState = MonsterState.FireAtPlayer;
                 break;
             case MonsterState.FireAtPlayer:

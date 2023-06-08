@@ -934,7 +934,7 @@ GameObject:
   - component: {fileID: 645697674}
   m_Layer: 10
   m_Name: Leviathan
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1078,6 +1078,15 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   monster: {fileID: 0}
   currentState: 0
+  spawnCount: 0
+  currentSpawnCount: 0
+  bombardCount: 0
+  currentBombardCount: 0
+  extraSpawnCount: 0
+  extraCounter: 0
+  halfhprage: 0
+  wonder: 0
+  wonderdirection: {x: 0, y: 0, z: 0}
 --- !u!114 &6257037235303840657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1111,6 +1120,8 @@ MonoBehaviour:
   id: 1
   monsterAI: {fileID: 3275471721241526708}
   behaviorType: 0
+  prevHP: 0
+  IsBoss: 1
   prefabManager: {fileID: 0}
   wCollider: {fileID: 0}
 --- !u!136 &645697674

@@ -13,7 +13,7 @@ public class Monsters : Entities
     [SerializeField] protected MonsterAI monsterAI;
     [SerializeField] protected MonsterBehaviorType behaviorType;
     public float prevHP;
-    protected bool IsBoss = false;
+    [SerializeField] protected bool IsBoss = false;
     public PrefabManager prefabManager;
 
     void Awake()
@@ -192,7 +192,7 @@ public class Monsters : Entities
     }
 
     // HP Bar 
-    public void UpdateHP()
+    public virtual void UpdateHP()
     {
         if (prevHP != currentHitPoints) {
             float change = currentHitPoints - prevHP;
@@ -211,7 +211,7 @@ public class Monsters : Entities
         GameManager.Instance.monsterManager.despawnCheck(this);
     }
 
-    public void PlayHitAnim(Vector3 pos)
+    public virtual void PlayHitAnim(Vector3 pos)
     {
         if (AnimConfigs.Instance.GetAnim(0) == null)
             return;
@@ -222,7 +222,7 @@ public class Monsters : Entities
     }
 
     [PunRPC]
-    public void RPCPlayHitAnim(int id, Vector3 pos, float scale)
+    public virtual void RPCPlayHitAnim(int id, Vector3 pos, float scale)
     {
         if (AnimConfigs.Instance.GetAnim(id) == null)
             return;
@@ -277,7 +277,7 @@ public class Monsters : Entities
     }
 
     [PunRPC]
-    public void RPCUpdateMonster(int id)
+    public virtual void RPCUpdateMonster(int id)
     {
         PlayerListener.Instance.UpdateDict(id);
     }

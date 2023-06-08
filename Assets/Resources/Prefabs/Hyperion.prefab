@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 989636074}
   m_Layer: 10
   m_Name: Hyperion
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,6 +213,15 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   monster: {fileID: 0}
   currentState: 0
+  spawnCount: 0
+  currentSpawnCount: 0
+  bombardCount: 0
+  currentBombardCount: 0
+  extraSpawnCount: 0
+  extraCounter: 0
+  halfhprage: 0
+  wonder: 0
+  wonderdirection: {x: 0, y: 0, z: 0}
 --- !u!114 &3415073440037157720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +255,10 @@ MonoBehaviour:
   id: 1
   monsterAI: {fileID: 8888230721803120068}
   behaviorType: 0
+  prevHP: 0
+  IsBoss: 1
   prefabManager: {fileID: 0}
+  _renderer: {fileID: 1711813855604956666}
 --- !u!65 &989636074
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1154,5 +1166,10 @@ PrefabInstance:
 --- !u!4 &543450653669926549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 77d42394c67445445b621cf9fa0593b7, type: 3}
+  m_PrefabInstance: {fileID: 38683006}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1711813855604956666 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 77d42394c67445445b621cf9fa0593b7, type: 3}
   m_PrefabInstance: {fileID: 38683006}
   m_PrefabAsset: {fileID: 0}

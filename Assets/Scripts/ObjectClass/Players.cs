@@ -155,6 +155,7 @@ public class Players : Entities, IPunObservable
     {
         this.prefabReference = prefabReference;
     }
+
     /* Add a Weapon
     slot: 1 or 2, indicate the current slot
     id: weapon id

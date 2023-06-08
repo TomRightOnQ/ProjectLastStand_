@@ -46,7 +46,6 @@ public class PrefabManager : ScriptableSingleton<PrefabManager>
     public GameObject ItemListing => itemListing;
     public GameObject ExplosionPrefab => explosionPrefab;
     public GameObject IndicatorPrefab => indicatorPrefab;
-    public GameObject BombardingPrefab => bombardingPrefab;
     public GameObject IceRingPrefab => iceRingPrefab;
     public GameObject FireRingPrefab => fireRingPrefab;
     public GameObject TacticalShieldRingPrefab => tacticalShieldRingPrefab;

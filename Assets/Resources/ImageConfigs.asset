@@ -55,3 +55,13 @@ MonoBehaviour:
   preciscionIII: {fileID: 21300000, guid: 58a0fa1cfa279a94882b4353b5991293, type: 3}
   preciscionIV: {fileID: 21300000, guid: 2d49adbd7c7c5234686a099b0ddc14c6, type: 3}
   defaultIcon: {fileID: 21300000, guid: 2a01a5a231dc43645a923310189f2e14, type: 3}
+  pistolThumb: {fileID: 21300000, guid: 6ecc9995cc5d52f4ead43d6f7d74240f, type: 3}
+  daggerThumb: {fileID: 21300000, guid: 775efa167b0310748aa87368b8ccbb2d, type: 3}
+  lmgThumb: {fileID: 21300000, guid: f4db13b879b97aa47aea2f5c79be0a91, type: 3}
+  heatThumb: {fileID: 21300000, guid: 6f2f1cfecbb4e5e40aa403bac9e8dabe, type: 3}
+  laserThumb: {fileID: 21300000, guid: 59561e26d33e41146bed561b221b0345, type: 3}
+  bloodSwordThumb: {fileID: 21300000, guid: 37c6b0b045d013e4fa2583744f37f27d, type: 3}
+  kerisThumb: {fileID: 21300000, guid: b699cdb0eefa535499f1f8057bf03f9a, type: 3}
+  kornetThumb: {fileID: 21300000, guid: 8745e5aa95907914c97d9cdd085bf5c3, type: 3}
+  forkThumb: {fileID: 21300000, guid: 4a28db1165d0734458625b4c3c672066, type: 3}
+  rpgThumb: {fileID: 21300000, guid: adcf6f8497a54b444831314986321d53, type: 3}

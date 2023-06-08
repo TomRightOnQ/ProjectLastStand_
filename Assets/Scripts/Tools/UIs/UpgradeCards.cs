@@ -10,6 +10,7 @@ public class UpgradeCards : MonoBehaviour
     // flag the return type
     [SerializeField] Image cardImage;
     [SerializeField] Image icon;
+    [SerializeField] Image iconW;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI infoText;
     [SerializeField] private bool isWeapon = false;
@@ -29,6 +30,8 @@ public class UpgradeCards : MonoBehaviour
     {
         isWeapon = false;
         icon.sprite = ImageConfigs.Instance.GetEffectImage(upgradeData.specialEffectIndex);
+        icon.gameObject.SetActive(true);
+        iconW.gameObject.SetActive(false);
         nameText.text = UpgradeData._name;
         infoText.text = UpgradeData.description;
     }
@@ -36,7 +39,9 @@ public class UpgradeCards : MonoBehaviour
     public void fillWeapon()
     {
         isWeapon = true;
-        icon.sprite = ImageConfigs.Instance.GetEffectImage(-1);
+        iconW.sprite = ImageConfigs.Instance.GetWeaponImage(weaponData.id);
+        icon.gameObject.SetActive(false);
+        iconW.gameObject.SetActive(true);
         nameText.text = weaponData._name;
         infoText.text = weaponData.intro + "\n\n" + "<i>" + weaponData.info + "</i>";
     }

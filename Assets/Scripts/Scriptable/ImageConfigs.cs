@@ -47,8 +47,19 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
     [SerializeField] private Sprite preciscionII;
     [SerializeField] private Sprite preciscionIII;
     [SerializeField] private Sprite preciscionIV;
-
     [SerializeField] private Sprite defaultIcon;
+
+    [SerializeField] private Sprite pistolThumb;
+    [SerializeField] private Sprite daggerThumb;
+    [SerializeField] private Sprite lmgThumb;
+    [SerializeField] private Sprite heatThumb;
+    [SerializeField] private Sprite laserThumb;
+    [SerializeField] private Sprite bloodSwordThumb;
+    [SerializeField] private Sprite kerisThumb;
+    [SerializeField] private Sprite kornetThumb;
+    [SerializeField] private Sprite forkThumb;
+    [SerializeField] private Sprite rpgThumb;
+
     public Sprite ToughnessIcon => toughnessIcon;
     public Sprite SwiftIcon => swiftIcon;
     public Sprite DamageIcon => damageIcon;
@@ -92,6 +103,17 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
     public Sprite PrecisionII => preciscionII;
     public Sprite PrecisionIII => preciscionIII;
     public Sprite PrecisionIV => preciscionIV;
+
+    public Sprite PistolThumb => pistolThumb;
+    public Sprite DaggerThumb => daggerThumb;
+    public Sprite LMGThumb => lmgThumb;
+    public Sprite HeatThumb => heatThumb;
+    public Sprite LaserThumb => laserThumb;
+    public Sprite BloodSwordThumb => bloodSwordThumb;
+    public Sprite KerisThumb => kerisThumb;
+    public Sprite KornetThumb => kornetThumb;
+    public Sprite ForkThumb => forkThumb;
+    public Sprite RPGThumb => rpgThumb;
 
     public Sprite GetEffectImage(int id)
     {
@@ -177,6 +199,35 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
                 return AssassinationIcon;
             default:
                 return DefaultIcon;
+        }
+    }
+
+    public Sprite GetWeaponImage(int id)
+    {
+        switch (id)
+        {
+            case -1:
+                return PistolThumb;
+            case 0:
+                return LMGThumb;
+            case 301:
+                return DaggerThumb;
+            case 100:
+                return RPGThumb;
+            case 101:
+                return HeatThumb;
+            case 200:
+                return LaserThumb;
+            case 102:
+                return BloodSwordThumb;
+            case 201:
+                return KerisThumb;
+            case 300:
+                return KornetThumb;
+            case -2:
+                return ForkThumb;
+            default:
+                return PistolThumb;
         }
     }
 }

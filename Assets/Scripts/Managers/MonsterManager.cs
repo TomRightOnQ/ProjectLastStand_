@@ -12,6 +12,7 @@ public class MonsterManager : MonoBehaviour
     private float spawncounter = 0f;
     private float bosscounter = 0f;
     private int bosscycle = 0;
+    private bool bossexist = false;
     [SerializeField] private float difficultyratio = 1f;
     private const string PREFAB_LOC = "Prefabs/";
 
@@ -83,8 +84,9 @@ public class MonsterManager : MonoBehaviour
                 spawn(pos, 0);
                 spawncounter -= 400;
             }
-            if (bosscounter>=40000)
+            if ((bosscounter>=40000) && bossexist != true)
             {
+                bossexist = true;
                 if (bosscycle == 0)
                 {
                     spawnHyperion(pos);
@@ -155,7 +157,26 @@ public class MonsterManager : MonoBehaviour
 
     public void spawnHyperion(Vector3 pos)
     {
-        GameObject HyperionObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.HyperionPrefab.name, pos, Quaternion.identity);
+        if (PrefabManager.Instance == null)
+        {
+            Debug.LogError("PrefabManager instance is null");
+            return;
+        }
+
+        if (PrefabManager.Instance.HyperionPrefab == null)
+        {
+            Debug.LogError("HyperionPrefab is null");
+            return;
+        }
+
+        string prefabName = PREFAB_LOC + PrefabManager.Instance.HyperionPrefab.name;
+        GameObject HyperionObj = PhotonNetwork.Instantiate(prefabName, pos, Quaternion.identity);
+
+        if (HyperionObj == null)
+        {
+            Debug.LogError("Failed to instantiate Hyperion");
+            return;
+        }
         HyperionObj.transform.position = new Vector3(pos.x, 10f, pos.z);
     }
 

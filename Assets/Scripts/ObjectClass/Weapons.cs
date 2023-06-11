@@ -112,14 +112,20 @@ public class Weapons : DefaultObjects
     // Updrage
     public void Upgrade(int _level)
     {
-        level += _level;
+        level += 1;
         configureLevel();
     }
 
     // Change weapon based on the current level;
     private void configureLevel()
     {
-        extraAttack = (level - 1) * MathF.Ceiling((0.1f * attack));
+        if ((0.1f * attack <= 1))
+        {
+            extraAttack = (level - 1) * (MathF.Ceiling((0.1f * attack)));
+        }
+        else {
+            extraAttack = (level - 1) * (0.1f * attack);
+        }
         atk = attack + extraAttack;
     }
 

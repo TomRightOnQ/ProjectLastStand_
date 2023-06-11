@@ -10,7 +10,7 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
     public static ExpAndLevels Instance;
 
     [SerializeField] private float exp = 0;
-    [SerializeField] private float expL = 10;
+    [SerializeField] private float expL = 25;
     [SerializeField] private int level = 1;
     [SerializeField] private Slider ExpS;
     [SerializeField] private TextMeshProUGUI levelText;
@@ -40,7 +40,7 @@ public class ExpAndLevels : MonoBehaviourPunCallbacks, IPunObservable
         UpgradeMenu upgradeMenu = FindObjectOfType<UpgradeMenu>();
         level += 1;
         exp = exp - expL;
-        expL = 10 * (float)System.Math.Pow(1.01, level);
+        expL = 10 * (float)System.Math.Pow(1.025, level);
         if (!PhotonNetwork.IsConnected)
         {
             upgradeMenu.addPoints(1);

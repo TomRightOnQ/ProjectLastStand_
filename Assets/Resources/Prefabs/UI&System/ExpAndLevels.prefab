@@ -563,7 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exp: 0
-  expL: 10
+  expL: 25
   level: 1
   ExpS: {fileID: 832111228}
   levelText: {fileID: 828775603}

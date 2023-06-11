@@ -280,12 +280,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void MainMenu()
     {
+        Players player = GetLocalPlayer();
+        if (player != null)
+        {
+            player.Deactivate();
+        }
         if (PhotonNetwork.IsConnected)
         {
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
         }
-        GetLocalPlayer().Deactivate();
         SceneManager.LoadScene("Scoreboard");
         Time.timeScale = 1f;
     }

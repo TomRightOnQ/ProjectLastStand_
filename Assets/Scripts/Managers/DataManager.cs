@@ -14,7 +14,7 @@ public class DataManager : MonoBehaviourPunCallbacks
     public const int PLAYER_COUNT = 4;
     // Monsters
     private List<Monsters> monsterPool = new List<Monsters>();
-    public const int MONSTER_COUNT = 100;
+    public const int MONSTER_COUNT = 300;
     // Projectiles
     private List<Projectiles> projPool = new List<Projectiles>();
     public const int PROJ_COUNT = 50;

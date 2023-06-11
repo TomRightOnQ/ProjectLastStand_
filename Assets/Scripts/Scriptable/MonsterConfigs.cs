@@ -130,7 +130,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
     {
         _name = "Hyperion",
         id = 6,
-        hitPoints = 625,
+        hitPoints = 7500,
         speed = 0.4f,
         defaultAttack = 30,
         defaultWeaponAttack = 1,
@@ -146,7 +146,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
     {
         _name = "Anteater",
         id = 7,
-        hitPoints = 625,
+        hitPoints = 10000,
         speed = 0.4f,
         defaultAttack = 30,
         defaultWeaponAttack = 1,

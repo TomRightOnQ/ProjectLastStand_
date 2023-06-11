@@ -128,7 +128,9 @@ public class WeaponChoice : MonoBehaviourPunCallbacks
             Debug.Log("Adding Weapons");
             photonView.RPC("RPCaddWeapons", RpcTarget.All, playerViewID, chosen, id, 1);
         }
-        player.addWeapon(chosen, id, 1);
+        else {
+            player.addWeapon(chosen, id, 1);
+        }
         // Destroy the listing and dropped item with the same ID
         GameUI.Instance.RemoveDroppedItem(droppedId);
         HidePanel();

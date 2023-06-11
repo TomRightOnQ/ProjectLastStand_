@@ -21,7 +21,7 @@ public class Leviathan : Monsters
     private void SetLe(MonsterConfig MonsterConfigs)
     {
         name = MonsterConfigs._name + "...?";
-        hitPoints = MonsterConfigs.hitPoints * 25f;
+        hitPoints = MonsterConfigs.hitPoints * 333f;
         currentHitPoints = hitPoints;
         speed = MonsterConfigs.speed * 0.25f;
         exp = 26;

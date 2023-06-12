@@ -216,10 +216,10 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
                 return RPGThumb;
             case 101:
                 return HeatThumb;
-            case 200:
-                return LaserThumb;
             case 102:
                 return BloodSwordThumb;
+            case 200:
+                return LaserThumb;
             case 201:
                 return KerisThumb;
             case 300:

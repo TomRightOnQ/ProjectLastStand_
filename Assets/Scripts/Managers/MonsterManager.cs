@@ -152,37 +152,42 @@ public class MonsterManager : MonoBehaviour
 
     public void spawnLeviathan(Vector3 pos)
     {
-        GameObject LeviathanObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.LeviathanPrefab.name, pos, Quaternion.identity);
+        if (PhotonNetwork.IsConnected)
+        {
+            GameObject LeviathanObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.LeviathanPrefab.name, pos, Quaternion.identity);
+        }
+        else 
+        {
+            GameObject LeviathanObj = Instantiate(PrefabManager.Instance.LeviathanPrefab, pos, Quaternion.identity);
+        }
+        
     }
 
     public void spawnHyperion(Vector3 pos)
     {
-        if (PrefabManager.Instance == null)
+        if (PhotonNetwork.IsConnected)
         {
-            Debug.LogError("PrefabManager instance is null");
-            return;
+            string prefabName = PREFAB_LOC + PrefabManager.Instance.HyperionPrefab.name;
+            GameObject HyperionObj = PhotonNetwork.Instantiate(prefabName, pos, Quaternion.identity);
+            HyperionObj.transform.position = new Vector3(pos.x, 10f, pos.z);
         }
-
-        if (PrefabManager.Instance.HyperionPrefab == null)
+        else
         {
-            Debug.LogError("HyperionPrefab is null");
-            return;
+            GameObject HyperionObj = Instantiate(PrefabManager.Instance.HyperionPrefab, pos, Quaternion.identity);
+            HyperionObj.transform.position = new Vector3(pos.x, 10f, pos.z);
         }
-
-        string prefabName = PREFAB_LOC + PrefabManager.Instance.HyperionPrefab.name;
-        GameObject HyperionObj = PhotonNetwork.Instantiate(prefabName, pos, Quaternion.identity);
-
-        if (HyperionObj == null)
-        {
-            Debug.LogError("Failed to instantiate Hyperion");
-            return;
-        }
-        HyperionObj.transform.position = new Vector3(pos.x, 10f, pos.z);
     }
 
     public void spawnAnteater(Vector3 pos)
     {
-        GameObject AnteaterionObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.AnteaterPrefab.name, pos, Quaternion.identity);
+        if (PhotonNetwork.IsConnected)
+        {
+            GameObject AnteaterionObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.AnteaterPrefab.name, pos, Quaternion.identity);
+        }
+        else 
+        {
+            GameObject AnteaterionObj = Instantiate(PrefabManager.Instance.AnteaterPrefab, pos, Quaternion.identity);
+        }
     }
 
     // Check if a monster should get despawn

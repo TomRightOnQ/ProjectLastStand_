@@ -27,16 +27,17 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
     [SerializeField] private Mesh HeatLaserMesh;
     [SerializeField] private Mesh LaserGunMesh;
     [SerializeField] private Mesh KornetMesh;
-
+    [SerializeField] private Mesh WandMesh;
     // Projectiles
     [SerializeField] private Mesh DefaultProjMesh;
     [SerializeField] private Mesh DefaultMonsterProjMesh;
     [SerializeField] private Mesh KornetProjMesh;
-
+    [SerializeField] private Mesh WandProj;
     // Materials
     [SerializeField] private Material DefaultMaterial;
     [SerializeField] private Material DefaultProjMaterial;
     [SerializeField] private Material ProjMaterial;
+    [SerializeField] private Material MagicMaterial;
 
     public enum Artconfig
     {
@@ -63,10 +64,12 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
         HeatLaserMesh,
         LaserGunMesh,
         KornetMesh,
+        WandMesh,
         // Projectiles
         DefaultProj,
         DefaultMonsterProj,
-        KornetProjMesh
+        KornetProjMesh,
+        WandProj,
     }
     public Material getMaterial(int id)
     {
@@ -104,6 +107,7 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
             case Artconfig.SwarmMonsterMesh:
             case Artconfig.SlapMonsterMesh:
             case Artconfig.MageKillerMonsterMesh:
+            case Artconfig.WandMesh:
                 ret = DefaultMaterial;
                 break;
             case Artconfig.DefaultProj:
@@ -116,6 +120,9 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
             case Artconfig.BloodSwordMesh:
             case Artconfig.KerisMesh:
                 ret = DefaultMaterial;
+                break;
+            case Artconfig.WandProj:
+                ret = MagicMaterial;
                 break;
         }
         return ret;
@@ -192,7 +199,9 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
             case Artconfig.KerisMesh:
                 ret = KerisMesh;
                 break;
-
+            case Artconfig.WandMesh:
+                ret = WandMesh;
+                break;
             // Projectile Meshes
             case Artconfig.DefaultProj:
                 ret = DefaultProjMesh;
@@ -203,7 +212,9 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
             case Artconfig.KornetProjMesh:
                 ret = KornetProjMesh;
                 break;
-
+            case Artconfig.WandProj:
+                ret = WandProj;
+                break;
             // Monster Meshes
             case Artconfig.DefaultMonsterMesh:
                 ret = DefaultMonsterMesh;

@@ -8,11 +8,11 @@ using static WeaponConfigs;
 public class UpgradeCards : MonoBehaviour
 {
     // flag the return type
-    [SerializeField] Image cardImage;
-    [SerializeField] Image icon;
-    [SerializeField] Image iconW;
-    [SerializeField] TextMeshProUGUI nameText;
-    [SerializeField] TextMeshProUGUI infoText;
+    [SerializeField] private Image cardImage;
+    [SerializeField] private Image icon;
+    [SerializeField] private Image iconW;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI infoText;
     [SerializeField] private bool isWeapon = false;
     private WeaponConfig weaponData;
     private UpgradeConfig upgradeData;

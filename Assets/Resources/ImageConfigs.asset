@@ -65,3 +65,4 @@ MonoBehaviour:
   kornetThumb: {fileID: 21300000, guid: 8745e5aa95907914c97d9cdd085bf5c3, type: 3}
   forkThumb: {fileID: 21300000, guid: 4a28db1165d0734458625b4c3c672066, type: 3}
   rpgThumb: {fileID: 21300000, guid: adcf6f8497a54b444831314986321d53, type: 3}
+  wandThumb: {fileID: 21300000, guid: 3dbec7cc47d9d93469813401e552d050, type: 3}

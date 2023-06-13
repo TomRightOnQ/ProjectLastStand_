@@ -5,6 +5,7 @@ using static MonsterConfigs;
 
 // Monster behaviours
 public class MonsterAI : MonoBehaviour
+
 {
     // States
     protected enum MonsterState

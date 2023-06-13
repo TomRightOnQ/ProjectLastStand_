@@ -32,9 +32,12 @@ MonoBehaviour:
   HeatLaserMesh: {fileID: 1692000649483383855, guid: 998095ec3771d3d458b021f2356fe38e, type: 3}
   LaserGunMesh: {fileID: -1721837903093826391, guid: 9a64bfa4f02be2646af135265b160b7b, type: 3}
   KornetMesh: {fileID: 7450088072707823083, guid: fe10caa905d67704b9c4a2fd61852254, type: 3}
+  WandMesh: {fileID: -4045975445619374858, guid: bce0ba130ceef364da85b80d40925835, type: 3}
   DefaultProjMesh: {fileID: 2979886809707569963, guid: c8c4988520c837b49b3539e03f38a4f9, type: 3}
   DefaultMonsterProjMesh: {fileID: 4711208715938537054, guid: bbfcba21bc822c14cb60b982c5728317, type: 3}
   KornetProjMesh: {fileID: -3494573097253896334, guid: 2bf53354427e8584e8bf252b93bbf066, type: 3}
+  WandProj: {fileID: 4711208715938537054, guid: bbfcba21bc822c14cb60b982c5728317, type: 3}
   DefaultMaterial: {fileID: 2100000, guid: e9cc39773271ee34fa309d1c9573a86e, type: 2}
   DefaultProjMaterial: {fileID: 2100000, guid: fe285a83d772d7c4e9d55cd62f97e2bc, type: 2}
   ProjMaterial: {fileID: -8590225391349106097, guid: 2bf53354427e8584e8bf252b93bbf066, type: 3}
+  MagicMaterial: {fileID: 2100000, guid: d655383953a2bdf4298b25a401aee68b, type: 2}

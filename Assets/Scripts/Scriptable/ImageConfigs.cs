@@ -59,7 +59,7 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
     [SerializeField] private Sprite kornetThumb;
     [SerializeField] private Sprite forkThumb;
     [SerializeField] private Sprite rpgThumb;
-
+    [SerializeField] private Sprite wandThumb;
     public Sprite ToughnessIcon => toughnessIcon;
     public Sprite SwiftIcon => swiftIcon;
     public Sprite DamageIcon => damageIcon;
@@ -114,6 +114,7 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
     public Sprite KornetThumb => kornetThumb;
     public Sprite ForkThumb => forkThumb;
     public Sprite RPGThumb => rpgThumb;
+    public Sprite WandThumb => wandThumb;
 
     public Sprite GetEffectImage(int id)
     {
@@ -206,10 +207,12 @@ public class ImageConfigs : ScriptableSingleton<ImageConfigs>
     {
         switch (id)
         {
-            case -1:
-                return PistolThumb;
             case 0:
+                return PistolThumb;
+            case 1:
                 return LMGThumb;
+            case 2:
+                return WandThumb;
             case 301:
                 return DaggerThumb;
             case 100:

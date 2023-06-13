@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using static WeaponConfigs;
+using UnityEngine.UI;
 
 // Weapon Info cards on screen bottom-left corner
 public class WeaponInfo : MonoBehaviour
@@ -20,6 +21,7 @@ public class WeaponInfo : MonoBehaviour
     [SerializeField] private bool choice = false; // If used as a weapon choice
     [SerializeField] private WeaponInfo theOtherChoice;
     [SerializeField] private TextMeshProUGUI weaponHintText;
+    [SerializeField] private Image thumbnail;
 
     // For weapon's info
     // Weapon Stats
@@ -94,6 +96,7 @@ public class WeaponInfo : MonoBehaviour
         nameText.text = wpName.ToString();
         levelText.text = "Lv." + level.ToString();
         slotText.text = (slot + 1).ToString();
+        thumbnail.sprite = ImageConfigs.Instance.GetWeaponImage(weapon.ID);
     }
 
     // Morph the weapon

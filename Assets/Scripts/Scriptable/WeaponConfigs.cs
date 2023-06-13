@@ -32,7 +32,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     public static WeaponConfig Pistol = new WeaponConfig
     {
         _name = "Pistol",
-        id = -1,
+        id = 0,
         rating = 1,
         type = 0,
         attack = 2,
@@ -82,7 +82,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
     public static WeaponConfig LMG = new WeaponConfig
     {
         _name = "LMG",
-        id = 0,
+        id = 1,
         rating = 1,
         type = 0,
         attack = 0.5f,
@@ -102,6 +102,31 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         projMesh = ArtConfigs.Artconfig.DefaultProj,
         fireSFX = 2,
         hitSFX = -1,
+    };
+
+    public static WeaponConfig Wand = new WeaponConfig
+    {
+        _name = "Wand",
+        id = 2,
+        rating = 1,
+        type = 0,
+        attack = 3f,
+        pen = 0.1f,
+        life = 1,
+        cd = 0.5f,
+        selfDet = false,
+        projectileSpeed = 4,
+        aoe = true,
+        damageRange = 0.75f,
+        info = "Magic starts here",
+        intro = "A normal magical weapon",
+        hitAnim = 0,
+        fireAnim = -1,
+        isMagic = true,
+        mesh = ArtConfigs.Artconfig.WandMesh,
+        projMesh = ArtConfigs.Artconfig.WandProj,
+        fireSFX = 5,
+        hitSFX = 0,
     };
 
     public static WeaponConfig RPG = new WeaponConfig
@@ -135,10 +160,10 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         id = 101,
         rating = 2,
         type = 1,
-        attack = 1,
+        attack = 0.5f,
         pen = 0.5f,
         life = 0.1f,
-        cd = 0.1f,
+        cd = 0.07f,
         selfDet = true,
         projectileSpeed = 5,
         aoe = false,
@@ -281,7 +306,7 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
 
     // Getters and Setters
     private const int WHITE_BEGIN = 0;
-    private const int WHITE_COUNT = 1;
+    private const int WHITE_COUNT = 3;
     private const int GREEN_BEGIN = 100;
     private const int GREEN_COUNT = 3;
     private const int BLUE_BEGIN = 200;
@@ -297,10 +322,12 @@ public class WeaponConfigs : ScriptableSingleton<WeaponConfigs>
         {
             case -2:
                 return WeaponConfigs.Fork;
-            case -1:
-                return WeaponConfigs.Pistol;
             case 0:
+                return WeaponConfigs.Pistol;
+            case 1:
                 return WeaponConfigs.LMG;
+            case 2:
+                return WeaponConfigs.Wand;
             case 100:
                 return WeaponConfigs.RPG;
 			case 200:

@@ -18,12 +18,12 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
     {
         public string _name;
         public int id;
-        public int hitPoints;
+        public float hitPoints;
         public float speed;
-        public int defaultAttack;
-        public int defaultWeaponAttack;
-        public int defaultDefence;
-        public int defaultMagicDefence;
+        public float defaultAttack;
+        public float defaultWeaponAttack;
+        public float defaultDefence;
+        public float defaultMagicDefence;
         public int exp;
         public MonsterBehaviorType behaviorType;
         public ArtConfigs.Artconfig mesh;
@@ -38,7 +38,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         speed = 1.5f,
         defaultAttack = 10,
         defaultWeaponAttack = 1,
-        defaultDefence = 5,
+        defaultDefence = 0.5f,
         defaultMagicDefence = 2,
         exp = 3,
         behaviorType = MonsterBehaviorType.Walker,
@@ -54,7 +54,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         speed = 1.2f,
         defaultAttack = 3,
         defaultWeaponAttack = 1,
-        defaultDefence = 4,
+        defaultDefence = 1f,
         defaultMagicDefence = 3,
         exp = 5,
         behaviorType = MonsterBehaviorType.Shooter,
@@ -70,7 +70,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         speed = 1.3f,
         defaultAttack = 6,
         defaultWeaponAttack = 1,
-        defaultDefence = 8,
+        defaultDefence = 2f,
         defaultMagicDefence = 15,
         exp = 8,
         behaviorType = MonsterBehaviorType.Shooter,
@@ -86,7 +86,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         speed = 2.0f,
         defaultAttack = 2,
         defaultWeaponAttack = 1,
-        defaultDefence = 3,
+        defaultDefence = 0.4f,
         defaultMagicDefence = 2,
         exp = 2,
         behaviorType = MonsterBehaviorType.Walker,
@@ -102,7 +102,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         speed = 2.5f,
         defaultAttack = 20,
         defaultWeaponAttack = 1,
-        defaultDefence = 10,
+        defaultDefence = 4f,
         defaultMagicDefence = 10,
         exp = 8,
         behaviorType = MonsterBehaviorType.Walker,
@@ -118,7 +118,7 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
         speed = 0.5f,
         defaultAttack = 50,
         defaultWeaponAttack = 1,
-        defaultDefence = 30,
+        defaultDefence = 14f,
         defaultMagicDefence = 20,
         exp = 26,
         behaviorType = MonsterBehaviorType.Walker,
@@ -130,11 +130,11 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
     {
         _name = "Hyperion",
         id = 6,
-        hitPoints = 7500,
+        hitPoints = 1000,
         speed = 0.4f,
         defaultAttack = 30,
         defaultWeaponAttack = 1,
-        defaultDefence = 10,
+        defaultDefence = 10f,
         defaultMagicDefence = 1,
         exp = 90,
         behaviorType = MonsterBehaviorType.Hyperion,
@@ -146,11 +146,11 @@ public class MonsterConfigs : ScriptableSingleton<MonsterConfigs>
     {
         _name = "Anteater",
         id = 7,
-        hitPoints = 10000,
+        hitPoints = 1500,
         speed = 0.4f,
         defaultAttack = 30,
         defaultWeaponAttack = 1,
-        defaultDefence = 10,
+        defaultDefence = 10f,
         defaultMagicDefence = 1,
         exp = 90,
         behaviorType = MonsterBehaviorType.Anteater,

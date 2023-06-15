@@ -51,7 +51,7 @@ public class Weapons : DefaultObjects
         rating = weaponConfig.rating;
         type = weaponConfig.type;
         attack = weaponConfig.attack;
-        pen = weaponConfig.pen;
+        pen = 1 - weaponConfig.pen;
         life = weaponConfig.life;
         cd = weaponConfig.cd;
         selfDet = weaponConfig.selfDet;
@@ -393,7 +393,7 @@ public class Weapons : DefaultObjects
                 }
                 else
                 {
-                    monster.TakeDamage(damage, isMagic);
+                    monster.TakeDamage(damage, isMagic, pen);
                 }
                 GameManager.Instance.monsterManager.despawnCheck(monster);
             }
@@ -415,7 +415,7 @@ public class Weapons : DefaultObjects
         if (monster != null)
         {
             Debug.Log(damage);
-            monster.TakeDamage(damage, isMagic);
+            monster.TakeDamage(damage, isMagic, pen);
             GameManager.Instance.monsterManager.despawnCheck(monster);
         }
     }

@@ -177,7 +177,6 @@ MonoBehaviour:
   behaviorType: 0
   prevHP: 0
   IsBoss: 0
-  prefabManager: {fileID: 0}
 --- !u!33 &765353968
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public class Projectiles : Items
                     }
                     else
                     {
-                        monster.TakeDamage(damage, isMagic);
+                        monster.TakeDamage(damage, isMagic, pen);
                     }
                     GameManager.Instance.monsterManager.despawnCheck(monster);
                 }
@@ -66,7 +66,7 @@ public class Projectiles : Items
                 Base _base = other.gameObject.GetComponent<Base>();
                 if (_base != null)
                 {
-                    _base.TakeDamage(damage, false);
+                    _base.TakeDamage(damage, false, pen);
                     gameObject.SetActive(false);
                     Deactivate();
                 }
@@ -79,7 +79,7 @@ public class Projectiles : Items
             Players player = other.gameObject.GetComponent<Players>();
             if (player != null)
             {
-                player.TakeDamage(damage, false);
+                player.TakeDamage(damage, false, pen);
                 gameObject.SetActive(false);
                 Deactivate();
             }
@@ -94,7 +94,7 @@ public class Projectiles : Items
         Monsters monster = PhotonView.Find(monsterViewID).GetComponent<Monsters>();
         if (monster != null)
         {
-            monster.TakeDamage(damage, isMagic);
+            monster.TakeDamage(damage, isMagic, pen);
             GameManager.Instance.monsterManager.despawnCheck(monster);
         }
     }

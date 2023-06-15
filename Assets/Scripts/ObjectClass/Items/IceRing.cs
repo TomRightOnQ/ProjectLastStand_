@@ -36,7 +36,7 @@ public class IceRing : Items
                 }
                 else
                 {
-                    monster.TakeDamage(damage, isMagic);
+                    monster.TakeDamage(damage, isMagic, 1f);
                 }
                 GameManager.Instance.monsterManager.despawnCheck(monster);
             }
@@ -90,7 +90,7 @@ public class IceRing : Items
         Monsters monster = PhotonView.Find(monsterViewID).GetComponent<Monsters>();
         if (monster != null)
         {
-            monster.TakeDamage(damage, isMagic);
+            monster.TakeDamage(damage, isMagic, 1f);
             GameManager.Instance.monsterManager.despawnCheck(monster);
         }
     }

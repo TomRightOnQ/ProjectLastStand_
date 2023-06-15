@@ -56,7 +56,7 @@ public class Explosions : MonoBehaviourPun
                 }
                 else 
                 {
-                    monster.TakeDamage(damage, isMagic);
+                    monster.TakeDamage(damage, isMagic,  pen);
                 }
             }
         }
@@ -65,7 +65,7 @@ public class Explosions : MonoBehaviourPun
             Players player = other.gameObject.GetComponent<Players>();
             if (player != null)
             {
-                player.TakeDamage(damage, false);
+                player.TakeDamage(damage, false, 0);
             }
         }
     }
@@ -76,7 +76,7 @@ public class Explosions : MonoBehaviourPun
         Monsters monster = PhotonView.Find(monsterViewID)?.GetComponent<Monsters>();
         if (monster != null)
         {
-            monster.TakeDamage(damage, isMagic);
+            monster.TakeDamage(damage, isMagic, pen);
             GameManager.Instance.monsterManager.despawnCheck(monster);
         }
     }

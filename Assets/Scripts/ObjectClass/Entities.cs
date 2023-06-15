@@ -84,9 +84,31 @@ public abstract class Entities : DefaultObjects, IPunObservable
     }
 
     // Taking Damage
-    public virtual void TakeDamage(float damage, bool isMagic) 
+    public virtual void TakeDamage(float damage, bool isMagic, float pen) 
     {
         AudioManager.Instance.PlaySound(12, transform.position);
+        float minDamage = damage * 0.35f;
+        if (isMagic)
+        {
+            damage = damage * (100 / (100 + defaultMagicDefence - (defaultMagicDefence * pen)));
+        }
+        else 
+        {
+            float effectiveDefense = defaultDefence - (defaultDefence * pen);
+
+            if (effectiveDefense <= (damage * 0.5f))
+            {
+                damage = damage - effectiveDefense;
+            }
+            else
+            {
+                damage = damage - effectiveDefense - (100 / (100 + defaultDefence - (defaultDefence * pen)));
+            }
+            damage = Mathf.Max(minDamage, damage);
+        }
+        GameObject damageNumberObj = Instantiate(PrefabManager.Instance.DamageNumberPrefab, transform.position, Quaternion.identity);
+        DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
+        damageNumber.Init(damage, transform.position, isMagic);
         currentHitPoints -= damage;
         if (currentHitPoints > hitPoints) {
             currentHitPoints = hitPoints;

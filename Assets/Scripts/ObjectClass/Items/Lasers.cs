@@ -46,7 +46,7 @@ public class Lasers : Items, IPunObservable
                         photonView.RPC("RPCDamageToMonster", RpcTarget.All, monster.photonView.ViewID, damage, isMagic);
                     }
                     else {
-                        monster.TakeDamage(damage, isMagic);
+                        monster.TakeDamage(damage, isMagic, pen);
                     }
                     GameManager.Instance.monsterManager.despawnCheck(monster);
                 }
@@ -66,7 +66,7 @@ public class Lasers : Items, IPunObservable
         Monsters monster = PhotonView.Find(monsterViewID)?.GetComponent<Monsters>();
         if (monster != null)
         {
-            monster.TakeDamage(damage, isMagic);
+            monster.TakeDamage(damage, isMagic, pen);
             GameManager.Instance.monsterManager.despawnCheck(monster);
         }
     }

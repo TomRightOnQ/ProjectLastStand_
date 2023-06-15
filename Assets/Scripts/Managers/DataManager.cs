@@ -240,8 +240,7 @@ public class DataManager : MonoBehaviourPunCallbacks
             int indicatorViewID = indicatorView.ViewID;
             Debug.Log(PhotonNetwork.PlayerList[i]);
             indicatorView.TransferOwnership(PhotonNetwork.PlayerList[i]);
-            photonView.RPC("AddIndicatorToPlayer", RpcTarget.AllBuffered, playerViewID, indicatorViewID);
-            playerList[i].transform.position = new Vector3(Random.Range(-25f, 25f), 0.01f, (Random.Range(-25f, 25f)));
+            photonView.RPC("AddIndicatorToPlayer", RpcTarget.AllBuffered, playerViewID, indicatorViewID, PhotonNetwork.PlayerList[i].NickName);
         }
         Debug.Log("DataManager is Ready");
     }
@@ -269,7 +268,7 @@ public class DataManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void AddIndicatorToPlayer(int playerViewID, int indicatorViewID)
+    public void AddIndicatorToPlayer(int playerViewID, int indicatorViewID, string _name)
     {
         PhotonView playerView = PhotonView.Find(playerViewID);
         PhotonView indicatorView = PhotonView.Find(indicatorViewID);
@@ -282,7 +281,7 @@ public class DataManager : MonoBehaviourPunCallbacks
             if (player != null && indicator != null)
             {
                 indicator.transform.SetParent(player.transform);
-                indicator.SetUp();
+                indicator.SetUp(_name);
             }
         }
     }

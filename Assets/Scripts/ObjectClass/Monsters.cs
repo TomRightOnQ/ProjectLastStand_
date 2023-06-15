@@ -13,13 +13,11 @@ public class Monsters : Entities
     [SerializeField] protected MonsterAI monsterAI;
     [SerializeField] protected MonsterBehaviorType behaviorType;
     public float prevHP;
-    [SerializeField] protected bool IsBoss = false;
-    public PrefabManager prefabManager;
+    [SerializeField] public bool IsBoss = false;
 
     void Awake()
     {
         gameObject.tag = "Monster";
-        prefabManager = Resources.Load<PrefabManager>("PrefabManager");
     }
 
     public float EXP { get { return exp; } set { exp = value; } }
@@ -33,11 +31,11 @@ public class Monsters : Entities
     }
 
     // Morph the Monster
-    public void SetMonsters(MonsterConfig MonsterConfigs)
+    public void SetMonsters(MonsterConfig MonsterConfigs, float diff)
     {
         id = MonsterConfigs.id;
         name = MonsterConfigs._name;
-        hitPoints = MonsterConfigs.hitPoints;
+        hitPoints = MonsterConfigs.hitPoints * diff;
         currentHitPoints = hitPoints;
         speed = MonsterConfigs.speed;
         exp = MonsterConfigs.exp;
@@ -51,7 +49,7 @@ public class Monsters : Entities
         SwapMonsterMesh(MonsterConfigs.id);
     }
 
-    public void SetEliteMonsters(MonsterConfig MonsterConfigs)
+    public void SetEliteMonsters(MonsterConfig MonsterConfigs, float diff)
     {
         transform.localScale = new Vector3(1, 1, 1);
         id = MonsterConfigs.id;
@@ -64,25 +62,6 @@ public class Monsters : Entities
         defaultWeaponAttack = MonsterConfigs.defaultWeaponAttack * 1f;
         defaultDefence = 30f;
         defaultMagicDefence = 20f;
-        prevHP = currentHitPoints;
-        behaviorType = MonsterConfigs.behaviorType;
-        monsterAI.SetUp();
-        SwapMonsterMesh(MonsterConfigs.id);
-    }
-
-    public void SetLeviathan(MonsterConfig MonsterConfigs)
-    {
-        transform.localScale = new Vector3(5, 5, 5);
-        id = MonsterConfigs.id;
-        name = MonsterConfigs._name;
-        hitPoints = MonsterConfigs.hitPoints;
-        currentHitPoints = hitPoints;
-        speed = MonsterConfigs.speed;
-        exp = MonsterConfigs.exp;
-        defaultAttack = MonsterConfigs.defaultAttack;
-        defaultWeaponAttack = MonsterConfigs.defaultWeaponAttack;
-        defaultDefence = MonsterConfigs.defaultDefence;
-        defaultMagicDefence = MonsterConfigs.defaultMagicDefence;
         prevHP = currentHitPoints;
         behaviorType = MonsterConfigs.behaviorType;
         monsterAI.SetUp();
@@ -121,12 +100,9 @@ public class Monsters : Entities
     }
 
     // Taking Damage
-    public override void TakeDamage(float damage, bool isMagic)
+    public override void TakeDamage(float damage, bool isMagic, float pen)
     {
-        base.TakeDamage(damage, isMagic);
-        GameObject damageNumberObj = Instantiate(prefabManager.DamageNumberPrefab, transform.position, Quaternion.identity);
-        DamageNumber damageNumber = damageNumberObj.GetComponent<DamageNumber>();
-        damageNumber.Init(damage, transform.position, isMagic);
+        base.TakeDamage(damage, isMagic, pen);
     }
 
     // Fire
@@ -238,7 +214,7 @@ public class Monsters : Entities
         {
             Base _base = other.gameObject.GetComponent<Base>();
             if (_base != null) {
-                _base.TakeDamage(defaultAttack * defaultWeaponAttack, false);
+                _base.TakeDamage(defaultAttack * defaultWeaponAttack, false, 0);
             }
             GameManager.Instance.monsterManager.despawnForce(this);
         }
@@ -253,7 +229,7 @@ public class Monsters : Entities
             }
             if (_player != null)
             {
-                _player.TakeDamage(defaultAttack * defaultWeaponAttack / 2, false);
+                _player.TakeDamage(defaultAttack * defaultWeaponAttack / 2, false, 0.5f);
             }
             GameManager.Instance.monsterManager.despawnForce(this);
         }

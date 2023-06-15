@@ -8,20 +8,17 @@ using static MonsterConfigs;
 public class Leviathan : Monsters
 {
     [SerializeField] private MeshCollider wCollider;
+    public float modifier;
 
     private void Awake()
     {
         IsBoss = true;
-        MonsterConfig config = MonsterConfigs.Instance._getMonsterConfig();
-        prefabManager = Resources.Load<PrefabManager>("PrefabManager");
-        SetMonsters(config);
-        SetLe(config);
     }
 
-    private void SetLe(MonsterConfig MonsterConfigs)
+    public void SetLe(MonsterConfig MonsterConfigs, float modifier)
     {
         name = MonsterConfigs._name + "...?";
-        hitPoints = MonsterConfigs.hitPoints * 333f;
+        hitPoints = MonsterConfigs.hitPoints * 333f * modifier;
         currentHitPoints = hitPoints;
         speed = MonsterConfigs.speed * 0.25f;
         exp = 26;
@@ -65,7 +62,7 @@ public class Leviathan : Monsters
             Base _base = other.gameObject.GetComponent<Base>();
             if (_base != null)
             {
-                _base.TakeDamage(defaultAttack * defaultWeaponAttack * 12.5f, false);
+                _base.TakeDamage(defaultAttack * defaultWeaponAttack * 12.5f, false, 0);
             }
             GameManager.Instance.monsterManager.despawnForce(this);
         }
@@ -80,7 +77,7 @@ public class Leviathan : Monsters
             }
             if (_player != null)
             {
-                _player.TakeDamage(defaultAttack * defaultWeaponAttack / 2, false);
+                _player.TakeDamage(defaultAttack * defaultWeaponAttack / 2, false, 0.5f);
             }
         }
     }
@@ -97,9 +94,9 @@ public class Leviathan : Monsters
     }
 
     // Taking Damage
-    public override void TakeDamage(float damage, bool isMagic)
+    public override void TakeDamage(float damage, bool isMagic, float pen)
     {
-        base.TakeDamage(damage, isMagic);
+        base.TakeDamage(damage, isMagic, pen);
     }
 
     public override void PlayHitAnim(Vector3 pos)

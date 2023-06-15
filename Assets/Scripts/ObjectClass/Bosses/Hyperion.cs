@@ -8,19 +8,17 @@ using static MonsterConfigs;
 public class Hyperion : Monsters
 {
     [SerializeField] private MeshRenderer _renderer;
+    public float modifier;
 
     private void Awake()
     {
         IsBoss = true;
-        MonsterConfigs.MonsterConfig config = MonsterConfigs.Instance.getMonsterConfig(6);
-        prefabManager = Resources.Load<PrefabManager>("PrefabManager");
-        SetHyperion(config);
     }
 
-    private void SetHyperion(MonsterConfig MonsterConfigs)
+    public void SetHyperion(MonsterConfig MonsterConfigs, float modifier)
     {
         name = MonsterConfigs._name + "...?";
-        hitPoints = MonsterConfigs.hitPoints;
+        hitPoints = MonsterConfigs.hitPoints * modifier;
         currentHitPoints = hitPoints;
         speed = MonsterConfigs.speed;
         exp = MonsterConfigs.exp;
@@ -46,7 +44,7 @@ public class Hyperion : Monsters
             Base _base = other.gameObject.GetComponent<Base>();
             if (_base != null)
             {
-                _base.TakeDamage(defaultAttack * defaultWeaponAttack * 12.5f, false);
+                _base.TakeDamage(defaultAttack * defaultWeaponAttack * 12.5f, false, 0);
             }
             GameManager.Instance.monsterManager.despawnForce(this);
         }
@@ -61,7 +59,7 @@ public class Hyperion : Monsters
             }
             if (_player != null)
             {
-                _player.TakeDamage(defaultAttack * defaultWeaponAttack / 2, false);
+                _player.TakeDamage(defaultAttack * defaultWeaponAttack / 2, false, 0.5f);
             }
         }
     }
@@ -73,9 +71,9 @@ public class Hyperion : Monsters
     }
 
     // Taking Damage
-    public override void TakeDamage(float damage, bool isMagic)
+    public override void TakeDamage(float damage, bool isMagic, float pen)
     {
-        base.TakeDamage(damage, isMagic);
+        base.TakeDamage(damage, isMagic, pen);
     }
 
     public override void SwapMaterial(int id)

@@ -163,8 +163,6 @@ public class Immortal : EffectComponents
 
 public class MeleeGrandMaster : EffectComponents
 {
-
-
     private int prevCount = 0;
     private void Awake()
     {

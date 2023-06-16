@@ -162,11 +162,11 @@ public class Players : Entities, IPunObservable
     return: add a Weapons type object instance to Weapons[] array */
     public void addWeapon(int slot, int id, int level) {
         WeaponConfig weaponData = WeaponConfigs.Instance._getWeaponConfig(id);
-        if (weapons[slot].Type == 2 && weaponData.type != 2)
+        if (weapons[slot].Type != 2 && weaponData.type == 2)
         {
             MeleeCounts += 1;
         }
-        else if (weapons[slot].Type != 2 && weaponData.type == 2)
+        else if (weapons[slot].Type == 2 && weaponData.type != 2)
         {
             MeleeCounts -= 1;
         }

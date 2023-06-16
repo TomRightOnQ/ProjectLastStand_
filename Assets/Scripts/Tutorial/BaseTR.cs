@@ -27,7 +27,7 @@ public class BaseTR : MonoBehaviour
     {
         GameObject dropObj = Instantiate(PrefabManager.Instance.DroppedWeapon, pos, Quaternion.identity);
         DroppedItems dropped = dropObj.GetComponent<DroppedItems>();
-        dropped.WeaponIndex = 0;
+        dropped.WeaponIndex = 1;
         dropped.SetUp();
         dropped.DroppedId = id;
     }

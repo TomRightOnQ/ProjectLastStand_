@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Scriptable\AnimConfigs.cs" />
+    <Compile Include="Assets\Scripts\Tools\LightRotation.cs" />
     <Compile Include="Assets\Scripts\Tools\LobbyMultiplayer\PlayerListing.cs" />
     <Compile Include="Assets\Scripts\Tools\UIs\MonsterResult.cs" />
     <Compile Include="Assets\Scripts\Managers\MasterManager.cs" />
@@ -141,7 +142,6 @@
     <Compile Include="Assets\Scripts\Tutorial\TriggerWall.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\SFXObjects.cs" />
     <Compile Include="Assets\Scripts\ObjectClass\ExpAndLevels.cs" />
-    <Compile Include="Assets\Scripts\Tools\LightRotation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

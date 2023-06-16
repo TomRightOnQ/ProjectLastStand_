@@ -70,6 +70,7 @@ public class DroppedItems : DefaultObjects
 
         // Combine the random number with the id
         droppedId = (uint)((droppedId << 16) | ((uint)randomNumber << 8));
+        SetUp();
     }
 
     private void Update()

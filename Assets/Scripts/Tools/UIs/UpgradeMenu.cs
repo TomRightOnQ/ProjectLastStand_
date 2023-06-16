@@ -238,14 +238,12 @@ public class UpgradeMenu : MonoBehaviourPunCallbacks
                 GameObject dropObj = Instantiate(PrefabManager.Instance.DroppedWeapon, player.transform.position, Quaternion.identity);
                 DroppedItems dropped = dropObj.GetComponent<DroppedItems>();
                 dropped.WeaponIndex = weaponIndex;
-                dropped.SetUp();
             }
             else
             {
                 GameObject dropObj = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.DroppedWeapon.name, player.transform.position, Quaternion.identity);
                 DroppedItems dropped = dropObj.GetComponent<DroppedItems>();
                 dropped.WeaponIndex = weaponIndex;
-                dropped.SetUp();
             }
         }
         else {

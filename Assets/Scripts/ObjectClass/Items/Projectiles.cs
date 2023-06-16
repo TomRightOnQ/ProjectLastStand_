@@ -5,6 +5,8 @@ using Photon.Pun;
 [RequireComponent(typeof(PhotonView))]
 public class Projectiles : Items
 {
+    private const string PREFAB_LOC = "Prefabs/";
+
     void Awake()
     {
         gameObject.tag = "Proj";
@@ -23,15 +25,19 @@ public class Projectiles : Items
             Monsters monster = other.gameObject.GetComponent<Monsters>();
             if (monster != null && monster.gameObject.activeSelf)
             {
-                Vector3 pos = new Vector3(monster.transform.position.x, monster.transform.position.y + 4, monster.transform.position.z - 1.5f);
-                PlayHitAnim(pos);
-                if (PhotonNetwork.IsConnected) {
-                    photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
-                }
+                Vector3 pos = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y + 4, other.gameObject.transform.position.z - 1.5f);
+                AnimManager.Instance.PlayAnim(hitAnim, pos, new Vector3(damageRange, damageRange, damageRange));
                 if (isNova)
                 {
-                    Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(0.5f, damage / 3, pen, true, 0, hitAnim);
+                    if (PhotonNetwork.IsConnected)
+                    {
+                        Explosions explosion = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.ExplosionPrefab.name, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                        explosion.Initialize(0.5f, damage / 3, pen, true, 0, hitAnim);
+                    }
+                    else {
+                        Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                        explosion.Initialize(0.5f, damage / 3, pen, true, 0, hitAnim);
+                    }
                 }
                 if (!AOE)
                 {
@@ -50,10 +56,18 @@ public class Projectiles : Items
                 else
                 {
                     // AOE
-                    if (!SelfDet) 
+                    if (!SelfDet)
                     {
-                        Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                        explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
+                        if (PhotonNetwork.IsConnected)
+                        {
+                            Explosions explosion = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.ExplosionPrefab.name, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                            explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
+                        }
+                        else
+                        {
+                            Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                            explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
+                        }
                     }
                     gameObject.SetActive(false);
                     Deactivate();
@@ -99,27 +113,6 @@ public class Projectiles : Items
         }
     }
 
-    public void PlayHitAnim(Vector3 pos)
-    {
-        if (AnimConfigs.Instance.GetAnim(hitAnim) == null)
-            return;
-        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(hitAnim), Vector3.zero, Quaternion.identity);
-        animObject.transform.position = pos;
-        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-        animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
-    }
-
-    [PunRPC]
-    public void RPCPlayHitAnim(int id, Vector3 pos, float scale)
-    {
-        if (AnimConfigs.Instance.GetAnim(id) == null)
-            return;
-        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
-        animObject.transform.position = pos;
-        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-        animObject.transform.localScale = new Vector3(scale, scale, scale);
-    }
-
     public override void OnEnable()
     {
         creationTime = Time.time;
@@ -132,10 +125,18 @@ public class Projectiles : Items
         if (selfDet && aoe)
         {
             // AOE
-            Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-            explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
-            Vector3 pos = new Vector3(transform.position.x, transform.position.y + 4, transform.position.z - 1.5f);
-            PlayHitAnim(pos);
+            if (PhotonNetwork.IsConnected)
+            {
+                Explosions explosion = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.ExplosionPrefab.name, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
+            }
+            else
+            {
+                Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
+                explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
+            }
+            Vector3 pos = new Vector3(transform.position.x, gameObject.transform.position.y + 4, gameObject.transform.position.z - 1.5f);
+            AnimManager.Instance.PlayAnim(hitAnim, pos, new Vector3(damageRange, damageRange, damageRange));
             if (PhotonNetwork.IsConnected)
             {
                 photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);

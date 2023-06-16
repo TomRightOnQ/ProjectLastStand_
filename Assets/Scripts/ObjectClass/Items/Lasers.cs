@@ -25,37 +25,16 @@ public class Lasers : Items, IPunObservable
             Monsters monster = other.gameObject.GetComponent<Monsters>();
             if (monster != null && monster.gameObject.activeSelf)
             {
-                GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(hitAnim), Vector3.zero, Quaternion.identity);
-                Vector3 pos = new Vector3(monster.transform.position.x, monster.transform.position.y + 4, monster.transform.position.z - 1.5f);
-                animObject.transform.position = pos;
-                animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-                animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
+                Vector3 pos = new Vector3(other.gameObject.transform.position.x, other.gameObject.transform.position.y + 4, other.gameObject.transform.position.z - 1.5f);
+                AnimManager.Instance.PlayAnim(hitAnim, pos, new Vector3(damageRange, damageRange, damageRange));
                 if (PhotonNetwork.IsConnected)
                 {
-                    photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
+                    photonView.RPC("RPCDamageToMonster", RpcTarget.All, monster.photonView.ViewID, damage, isMagic);
                 }
-                if (isNova)
-                {
-                    Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(0.5f, damage / 3, pen, isMagic, 0, hitAnim);
+                else {
+                    monster.TakeDamage(damage, isMagic, pen);
                 }
-                if (!AOE)
-                {
-                    if (PhotonNetwork.IsConnected)
-                    {
-                        photonView.RPC("RPCDamageToMonster", RpcTarget.All, monster.photonView.ViewID, damage, isMagic);
-                    }
-                    else {
-                        monster.TakeDamage(damage, isMagic, pen);
-                    }
-                    GameManager.Instance.monsterManager.despawnCheck(monster);
-                }
-                else
-                {
-                    // AOE
-                    Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(damageRange, damage, pen, isMagic, 0, hitAnim);
-                }
+                GameManager.Instance.monsterManager.despawnCheck(monster);
             }
         }
     }

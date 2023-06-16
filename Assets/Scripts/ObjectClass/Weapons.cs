@@ -149,7 +149,7 @@ public class Weapons : DefaultObjects
         {
             case 0:
                 FireBullet(playerIdx, playerAttack, weaponAttack, localCritical);
-                AnimManager.Instance.PlayAnim(fireAnim, firePos, new Vector3(damageRange, damageRange, damageRange));
+                AnimManager.Instance.PlayAnim(fireAnim, firePos, new Vector3(0.3f, 0.3f, 0.3f));
                 AudioManager.Instance.PlaySound(fireSFX, transform.position);
                 break;
             case 1:
@@ -381,11 +381,6 @@ public class Weapons : DefaultObjects
                 if (PhotonNetwork.IsConnected)
                 {
                     photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
-                }
-                if (isNova)
-                {
-                    Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-                    explosion.Initialize(0.5f, damage / 3, pen, true, 0, hitAnim);
                 }
                 if (PhotonNetwork.IsConnected)
                 {

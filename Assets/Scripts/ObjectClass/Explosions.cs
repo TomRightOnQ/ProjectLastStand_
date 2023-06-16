@@ -2,7 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 
 // Explosion
-public class Explosions : MonoBehaviourPun
+public class Explosions : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] private float damageRange;
     [SerializeField] private float damage;
@@ -17,6 +17,11 @@ public class Explosions : MonoBehaviourPun
     private int hitAnim;
     private int owner = 0;
 
+    void Awake()
+    {
+        GetComponent<SphereCollider>().enabled = false;
+    }
+
     public void Initialize(float _damageRange, float _damage, float _pen, bool _isMagic, int _owner, int _hitAnim)
     {
         damageRange = _damageRange;
@@ -25,8 +30,32 @@ public class Explosions : MonoBehaviourPun
         isMagic = _isMagic;
         owner = _owner;
         hitAnim = _hitAnim;
-        GetComponent<SphereCollider>().enabled = true;
         initialized = true;
+        GetComponent<SphereCollider>().enabled = true;
+    }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(damageRange);
+            stream.SendNext(damage);
+            stream.SendNext(pen);
+            stream.SendNext(isMagic);
+            stream.SendNext(owner);
+            stream.SendNext(hitAnim);
+            stream.SendNext(initialized);
+        }
+        else
+        {
+            damageRange = (float)stream.ReceiveNext();
+            damage = (float)stream.ReceiveNext();
+            pen = (float)stream.ReceiveNext();
+            isMagic = (bool)stream.ReceiveNext();
+            owner = (int)stream.ReceiveNext();
+            hitAnim = (int)stream.ReceiveNext();
+            initialized = (bool)stream.ReceiveNext();
+            GetComponent<SphereCollider>().enabled = true;
+        }
     }
 
     private void Update()
@@ -35,12 +64,6 @@ public class Explosions : MonoBehaviourPun
         {
             Destroy(gameObject, 0.1f);
         }
-    }
-
-    private void Awake()
-    {
-        // Disable the collider initially
-        GetComponent<SphereCollider>().enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,11 +75,11 @@ public class Explosions : MonoBehaviourPun
             {
                 if (PhotonNetwork.IsConnected)
                 {
-                    photonView.RPC("RPCDamageToMonster", RpcTarget.All, monster.photonView.ViewID, damage, isMagic);
+                    photonView.RPC("RPCDamageToMonster", RpcTarget.All, monster.photonView.ViewID, damage, isMagic, pen);
                 }
                 else 
                 {
-                    monster.TakeDamage(damage, isMagic,  pen);
+                    monster.TakeDamage(damage, isMagic, pen);
                 }
             }
         }
@@ -71,7 +94,7 @@ public class Explosions : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void RPCDamageToMonster(int monsterViewID, float damage, bool isMagic)
+    private void RPCDamageToMonster(int monsterViewID, float damage, bool isMagic, float pen)
     {
         Monsters monster = PhotonView.Find(monsterViewID)?.GetComponent<Monsters>();
         if (monster != null)
@@ -79,26 +102,5 @@ public class Explosions : MonoBehaviourPun
             monster.TakeDamage(damage, isMagic, pen);
             GameManager.Instance.monsterManager.despawnCheck(monster);
         }
-    }
-
-    public void PlayHitAnim(Vector3 pos)
-    {
-        if (AnimConfigs.Instance.GetAnim(hitAnim) == null)
-            return;
-        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(hitAnim), Vector3.zero, Quaternion.identity);
-        animObject.transform.position = pos;
-        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-        animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
-    }
-
-    [PunRPC]
-    public void RPCPlayHitAnim(int id, Vector3 pos, float scale)
-    {
-        if (AnimConfigs.Instance.GetAnim(id) == null)
-            return;
-        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
-        animObject.transform.position = pos;
-        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-        animObject.transform.localScale = new Vector3(scale, scale, scale);
     }
 }

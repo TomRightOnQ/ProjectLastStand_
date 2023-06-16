@@ -32,7 +32,7 @@ public class DamageNumber : MonoBehaviour
         }
         else
         {
-            _text.color = new Color(1f, 0.5f, 0f);
+            _text.color = new Color(1f, 0.1f, 0f);
         }
 
         StartCoroutine(Fly());

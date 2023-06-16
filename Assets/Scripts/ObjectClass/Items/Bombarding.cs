@@ -9,7 +9,7 @@ public class Bombarding : Items
 {
     [SerializeField] Slider previewS;
     [SerializeField] private float time = 1.5f;
-
+    private const string PREFAB_LOC = "Prefabs/";
     void Awake()
     {
         gameObject.tag = "Proj";
@@ -83,8 +83,16 @@ public class Bombarding : Items
         {
             photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
         }
-        Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-        explosion.Initialize(damageRange, damage, 0, isMagic, owner, hitAnim);
+        if (PhotonNetwork.IsConnected)
+        {
+            Explosions explosion = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.ExplosionPrefab.name, transform.position, Quaternion.identity).GetComponent<Explosions>();
+            explosion.Initialize(damageRange, damage, 0, isMagic, owner, hitAnim);
+        }
+        else
+        {
+            Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
+            explosion.Initialize(damageRange, damage, 0, isMagic, owner, hitAnim);
+        }
     }
 
     public void PlayHitAnim(Vector3 pos)

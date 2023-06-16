@@ -4759,6 +4759,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Z
       objectReference: {fileID: 0}
+    - target: {fileID: 1783907846733630026, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2383095227362566293, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
       propertyPath: choice
       value: 1
@@ -4871,6 +4875,10 @@ PrefabInstance:
       propertyPath: button
       value: 
       objectReference: {fileID: 918505142}
+    - target: {fileID: 7367802739181180044, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
 --- !u!224 &918505141 stripped
@@ -4914,6 +4922,18 @@ PrefabInstance:
     - target: {fileID: 2668866916221753456, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
       propertyPath: m_RootOrder
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2668866916221753456, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2668866916221753456, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2668866916221753456, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2668866916221753456, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4969,7 +4989,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2668866916221753457, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
       propertyPath: hitPoints
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2668866916221753457, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
       propertyPath: defaultAttack
@@ -4977,7 +4997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2668866916221753457, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
       propertyPath: currentHitPoints
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2668866916221753463, guid: 800205b3cf137cc4f970dfb6807e68d9, type: 3}
       propertyPath: m_Name
@@ -5139,6 +5159,10 @@ PrefabInstance:
       propertyPath: m_text
       value: X
       objectReference: {fileID: 0}
+    - target: {fileID: 1783907846733630026, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2383095227362566293, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
       propertyPath: choice
       value: 1
@@ -5251,6 +5275,10 @@ PrefabInstance:
       propertyPath: button
       value: 
       objectReference: {fileID: 937456784}
+    - target: {fileID: 7367802739181180044, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f45347014205f340b96a78e43b1e3d7, type: 3}
 --- !u!224 &937456783 stripped

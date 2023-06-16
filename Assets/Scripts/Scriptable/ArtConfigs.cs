@@ -36,6 +36,7 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
     // Materials
     [SerializeField] private Material DefaultMaterial;
     [SerializeField] private Material DefaultProjMaterial;
+    [SerializeField] private Material EnemyProjMaterial;
     [SerializeField] private Material ProjMaterial;
     [SerializeField] private Material MagicMaterial;
 
@@ -82,6 +83,9 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
             case 1:
                 ret = DefaultProjMaterial;
                 break;
+            case 2:
+                ret = EnemyProjMaterial;
+                break;
         }
         return ret;
     }
@@ -111,9 +115,11 @@ public class ArtConfigs : ScriptableSingleton<ArtConfigs>
                 ret = DefaultMaterial;
                 break;
             case Artconfig.DefaultProj:
-            case Artconfig.DefaultMonsterProj:
             case Artconfig.KornetProjMesh:
                 ret = DefaultProjMaterial;
+                break;
+            case Artconfig.DefaultMonsterProj:
+                ret = EnemyProjMaterial;
                 break;
             case Artconfig.ForkMesh:
             case Artconfig.EvilDaggerMesh:

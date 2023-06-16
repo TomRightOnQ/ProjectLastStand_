@@ -225,7 +225,7 @@ public abstract class Entities : DefaultObjects, IPunObservable
             SwapMaterial(0);
         } else if (damageTimer > 0 && !isDamaged) {
             isDamaged = true;
-            SwapMaterial(1);
+            SwapMaterial(2);
         }
         if (damageTimer > 0) 
         {

@@ -50,15 +50,6 @@ public class Lasers : Items, IPunObservable
         }
     }
 
-    [PunRPC]
-    public void RPCPlayHitAnim(int id, Vector3 pos, float scale)
-    {
-        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
-        animObject.transform.position = pos;
-        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-        animObject.transform.localScale = new Vector3(scale, scale, scale);
-    }
-
     public override void OnEnable()
     {
         creationTime = Time.time;

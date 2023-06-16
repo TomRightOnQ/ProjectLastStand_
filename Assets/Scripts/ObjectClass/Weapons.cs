@@ -377,11 +377,8 @@ public class Weapons : DefaultObjects
             Monsters monster = other.gameObject.GetComponent<Monsters>();
             if (monster != null && monster.gameObject.activeSelf)
             {
-                Vector3 pos = new Vector3(monster.transform.position.x, monster.transform.position.y + 4, monster.transform.position.z - 1.5f);
-                if (PhotonNetwork.IsConnected)
-                {
-                    photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
-                }
+                Vector3 pos = new Vector3(transform.position.x, transform.position.y + 4, transform.position.z - 1.5f);
+                AnimManager.Instance.PlayAnim(0, pos, new Vector3(0.5f, 0.5f, 0.5f));
                 if (PhotonNetwork.IsConnected)
                 {
                     photonView.RPC("RPCDamageToMonster", RpcTarget.All, monster.photonView.ViewID, damage, isMagic);
@@ -391,14 +388,6 @@ public class Weapons : DefaultObjects
                     monster.TakeDamage(damage, isMagic, pen);
                 }
                 GameManager.Instance.monsterManager.despawnCheck(monster);
-            }
-        }
-        else if (other.CompareTag("Proj"))
-        {
-            Projectiles proj = other.gameObject.GetComponent<Projectiles>();
-            if (proj != null && proj.Owner == -1)
-            {
-                proj.Deactivate();
             }
         }
     }

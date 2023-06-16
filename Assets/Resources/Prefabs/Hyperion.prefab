@@ -257,8 +257,8 @@ MonoBehaviour:
   behaviorType: 0
   prevHP: 0
   IsBoss: 1
-  prefabManager: {fileID: 0}
   _renderer: {fileID: 1711813855604956666}
+  modifier: 0
 --- !u!65 &989636074
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -78,41 +78,17 @@ public class Bombarding : Items
     private void explode()
     {
         Vector3 pos = new Vector3(transform.position.x, transform.position.y + 4, transform.position.z - 1.5f);
-        PlayHitAnim(pos);
-        if (PhotonNetwork.IsConnected)
-        {
-            photonView.RPC("RPCPlayHitAnim", RpcTarget.Others, hitAnim, pos, damageRange);
-        }
+        AnimManager.Instance.PlayAnim(0, pos, new Vector3(damageRange, damageRange, damageRange));
+        AudioManager.Instance.PlaySound(9, transform.position);
         if (PhotonNetwork.IsConnected)
         {
             Explosions explosion = PhotonNetwork.Instantiate(PREFAB_LOC + PrefabManager.Instance.ExplosionPrefab.name, transform.position, Quaternion.identity).GetComponent<Explosions>();
-            explosion.Initialize(damageRange, damage, 0, isMagic, owner, hitAnim);
+            explosion.Initialize(damageRange * 1.75f, damage, 0, isMagic, owner, hitAnim);
         }
         else
         {
             Explosions explosion = Instantiate(PrefabManager.Instance.ExplosionPrefab, transform.position, Quaternion.identity).GetComponent<Explosions>();
-            explosion.Initialize(damageRange, damage, 0, isMagic, owner, hitAnim);
+            explosion.Initialize(damageRange * 1.75f, damage, 0, isMagic, owner, hitAnim);
         }
-    }
-
-    public void PlayHitAnim(Vector3 pos)
-    {
-        if (AnimConfigs.Instance.GetAnim(hitAnim) == null)
-            return;
-        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(hitAnim), Vector3.zero, Quaternion.identity);
-        animObject.transform.position = pos;
-        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-        animObject.transform.localScale = new Vector3(damageRange, damageRange, damageRange);
-    }
-
-    [PunRPC]
-    public void RPCPlayHitAnim(int id, Vector3 pos, float scale)
-    {
-        if (AnimConfigs.Instance.GetAnim(id) == null)
-            return;
-        GameObject animObject = Instantiate(AnimConfigs.Instance.GetAnim(id), Vector3.zero, Quaternion.identity);
-        animObject.transform.position = pos;
-        animObject.transform.localRotation = Quaternion.Euler(45, 0, 0);
-        animObject.transform.localScale = new Vector3(scale, scale, scale);
     }
 }

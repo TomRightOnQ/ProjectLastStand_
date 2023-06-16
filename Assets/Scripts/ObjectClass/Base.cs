@@ -36,7 +36,7 @@ public class Base : Entities, IPunObservable
         if (dead) {
             return;
         }
-        currentHitPoints += 0.0033f;
+        currentHitPoints += 0.0067f;
         UpdateHP();
         if (CurrentHitPoints <= 0) {
             GameManager.Instance.GameOver();

@@ -129,7 +129,7 @@ public class MonsterManager : MonoBehaviour
     public float CalculateModifier()
     {
         float maxDifficulty = 400f;
-        float maxModifier = 5f;
+        float maxModifier = 4f;
         float minModifier = 1f;
 
         float normalizedDifficulty = (float)difficulty / maxDifficulty;

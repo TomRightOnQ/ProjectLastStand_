@@ -398,7 +398,6 @@ public class Weapons : DefaultObjects
         Monsters monster = PhotonView.Find(monsterViewID).GetComponent<Monsters>();
         if (monster != null)
         {
-            Debug.Log(damage);
             monster.TakeDamage(damage, isMagic, pen);
             GameManager.Instance.monsterManager.despawnCheck(monster);
         }

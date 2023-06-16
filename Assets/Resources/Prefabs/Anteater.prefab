@@ -978,8 +978,8 @@ MonoBehaviour:
   behaviorType: 0
   prevHP: 0
   IsBoss: 1
-  prefabManager: {fileID: 0}
   _renderer: {fileID: 1711813854589024313}
+  modifier: 0
 --- !u!65 &880182030
 BoxCollider:
   m_ObjectHideFlags: 0
